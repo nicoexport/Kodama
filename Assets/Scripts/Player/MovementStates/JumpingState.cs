@@ -10,6 +10,9 @@ public class JumpingState : State
     private bool grounded;
     private bool keepJumping;
 
+    private float fallingTimer;
+    private bool countdownFalling;
+
     public JumpingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
 
@@ -31,6 +34,10 @@ public class JumpingState : State
             keepJumping = Input.GetButton("Jump");
         }
     }
+    private void StartFallingTimer()
+    {
+        countdownFalling = true;
+    }
 
     public override void Enter()
     {
@@ -39,9 +46,10 @@ public class JumpingState : State
         speed = character.airMovementSpeed;
         Jump(true, character.jumpForce);
         grounded = false;
+        countdownFalling = false;
+        fallingTimer = 0.4f;
         Debug.Log("Entered jumping state");
     }
-
 
     public override void Exit()
     {
@@ -60,7 +68,8 @@ public class JumpingState : State
         base.LogicUpdate();
         if (grounded) stateMachine.ChangeState(character.standing);
         // TO DO: delay for entering the falling state when the jump button is not held
-        if (!keepJumping || keepJumpingTimer <= 0) stateMachine.ChangeState(character.falling);
+        if (!keepJumping || keepJumpingTimer <= 0) StartFallingTimer();
+        if (fallingTimer <= 0 && countdownFalling) stateMachine.ChangeState(character.falling);
     }
 
     public override void PhysicsUpdate()
@@ -74,5 +83,7 @@ public class JumpingState : State
             character.rb.velocity = new Vector2(horizontalInput * Time.fixedDeltaTime * character.movementSpeed * 10f, character.jumpForce);
             keepJumpingTimer -= Time.deltaTime;
         }
+
+        if (countdownFalling) fallingTimer -= Time.deltaTime;
     }
 }

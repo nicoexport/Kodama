@@ -7,6 +7,9 @@ public class DoubleJumpingState : State
     private float horizontalInput;
     private float doubleJumpForce;
 
+    private float fallingTimer;
+    private bool countdownFalling;
+
     public DoubleJumpingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
 
@@ -16,8 +19,7 @@ public class DoubleJumpingState : State
     {
         character.transform.Translate(Vector2.up * (character.groundCheckRadius + 0.1f));
         character.rb.velocity = new Vector2(horizontalInput * Time.fixedDeltaTime * character.movementSpeed * 10f, doubleJumpForce);
-        // TO DO: Trigger the state change after a certain delay and put into LogicUpdate()
-        stateMachine.ChangeState(character.falling);
+        countdownFalling = true;
     }
 
     public override void Enter()
@@ -26,6 +28,8 @@ public class DoubleJumpingState : State
         Debug.Log("entered DOUBLEJUMPING state");
         character.hasDoubleJumped = true;
         doubleJumpForce = character.doubleJumpForce;
+        fallingTimer = 0.4f;
+        countdownFalling = false;
         DoubleJump();
     }
 
@@ -37,5 +41,12 @@ public class DoubleJumpingState : State
     {
         base.HandleInput();
         horizontalInput = Input.GetAxis("Horizontal");
+    }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+        if (countdownFalling) fallingTimer -= Time.deltaTime;
+        if (fallingTimer <= 0) stateMachine.ChangeState(character.falling);
     }
 }

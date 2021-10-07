@@ -21,6 +21,7 @@ public class Character : MonoBehaviour
     public bool hasDashed;
 
     private StateMachine movementSm;
+    private CharacterAnimationController cAnimController;
     [SerializeField]
     private LayerMask whatIsGround;
 
@@ -36,6 +37,7 @@ public class Character : MonoBehaviour
         falling = new FallingState(movementSm, this);
         doubleJumping = new DoubleJumpingState(movementSm, this);
         movementSm.Initialize(standing);
+        cAnimController = GetComponent<CharacterAnimationController>();
     }
 
     public void Update()
@@ -43,6 +45,7 @@ public class Character : MonoBehaviour
         // Update Loop of movementSm
         movementSm.CurrentState.HandleInput();
         movementSm.CurrentState.LogicUpdate();
+        UpdateVisuals();
     }
 
     public void FixedUpdate()
@@ -68,6 +71,11 @@ public class Character : MonoBehaviour
     public bool CheckCollisionOverlap(Vector3 point, float radius)
     {
         return Physics2D.OverlapCircle(point, radius, whatIsGround);
+    }
+
+    public void UpdateVisuals()
+    {
+        cAnimController.SetAnimationeState(movementSm.CurrentState, rb.velocity.x);
     }
 
     // visualizing the groundCheckRadius
