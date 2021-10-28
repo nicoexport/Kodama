@@ -9,6 +9,7 @@ public class JumpingState : State
     private float keepJumpingTimer;
     private bool grounded;
     private bool keepJumping;
+    private bool doubleJump;
 
     private float fallingTimer;
     private bool countdownFalling;
@@ -28,7 +29,7 @@ public class JumpingState : State
     private void Jump(bool canLongJump, float jumpForce)
     {
         character.transform.Translate(Vector2.up * (character.groundCheckRadius + 0.1f));
-        character.rb.velocity = new Vector2(horizontalInput * Time.fixedDeltaTime * character.movementSpeed * 10f, jumpForce);
+        character.rb.velocity = new Vector2(character.rb.velocity.x * character.movementSpeed * 10f, jumpForce);
         if (canLongJump)
         {
             keepJumping = Input.GetButton("Jump");
@@ -61,15 +62,17 @@ public class JumpingState : State
         base.HandleInput();
         horizontalInput = Input.GetAxis("Horizontal");
         if (Input.GetButtonUp("Jump")) keepJumping = false;
+        doubleJump = Input.GetButtonDown("Jump");
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (grounded) stateMachine.ChangeState(character.standing);
-        // TO DO: delay for entering the falling state when the jump button is not held
         if (!keepJumping || keepJumpingTimer <= 0) StartFallingTimer();
+        // TO DO: delay for entering the falling state when the jump button is not held
+        if (grounded) stateMachine.ChangeState(character.standing);
         if (fallingTimer <= 0 && countdownFalling) stateMachine.ChangeState(character.falling);
+        if (!character.hasDoubleJumped && doubleJump) stateMachine.ChangeState(character.doubleJumping);
     }
 
     public override void PhysicsUpdate()

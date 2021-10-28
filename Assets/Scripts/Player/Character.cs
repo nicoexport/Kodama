@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
     public float jumpForce = 30f;
     public float doubleJumpForce = 20f;
     public float longJumpTimer;
+
     public StandingState standing;
     public JumpingState jumping;
     public FallingState falling;
@@ -57,7 +58,9 @@ public class Character : MonoBehaviour
     // Method used for moving the character left and right
     public void Move(float horizontalMove, float speed)
     {
-        rb.velocity = new Vector2(horizontalMove * speed * Time.fixedDeltaTime * 10f, rb.velocity.y);
+        // rb.velocity = new Vector2(horizontalMove * speed * Time.deltaTime * 10f, rb.velocity.y);
+        var newForce = new Vector2(horizontalMove * Time.deltaTime * speed, 0f);
+        rb.AddForce(newForce, ForceMode2D.Impulse);
     }
 
     // TO DO: restetting move parameters

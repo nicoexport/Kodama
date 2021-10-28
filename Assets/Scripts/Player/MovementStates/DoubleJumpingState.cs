@@ -6,6 +6,7 @@ public class DoubleJumpingState : State
 {
     private float horizontalInput;
     private float doubleJumpForce;
+    private float speed;
 
     private float fallingTimer;
     private bool countdownFalling;
@@ -17,8 +18,8 @@ public class DoubleJumpingState : State
 
     private void DoubleJump()
     {
-        character.transform.Translate(Vector2.up * (character.groundCheckRadius + 0.1f));
-        character.rb.velocity = new Vector2(horizontalInput * Time.fixedDeltaTime * character.movementSpeed * 10f, doubleJumpForce);
+        // character.transform.Translate(Vector2.up * (character.groundCheckRadius + 0.1f));
+        character.rb.velocity = new Vector2(character.rb.velocity.x * character.movementSpeed * 10f, doubleJumpForce);
         countdownFalling = true;
     }
 
@@ -28,6 +29,7 @@ public class DoubleJumpingState : State
         Debug.Log("entered DOUBLEJUMPING state");
         character.hasDoubleJumped = true;
         doubleJumpForce = character.doubleJumpForce;
+        speed = character.movementSpeed;
         fallingTimer = 0.4f;
         countdownFalling = false;
         DoubleJump();
@@ -48,5 +50,11 @@ public class DoubleJumpingState : State
         base.LogicUpdate();
         if (countdownFalling) fallingTimer -= Time.deltaTime;
         if (fallingTimer <= 0) stateMachine.ChangeState(character.falling);
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+        character.Move(horizontalInput, speed);
     }
 }

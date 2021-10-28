@@ -1,0 +1,38 @@
+Super Meat Boy Research:
+
+Levelstruktur:
+World
+	levels (2-15)
+	Bosslevel
+
+
+Player Mechanics:
+- Run 
+- Jump
+- Wallslide
+- Walljump
+
+Level Mechanics:
+
+- keys and doors
+- moving platforms
+- disappearing platforms
+- lasers
+- homing lasers
+- fans
+- salt (instant kill)
+- conveyor belts
+- vertical conveyor belts on walls(can shoot up player)
+- moving sawblades from left to right
+- slow moving enemies
+- fast falling saw blades
+- shooting turrets (homing)
+- sawblade shooters
+- rolling boulders
+- portals (when leaving the portal you have the same velocity)
+- Force fields
+
+
+
+
+
