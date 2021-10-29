@@ -44,6 +44,7 @@ public class GroundedState : State
         base.PhysicsUpdate();
         character.Move(horizontalInput, speed);
         grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
+        if (Mathf.Abs(character.rb.velocity.x) <= 1f && horizontalInput == 0f) character.rb.velocity = Vector2.zero;
     }
 
 }
