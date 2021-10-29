@@ -62,8 +62,8 @@ public class JumpingState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        // delay for entering the falling state when the jump button is not held
         if (!keepJumping || keepJumpingTimer <= 0) StartFallingTimer();
-        // TO DO: delay for entering the falling state when the jump button is not held
         if (grounded) stateMachine.ChangeState(character.standing);
         if (fallingTimer <= 0 && countdownFalling) stateMachine.ChangeState(character.falling);
         // if (!character.hasDoubleJumped && doubleJump) stateMachine.ChangeState(character.doubleJumping);
