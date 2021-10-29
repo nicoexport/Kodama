@@ -1813,7 +1813,7 @@ MonoBehaviour:
   rb: {fileID: 2120855836}
   groundCheck: {fileID: 160435352}
   groundCheckRadius: 0.14
-  canDoubleJump: 1
+  canDoubleJump: 0
   hasDoubleJumped: 0
   hasDashed: 0
   whatIsGround:

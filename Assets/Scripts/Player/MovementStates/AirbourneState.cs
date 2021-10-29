@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundedState : State
+public class AirbourneState : State
 {
     private float horizontalInput;
+    private float airStrafeSpeed;
+    private bool fastFall;
     private bool grounded;
 
-    protected float speed;
-
-    public GroundedState(StateMachine stateMachine, Character character) : base(stateMachine, character)
+    public AirbourneState(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
 
     }
@@ -17,9 +17,8 @@ public class GroundedState : State
     public override void Enter()
     {
         base.Enter();
-        grounded = true;
-        horizontalInput = 0.0f;
-        character.ResetMoveParams();
+        grounded = false;
+        airStrafeSpeed = character.airMovementSpeed;
     }
 
     public override void Exit()
@@ -31,20 +30,24 @@ public class GroundedState : State
     {
         base.HandleInput();
         horizontalInput = Input.GetAxis("Horizontal");
+        fastFall = Input.GetKey("s");
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (!grounded) stateMachine.ChangeState(character.falling);
+        if (grounded) stateMachine.ChangeState(character.standing);
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        character.Move(horizontalInput, speed);
         grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
-        if (Mathf.Abs(character.rb.velocity.x) <= 1f && horizontalInput == 0f) character.rb.velocity = Vector2.zero;
+        character.Move(horizontalInput, airStrafeSpeed);
+        if (fastFall) character.rb.gravityScale = character.fastFallGravity;
+        else
+        {
+            character.rb.gravityScale = character.normalGravity;
+        }
     }
-
 }

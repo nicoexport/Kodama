@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpingState : State
+public class JumpingState : AirbourneState
 {
     private float speed;
-    private float horizontalInput;
     private float keepJumpingTimer;
-    private bool grounded;
     private bool keepJumping;
     private bool doubleJump;
 
@@ -40,7 +38,6 @@ public class JumpingState : State
         keepJumpingTimer = character.longJumpTimer;
         speed = character.airMovementSpeed;
         Jump(true, character.jumpForce);
-        grounded = false;
         countdownFalling = false;
         fallingTimer = 0.4f;
         Debug.Log("Entered jumping state");
@@ -54,9 +51,8 @@ public class JumpingState : State
     public override void HandleInput()
     {
         base.HandleInput();
-        horizontalInput = Input.GetAxis("Horizontal");
         if (Input.GetButtonUp("Jump")) keepJumping = false;
-        doubleJump = Input.GetButtonDown("Jump");
+        doubleJump = Input.GetButtonDown("Jump") && character.canDoubleJump;
     }
 
     public override void LogicUpdate()
@@ -64,16 +60,13 @@ public class JumpingState : State
         base.LogicUpdate();
         // delay for entering the falling state when the jump button is not held
         if (!keepJumping || keepJumpingTimer <= 0) StartFallingTimer();
-        if (grounded) stateMachine.ChangeState(character.standing);
         if (fallingTimer <= 0 && countdownFalling) stateMachine.ChangeState(character.falling);
-        // if (!character.hasDoubleJumped && doubleJump) stateMachine.ChangeState(character.doubleJumping);
+        if (!character.hasDoubleJumped && doubleJump) stateMachine.ChangeState(character.doubleJumping);
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        character.Move(horizontalInput, speed);
-        grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
         // makes the character keep jumping if the jump button is held
         if (keepJumping && keepJumpingTimer > 0f)
         {

@@ -78,6 +78,7 @@ public class Character : MonoBehaviour
     {
         hasDoubleJumped = false;
         hasDashed = false;
+        rb.gravityScale = normalGravity;
     }
 
     // Method checking for a collision with ground returning a boolean

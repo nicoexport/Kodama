@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoubleJumpingState : State
+public class DoubleJumpingState : AirbourneState
 {
     private float horizontalInput;
     private float doubleJumpForce;
     private float speed;
-
     private float fallingTimer;
     private bool countdownFalling;
 
