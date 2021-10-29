@@ -24,6 +24,8 @@ public class Character : MonoBehaviour
     public bool hasDoubleJumped;
     public bool hasDashed;
 
+    public Transform frontCheck;
+
     private StateMachine movementSm;
     private CharacterAnimationController cAnimController;
     [SerializeField]

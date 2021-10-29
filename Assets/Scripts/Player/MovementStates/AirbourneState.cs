@@ -8,6 +8,7 @@ public class AirbourneState : State
     private float airStrafeSpeed;
     private bool fastFall;
     private bool grounded;
+    private bool touchingWall;
 
     public AirbourneState(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
@@ -45,6 +46,8 @@ public class AirbourneState : State
         base.PhysicsUpdate();
         // ground checking
         grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
+        // TO DO: Wallchecking
+        // touchingWall = character.CheckCollisionOverlap(character.)
         // Air strafing
         character.Move(horizontalInput, airStrafeSpeed);
         // fast falling
