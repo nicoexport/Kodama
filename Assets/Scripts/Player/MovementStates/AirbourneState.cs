@@ -37,13 +37,17 @@ public class AirbourneState : State
     {
         base.LogicUpdate();
         if (grounded) stateMachine.ChangeState(character.standing);
+        if (character.rb.velocity.y < -0.1f && stateMachine.CurrentState != character.falling) stateMachine.ChangeState(character.falling);
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        // ground checking
         grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
+        // Air strafing
         character.Move(horizontalInput, airStrafeSpeed);
+        // fast falling
         if (fastFall) character.rb.gravityScale = character.fastFallGravity;
         else
         {
