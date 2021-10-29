@@ -10,6 +10,9 @@ public class Character : MonoBehaviour
     public float doubleJumpForce = 20f;
     public float longJumpTimer;
 
+    public float normalGravity = 5f;
+    public float fastFallGravity = 8f;
+
     public StandingState standing;
     public JumpingState jumping;
     public FallingState falling;
@@ -60,6 +63,13 @@ public class Character : MonoBehaviour
     {
         // rb.velocity = new Vector2(horizontalMove * speed * Time.deltaTime * 10f, rb.velocity.y);
         var newForce = new Vector2(horizontalMove * Time.deltaTime * speed, 0f);
+        rb.AddForce(newForce, ForceMode2D.Impulse);
+    }
+
+    public void Jump(float jumpForce)
+    {
+        transform.Translate(Vector2.up * (groundCheckRadius + 0.1f));
+        var newForce = new Vector2(0f, jumpForce * Time.deltaTime);
         rb.AddForce(newForce, ForceMode2D.Impulse);
     }
 

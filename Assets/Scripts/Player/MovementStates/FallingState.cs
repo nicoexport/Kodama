@@ -6,6 +6,7 @@ public class FallingState : State
 {
     private bool grounded;
     private bool doubleJump;
+    private bool fastFall;
     private float speed;
     private float horizontalInput;
 
@@ -25,6 +26,7 @@ public class FallingState : State
     public override void Exit()
     {
         base.Exit();
+        character.rb.gravityScale = character.normalGravity;
     }
 
     public override void HandleInput()
@@ -32,13 +34,15 @@ public class FallingState : State
         base.HandleInput();
         doubleJump = Input.GetButtonDown("Jump");
         horizontalInput = Input.GetAxis("Horizontal");
+        fastFall = Input.GetKey("s");
+
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
         if (grounded) stateMachine.ChangeState(character.standing);
-        if (!character.hasDoubleJumped && doubleJump) stateMachine.ChangeState(character.doubleJumping);
+        // if (!character.hasDoubleJumped && doubleJump) stateMachine.ChangeState(character.doubleJumping);
     }
 
     public override void PhysicsUpdate()
@@ -47,6 +51,11 @@ public class FallingState : State
         character.Move(horizontalInput, speed);
         grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
         // TO DO: mayby holding down will make you fall faster
+        if (fastFall) character.rb.gravityScale = character.fastFallGravity;
+        else
+        {
+            character.rb.gravityScale = character.normalGravity;
+        }
     }
 }
 

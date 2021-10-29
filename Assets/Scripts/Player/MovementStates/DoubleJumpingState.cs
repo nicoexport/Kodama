@@ -19,7 +19,7 @@ public class DoubleJumpingState : State
     private void DoubleJump()
     {
         // character.transform.Translate(Vector2.up * (character.groundCheckRadius + 0.1f));
-        character.rb.velocity = new Vector2(character.rb.velocity.x * character.movementSpeed * 10f, doubleJumpForce);
+        character.rb.velocity = new Vector2(character.rb.velocity.x, doubleJumpForce);
         countdownFalling = true;
     }
 
