@@ -19,6 +19,7 @@ public class AirbourneState : State
     {
         base.Enter();
         grounded = false;
+        touchingWall = false;
         airStrafeSpeed = character.airMovementSpeed;
     }
 
@@ -40,7 +41,12 @@ public class AirbourneState : State
         if (grounded) stateMachine.ChangeState(character.standing);
         // if (character.rb.velocity.y < -0.1f && stateMachine.CurrentState != character.falling) stateMachine.ChangeState(character.falling);
         // TO DO: touching wall AND input towards wall
-        // if (touchingWall) stateMachine.ChangeState(character.wallsliding);
+        // if (touchingWall) stateMachine.ChangeState(character.wallsliding);    
+        if (touchingWall)
+        {
+            if ((character.facingRight && horizontalInput > 0f) || (!character.facingRight && horizontalInput < 0f)) stateMachine.ChangeState(character.wallsliding);
+        }
+
         if (horizontalInput > 0 && !character.facingRight) character.Flip();
         if (horizontalInput < 0 && character.facingRight) character.Flip();
     }
