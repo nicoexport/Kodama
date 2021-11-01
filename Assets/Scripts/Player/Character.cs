@@ -26,6 +26,8 @@ public class Character : MonoBehaviour
     public bool hasDoubleJumped;
     public bool hasDashed;
 
+    public bool facingRight = true;
+
     public Transform frontCheck;
 
     private StateMachine movementSm;
@@ -61,6 +63,13 @@ public class Character : MonoBehaviour
     {
         // PhysicsUpdate Loop of movementSM
         movementSm.CurrentState.PhysicsUpdate();
+    }
+
+    // Method for flipping character
+    public void Flip()
+    {
+        facingRight = !facingRight;
+        transform.Rotate(0f, 180f, 0f);
     }
 
     // Method used for moving the character left and right

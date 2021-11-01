@@ -37,6 +37,8 @@ public class GroundedState : State
     {
         base.LogicUpdate();
         if (!grounded) stateMachine.ChangeState(character.falling);
+        if (horizontalInput > 0 && !character.facingRight) character.Flip();
+        if (horizontalInput < 0 && character.facingRight) character.Flip();
     }
 
     public override void PhysicsUpdate()

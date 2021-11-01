@@ -7,7 +7,7 @@ public class AirbourneState : State
     private float horizontalInput;
     private float airStrafeSpeed;
     private bool fastFall;
-    private bool grounded;
+    public bool grounded;
     public bool touchingWall;
 
     public AirbourneState(StateMachine stateMachine, Character character) : base(stateMachine, character)
@@ -41,6 +41,8 @@ public class AirbourneState : State
         // if (character.rb.velocity.y < -0.1f && stateMachine.CurrentState != character.falling) stateMachine.ChangeState(character.falling);
         // TO DO: touching wall AND input towards wall
         // if (touchingWall) stateMachine.ChangeState(character.wallsliding);
+        if (horizontalInput > 0 && !character.facingRight) character.Flip();
+        if (horizontalInput < 0 && character.facingRight) character.Flip();
     }
 
     public override void PhysicsUpdate()

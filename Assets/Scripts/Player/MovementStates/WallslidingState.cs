@@ -29,8 +29,8 @@ public class WallslidingState : AirbourneState
 
     public override void LogicUpdate()
     {
-        base.LogicUpdate();
         if (!touchingWall) stateMachine.ChangeState(character.falling);
+        if (grounded) stateMachine.ChangeState(character.standing);
     }
 
     public override void PhysicsUpdate()
