@@ -15,6 +15,7 @@ public class CharacterAnimationController : MonoBehaviour
     const string falling = "FALLING";
     const string jumping = "JUMPING";
     const string doubleJumping = "DOUBLEJUMPING";
+    const string wallSliding = "WALLSLIDING";
 
     private void Start()
     {
@@ -42,6 +43,10 @@ public class CharacterAnimationController : MonoBehaviour
 
             case "DoubleJumpingState":
                 newAnimState = doubleJumping;
+                break;
+
+            case "WallslidingState":
+                newAnimState = wallSliding;
                 break;
 
             default:

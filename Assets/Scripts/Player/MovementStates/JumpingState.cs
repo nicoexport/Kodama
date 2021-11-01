@@ -50,6 +50,7 @@ public class JumpingState : AirbourneState
     {
         base.LogicUpdate();
         if (!character.hasDoubleJumped && doubleJump) stateMachine.ChangeState(character.doubleJumping);
+        if (character.rb.velocity.y < -0.1f) stateMachine.ChangeState(character.falling);
     }
 
     public override void PhysicsUpdate()

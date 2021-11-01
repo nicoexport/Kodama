@@ -12,11 +12,13 @@ public class Character : MonoBehaviour
 
     public float normalGravity = 5f;
     public float fastFallGravity = 8f;
+    public float wallslidingGravity = 2f;
 
     public StandingState standing;
     public JumpingState jumping;
     public FallingState falling;
     public DoubleJumpingState doubleJumping;
+    public WallslidingState wallsliding;
     public Rigidbody2D rb;
     public Transform groundCheck;
     public float groundCheckRadius;
@@ -41,6 +43,7 @@ public class Character : MonoBehaviour
         standing = new StandingState(movementSm, this);
         jumping = new JumpingState(movementSm, this);
         falling = new FallingState(movementSm, this);
+        wallsliding = new WallslidingState(movementSm, this);
         doubleJumping = new DoubleJumpingState(movementSm, this);
         movementSm.Initialize(standing);
         cAnimController = GetComponent<CharacterAnimationController>();
@@ -98,5 +101,7 @@ public class Character : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(frontCheck.position, groundCheckRadius);
     }
 }

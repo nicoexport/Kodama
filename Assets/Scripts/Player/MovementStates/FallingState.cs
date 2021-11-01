@@ -33,11 +33,13 @@ public class FallingState : AirbourneState
     {
         base.LogicUpdate();
         if (!character.hasDoubleJumped && doubleJump) stateMachine.ChangeState(character.doubleJumping);
+        if (touchingWall) stateMachine.ChangeState(character.wallsliding);
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        touchingWall = character.CheckCollisionOverlap(character.frontCheck.position, character.groundCheckRadius);
     }
 }
 

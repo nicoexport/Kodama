@@ -17,6 +17,9 @@ TextureImporter:
   - first:
       213: -8825330097840694795
     second: PlaceholderSprites_4
+  - first:
+      213: -4146782217611154302
+    second: PlaceholderSprites_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -218,6 +221,27 @@ TextureImporter:
       bones: []
       spriteID: 5f954acd801268580800000000000000
       internalID: -8825330097840694795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlaceholderSprites_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28c616e2b8ba376c0800000000000000
+      internalID: -4146782217611154302
       vertices: []
       indices: 
       edges: []

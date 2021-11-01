@@ -8,7 +8,7 @@ public class AirbourneState : State
     private float airStrafeSpeed;
     private bool fastFall;
     private bool grounded;
-    private bool touchingWall;
+    public bool touchingWall;
 
     public AirbourneState(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
@@ -38,7 +38,9 @@ public class AirbourneState : State
     {
         base.LogicUpdate();
         if (grounded) stateMachine.ChangeState(character.standing);
-        if (character.rb.velocity.y < -0.1f && stateMachine.CurrentState != character.falling) stateMachine.ChangeState(character.falling);
+        // if (character.rb.velocity.y < -0.1f && stateMachine.CurrentState != character.falling) stateMachine.ChangeState(character.falling);
+        // TO DO: touching wall AND input towards wall
+        // if (touchingWall) stateMachine.ChangeState(character.wallsliding);
     }
 
     public override void PhysicsUpdate()
@@ -47,12 +49,12 @@ public class AirbourneState : State
         // ground checking
         grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
         // TO DO: Wallchecking
-        // touchingWall = character.CheckCollisionOverlap(character.)
+        touchingWall = character.CheckCollisionOverlap(character.frontCheck.position, character.groundCheckRadius);
         // Air strafing
         character.Move(horizontalInput, airStrafeSpeed);
         // fast falling
         if (fastFall) character.rb.gravityScale = character.fastFallGravity;
-        else
+        else if (stateMachine.CurrentState != character.wallsliding)
         {
             character.rb.gravityScale = character.normalGravity;
         }

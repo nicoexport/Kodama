@@ -1,14 +1,8 @@
 heutige sesssion:
 
 Movement Rework:
-	- Jump methoden in character script
-
 
 	- wall slide 
 	- wall run
 
-	- transition to idle sprite 
-	- OR set velocity to 0 when its close to 0
-
-
-	- switch von Jump nach fall über velocity und nicht über timer
+	- Fast fall keybindings

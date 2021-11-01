@@ -12,11 +12,14 @@ public class WallslidingState : AirbourneState
     public override void Enter()
     {
         base.Enter();
+        Debug.Log("Entered Wallsliding State");
+        character.rb.gravityScale = character.wallslidingGravity;
     }
 
     public override void Exit()
     {
         base.Exit();
+        character.rb.gravityScale = character.normalGravity;
     }
 
     public override void HandleInput()
@@ -27,6 +30,7 @@ public class WallslidingState : AirbourneState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (!touchingWall) stateMachine.ChangeState(character.falling);
     }
 
     public override void PhysicsUpdate()
