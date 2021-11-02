@@ -2,6 +2,9 @@ heutige sesssion:
 
 Movement Rework:
 
+	- input buffering für walljumps (kleine shorthops) 
+		wenn jump gedrückt bleibt wird eine stärkere force verwendet 65/65 (im vergleich zu 40/50) 
+
 	- wall slide 
 	- wall run
 

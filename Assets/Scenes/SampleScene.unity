@@ -2753,11 +2753,11 @@ MonoBehaviour:
   airMovementSpeed: 200
   jumpForce: 10
   doubleJumpForce: 10
-  longJumpTimer: 0.3
+  longJumpTimer: 0.35
   wallSlideInputThresh: 0.75
-  horizontalWallJumpForce: 65
-  verticalWallJumpForce: 65
-  wallJumpTimer: 0.3
+  horizontalWallJumpForce: 40
+  verticalWallJumpForce: 50
+  wallJumpTimer: 0.5
   normalGravity: 5
   fastFallGravity: 8
   wallslidingGravity: 2

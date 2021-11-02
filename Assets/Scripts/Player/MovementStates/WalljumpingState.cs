@@ -65,7 +65,7 @@ public class WalljumpingState : AirbourneState
 
         if (keepJumping && keepJumpingTimer > 0f)
         {
-            var force = new Vector2(0f, verticalForce);
+            var force = new Vector2(0f, verticalForce * 1.5f);
             character.rb.AddForce(force, ForceMode2D.Force);
             keepJumpingTimer -= Time.deltaTime;
         }
