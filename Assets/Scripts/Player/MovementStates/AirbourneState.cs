@@ -39,12 +39,9 @@ public class AirbourneState : State
     {
         base.LogicUpdate();
         if (grounded) stateMachine.ChangeState(character.standing);
-        // if (character.rb.velocity.y < -0.1f && stateMachine.CurrentState != character.falling) stateMachine.ChangeState(character.falling);
-        // TO DO: touching wall AND input towards wall
-        // if (touchingWall) stateMachine.ChangeState(character.wallsliding);    
         if (touchingWall)
         {
-            if ((character.facingRight && horizontalInput > 0f) || (!character.facingRight && horizontalInput < 0f)) stateMachine.ChangeState(character.wallsliding);
+            if ((character.facingRight && horizontalInput > character.wallSlideInputThresh) || (!character.facingRight && horizontalInput < -character.wallSlideInputThresh)) stateMachine.ChangeState(character.wallsliding);
         }
 
         if (horizontalInput > 0 && !character.facingRight) character.Flip();

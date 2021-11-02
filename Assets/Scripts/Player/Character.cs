@@ -10,6 +10,12 @@ public class Character : MonoBehaviour
     public float doubleJumpForce = 20f;
     public float longJumpTimer;
 
+    [Range(0f, 1f)]
+    public float wallSlideInputThresh = 0.75f;
+    public float horizontalWallJumpForce;
+    public float verticalWallJumpForce;
+    public float wallJumpTimer;
+
     public float normalGravity = 5f;
     public float fastFallGravity = 8f;
     public float wallslidingGravity = 2f;
@@ -19,6 +25,7 @@ public class Character : MonoBehaviour
     public FallingState falling;
     public DoubleJumpingState doubleJumping;
     public WallslidingState wallsliding;
+    public WalljumpingState wallJumping;
     public Rigidbody2D rb;
     public Transform groundCheck;
     public float groundCheckRadius;
@@ -46,6 +53,7 @@ public class Character : MonoBehaviour
         jumping = new JumpingState(movementSm, this);
         falling = new FallingState(movementSm, this);
         wallsliding = new WallslidingState(movementSm, this);
+        wallJumping = new WalljumpingState(movementSm, this);
         doubleJumping = new DoubleJumpingState(movementSm, this);
         movementSm.Initialize(standing);
         cAnimController = GetComponent<CharacterAnimationController>();

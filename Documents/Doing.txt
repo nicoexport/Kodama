@@ -6,3 +6,8 @@ Movement Rework:
 	- wall run
 
 	- Fast fall keybindings
+
+	- Input buffering für Jumps
+
+	- input gegen wand für wallslide
+	- transition auch aus jumping state

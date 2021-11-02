@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class JumpingState : AirbourneState
 {
-    private float speed;
     private float keepJumpingTimer;
     private bool keepJumping;
     private bool doubleJump;
@@ -29,7 +28,6 @@ public class JumpingState : AirbourneState
     {
         base.Enter();
         keepJumpingTimer = character.longJumpTimer;
-        speed = character.airMovementSpeed;
         Jump(true, character.jumpForce);
         Debug.Log("Entered jumping state");
     }
