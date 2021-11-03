@@ -6482,7 +6482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 200
   airMovementSpeed: 200
-  jumpForce: 15
+  jumpForce: 50
   doubleJumpForce: 10
   longJumpTimer: 0.35
   wallSlideInputThresh: 0.75
