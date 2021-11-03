@@ -9,8 +9,15 @@ Movement Rework:
 	- wall run
 
 	- Fast fall keybindings
+	
+	- regular jump snappier
+
+	- fast fall bei wallslide
 
 	- Input buffering für Jumps
+	- hangtime
+	
+	- slide bei wwalk etwas lang
 
 	- input gegen wand für wallslide
 	- transition auch aus jumping state

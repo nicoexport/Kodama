@@ -9,6 +9,7 @@ public class AirbourneState : State
     private bool fastFall;
     public bool grounded;
     public bool touchingWall;
+    public bool touchingCeiling;
 
     public AirbourneState(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
@@ -20,6 +21,7 @@ public class AirbourneState : State
         base.Enter();
         grounded = false;
         touchingWall = false;
+        touchingCeiling = false;
         airStrafeSpeed = character.airMovementSpeed;
     }
 
@@ -39,6 +41,7 @@ public class AirbourneState : State
     {
         base.LogicUpdate();
         if (grounded) stateMachine.ChangeState(character.standing);
+        if (touchingCeiling) stateMachine.ChangeState(character.falling);
         if (touchingWall)
         {
             if ((character.facingRight && horizontalInput > character.wallSlideInputThresh) || (!character.facingRight && horizontalInput < -character.wallSlideInputThresh)) stateMachine.ChangeState(character.wallsliding);
@@ -53,8 +56,10 @@ public class AirbourneState : State
         base.PhysicsUpdate();
         // ground checking
         grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
-        // TO DO: Wallchecking
+        //wallchecking
         touchingWall = character.CheckCollisionOverlap(character.frontCheck.position, character.groundCheckRadius);
+        // ceiling checking
+        touchingCeiling = (character.CheckCollisionOverlap(character.ceilingCheck.position, character.ceilingCheckRadius)) || (character.CheckCollisionOverlap(character.ceilingCheck1.position, character.ceilingCheckRadius));
         // Air strafing
         character.Move(horizontalInput, airStrafeSpeed);
         // fast falling

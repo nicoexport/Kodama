@@ -27,15 +27,19 @@ public class Character : MonoBehaviour
     public WallslidingState wallsliding;
     public WalljumpingState wallJumping;
     public Rigidbody2D rb;
-    public Transform groundCheck;
     public float groundCheckRadius;
+    public float ceilingCheckRadius;
+
     public bool canDoubleJump;
     public bool hasDoubleJumped;
     public bool hasDashed;
 
     public bool facingRight = true;
 
+    public Transform groundCheck;
     public Transform frontCheck;
+    public Transform ceilingCheck;
+    public Transform ceilingCheck1;
 
     private StateMachine movementSm;
     private CharacterAnimationController cAnimController;
@@ -120,5 +124,8 @@ public class Character : MonoBehaviour
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(frontCheck.position, groundCheckRadius);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(ceilingCheck.position, ceilingCheckRadius);
+        Gizmos.DrawWireSphere(ceilingCheck1.position, ceilingCheckRadius);
     }
 }
