@@ -4,49 +4,58 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    [Header("Movement")]
     public float movementSpeed = 20f;
     public float airMovementSpeed = 20f;
     public float jumpForce = 30f;
     public float doubleJumpForce = 20f;
+    [Header("Longjumping")]
+    [Range(0f, 10f)]
+    public float longJumpMultiplier = 4f;
     public float longJumpTimer;
 
+    [Header("Walljumping")]
     [Range(0f, 1f)]
     public float wallSlideInputThresh = 0.75f;
     public float horizontalWallJumpForce;
     public float verticalWallJumpForce;
     public float wallJumpTimer;
 
+    [Header("Gravity Values")]
     public float normalGravity = 5f;
     public float fastFallGravity = 8f;
     public float wallslidingGravity = 2f;
 
-    public StandingState standing;
-    public JumpingState jumping;
-    public FallingState falling;
-    public DoubleJumpingState doubleJumping;
-    public WallslidingState wallsliding;
-    public WalljumpingState wallJumping;
-    public Rigidbody2D rb;
+
+    [Header("Collision Checks")]
     public float groundCheckRadius;
     public float ceilingCheckRadius;
+    [SerializeField]
+    private LayerMask whatIsGround;
 
-    public bool canDoubleJump;
-    public bool hasDoubleJumped;
-    public bool hasDashed;
 
-    public bool facingRight = true;
 
+    [Header("Refrences")]
     public Transform groundCheck;
     public Transform frontCheck;
     public Transform ceilingCheck;
     public Transform ceilingCheck1;
+    public Rigidbody2D rb;
 
+    [Header("Debugging")]
     public bool debugStates;
+
+    [HideInInspector]
+    public bool facingRight = true;
+
+    public StandingState standing;
+    public JumpingState jumping;
+    public FallingState falling;
+    public WallslidingState wallsliding;
+    public WalljumpingState wallJumping;
 
     private StateMachine movementSm;
     private CharacterAnimationController cAnimController;
-    [SerializeField]
-    private LayerMask whatIsGround;
 
 
 
@@ -61,7 +70,6 @@ public class Character : MonoBehaviour
         falling = new FallingState(movementSm, this);
         wallsliding = new WallslidingState(movementSm, this);
         wallJumping = new WalljumpingState(movementSm, this);
-        doubleJumping = new DoubleJumpingState(movementSm, this);
         movementSm.Initialize(standing);
         cAnimController = GetComponent<CharacterAnimationController>();
     }
@@ -105,8 +113,6 @@ public class Character : MonoBehaviour
     // TO DO: restetting move parameters
     public void ResetMoveParams()
     {
-        hasDoubleJumped = false;
-        hasDashed = false;
         rb.gravityScale = normalGravity;
     }
 

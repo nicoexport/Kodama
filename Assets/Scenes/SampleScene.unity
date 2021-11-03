@@ -6484,6 +6484,7 @@ MonoBehaviour:
   airMovementSpeed: 200
   jumpForce: 50
   doubleJumpForce: 10
+  longJumpMultiplier: 4
   longJumpTimer: 0.35
   wallSlideInputThresh: 0.75
   horizontalWallJumpForce: 50
@@ -6492,21 +6493,18 @@ MonoBehaviour:
   normalGravity: 7
   fastFallGravity: 10
   wallslidingGravity: 2
-  rb: {fileID: 2120855836}
   groundCheckRadius: 0.14
   ceilingCheckRadius: 0.05
-  canDoubleJump: 0
-  hasDoubleJumped: 0
-  hasDashed: 0
-  facingRight: 1
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
   groundCheck: {fileID: 160435352}
   frontCheck: {fileID: 1433635484}
   ceilingCheck: {fileID: 841134160}
   ceilingCheck1: {fileID: 1952422799}
+  rb: {fileID: 2120855836}
   debugStates: 0
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
+  facingRight: 1
 --- !u!61 &2120855838
 BoxCollider2D:
   m_ObjectHideFlags: 0

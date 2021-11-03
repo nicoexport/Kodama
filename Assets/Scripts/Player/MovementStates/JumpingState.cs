@@ -41,13 +41,11 @@ public class JumpingState : AirbourneState
     {
         base.HandleInput();
         if (Input.GetButtonUp("Jump")) keepJumping = false;
-        doubleJump = Input.GetButtonDown("Jump") && character.canDoubleJump;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (!character.hasDoubleJumped && doubleJump) stateMachine.ChangeState(character.doubleJumping);
         if (character.rb.velocity.y < -0.1f) stateMachine.ChangeState(character.falling);
     }
 
@@ -58,7 +56,7 @@ public class JumpingState : AirbourneState
         if (keepJumping && keepJumpingTimer > 0f)
         {
 
-            var force = new Vector2(0f, character.jumpForce * 3.5f);
+            var force = new Vector2(0f, character.jumpForce * character.longJumpMultiplier);
             character.rb.AddForce(force, ForceMode2D.Force);
 
             keepJumpingTimer -= Time.deltaTime;

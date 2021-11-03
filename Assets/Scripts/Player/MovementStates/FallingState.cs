@@ -25,19 +25,16 @@ public class FallingState : AirbourneState
     public override void HandleInput()
     {
         base.HandleInput();
-        doubleJump = Input.GetButtonDown("Jump") && character.canDoubleJump;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (!character.hasDoubleJumped && doubleJump) stateMachine.ChangeState(character.doubleJumping);
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        touchingWall = character.CheckCollisionOverlap(character.frontCheck.position, character.groundCheckRadius);
     }
 }
 
