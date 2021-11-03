@@ -29,7 +29,6 @@ public class JumpingState : AirbourneState
         base.Enter();
         keepJumpingTimer = character.longJumpTimer;
         Jump(true, character.jumpForce);
-        Debug.Log("Entered jumping state");
     }
 
     public override void Exit()

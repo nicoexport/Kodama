@@ -6482,7 +6482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 200
   airMovementSpeed: 200
-  jumpForce: 10
+  jumpForce: 15
   doubleJumpForce: 10
   longJumpTimer: 0.35
   wallSlideInputThresh: 0.75
@@ -6503,6 +6503,7 @@ MonoBehaviour:
   frontCheck: {fileID: 1433635484}
   ceilingCheck: {fileID: 841134160}
   ceilingCheck1: {fileID: 1952422799}
+  debugStates: 0
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -6641,6 +6642,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3682371988112062674, guid: dda7f4f23f21fa74c8923b4bb6538d18, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.901
+      objectReference: {fileID: 0}
     - target: {fileID: 3682371988832746836, guid: dda7f4f23f21fa74c8923b4bb6538d18, type: 3}
       propertyPath: m_RootOrder
       value: 5

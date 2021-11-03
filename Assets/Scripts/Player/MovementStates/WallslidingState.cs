@@ -20,7 +20,6 @@ public class WallslidingState : State
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Entered Wallsliding State");
         wallJump = false;
         speed = character.movementSpeed;
         //For now with Gravity scale maybe use custom friction to slow down upwards momentum too

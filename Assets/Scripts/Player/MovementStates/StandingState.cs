@@ -16,7 +16,6 @@ public class StandingState : GroundedState
         base.Enter();
         speed = character.movementSpeed;
         jump = false;
-        Debug.Log("Entered standing state");
     }
 
     public override void HandleInput()

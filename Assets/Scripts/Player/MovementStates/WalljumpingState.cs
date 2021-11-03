@@ -34,7 +34,6 @@ public class WalljumpingState : AirbourneState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("entered WALLJUMPING state");
         horizontalForce = character.horizontalWallJumpForce;
         verticalForce = character.verticalWallJumpForce;
         keepJumpingTimer = character.wallJumpTimer;

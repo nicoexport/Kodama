@@ -17,7 +17,7 @@ public class State
     // Method getting called by the SM when entering the state
     public virtual void Enter()
     {
-
+        if (character.debugStates) Debug.Log(this.ToString());
     }
 
     // Method getting called by the SM when exiting the state

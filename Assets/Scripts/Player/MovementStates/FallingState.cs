@@ -15,7 +15,6 @@ public class FallingState : AirbourneState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Entered FALLING state");
     }
 
     public override void Exit()

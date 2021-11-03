@@ -41,10 +41,13 @@ public class Character : MonoBehaviour
     public Transform ceilingCheck;
     public Transform ceilingCheck1;
 
+    public bool debugStates;
+
     private StateMachine movementSm;
     private CharacterAnimationController cAnimController;
     [SerializeField]
     private LayerMask whatIsGround;
+
 
 
     void Start()
