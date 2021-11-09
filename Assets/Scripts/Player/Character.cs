@@ -56,22 +56,17 @@ public class Character : MonoBehaviour
 
     private StateMachine movementSm;
     private CharacterAnimationController cAnimController;
+    public PlayerInputActions playerInputActions { get; private set; }
 
 
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        // Initializing the MovemenStateMachine and its states
-        movementSm = new StateMachine();
-        standing = new StandingState(movementSm, this);
-        jumping = new JumpingState(movementSm, this);
-        falling = new FallingState(movementSm, this);
-        wallsliding = new WallslidingState(movementSm, this);
-        wallJumping = new WalljumpingState(movementSm, this);
-        movementSm.Initialize(standing);
         cAnimController = GetComponent<CharacterAnimationController>();
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+        InitializeStates();
     }
 
     public void Update()
@@ -125,6 +120,17 @@ public class Character : MonoBehaviour
     public void UpdateVisuals()
     {
         cAnimController.SetAnimationeState(movementSm.CurrentState, rb.velocity.x);
+    }
+
+    private void InitializeStates()
+    {
+        movementSm = new StateMachine();
+        standing = new StandingState(movementSm, this);
+        jumping = new JumpingState(movementSm, this);
+        falling = new FallingState(movementSm, this);
+        wallsliding = new WallslidingState(movementSm, this);
+        wallJumping = new WalljumpingState(movementSm, this);
+        movementSm.Initialize(standing);
     }
 
     // visualizing the groundCheckRadius
