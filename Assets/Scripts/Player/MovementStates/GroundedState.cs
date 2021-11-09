@@ -30,7 +30,7 @@ public class GroundedState : State
     public override void HandleInput()
     {
         base.HandleInput();
-        horizontalInput = Input.GetAxis("Horizontal");
+        horizontalInput = character.playerInputActions.Player.Movement.ReadValue<float>();
     }
 
     public override void LogicUpdate()

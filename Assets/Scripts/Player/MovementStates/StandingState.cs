@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 
 public class StandingState : GroundedState
 {
-    private bool jump;
-
     public StandingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
 
@@ -16,7 +14,6 @@ public class StandingState : GroundedState
     {
         base.Enter();
         speed = character.movementSpeed;
-        jump = false;
         character.playerInputActions.Player.Jump.performed += ChangeToJump;
     }
 
@@ -35,12 +32,11 @@ public class StandingState : GroundedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (jump) stateMachine.ChangeState(character.jumping);
     }
 
     private void ChangeToJump(InputAction.CallbackContext context)
     {
-        if (context.performed) stateMachine.ChangeState(character.jumping);
+        stateMachine.ChangeState(character.jumping);
     }
 }
 

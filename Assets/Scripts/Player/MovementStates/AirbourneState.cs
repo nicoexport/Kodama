@@ -33,7 +33,7 @@ public class AirbourneState : State
     public override void HandleInput()
     {
         base.HandleInput();
-        horizontalInput = Input.GetAxis("Horizontal");
+        horizontalInput = character.playerInputActions.Player.Movement.ReadValue<float>();
         fastFall = Input.GetKey("s");
     }
 

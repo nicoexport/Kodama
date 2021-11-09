@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WallslidingState : State
 {
@@ -10,7 +11,6 @@ public class WallslidingState : State
     private float horizontalInput;
     private float speed;
 
-    private bool wallJump;
 
     public WallslidingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
@@ -20,7 +20,7 @@ public class WallslidingState : State
     public override void Enter()
     {
         base.Enter();
-        wallJump = false;
+        character.playerInputActions.Player.Jump.performed += ChangeToWallJumping;
         speed = character.movementSpeed;
         //For now with Gravity scale maybe use custom friction to slow down upwards momentum too
         character.rb.gravityScale = character.wallslidingGravity;
@@ -30,13 +30,14 @@ public class WallslidingState : State
     {
         base.Exit();
         character.rb.gravityScale = character.normalGravity;
+        character.playerInputActions.Player.Jump.performed -= ChangeToWallJumping;
+
     }
 
     public override void HandleInput()
     {
         base.HandleInput();
         horizontalInput = Input.GetAxis("Horizontal");
-        wallJump = Input.GetButtonDown("Jump");
         grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
         touchingWall = character.CheckCollisionOverlap(character.frontCheck.position, character.groundCheckRadius);
     }
@@ -46,12 +47,16 @@ public class WallslidingState : State
         base.LogicUpdate();
         if (!touchingWall) stateMachine.ChangeState(character.falling);
         if (grounded) stateMachine.ChangeState(character.standing);
-        if (wallJump) stateMachine.ChangeState(character.wallJumping);
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
         character.Move(horizontalInput, speed);
+    }
+
+    private void ChangeToWallJumping(InputAction.CallbackContext context)
+    {
+        if (touchingWall) stateMachine.ChangeState(character.wallJumping);
     }
 }
