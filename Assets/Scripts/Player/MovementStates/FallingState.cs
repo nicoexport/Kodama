@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class FallingState : AirbourneState
 {
-    private bool doubleJump;
-    private bool fastFall;
-
     public FallingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
 

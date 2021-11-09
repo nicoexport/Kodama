@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class JumpingState : AirbourneState
 {
     private float keepJumpingTimer;
     private bool keepJumping;
-    private bool doubleJump;
 
     public JumpingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
@@ -14,33 +14,37 @@ public class JumpingState : AirbourneState
     }
 
 
-    private void Jump(bool canLongJump, float jumpForce)
+    private void Jump(float jumpForce)
     {
         character.transform.Translate(Vector2.up * (character.groundCheckRadius + 0.1f));
         var force = new Vector2(0f, jumpForce);
         character.rb.AddForce(force, ForceMode2D.Impulse);
-        if (canLongJump)
-        {
-            keepJumping = Input.GetButton("Jump");
-        }
     }
+
+    private void StopJumping(InputAction.CallbackContext context)
+    {
+        keepJumping = false;
+    }
+
 
     public override void Enter()
     {
         base.Enter();
+        character.playerInputActions.Player.Jump.canceled += StopJumping;
         keepJumpingTimer = character.longJumpTimer;
-        Jump(true, character.jumpForce);
+        Jump(character.jumpForce);
+        keepJumping = true;
     }
 
     public override void Exit()
     {
         base.Exit();
+        character.playerInputActions.Player.Jump.canceled -= StopJumping;
     }
 
     public override void HandleInput()
     {
         base.HandleInput();
-        if (Input.GetButtonUp("Jump")) keepJumping = false;
     }
 
     public override void LogicUpdate()

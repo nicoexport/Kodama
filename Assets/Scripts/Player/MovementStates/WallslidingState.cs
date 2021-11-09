@@ -37,7 +37,7 @@ public class WallslidingState : State
     public override void HandleInput()
     {
         base.HandleInput();
-        horizontalInput = Input.GetAxis("Horizontal");
+        horizontalInput = character.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
         grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
         touchingWall = character.CheckCollisionOverlap(character.frontCheck.position, character.groundCheckRadius);
     }

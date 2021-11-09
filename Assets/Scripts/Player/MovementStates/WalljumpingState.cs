@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WalljumpingState : AirbourneState
 {
@@ -31,24 +32,30 @@ public class WalljumpingState : AirbourneState
         }
     }
 
+    private void StopJumping(InputAction.CallbackContext context)
+    {
+        keepJumping = false;
+    }
+
     public override void Enter()
     {
         base.Enter();
+        keepJumping = true;
         horizontalForce = character.horizontalWallJumpForce;
         verticalForce = character.verticalWallJumpForce;
         keepJumpingTimer = character.wallJumpTimer;
+        character.playerInputActions.Player.Jump.canceled += StopJumping;
         WallJump(horizontalForce, verticalForce);
     }
 
     public override void Exit()
     {
         base.Exit();
+        character.playerInputActions.Player.Jump.canceled -= StopJumping;
     }
 
     public override void HandleInput()
     {
-        keepJumping = Input.GetButton("Jump");
-        if (Input.GetButtonUp("Jump")) keepJumpingTimer = 0f;
         base.HandleInput();
     }
 
