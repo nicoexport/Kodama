@@ -30,7 +30,7 @@ public class GroundedState : State
     public override void HandleInput()
     {
         base.HandleInput();
-        horizontalInput = character.playerInputActions.Player.Movement.ReadValue<float>();
+        horizontalInput = character.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
     }
 
     public override void LogicUpdate()
@@ -44,6 +44,7 @@ public class GroundedState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        Debug.Log(horizontalInput);
         character.Move(horizontalInput, speed);
         grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
         if (Mathf.Abs(character.rb.velocity.x) <= 1f && horizontalInput == 0f) character.rb.velocity = Vector2.zero;

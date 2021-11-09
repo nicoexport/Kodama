@@ -5,6 +5,7 @@ using UnityEngine;
 public class AirbourneState : State
 {
     private float horizontalInput;
+    private float verticalInput;
     private float airStrafeSpeed;
     private bool fastFall;
     public bool grounded;
@@ -33,8 +34,8 @@ public class AirbourneState : State
     public override void HandleInput()
     {
         base.HandleInput();
-        horizontalInput = character.playerInputActions.Player.Movement.ReadValue<float>();
-        fastFall = Input.GetKey("s");
+        horizontalInput = character.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
+        verticalInput = character.playerInputActions.Player.Movement.ReadValue<Vector2>().y;
     }
 
     public override void LogicUpdate()
@@ -63,7 +64,7 @@ public class AirbourneState : State
         // Air strafing
         character.Move(horizontalInput, airStrafeSpeed);
         // fast falling
-        if (fastFall) character.rb.gravityScale = character.fastFallGravity;
+        if (verticalInput <= -0.75f) character.rb.gravityScale = character.fastFallGravity;
         else if (stateMachine.CurrentState != character.wallsliding)
         {
             character.rb.gravityScale = character.normalGravity;

@@ -17,7 +17,7 @@
                     "name": "Movement",
                     "type": "Value",
                     "id": "79cfe0c7-31e9-404b-afaf-ee5e7ae23c7a",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -46,9 +46,9 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "8d088642-35a3-4b47-a748-d323f9341f89",
-                    "path": "1DAxis",
+                    "name": "2D Vector",
+                    "id": "d7c25b37-e485-4e80-99e1-868fb1106c05",
+                    "path": "2DVector(mode=2)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -57,41 +57,30 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "329283ea-e7ab-40ba-bb90-950c1e310588",
-                    "path": "<Gamepad>/dpad/left",
+                    "name": "up",
+                    "id": "17cfad3e-d262-401c-81bb-720a96a45d17",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "Keyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
-                    "id": "ae90010f-18c1-475b-8d40-7e056ff6b1c3",
-                    "path": "<Gamepad>/dpad/right",
+                    "name": "down",
+                    "id": "5de3946b-a626-42dc-bab7-45490bcaaab9",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "Keyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "4dbeea0b-aab9-442c-b1c2-07d31a0b7333",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "56bea256-e238-41c0-91bb-bc28158c1402",
+                    "name": "left",
+                    "id": "8ccbfe9a-32f0-4337-985d-d46dbc54de46",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -101,8 +90,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
-                    "id": "4168a45f-afd3-4a0a-83d3-1a2f37ad7fc6",
+                    "name": "right",
+                    "id": "cf2c5a9f-70c7-423f-98fb-4bbd5498aaed",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -110,6 +99,17 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "dc8139a5-e29b-41dd-9224-4f4bd020c777",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "StickDeadzone",
+                    "groups": "Gamepad",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
