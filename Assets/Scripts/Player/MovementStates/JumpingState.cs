@@ -33,8 +33,9 @@ public class JumpingState : AirbourneState
         character.wantjump = false;
         character.playerInputActions.Player.Jump.canceled += StopJumping;
         keepJumpingTimer = character.longJumpTimer;
-        //keepJumping = true;
-        if (Keyboard.current.spaceKey.isPressed) keepJumping = true;
+
+        var jumpValue = character.playerInputActions.Player.Jump.ReadValue<float>();
+        if (character.playerInputActions.Player.Jump.ReadValue<float>() > 0f) keepJumping = true;
         Jump(character.jumpForce);
     }
 

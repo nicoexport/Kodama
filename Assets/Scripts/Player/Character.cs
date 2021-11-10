@@ -16,6 +16,7 @@ public class Character : MonoBehaviour
     private float jumpInputTimer;
     [HideInInspector]
     public bool wantjump;
+    // public bool keepJumping;
 
     [Header("Longjumping")]
     [Range(0f, 10f)]

@@ -6484,7 +6484,7 @@ MonoBehaviour:
   airMovementSpeed: 200
   jumpForce: 50
   doubleJumpForce: 10
-  jumpInputTimerMax: 0.5
+  jumpInputTimerMax: 0.11
   wantjump: 0
   longJumpMultiplier: 4
   longJumpTimer: 0.35

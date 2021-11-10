@@ -40,11 +40,13 @@ public class WalljumpingState : AirbourneState
     public override void Enter()
     {
         base.Enter();
-        keepJumping = true;
+        character.playerInputActions.Player.Jump.canceled += StopJumping;
+        character.wantjump = false;
+
         horizontalForce = character.horizontalWallJumpForce;
         verticalForce = character.verticalWallJumpForce;
         keepJumpingTimer = character.wallJumpTimer;
-        character.playerInputActions.Player.Jump.canceled += StopJumping;
+        if (character.playerInputActions.Player.Jump.ReadValue<float>() > 0f) keepJumping = true;
         WallJump(horizontalForce, verticalForce);
     }
 
