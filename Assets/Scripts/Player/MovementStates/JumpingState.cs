@@ -30,10 +30,12 @@ public class JumpingState : AirbourneState
     public override void Enter()
     {
         base.Enter();
+        character.wantjump = false;
         character.playerInputActions.Player.Jump.canceled += StopJumping;
         keepJumpingTimer = character.longJumpTimer;
+        //keepJumping = true;
+        if (Keyboard.current.spaceKey.isPressed) keepJumping = true;
         Jump(character.jumpForce);
-        keepJumping = true;
     }
 
     public override void Exit()

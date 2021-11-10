@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Character : MonoBehaviour
 {
@@ -9,10 +10,19 @@ public class Character : MonoBehaviour
     public float airMovementSpeed = 20f;
     public float jumpForce = 30f;
     public float doubleJumpForce = 20f;
+    [Range(0f, 0.5f)]
+    [SerializeField]
+    private float jumpInputTimerMax;
+    private float jumpInputTimer;
+    [HideInInspector]
+    public bool wantjump;
+
     [Header("Longjumping")]
     [Range(0f, 10f)]
     public float longJumpMultiplier = 4f;
     public float longJumpTimer;
+
+
 
     [Header("Walljumping")]
     [Range(0f, 1f)]
@@ -66,6 +76,7 @@ public class Character : MonoBehaviour
         cAnimController = GetComponent<CharacterAnimationController>();
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
+        playerInputActions.Player.Jump.started += StartJumpInputTimer;
         InitializeStates();
     }
 
@@ -81,6 +92,8 @@ public class Character : MonoBehaviour
     {
         // PhysicsUpdate Loop of movementSM
         movementSm.CurrentState.PhysicsUpdate();
+        if (jumpInputTimer > 0f) jumpInputTimer -= Time.fixedDeltaTime;
+        if (jumpInputTimer <= 0f) wantjump = false;
     }
 
     // Method for flipping character
@@ -88,6 +101,12 @@ public class Character : MonoBehaviour
     {
         facingRight = !facingRight;
         transform.Rotate(0f, 180f, 0f);
+    }
+
+    private void StartJumpInputTimer(InputAction.CallbackContext context)
+    {
+        wantjump = true;
+        jumpInputTimer = jumpInputTimerMax;
     }
 
     // Method used for moving the character left and right
