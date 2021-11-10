@@ -6484,11 +6484,16 @@ MonoBehaviour:
   airMovementSpeed: 200
   jumpForce: 50
   doubleJumpForce: 10
-  jumpInputTimerMax: 0.11
+  jumpInputTimerMax: 0.097
   wantjump: 0
+  hasPressedRight: 0
+  hasPressedLeft: 0
+  horizontalInputTimer: 0.3
+  hasPressedRightTimer: 0
+  hasPressedLeftTimer: 0
   longJumpMultiplier: 4
   longJumpTimer: 0.35
-  wallSlideInputThresh: 0.75
+  wallSlideInputThresh: 0
   horizontalWallJumpForce: 50
   verticalWallJumpForce: 90
   wallJumpTimer: 0.5
@@ -6497,6 +6502,7 @@ MonoBehaviour:
   wallslidingGravity: 2
   groundCheckRadius: 0.14
   ceilingCheckRadius: 0.05
+  frontCheckRadius: 0.23
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64

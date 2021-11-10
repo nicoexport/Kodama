@@ -36,6 +36,18 @@ public class AirbourneState : State
         base.HandleInput();
         horizontalInput = character.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
         verticalInput = character.playerInputActions.Player.Movement.ReadValue<Vector2>().y;
+
+        // starting input timer for horizontal input
+        if (horizontalInput > 0f)
+        {
+            character.hasPressedRight = true;
+            character.hasPressedRightTimer = character.horizontalInputTimer;
+        }
+        if (horizontalInput < 0f)
+        {
+            character.hasPressedLeft = true;
+            character.hasPressedLeftTimer = character.horizontalInputTimer;
+        }
     }
 
     public override void LogicUpdate()
@@ -45,7 +57,7 @@ public class AirbourneState : State
         if (touchingCeiling) stateMachine.ChangeState(character.falling);
         if (touchingWall)
         {
-            if ((character.facingRight && horizontalInput > character.wallSlideInputThresh) || (!character.facingRight && horizontalInput < -character.wallSlideInputThresh)) stateMachine.ChangeState(character.wallsliding);
+            if ((character.facingRight && character.hasPressedRight) || (!character.facingRight && character.hasPressedLeft)) stateMachine.ChangeState(character.wallsliding);
         }
 
         if (horizontalInput > 0 && !character.facingRight) character.Flip();
@@ -58,7 +70,7 @@ public class AirbourneState : State
         // ground checking
         grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
         //wallchecking
-        touchingWall = character.CheckCollisionOverlap(character.frontCheck.position, character.groundCheckRadius);
+        touchingWall = character.CheckCollisionOverlap(character.frontCheck.position, character.frontCheckRadius);
         // ceiling checking
         touchingCeiling = (character.CheckCollisionOverlap(character.ceilingCheck.position, character.ceilingCheckRadius)) || (character.CheckCollisionOverlap(character.ceilingCheck1.position, character.ceilingCheckRadius));
         // Air strafing

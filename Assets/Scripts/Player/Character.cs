@@ -16,7 +16,19 @@ public class Character : MonoBehaviour
     private float jumpInputTimer;
     [HideInInspector]
     public bool wantjump;
-    // public bool keepJumping;
+
+    [HideInInspector]
+    public bool hasPressedRight;
+    [HideInInspector]
+    public bool hasPressedLeft;
+
+    [Range(0f, 0.5f)]
+    public float horizontalInputTimer = 0.15f;
+    [HideInInspector]
+    public float hasPressedRightTimer;
+    [HideInInspector]
+    public float hasPressedLeftTimer;
+
 
     [Header("Longjumping")]
     [Range(0f, 10f)]
@@ -41,6 +53,7 @@ public class Character : MonoBehaviour
     [Header("Collision Checks")]
     public float groundCheckRadius;
     public float ceilingCheckRadius;
+    public float frontCheckRadius = 0.23f;
     [SerializeField]
     private LayerMask whatIsGround;
 
@@ -93,8 +106,7 @@ public class Character : MonoBehaviour
     {
         // PhysicsUpdate Loop of movementSM
         movementSm.CurrentState.PhysicsUpdate();
-        if (jumpInputTimer > 0f) jumpInputTimer -= Time.fixedDeltaTime;
-        if (jumpInputTimer <= 0f) wantjump = false;
+        CountDownInputTimer();
     }
 
     // Method for flipping character
@@ -153,12 +165,23 @@ public class Character : MonoBehaviour
         movementSm.Initialize(standing);
     }
 
+    private void CountDownInputTimer()
+    {
+        if (jumpInputTimer > 0f) jumpInputTimer -= Time.fixedDeltaTime;
+        if (jumpInputTimer <= 0f) wantjump = false;
+        if (hasPressedLeftTimer > 0f) hasPressedLeftTimer -= Time.fixedDeltaTime;
+        if (hasPressedLeftTimer <= 0f) hasPressedLeft = false;
+        if (hasPressedRightTimer > 0f) hasPressedRightTimer -= Time.fixedDeltaTime;
+        if (hasPressedRightTimer <= 0f) hasPressedRight = false;
+
+    }
+
     // visualizing the groundCheckRadius
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(frontCheck.position, groundCheckRadius);
+        Gizmos.DrawWireSphere(frontCheck.position, frontCheckRadius);
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(ceilingCheck.position, ceilingCheckRadius);
         Gizmos.DrawWireSphere(ceilingCheck1.position, ceilingCheckRadius);
