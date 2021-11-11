@@ -6483,7 +6483,7 @@ MonoBehaviour:
   movementSpeed: 200
   airMovementSpeed: 200
   jumpForce: 50
-  doubleJumpForce: 10
+  groundDecelDrag: 0
   jumpInputTimerMax: 0.097
   wantjump: 0
   hasPressedRight: 0
@@ -6611,7 +6611,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b40407e5e3e632c4796ddb8a1b421237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentAnimState: 
 --- !u!95 &2120855842
 Animator:
   serializedVersion: 3

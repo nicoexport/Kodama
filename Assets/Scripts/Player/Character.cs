@@ -9,7 +9,7 @@ public class Character : MonoBehaviour
     public float movementSpeed = 20f;
     public float airMovementSpeed = 20f;
     public float jumpForce = 30f;
-    public float doubleJumpForce = 20f;
+    public float groundDecelDrag;
     [Range(0f, 0.5f)]
     [SerializeField]
     private float jumpInputTimerMax;
@@ -151,7 +151,7 @@ public class Character : MonoBehaviour
 
     public void UpdateVisuals()
     {
-        cAnimController.SetAnimationeState(movementSm.CurrentState, rb.velocity.x);
+        cAnimController.SetAnimationeState(movementSm.CurrentState, playerInputActions.Player.Movement.ReadValue<Vector2>().x);
     }
 
     private void InitializeStates()

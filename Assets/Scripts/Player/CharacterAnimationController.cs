@@ -5,9 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class CharacterAnimationController : MonoBehaviour
 {
-    [SerializeField]
     private string currentAnimState;
-
     private Animator animator;
 
     const string idle = "IDLE";
@@ -22,14 +20,14 @@ public class CharacterAnimationController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void SetAnimationeState(State state, float horizontalVelocity)
+    public void SetAnimationeState(State state, float horizontalInput)
     {
         string newAnimState = idle;
 
         switch (state.ToString())
         {
             case "StandingState":
-                if (Mathf.Abs(horizontalVelocity) >= 0.1f) newAnimState = running;
+                if (Mathf.Abs(horizontalInput) > 0f) newAnimState = running;
                 else newAnimState = idle;
                 break;
 
