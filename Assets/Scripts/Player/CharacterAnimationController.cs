@@ -20,15 +20,18 @@ public class CharacterAnimationController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void SetAnimationeState(State state, float horizontalInput)
+    public void SetAnimationeState(State state, float horizontalInput, float xVelocity)
     {
         string newAnimState = idle;
 
         switch (state.ToString())
         {
             case "StandingState":
-                if (Mathf.Abs(horizontalInput) > 0f) newAnimState = running;
-                else newAnimState = idle;
+                newAnimState = idle;
+                break;
+
+            case "RunningState":
+                newAnimState = running;
                 break;
 
             case "FallingState":

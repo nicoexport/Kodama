@@ -13,7 +13,8 @@ public class StandingState : GroundedState
     public override void Enter()
     {
         base.Enter();
-        speed = character.movementSpeed;
+        speed = 0f;
+        running = false;
         character.playerInputActions.Player.Jump.started += ChangeToJump;
     }
 
@@ -32,6 +33,7 @@ public class StandingState : GroundedState
     {
         base.LogicUpdate();
         if (character.wantjump) stateMachine.ChangeState(character.jumping);
+        if (running && stateMachine.CurrentState != character.running) stateMachine.ChangeState(character.running);
     }
 
     private void ChangeToJump(InputAction.CallbackContext context)

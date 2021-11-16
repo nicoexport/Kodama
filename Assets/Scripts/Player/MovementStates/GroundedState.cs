@@ -9,6 +9,7 @@ public class GroundedState : State
     private float additionalDrag;
 
     protected float speed;
+    protected bool running;
 
     public GroundedState(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
@@ -41,6 +42,8 @@ public class GroundedState : State
         if (!grounded) stateMachine.ChangeState(character.falling);
         if (horizontalInput > 0 && !character.facingRight) character.Flip();
         if (horizontalInput < 0 && character.facingRight) character.Flip();
+        if (Mathf.Abs(horizontalInput) > 0f) running = true;
+        else running = false;
     }
 
     public override void PhysicsUpdate()

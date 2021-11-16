@@ -73,10 +73,12 @@ public class Character : MonoBehaviour
     public bool facingRight = true;
 
     public StandingState standing;
+    public RunningState running;
     public JumpingState jumping;
     public FallingState falling;
     public WallslidingState wallsliding;
     public WalljumpingState wallJumping;
+
 
     private StateMachine movementSm;
     private CharacterAnimationController cAnimController;
@@ -151,13 +153,14 @@ public class Character : MonoBehaviour
 
     public void UpdateVisuals()
     {
-        cAnimController.SetAnimationeState(movementSm.CurrentState, playerInputActions.Player.Movement.ReadValue<Vector2>().x);
+        cAnimController.SetAnimationeState(movementSm.CurrentState, playerInputActions.Player.Movement.ReadValue<Vector2>().x, rb.velocity.x);
     }
 
     private void InitializeStates()
     {
         movementSm = new StateMachine();
         standing = new StandingState(movementSm, this);
+        running = new RunningState(movementSm, this);
         jumping = new JumpingState(movementSm, this);
         falling = new FallingState(movementSm, this);
         wallsliding = new WallslidingState(movementSm, this);
