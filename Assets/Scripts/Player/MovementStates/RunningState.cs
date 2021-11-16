@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunningState : StandingState
+public class RunningState : GroundedState
 {
     public RunningState(StateMachine stateMachine, Character character) : base(stateMachine, character)
     {
@@ -19,6 +19,7 @@ public class RunningState : StandingState
     public override void Exit()
     {
         base.Exit();
+        running = false;
     }
 
     public override void HandleInput()

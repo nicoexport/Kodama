@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GroundedState : State
 {
     private float horizontalInput;
-    private bool grounded;
     private float additionalDrag;
 
+    protected bool grounded;
     protected float speed;
     protected bool running;
 
@@ -22,12 +23,14 @@ public class GroundedState : State
         additionalDrag = character.groundDecelDrag;
         grounded = true;
         horizontalInput = 0.0f;
+        character.playerInputActions.Player.Jump.started += ChangeToJump;
         character.ResetMoveParams();
     }
 
     public override void Exit()
     {
         base.Exit();
+        character.playerInputActions.Player.Jump.started -= ChangeToJump;
     }
 
     public override void HandleInput()
@@ -65,6 +68,11 @@ public class GroundedState : State
             }
             character.rb.velocity = newVelocity;
         }
+    }
+
+    private void ChangeToJump(InputAction.CallbackContext context)
+    {
+        stateMachine.ChangeState(character.jumping);
     }
 
 }

@@ -8,6 +8,8 @@ public class Character : MonoBehaviour
     [Header("Movement")]
     public float movementSpeed = 20f;
     public float airMovementSpeed = 20f;
+    [SerializeField]
+    private float maxVelocityX = 23.55f;
     public float jumpForce = 30f;
     public float groundDecelDrag;
     [Range(0f, 0.5f)]
@@ -130,6 +132,8 @@ public class Character : MonoBehaviour
         // rb.velocity = new Vector2(horizontalMove * speed * Time.deltaTime * 10f, rb.velocity.y);
         var newForce = new Vector2(horizontalMove * Time.deltaTime * speed, 0f);
         rb.AddForce(newForce, ForceMode2D.Impulse);
+        if (rb.velocity.x > maxVelocityX) rb.velocity = new Vector2(maxVelocityX, rb.velocity.y);
+        else if (rb.velocity.x < -maxVelocityX) rb.velocity = new Vector2(-maxVelocityX, rb.velocity.y);
     }
 
     public void Jump(float jumpForce)
@@ -153,7 +157,7 @@ public class Character : MonoBehaviour
 
     public void UpdateVisuals()
     {
-        cAnimController.SetAnimationeState(movementSm.CurrentState, playerInputActions.Player.Movement.ReadValue<Vector2>().x, rb.velocity.x);
+        cAnimController.SetAnimationeState(movementSm.CurrentState, playerInputActions.Player.Movement.ReadValue<Vector2>().x, rb.velocity.x, maxVelocityX);
     }
 
     private void InitializeStates()
@@ -177,6 +181,11 @@ public class Character : MonoBehaviour
         if (hasPressedRightTimer > 0f) hasPressedRightTimer -= Time.fixedDeltaTime;
         if (hasPressedRightTimer <= 0f) hasPressedRight = false;
 
+    }
+
+    public float GetMaxVelocityX()
+    {
+        return maxVelocityX;
     }
 
     // visualizing the groundCheckRadius

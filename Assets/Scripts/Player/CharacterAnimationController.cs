@@ -20,10 +20,10 @@ public class CharacterAnimationController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void SetAnimationeState(State state, float horizontalInput, float xVelocity)
+    public void SetAnimationeState(State state, float horizontalInput, float xVelocity, float maxVelocityX)
     {
         string newAnimState = idle;
-
+        animator.speed = 1f;
         switch (state.ToString())
         {
             case "StandingState":
@@ -32,6 +32,7 @@ public class CharacterAnimationController : MonoBehaviour
 
             case "RunningState":
                 newAnimState = running;
+                animator.speed = Mathf.Abs(xVelocity) / maxVelocityX;
                 break;
 
             case "FallingState":
