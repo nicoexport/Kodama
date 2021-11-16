@@ -7,8 +7,6 @@ public class WallslidingState : State
 {
     private bool grounded;
     private bool touchingWall;
-
-
     private float horizontalInput;
     private float speed;
 
@@ -23,6 +21,7 @@ public class WallslidingState : State
         base.Enter();
         character.playerInputActions.Player.Jump.performed += ChangeToWallJumping;
         touchingWall = true;
+        grounded = false;
         speed = character.movementSpeed;
         //For now with Gravity scale maybe use custom friction to slow down upwards momentum too
         character.rb.gravityScale = character.wallslidingGravity;
@@ -53,8 +52,8 @@ public class WallslidingState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
         touchingWall = character.CheckCollisionOverlap(character.frontCheck.position, character.frontCheckRadius);
+        grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
         character.Move(horizontalInput, speed);
     }
 

@@ -6512,7 +6512,7 @@ MonoBehaviour:
   ceilingCheck: {fileID: 841134160}
   ceilingCheck1: {fileID: 1952422799}
   rb: {fileID: 2120855836}
-  debugStates: 0
+  debugStates: 1
   facingRight: 1
 --- !u!70 &2120855838
 CapsuleCollider2D:

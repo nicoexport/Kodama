@@ -8,7 +8,7 @@ public class AirbourneState : State
     private float horizontalInput;
     private float verticalInput;
     private float airStrafeSpeed;
-    protected bool grounded;
+    public bool grounded;
     public bool touchingWall;
     public bool touchingCeiling;
 
