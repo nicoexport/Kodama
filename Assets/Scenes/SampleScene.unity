@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160435351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: -0.029, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2120855840}
@@ -472,7 +472,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1433635483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.39, y: -0.187, z: 0}
+  m_LocalPosition: {x: 0.311, y: -0.262, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2120855840}
@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 1630942976}
   - component: {fileID: 1630942975}
   m_Layer: 6
-  m_Name: Tilemap
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -609,7 +609,7 @@ CompositeCollider2D:
   m_GameObject: {fileID: 1630942973}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 667b5c44ffecb0b48ac038270864ce05, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -884,7 +884,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 667b5c44ffecb0b48ac038270864ce05, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -9958,9 +9958,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0400123cc8081494c8145f6d87b8bd96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 200
-  airMovementSpeed: 200
-  maxVelocityX: 23.55
+  movementSpeed: 250
+  airMovementSpeed: 250
+  maxVelocityX: 100
   jumpForce: 50
   groundDecelDrag: 15
   jumpInputTimerMax: 0.1
@@ -9990,7 +9990,8 @@ MonoBehaviour:
   ceilingCheck: {fileID: 841134160}
   ceilingCheck1: {fileID: 1952422799}
   rb: {fileID: 2120855836}
-  debugStates: 1
+  debugStates: 0
+  logVelocity: 1
   facingRight: 1
 --- !u!70 &2120855838
 CapsuleCollider2D:
@@ -10005,8 +10006,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.026473522, y: -0.22257233}
-  m_Size: {x: 0.8156309, y: 1.5731335}
+  m_Offset: {x: -0.032744408, y: -0.25183582}
+  m_Size: {x: 0.694397, y: 1.5062466}
   m_Direction: 0
 --- !u!212 &2120855839
 SpriteRenderer:
