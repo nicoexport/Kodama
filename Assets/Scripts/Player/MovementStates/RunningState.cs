@@ -31,7 +31,7 @@ public class RunningState : GroundedState
     {
         base.LogicUpdate();
         if (character.wantjump) stateMachine.ChangeState(character.jumping);
-        if (!running) stateMachine.ChangeState(character.standing);
+        else if (!running) stateMachine.ChangeState(character.standing);
     }
 
     public override void PhysicsUpdate()
