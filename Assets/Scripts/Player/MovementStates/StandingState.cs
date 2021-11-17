@@ -37,7 +37,7 @@ public class StandingState : GroundedState
     {
         base.LogicUpdate();
         if (character.wantjump) stateMachine.ChangeState(character.jumping);
-        if (running && stateMachine.CurrentState != character.running) stateMachine.ChangeState(character.running);
+        else if (running && stateMachine.CurrentState != character.running) stateMachine.ChangeState(character.running);
     }
 }
 
