@@ -69,7 +69,11 @@ public class Character : MonoBehaviour
     public Rigidbody2D rb;
 
     [Header("Debugging")]
+    [SerializeField]
     public bool debugStates;
+    [SerializeField]
+    private bool logVelocity;
+
 
     [HideInInspector]
     public bool facingRight = true;
@@ -134,6 +138,7 @@ public class Character : MonoBehaviour
         rb.AddForce(newForce, ForceMode2D.Impulse);
         if (rb.velocity.x > maxVelocityX) rb.velocity = new Vector2(maxVelocityX, rb.velocity.y);
         else if (rb.velocity.x < -maxVelocityX) rb.velocity = new Vector2(-maxVelocityX, rb.velocity.y);
+        if (logVelocity) Debug.Log("Velocity x: " + rb.velocity.x + " y: " + rb.velocity.y);
     }
 
     public void Jump(float jumpForce)
