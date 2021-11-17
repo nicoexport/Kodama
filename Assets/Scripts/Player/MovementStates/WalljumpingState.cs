@@ -17,7 +17,7 @@ public class WalljumpingState : AirbourneState
 
     private void WallJump(float horizontalForce, float verticalForce)
     {
-        character.transform.Translate(Vector2.left * (character.groundCheckRadius + 0.1f));
+        character.transform.Translate(Vector2.left * (character.frontCheckRadius + 0.1f));
         if (character.facingRight)
         {
             // character.rb.velocity = new Vector2(-horizontalForce, verticalForce);
@@ -42,7 +42,7 @@ public class WalljumpingState : AirbourneState
         base.Enter();
         character.playerInputActions.Player.Jump.canceled += StopJumping;
         character.wantjump = false;
-
+        touchingWall = false;
         horizontalForce = character.horizontalWallJumpForce;
         verticalForce = character.verticalWallJumpForce;
         keepJumpingTimer = character.wallJumpTimer;

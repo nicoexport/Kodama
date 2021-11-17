@@ -54,8 +54,8 @@ public class AirbourneState : State
     {
         base.LogicUpdate();
         if (grounded) stateMachine.ChangeState(character.standing);
-        if (touchingCeiling) stateMachine.ChangeState(character.falling);
-        if (touchingWall)
+        else if (touchingCeiling) stateMachine.ChangeState(character.falling);
+        else if (touchingWall)
         {
             if ((character.facingRight && character.hasPressedRight) || (!character.facingRight && character.hasPressedLeft)) stateMachine.ChangeState(character.wallsliding);
         }

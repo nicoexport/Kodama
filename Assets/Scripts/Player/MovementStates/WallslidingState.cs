@@ -44,9 +44,9 @@ public class WallslidingState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (!touchingWall) stateMachine.ChangeState(character.falling);
         if (grounded) stateMachine.ChangeState(character.standing);
-        if (character.wantjump && touchingWall) stateMachine.ChangeState(character.wallJumping);
+        else if (!touchingWall && !character.wantjump) stateMachine.ChangeState(character.falling);
+        else if (character.wantjump && touchingWall) stateMachine.ChangeState(character.wallJumping);
     }
 
     public override void PhysicsUpdate()
