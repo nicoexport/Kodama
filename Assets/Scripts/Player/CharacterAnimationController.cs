@@ -15,13 +15,14 @@ public class CharacterAnimationController : MonoBehaviour
     const string doubleJumping = "DOUBLEJUMPING";
     const string wallSliding = "WALLSLIDING";
     const string wallJumping = "WALLJUMPING";
+    const string walkingAgainstWall = "WALKING_AGAINST_WALL";
 
     private void Start()
     {
         animator = GetComponent<Animator>();
     }
 
-    public void SetAnimationeState(State state, float horizontalInput, float xVelocity, float maxVelocityX)
+    public void SetAnimationeState(State state, float horizontalInput, float xVelocity, float maxVelocityX, bool touchingWall)
     {
         string newAnimState = idle;
         switch (state.ToString())
@@ -31,8 +32,12 @@ public class CharacterAnimationController : MonoBehaviour
                 break;
 
             case "RunningState":
-                newAnimState = running;
-                animator.SetFloat("runSpeed", Mathf.Abs(xVelocity) / maxVelocityX);
+                if (touchingWall) newAnimState = walkingAgainstWall;
+                else
+                {
+                    newAnimState = running;
+                    animator.SetFloat("runSpeed", Mathf.Abs(xVelocity) / maxVelocityX);
+                }
                 break;
 
             case "FallingState":
