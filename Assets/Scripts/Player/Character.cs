@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CharacterLifeHandler))]
 public class Character : MonoBehaviour
 {
     [Header("Movement")]
@@ -89,6 +90,7 @@ public class Character : MonoBehaviour
     private StateMachine movementSm;
     private CharacterAnimationController cAnimController;
     public PlayerInputActions playerInputActions { get; private set; }
+    public CharacterLifeHandler LifeHandler { get; private set; }
 
 
 
@@ -96,6 +98,7 @@ public class Character : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         cAnimController = GetComponent<CharacterAnimationController>();
+        LifeHandler = GetComponent<CharacterLifeHandler>();
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
         playerInputActions.Player.Jump.started += StartJumpInputTimer;
