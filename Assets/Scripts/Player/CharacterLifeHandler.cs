@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class CharacterLifeHandler : MonoBehaviour
 {
-    private int health;
+    [SerializeField]
+    private int defaultHealth = 1;
+    public int health { get; private set; }
 
     public void Start()
     {
-        health = 1;
+        health = defaultHealth;
     }
 
     public void TakeDamage(int amount)

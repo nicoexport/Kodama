@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterLifeHandler))]
 public class Character : MonoBehaviour
@@ -162,6 +163,7 @@ public class Character : MonoBehaviour
     {
         return Physics2D.OverlapCircle(point, radius, whatIsGround);
     }
+
 
     public void UpdateVisuals()
     {
