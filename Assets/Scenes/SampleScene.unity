@@ -9838,6 +9838,14 @@ PrefabInstance:
       propertyPath: logVelocity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5291515768158270422, guid: cb00620d02a672a4a9a912ce652757d5, type: 3}
+      propertyPath: wallSlideInputThresh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5291515768158270422, guid: cb00620d02a672a4a9a912ce652757d5, type: 3}
+      propertyPath: defaultMovementValues
+      value: 
+      objectReference: {fileID: 11400000, guid: 8ec6a62dd6515604bba2b0e094192ef4, type: 2}
     - target: {fileID: 5291515768158270443, guid: cb00620d02a672a4a9a912ce652757d5, type: 3}
       propertyPath: m_RootOrder
       value: 0

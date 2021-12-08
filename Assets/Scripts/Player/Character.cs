@@ -7,52 +7,40 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(CharacterLifeHandler))]
 public class Character : MonoBehaviour
 {
-    [Header("Movement")]
-    public float movementSpeed = 20f;
-    public float airMovementSpeed = 20f;
     [SerializeField]
-    private float maxVelocityX = 23.55f;
-    public float jumpForce = 30f;
-    public float groundDecelDrag;
-    [Range(0f, 0.5f)]
-    [SerializeField]
+    private CharacterMovementValues defaultMovementValues;
+    public float movementSpeed { get; private set; }
+    public float airMovementSpeed { get; private set; }
+    public float maxVelocityX { get; private set; }
+    public float jumpForce { get; private set; }
+    public float groundDecelDrag { get; private set; }
     private float jumpInputTimerMax;
     private float jumpInputTimer;
-    [HideInInspector]
-    public bool wantjump;
 
-    [HideInInspector]
-    public bool hasPressedRight;
-    [HideInInspector]
-    public bool hasPressedLeft;
-
-    [Range(0f, 0.5f)]
-    public float horizontalInputTimer = 0.15f;
+    public float horizontalInputTimer { get; private set; }
     [HideInInspector]
     public float hasPressedRightTimer;
     [HideInInspector]
     public float hasPressedLeftTimer;
 
+    public float longJumpMultiplier { get; private set; }
+    public float longJumpTimer { get; private set; }
 
-    [Header("Longjumping")]
-    [Range(0f, 10f)]
-    public float longJumpMultiplier = 4f;
-    public float longJumpTimer;
+    public float wallSlideInputThresh { get; private set; }
+    public float horizontalWallJumpForce { get; private set; }
+    public float verticalWallJumpForce { get; private set; }
+    public float wallJumpTimer { get; private set; }
 
+    public float normalGravity { get; private set; }
+    public float fastFallGravity { get; private set; }
+    public float wallslidingGravity { get; private set; }
 
-
-    [Header("Walljumping")]
-    [Range(0f, 1f)]
-    public float wallSlideInputThresh = 0.75f;
-    public float horizontalWallJumpForce;
-    public float verticalWallJumpForce;
-    public float wallJumpTimer;
-
-    [Header("Gravity Values")]
-    public float normalGravity = 5f;
-    public float fastFallGravity = 8f;
-    public float wallslidingGravity = 2f;
-
+    [HideInInspector]
+    public bool wantjump;
+    [HideInInspector]
+    public bool hasPressedRight;
+    [HideInInspector]
+    public bool hasPressedLeft;
 
     [Header("Collision Checks")]
     public float groundCheckRadius;
@@ -60,8 +48,6 @@ public class Character : MonoBehaviour
     public float frontCheckRadius = 0.23f;
     [SerializeField]
     private LayerMask whatIsGround;
-
-
 
     [Header("Refrences")]
     public Transform groundCheck;
@@ -97,6 +83,7 @@ public class Character : MonoBehaviour
 
     void Awake()
     {
+        ReadMovementValues(defaultMovementValues);
         rb = GetComponent<Rigidbody2D>();
         cAnimController = GetComponent<CharacterAnimationController>();
         LifeHandler = GetComponent<CharacterLifeHandler>();
@@ -181,6 +168,27 @@ public class Character : MonoBehaviour
         wallsliding = new WallslidingState(movementSm, this);
         wallJumping = new WalljumpingState(movementSm, this);
         movementSm.Initialize(standing);
+    }
+
+    private void ReadMovementValues(CharacterMovementValues values)
+    {
+        movementSpeed = values.moveSpeed;
+        airMovementSpeed = values.airMoveSpeed;
+        maxVelocityX = values.maxVelocityX;
+        groundDecelDrag = values.groundDecelDrag;
+        jumpForce = values.jumpForce;
+        jumpInputTimerMax = values.jumpInputTimerMax;
+        horizontalInputTimer = values.horizontalInputTimer;
+        longJumpMultiplier = values.longJumpMultiplier;
+        longJumpTimer = values.longJumpTimer;
+        wallSlideInputThresh = values.wallSlideInputThresh;
+        horizontalWallJumpForce = values.horizontalWallJumpForce;
+        verticalWallJumpForce = values.verticalWallJumpForce;
+        wallJumpTimer = values.wallJumpTimer;
+        normalGravity = values.normalGravity;
+        fastFallGravity = values.fastFallGravity;
+        wallslidingGravity = values.wallslidingGravity;
+        Debug.Log(longJumpTimer);
     }
 
     private void CountDownInputTimer()
