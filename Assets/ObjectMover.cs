@@ -32,7 +32,6 @@ public class ObjectMover : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log("Collision Enter");
         if (movePlayer && col.collider.tag == "Player")
         {
             col.collider.transform.SetParent(transform);
@@ -41,7 +40,6 @@ public class ObjectMover : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D col)
     {
-        Debug.Log("Collision Exit");
         if (col.collider.tag == "Player")
         {
             col.collider.transform.SetParent(null);
