@@ -8,7 +8,11 @@ public class ObjectVanisher : MonoBehaviour
     [SerializeField]
     private GameObject obj;
     [SerializeField]
+    private bool playOnAwake = false;
+    [SerializeField]
     private bool reappear;
+    [SerializeField]
+    private bool cycle = false;
     [SerializeField]
     private float disappearDelay;
     [SerializeField]
@@ -19,6 +23,12 @@ public class ObjectVanisher : MonoBehaviour
     private UnityEvent vanishedEvent;
     [SerializeField]
     private UnityEvent reappearEvent;
+
+    private void Awake()
+    {
+        if (playOnAwake) VanishObject();
+        if (cycle) reappear = true;
+    }
 
     public void VanishObject()
     {
@@ -36,6 +46,7 @@ public class ObjectVanisher : MonoBehaviour
             yield return new WaitForSeconds(reappearDelay);
             obj.SetActive(true);
             reappearEvent.Invoke();
+            if (cycle) VanishObject();
         }
     }
 }
