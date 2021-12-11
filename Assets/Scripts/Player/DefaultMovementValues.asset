@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 250
   airMoveSpeed: 250
-  maxVelocityX: 25
+  maxVelocityX: 40
   groundDecelDrag: 15
   jumpForce: 50
   jumpInputTimerMax: 0.1
