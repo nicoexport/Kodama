@@ -302,7 +302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   point1: {fileID: 2802443393711460145}
   point2: {fileID: 2802443394581834188}
-  force: 50
+  force: 40
   vertical: 1
   down: 1
   reverse: 1

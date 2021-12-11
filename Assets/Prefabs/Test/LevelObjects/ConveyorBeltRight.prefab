@@ -270,8 +270,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   point1: {fileID: 6236995761491125857}
   point2: {fileID: 6236995762764693660}
-  force: 23
+  force: 40
   vertical: 0
+  down: 0
   reverse: 0
 --- !u!1 &6236995762339119394
 GameObject:
