@@ -145,11 +145,21 @@ public class Character : MonoBehaviour
         rb.gravityScale = normalGravity;
     }
 
+    public void ChangeState(State state)
+    {
+        movementSm.ChangeState(state);
+    }
+
+    public State GetState()
+    {
+        return movementSm.CurrentState;
+    }
     // Method checking for a collision with ground returning a boolean
     public bool CheckCollisionOverlap(Vector3 point, float radius)
     {
         return Physics2D.OverlapCircle(point, radius, whatIsGround);
     }
+
 
 
     public void UpdateVisuals()

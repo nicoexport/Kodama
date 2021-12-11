@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1673802251520667895}
   - component: {fileID: 1673802251520667894}
   - component: {fileID: 1673802251520667893}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Conveyor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
