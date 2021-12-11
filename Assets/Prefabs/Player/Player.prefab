@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 5291515768158270441}
   - component: {fileID: 5291515768158270423}
   - component: {fileID: 5291515768158270421}
+  - component: {fileID: 8557098433793650875}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -83,27 +84,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0400123cc8081494c8145f6d87b8bd96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 250
-  airMovementSpeed: 250
-  maxVelocityX: 25
-  jumpForce: 50
-  groundDecelDrag: 15
-  jumpInputTimerMax: 0.1
+  defaultMovementValues: {fileID: 0}
+  hasPressedRightTimer: 0
+  hasPressedLeftTimer: 0
   wantjump: 0
   hasPressedRight: 0
   hasPressedLeft: 0
-  horizontalInputTimer: 0.3
-  hasPressedRightTimer: 0
-  hasPressedLeftTimer: 0
-  longJumpMultiplier: 4
-  longJumpTimer: 0.35
-  wallSlideInputThresh: 0
-  horizontalWallJumpForce: 50
-  verticalWallJumpForce: 90
-  wallJumpTimer: 0.5
-  normalGravity: 7
-  fastFallGravity: 10
-  wallslidingGravity: 2
   groundCheckRadius: 0.14
   ceilingCheckRadius: 0.05
   frontCheckRadius: 0.23
@@ -251,6 +237,18 @@ CapsuleCollider2D:
   m_Offset: {x: -0.032744408, y: -0.25183582}
   m_Size: {x: 0.694397, y: 1.5062466}
   m_Direction: 0
+--- !u!114 &8557098433793650875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5291515768158270416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84f958a29c40efd4ba76b2b3df7503d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5291515768323021125
 GameObject:
   m_ObjectHideFlags: 0
