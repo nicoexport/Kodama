@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Door : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Door : MonoBehaviour
     private GameObject door;
     [SerializeField]
     private int neededKeys = 1;
+    public UnityEvent onKeysUsed;
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -15,6 +17,7 @@ public class Door : MonoBehaviour
         var inv = col.GetComponent<CharacterInventory>();
         if (inv.GetKeys() < neededKeys) return;
         inv.AddKeys(-neededKeys);
+        onKeysUsed.Invoke();
         door.SetActive(false);
     }
 }

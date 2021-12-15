@@ -84,7 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0400123cc8081494c8145f6d87b8bd96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMovementValues: {fileID: 0}
+  defaultMovementValues: {fileID: 11400000, guid: 8ec6a62dd6515604bba2b0e094192ef4, type: 2}
+  rtSet: {fileID: 11400000, guid: b2a60054d550766469a4e0848d95208c, type: 2}
   hasPressedRightTimer: 0
   hasPressedLeftTimer: 0
   wantjump: 0
@@ -102,7 +103,7 @@ MonoBehaviour:
   ceilingCheck1: {fileID: 5291515768323021124}
   rb: {fileID: 5291515768158270423}
   debugStates: 0
-  logVelocity: 1
+  logVelocity: 0
   facingRight: 1
 --- !u!114 &2007363998516698221
 MonoBehaviour:
@@ -249,6 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f958a29c40efd4ba76b2b3df7503d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keys: 0
 --- !u!1 &5291515768323021125
 GameObject:
   m_ObjectHideFlags: 0

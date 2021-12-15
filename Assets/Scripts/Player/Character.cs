@@ -9,6 +9,9 @@ public class Character : MonoBehaviour
 {
     [SerializeField]
     private CharacterMovementValues defaultMovementValues;
+    [SerializeField]
+    private RuntimeSet rtSet;
+
     public float movementSpeed { get; private set; }
     public float airMovementSpeed { get; private set; }
     public float maxVelocityX { get; private set; }
@@ -91,6 +94,7 @@ public class Character : MonoBehaviour
         playerInputActions.Player.Enable();
         playerInputActions.Player.Jump.started += StartJumpInputTimer;
         InitializeStates();
+        rtSet.SetCurrentCharacter(this);
     }
 
     public void Update()
