@@ -16,6 +16,7 @@ public class JumpingState : AirbourneState
 
     private void Jump(float jumpForce)
     {
+        if (character == null) return;
         character.transform.Translate(Vector2.up * (character.groundCheckRadius + 0.1f));
         var force = new Vector2(0f, jumpForce);
         character.rb.AddForce(force, ForceMode2D.Impulse);

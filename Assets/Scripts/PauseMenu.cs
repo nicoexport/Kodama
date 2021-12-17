@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -13,6 +12,8 @@ public class PauseMenu : MonoBehaviour
     RuntimeSet rtSet;
     [SerializeField]
     private Button primaryButton;
+    [SerializeField]
+    private int mainMenuIndex;
 
     private void Start()
     {
@@ -43,6 +44,7 @@ public class PauseMenu : MonoBehaviour
 
     private void InputActionPauseGame(InputAction.CallbackContext context)
     {
+        if (canvas == null) return;
         PauseGame();
     }
 
@@ -58,12 +60,22 @@ public class PauseMenu : MonoBehaviour
 
     private void InputActionResumeGame(InputAction.CallbackContext context)
     {
+        if (canvas == null) return;
         ResumeGame();
     }
 
     public void QuitGame()
     {
+        UnRegisterInputActions();
+        ResumeGame();
         Application.Quit();
+    }
+
+    public void ReturnToMainMenu()
+    {
+        UnRegisterInputActions();
+        ResumeGame();
+        SceneManager.LoadSceneAsync(mainMenuIndex);
     }
 
     private void RegisterInputActions()
@@ -75,7 +87,7 @@ public class PauseMenu : MonoBehaviour
 
     private void UnRegisterInputActions()
     {
-        if (rtSet.CurrentCharacter.playerInputActions == null) return;
+        //if (rtSet.CurrentCharacter.playerInputActions == null) return;
         rtSet.CurrentCharacter.playerInputActions.Player.Pause.started -= InputActionPauseGame;
         rtSet.CurrentCharacter.playerInputActions.PauseMenu.Unpause.started -= InputActionResumeGame;
     }
