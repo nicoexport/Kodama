@@ -193,6 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 6712541553160822586}
   rtSet: {fileID: 11400000, guid: b2a60054d550766469a4e0848d95208c, type: 2}
+  primaryButton: {fileID: 6712541552493720944}
 --- !u!1 &6712541552402711539
 GameObject:
   m_ObjectHideFlags: 0
