@@ -17,18 +17,17 @@ public class PauseMenu : MonoBehaviour
     private void Start()
     {
         canvas.gameObject.SetActive(false);
+        RegisterInputActions();
         paused = false;
     }
     private void OnEnable()
     {
-        rtSet.CurrentCharacter.playerInputActions.Player.Pause.started += InputActionPauseGame;
-        rtSet.CurrentCharacter.playerInputActions.PauseMenu.Unpause.started += InputActionResumeGame;
+        RegisterInputActions();
     }
 
     private void OnDisable()
     {
-        rtSet.CurrentCharacter.playerInputActions.Player.Pause.started -= InputActionPauseGame;
-        rtSet.CurrentCharacter.playerInputActions.PauseMenu.Unpause.started -= InputActionResumeGame;
+        UnRegisterInputActions();
     }
 
     public void PauseGame()
@@ -65,6 +64,20 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    private void RegisterInputActions()
+    {
+        if (rtSet.CurrentCharacter.playerInputActions == null) return;
+        rtSet.CurrentCharacter.playerInputActions.Player.Pause.started += InputActionPauseGame;
+        rtSet.CurrentCharacter.playerInputActions.PauseMenu.Unpause.started += InputActionResumeGame;
+    }
+
+    private void UnRegisterInputActions()
+    {
+        if (rtSet.CurrentCharacter.playerInputActions == null) return;
+        rtSet.CurrentCharacter.playerInputActions.Player.Pause.started -= InputActionPauseGame;
+        rtSet.CurrentCharacter.playerInputActions.PauseMenu.Unpause.started -= InputActionResumeGame;
     }
 
 }
