@@ -16,6 +16,7 @@ public class LevelObjectEditor : Editor
 
         level.levelName = EditorGUILayout.TextField("levelName", level.levelName);
         level.levelIndex = EditorGUILayout.IntField("levelIndex", level.levelIndex);
+        level.levelImage = (Sprite)EditorGUILayout.ObjectField("levelImage", level.levelImage, typeof(Sprite), false);
 
         EditorGUI.BeginChangeCheck();
         var newScene = EditorGUILayout.ObjectField("scene", oldScene, typeof(SceneAsset), false) as SceneAsset;
@@ -27,5 +28,6 @@ public class LevelObjectEditor : Editor
             scenePathProperty.stringValue = newPath;
         }
         serializedObject.ApplyModifiedProperties();
+        EditorUtility.SetDirty(level);
     }
 }

@@ -8,6 +8,7 @@ public class LevelObject : ScriptableObject
 {
     public string levelName;
     public int levelIndex;
+    public Sprite levelImage;
     public string scenePath;
     public float RecordTime { get; private set; }
 
