@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(menuName = "LevelObject")]
-public class Level : ScriptableObject
+public class LevelObject : ScriptableObject
 {
-    public string sceneName;
+    public string levelName;
     public int levelIndex;
-    public int buildIndex;
+    public string scenePath;
     public float RecordTime { get; private set; }
 
     public void UpdateRecordTime(float time)

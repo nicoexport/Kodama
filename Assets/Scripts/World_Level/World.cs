@@ -7,13 +7,13 @@ public class World : ScriptableObject
 {
     public string worldName;
     public int worldIndex;
-    public Level[] levels;
+    public LevelObject[] levels;
     public float RecordTime { get; private set; }
 
     public void UpdateRecordTime()
     {
         var time = 0f;
-        foreach (Level level in levels)
+        foreach (LevelObject level in levels)
         {
             time += level.RecordTime;
         }
