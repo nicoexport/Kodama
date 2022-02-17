@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class LevelExit : MonoBehaviour
 {
     [SerializeField]
-    private int nextSceneIndex; // replace with LevelSO that has all information about the next level so the transition screen can use this information 
+    private LevelObject nextLevel;
 
     public void ExitLevel()
     {
-        SceneManager.LoadScene(nextSceneIndex);
+        SceneManager.LoadSceneAsync(nextLevel.scenePath);
     }
 }
