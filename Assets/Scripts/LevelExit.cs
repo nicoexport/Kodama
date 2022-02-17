@@ -10,6 +10,6 @@ public class LevelExit : MonoBehaviour
 
     public void ExitLevel()
     {
-        SceneManager.LoadSceneAsync(nextLevel.scenePath);
+        SceneManager.LoadSceneAsync(nextLevel.ScenePath);
     }
 }

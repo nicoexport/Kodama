@@ -38,7 +38,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(defaultLevel.scenePath);
+        SceneManager.LoadScene(defaultLevel.ScenePath);
     }
 
     public void QuitGame()

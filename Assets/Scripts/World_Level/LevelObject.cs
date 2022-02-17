@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(menuName = "LevelObject")]
+[CreateAssetMenu(menuName = "SceneObjects/LevelObject")]
 public class LevelObject : ScriptableObject
 {
     public string levelName;
     public int levelIndex;
     public Sprite levelImage;
-    public string scenePath;
+    public string ScenePath;
     public float RecordTime { get; private set; }
 
     public void UpdateRecordTime(float time)

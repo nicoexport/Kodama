@@ -10,7 +10,7 @@ public class LevelObjectEditor : Editor
     public override void OnInspectorGUI()
     {
         var level = target as LevelObject;
-        var oldScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(level.scenePath);
+        var oldScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(level.ScenePath);
 
         serializedObject.Update();
 
@@ -24,7 +24,7 @@ public class LevelObjectEditor : Editor
         if (EditorGUI.EndChangeCheck())
         {
             var newPath = AssetDatabase.GetAssetPath(newScene);
-            var scenePathProperty = serializedObject.FindProperty("scenePath");
+            var scenePathProperty = serializedObject.FindProperty("ScenePath");
             scenePathProperty.stringValue = newPath;
         }
         serializedObject.ApplyModifiedProperties();
