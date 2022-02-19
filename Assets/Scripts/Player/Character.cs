@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     private CharacterMovementValues defaultMovementValues;
     [SerializeField]
-    private RuntimeSet rtSet;
+    private RtimeSet rtSet;
 
     public float movementSpeed { get; private set; }
     public float airMovementSpeed { get; private set; }

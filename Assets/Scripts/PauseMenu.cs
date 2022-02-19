@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour
     private Canvas canvas;
     private bool paused = false;
     [SerializeField]
-    RuntimeSet rtSet;
+    RtimeSet rtSet;
     [SerializeField]
     private Button primaryButton;
     [SerializeField]

@@ -1,14 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
-[CreateAssetMenu(menuName = "RuntimeSet")]
-public class RuntimeSet : ScriptableObject
+
+public abstract class RuntimeSet<T> : ScriptableObject
 {
-    public Character CurrentCharacter { get; private set; }
+    private List<T> _items = new List<T>();
 
-    public void SetCurrentCharacter(Character character)
+    public void Initialize()
     {
-        CurrentCharacter = character;
+        _items.Clear();
+    }
+
+    public T GetItemAtIndex(int index)
+    {
+        return _items[index];
+    }
+
+    public void AddToList(T thingToAdd)
+    {
+        if (_items.Contains(thingToAdd)) return;
+        _items.Add(thingToAdd);
+    }
+
+    public void RemoveFromList(T thingToRemove)
+    {
+        if (!_items.Contains(thingToRemove)) return;
+        _items.Remove(thingToRemove);
+    }
+
+    public List<T> GetItemList()
+    {
+        return _items;
     }
 }

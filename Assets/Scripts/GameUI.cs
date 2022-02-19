@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameUI : MonoBehaviour
 {
     [SerializeField]
-    private RuntimeSet rtSet;
+    private RtimeSet rtSet;
     [SerializeField]
     private GameObject keyIcon;
 
