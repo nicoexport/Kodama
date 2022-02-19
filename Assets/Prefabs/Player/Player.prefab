@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultMovementValues: {fileID: 11400000, guid: 8ec6a62dd6515604bba2b0e094192ef4, type: 2}
-  rtSet: {fileID: 11400000, guid: b2a60054d550766469a4e0848d95208c, type: 2}
+  characterRuntimeSet: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
   hasPressedRightTimer: 0
   hasPressedLeftTimer: 0
   wantjump: 0
