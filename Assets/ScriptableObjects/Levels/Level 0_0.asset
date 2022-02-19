@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9c11780b5bfccb428ab23c53e3804d9, type: 3}
-  m_Name: Level 2
+  m_Name: Level 0_0
   m_EditorClassIdentifier: 
-  levelName: Level 2
-  levelIndex: 2
-  levelImage: {fileID: -575444929239592776, guid: aa27b6fd18ad9714f89e45c9b4df34da, type: 3}
-  scenePath: Assets/Scenes/Level/Test/SampleScene 2.unity
+  levelName: Level 0
+  levelIndex: 0
+  levelImage: {fileID: -7784670099437719458, guid: aa27b6fd18ad9714f89e45c9b4df34da, type: 3}
+  ScenePath: Assets/Scenes/Level/Test/SampleScene 0.unity

@@ -15,4 +15,4 @@ MonoBehaviour:
   levelName: Main Menu
   levelIndex: 0
   levelImage: {fileID: 0}
-  scenePath: Assets/Scenes/Menu/MainMenu.unity
+  ScenePath: Assets/Scenes/Menu/MainMenu.unity
