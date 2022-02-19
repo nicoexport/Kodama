@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour
     private Canvas canvas;
     private bool paused = false;
     [SerializeField]
-    RtimeSet rtSet;
+    private CharacterRuntimeSet characterRuntimeSet;
     [SerializeField]
     private Button primaryButton;
     [SerializeField]
@@ -35,8 +35,8 @@ public class PauseMenu : MonoBehaviour
     {
         if (paused) return;
         Time.timeScale = 0f;
-        rtSet.CurrentCharacter.playerInputActions.PauseMenu.Enable();
-        rtSet.CurrentCharacter.playerInputActions.Player.Disable();
+        characterRuntimeSet.GetItemAtIndex(0).playerInputActions.PauseMenu.Enable();
+        characterRuntimeSet.GetItemAtIndex(0).playerInputActions.Player.Disable();
         canvas.gameObject.SetActive(true);
         primaryButton.Select();
         paused = true;
@@ -52,8 +52,8 @@ public class PauseMenu : MonoBehaviour
     {
         if (!paused) return;
         Time.timeScale = 1f;
-        rtSet.CurrentCharacter.playerInputActions.PauseMenu.Disable();
-        rtSet.CurrentCharacter.playerInputActions.Player.Enable();
+        characterRuntimeSet.GetItemAtIndex(0).playerInputActions.PauseMenu.Disable();
+        characterRuntimeSet.GetItemAtIndex(0).playerInputActions.Player.Enable();
         canvas.gameObject.SetActive(false);
         paused = false;
     }
@@ -80,16 +80,18 @@ public class PauseMenu : MonoBehaviour
 
     private void RegisterInputActions()
     {
-        if (rtSet.CurrentCharacter.playerInputActions == null) return;
-        rtSet.CurrentCharacter.playerInputActions.Player.Pause.started += InputActionPauseGame;
-        rtSet.CurrentCharacter.playerInputActions.PauseMenu.Unpause.started += InputActionResumeGame;
+        if (characterRuntimeSet.IsEmpty()) return;
+        if (characterRuntimeSet.GetItemAtIndex(0).playerInputActions == null) return;
+        characterRuntimeSet.GetItemAtIndex(0).playerInputActions.Player.Pause.started += InputActionPauseGame;
+        characterRuntimeSet.GetItemAtIndex(0).playerInputActions.PauseMenu.Unpause.started += InputActionResumeGame;
     }
 
     private void UnRegisterInputActions()
     {
+        if (characterRuntimeSet.IsEmpty()) return;
         //if (rtSet.CurrentCharacter.playerInputActions == null) return;
-        rtSet.CurrentCharacter.playerInputActions.Player.Pause.started -= InputActionPauseGame;
-        rtSet.CurrentCharacter.playerInputActions.PauseMenu.Unpause.started -= InputActionResumeGame;
+        characterRuntimeSet.GetItemAtIndex(0).playerInputActions.Player.Pause.started -= InputActionPauseGame;
+        characterRuntimeSet.GetItemAtIndex(0).playerInputActions.PauseMenu.Unpause.started -= InputActionResumeGame;
     }
 
 }

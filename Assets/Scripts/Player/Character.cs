@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     private CharacterMovementValues defaultMovementValues;
     [SerializeField]
-    private RtimeSet rtSet;
+    private CharacterRuntimeSet characterRuntimeSet;
 
     public float movementSpeed { get; private set; }
     public float airMovementSpeed { get; private set; }
@@ -84,7 +84,7 @@ public class Character : MonoBehaviour
 
 
 
-    void Awake()
+    private void Awake()
     {
         ReadMovementValues(defaultMovementValues);
         rb = GetComponent<Rigidbody2D>();
@@ -94,7 +94,17 @@ public class Character : MonoBehaviour
         playerInputActions.Player.Enable();
         playerInputActions.Player.Jump.started += StartJumpInputTimer;
         InitializeStates();
-        rtSet.SetCurrentCharacter(this);
+        characterRuntimeSet.AddToList(this);
+    }
+
+    private void OnEnable()
+    {
+        characterRuntimeSet.AddToList(this);
+    }
+
+    private void OnDisable()
+    {
+        characterRuntimeSet.RemoveFromList(this);
     }
 
     public void Update()

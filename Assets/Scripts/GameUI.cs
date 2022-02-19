@@ -5,13 +5,13 @@ using UnityEngine;
 public class GameUI : MonoBehaviour
 {
     [SerializeField]
-    private RtimeSet rtSet;
+    private CharacterRuntimeSet characterRuntimeSet;
     [SerializeField]
     private GameObject keyIcon;
 
     public void SetKeyIcon()
     {
-        var inv = rtSet.CurrentCharacter.GetComponent<CharacterInventory>();
+        var inv = characterRuntimeSet.GetItemAtIndex(0).GetComponent<CharacterInventory>();
         if (inv == null) return;
         if (inv.GetKeys() > 0) keyIcon.SetActive(true);
         else keyIcon.SetActive(false);

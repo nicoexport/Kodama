@@ -32,4 +32,10 @@ public abstract class RuntimeSet<T> : ScriptableObject
     {
         return _items;
     }
+
+    public bool IsEmpty()
+    {
+        if (_items.Count <= 0) return true;
+        else { return false; }
+    }
 }
