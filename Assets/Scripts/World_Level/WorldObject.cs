@@ -20,4 +20,15 @@ public class WorldObject : ScriptableObject
         }
         RecordTime = time;
     }
+
+    public void UpdateRecordTime2()
+    {
+        float time = 0f;
+        foreach (LevelObject level in LevelObjects)
+        {
+            if (level.RecordTime == Mathf.Infinity) return;
+            time += level.RecordTime;
+        }
+        RecordTime = time;
+    }
 }

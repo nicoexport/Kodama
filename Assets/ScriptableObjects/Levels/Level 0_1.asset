@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Level 1
   levelIndex: 1
+  worldIndex: 0
   levelImage: {fileID: -6159474627492862464, guid: aa27b6fd18ad9714f89e45c9b4df34da, type: 3}
   ScenePath: Assets/Scenes/Level/Test/SampleScene 1.unity
+  RecordTime: 0
+  levelCompleted: 0

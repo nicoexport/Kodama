@@ -14,8 +14,10 @@ public class LevelObjectEditor : Editor
 
         serializedObject.Update();
 
-        level.levelName = EditorGUILayout.TextField("levelName", level.levelName);
-        level.levelIndex = EditorGUILayout.IntField("levelIndex", level.levelIndex);
+        level.levelName = EditorGUILayout.TextField("Level Name", level.levelName);
+        level.levelIndex = EditorGUILayout.IntField("Level Index", level.levelIndex);
+        level.worldIndex = EditorGUILayout.IntField("World Index", level.worldIndex);
+        level.RecordTime = EditorGUILayout.FloatField("Record Time", level.RecordTime);
         level.levelImage = (Sprite)EditorGUILayout.ObjectField("levelImage", level.levelImage, typeof(Sprite), false);
 
         EditorGUI.BeginChangeCheck();
