@@ -75,6 +75,7 @@ public class Character : MonoBehaviour
     public FallingState falling;
     public WallslidingState wallsliding;
     public WalljumpingState wallJumping;
+    public SpawningState spawning;
 
 
     private StateMachine movementSm;
@@ -93,13 +94,17 @@ public class Character : MonoBehaviour
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
         playerInputActions.Player.Jump.started += StartJumpInputTimer;
+        AddCharacterToRuntimeSet();
         InitializeStates();
-        characterRuntimeSet.AddToList(this);
+        StartCoroutine(KodamaUtilities.ActionAfterDelay(2f, () =>
+        {
+            movementSm.ChangeState(standing);
+        }));
     }
 
     private void OnEnable()
     {
-        characterRuntimeSet.AddToList(this);
+        AddCharacterToRuntimeSet();
     }
 
     private void OnDisable()
@@ -120,6 +125,20 @@ public class Character : MonoBehaviour
         // PhysicsUpdate Loop of movementSM
         movementSm.CurrentState.PhysicsUpdate();
         CountDownInputTimer();
+    }
+
+    public void InitializePlayer()
+    {
+        StartCoroutine(KodamaUtilities.ActionAfterDelay(2f, () =>
+        {
+            movementSm.ChangeState(standing);
+        }));
+
+    }
+
+    public void EnableInput()
+    {
+
     }
 
     // Method for flipping character
@@ -191,7 +210,8 @@ public class Character : MonoBehaviour
         falling = new FallingState(movementSm, this);
         wallsliding = new WallslidingState(movementSm, this);
         wallJumping = new WalljumpingState(movementSm, this);
-        movementSm.Initialize(standing);
+        spawning = new SpawningState(movementSm, this);
+        movementSm.Initialize(spawning);
     }
 
     private void ReadMovementValues(CharacterMovementValues values)
@@ -230,6 +250,19 @@ public class Character : MonoBehaviour
     {
         return maxVelocityX;
     }
+
+    private void AddCharacterToRuntimeSet()
+    {
+        if (characterRuntimeSet.IsEmpty())
+        {
+            characterRuntimeSet.AddToList(this);
+        }
+        else
+        {
+            Debug.Log("Player already exists");
+        }
+    }
+
 
     // visualizing the groundCheckRadius
     void OnDrawGizmosSelected()

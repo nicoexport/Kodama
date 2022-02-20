@@ -16,6 +16,7 @@ public class CharacterAnimationController : MonoBehaviour
     const string wallSliding = "WALLSLIDING";
     const string wallJumping = "WALLJUMPING";
     const string walkingAgainstWall = "WALKING_AGAINST_WALL";
+    const string spawning = "SPAWNING";
 
     private void Start()
     {
@@ -60,6 +61,9 @@ public class CharacterAnimationController : MonoBehaviour
                 newAnimState = wallJumping;
                 break;
 
+            case "SpawningState":
+                newAnimState = spawning;
+                break;
             default:
                 newAnimState = idle;
                 break;
