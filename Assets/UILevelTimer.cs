@@ -17,12 +17,12 @@ public class UILevelTimer : MonoBehaviour
 
     private void OnEnable()
     {
-        LevelManager.onLevelTimerChanged += UpdateTimer;
+        LevelTimer.OnTimerChanged += UpdateTimer;
     }
 
     private void OnDisable()
     {
-        LevelManager.onLevelTimerChanged -= UpdateTimer;
+        LevelTimer.OnTimerChanged -= UpdateTimer;
     }
 
     private void UpdateTimer(float timer)

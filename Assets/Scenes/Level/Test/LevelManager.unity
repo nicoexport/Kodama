@@ -12127,18 +12127,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4955864362391266245, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
-      propertyPath: zoomDelta
-      value: 0.001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4955864362391266245, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
-      propertyPath: zoomSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4955864362391266245, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
-      propertyPath: goalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726019, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_Name
       value: Camera
@@ -12268,6 +12256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 408572698}
   - component: {fileID: 408572697}
+  - component: {fileID: 408572699}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -12307,6 +12296,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &408572699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408572696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc29ba5be74df14697218404302af75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &854529052
 PrefabInstance:
   m_ObjectHideFlags: 0
