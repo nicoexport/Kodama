@@ -41,8 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2816983813630465649}
   - component: {fileID: 2816983813630465548}
-  - component: {fileID: 2816983813630465551}
+  - component: {fileID: 2280039501403212138}
   - component: {fileID: 2816983813630465550}
+  - component: {fileID: 3422139104087788580}
   - component: {fileID: 2816983813630465549}
   m_Layer: 0
   m_Name: Square
@@ -117,7 +118,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2816983813630465551
+--- !u!114 &2280039501403212138
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,10 +127,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2816983813630465648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73b0bbfb877224c4b8194192f735166d, type: 3}
+  m_Script: {fileID: 11500000, guid: fdac441e55976bd4d8a398e35025e206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneIndex: 1
 --- !u!114 &2816983813630465550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,9 +146,9 @@ MonoBehaviour:
   onEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2816983813630465551}
-        m_TargetAssemblyTypeName: LevelExit, Assembly-CSharp
-        m_MethodName: ExitLevel
+      - m_Target: {fileID: 2280039501403212138}
+        m_TargetAssemblyTypeName: LevelWin, Assembly-CSharp
+        m_MethodName: WinLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -164,6 +164,19 @@ MonoBehaviour:
   onStay:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3422139104087788580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2816983813630465648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24228a51a9092334591dbcd33331543b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectRuntimeSet: {fileID: 11400000, guid: 86e3d198c6d4e8040a19e2f3c973f002, type: 2}
 --- !u!61 &2816983813630465549
 BoxCollider2D:
   m_ObjectHideFlags: 0

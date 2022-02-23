@@ -76,6 +76,7 @@ public class Character : MonoBehaviour
     public WallslidingState wallsliding;
     public WalljumpingState wallJumping;
     public SpawningState spawning;
+    public WinningState winning;
 
 
     private StateMachine movementSm;
@@ -105,11 +106,13 @@ public class Character : MonoBehaviour
     private void OnEnable()
     {
         AddCharacterToRuntimeSet();
+        LevelManager.OnCompleteLevel += () => { movementSm.ChangeState(winning); };
     }
 
     private void OnDisable()
     {
         characterRuntimeSet.RemoveFromList(this);
+        LevelManager.OnCompleteLevel -= () => { movementSm.ChangeState(winning); };
     }
 
     public void Update()
@@ -211,6 +214,7 @@ public class Character : MonoBehaviour
         wallsliding = new WallslidingState(movementSm, this);
         wallJumping = new WalljumpingState(movementSm, this);
         spawning = new SpawningState(movementSm, this);
+        winning = new WinningState(movementSm, this);
         movementSm.Initialize(spawning);
     }
 
