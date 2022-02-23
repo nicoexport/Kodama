@@ -83,6 +83,7 @@ public class Character : MonoBehaviour
     private CharacterAnimationController cAnimController;
     public PlayerInputActions playerInputActions { get; private set; }
     public CharacterLifeHandler LifeHandler { get; private set; }
+    private bool controll = false;
 
 
 
@@ -97,10 +98,19 @@ public class Character : MonoBehaviour
         playerInputActions.Player.Jump.started += StartJumpInputTimer;
         AddCharacterToRuntimeSet();
         InitializeStates();
-        StartCoroutine(KodamaUtilities.ActionAfterDelay(2f, () =>
-        {
-            movementSm.ChangeState(standing);
-        }));
+    }
+
+    public void GivePlayerControll()
+    {
+        if (controll) return;
+        movementSm.ChangeState(standing);
+        controll = true;
+    }
+
+    public void TakePlayerControll()
+    {
+        if (!controll) return;
+        controll = false;
     }
 
     private void OnEnable()
@@ -128,20 +138,6 @@ public class Character : MonoBehaviour
         // PhysicsUpdate Loop of movementSM
         movementSm.CurrentState.PhysicsUpdate();
         CountDownInputTimer();
-    }
-
-    public void InitializePlayer()
-    {
-        StartCoroutine(KodamaUtilities.ActionAfterDelay(2f, () =>
-        {
-            movementSm.ChangeState(standing);
-        }));
-
-    }
-
-    public void EnableInput()
-    {
-
     }
 
     // Method for flipping character

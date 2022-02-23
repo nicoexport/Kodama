@@ -23,6 +23,7 @@ public class LevelManager : MonoBehaviour
     public static event LevelTimerChangedAction onLevelTimerChanged;
 
     public static event Action OnCompleteLevel;
+    public static event Action OnPlayerGainedControll;
 
     private bool count = false;
     private float levelTimer = 0.0f;
@@ -36,7 +37,13 @@ public class LevelManager : MonoBehaviour
     {
         GameObject player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
         if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
-        StartCoroutine(KodamaUtilities.ActionAfterDelay(2f, () => { StartLevelTimer(); }));
+        // Make a Level Start Function / Event so things can react to the point of time where the player gains controll
+        StartCoroutine(KodamaUtilities.ActionAfterDelay(2f, () =>
+        {
+            StartLevelTimer();
+            playerRuntimeSet.GetItemAtIndex(0).GivePlayerControll();
+            OnPlayerGainedControll?.Invoke();
+        }));
 
         foreach (GameObject obj in levelExitRuntimeSet.GetItemList())
         {
@@ -50,7 +57,7 @@ public class LevelManager : MonoBehaviour
     {
         OnCompleteLevel?.Invoke();
         PauseLevelTimer();
-        Debug.Log("Level Complete");
+        // wait for Winning Animation to finish
     }
 
     private void StartLevelTimer()
