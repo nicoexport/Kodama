@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9597fb5472fbcca45840ca00f4353dde, type: 3}
-  m_Name: LevelExitRuntimeSet
+  m_Name: LevelWinRuntimeSet
   m_EditorClassIdentifier: 

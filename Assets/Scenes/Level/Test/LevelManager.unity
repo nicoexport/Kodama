@@ -12127,6 +12127,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4955864362391266245, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: zoomDelta
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955864362391266245, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: zoomSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955864362391266245, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: goalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726019, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_Name
       value: Camera
@@ -12279,7 +12291,7 @@ MonoBehaviour:
   playerRuntimeSet: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
   playerSpawnRuntimeSet: {fileID: 11400000, guid: 56d467417e7a3d541a2de4603bfeaa36, type: 2}
   cinemachineRuntimeSet: {fileID: 11400000, guid: 6d2041fbf0ceda240b3430c5307c2aad, type: 2}
-  levelExitRuntimeSet: {fileID: 11400000, guid: 86e3d198c6d4e8040a19e2f3c973f002, type: 2}
+  levelWinRuntimeSet: {fileID: 11400000, guid: 86e3d198c6d4e8040a19e2f3c973f002, type: 2}
   playerPrefab: {fileID: 5291515768158270416, guid: cb00620d02a672a4a9a912ce652757d5, type: 3}
 --- !u!4 &408572698
 Transform:

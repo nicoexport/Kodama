@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObjectRuntimeSet cinemachineRuntimeSet;
     [SerializeField]
-    private GameObjectRuntimeSet levelExitRuntimeSet;
+    private GameObjectRuntimeSet levelWinRuntimeSet;
 
     public delegate void LevelTimerChangedAction(float timer);
     public static event LevelTimerChangedAction onLevelTimerChanged;
@@ -45,7 +45,9 @@ public class LevelManager : MonoBehaviour
             OnPlayerGainedControll?.Invoke();
         }));
 
-        foreach (GameObject obj in levelExitRuntimeSet.GetItemList())
+
+        // Registering for every Level Win Class in the Runtime Set
+        foreach (GameObject obj in levelWinRuntimeSet.GetItemList())
         {
             LevelWin win = obj.GetComponent<LevelWin>();
             win.OnLevelWon += CompleteLevel;
