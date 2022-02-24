@@ -77,8 +77,6 @@ public class LevelManager : MonoBehaviour
         OnTimerFinished?.Invoke(timer);
     }
 
-
-
     private void LoadNextLevel(InputAction.CallbackContext context)
     {
         // TO DO: Setup DataBase of Worlds and Levels and determine next Level to load that way
