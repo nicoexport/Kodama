@@ -23,20 +23,20 @@ public class GroundedState : State
         additionalDrag = character.groundDecelDrag;
         grounded = true;
         horizontalInput = 0.0f;
-        character.playerInputActions.Player.Jump.started += ChangeToJump;
+        InputManager.playerInputActions.Player.Jump.started += ChangeToJump;
         character.ResetMoveParams();
     }
 
     public override void Exit()
     {
         base.Exit();
-        character.playerInputActions.Player.Jump.started -= ChangeToJump;
+        InputManager.playerInputActions.Player.Jump.started -= ChangeToJump;
     }
 
     public override void HandleInput()
     {
         base.HandleInput();
-        horizontalInput = character.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
+        horizontalInput = InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
     }
 
     public override void LogicUpdate()

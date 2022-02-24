@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections.Generic;
+using System.Collections;
 
 
 public class SpawningState : State
@@ -23,6 +23,5 @@ public class SpawningState : State
     {
         base.LogicUpdate();
     }
-
 
 }

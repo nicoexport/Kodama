@@ -36,10 +36,10 @@ public class LevelManager : MonoBehaviour
         levelTimer = GetComponent<LevelTimer>();
         GameObject player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
         if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
-        StartCoroutine(KodamaUtilities.ActionAfterDelay(0.5f, () =>
+        StartCoroutine(KodamaUtilities.ActionAfterDelay(1f, () =>
         {
             levelTimer.StartTimer();
-            playerRuntimeSet.GetItemAtIndex(0).GivePlayerControll();
+            InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
             OnPlayerGainedControll?.Invoke();
         }));
 
@@ -65,16 +65,14 @@ public class LevelManager : MonoBehaviour
         // TO DO: Add delay for enabling the input
         // Enable Input for Summary Section TO DO: Seperate this Handling into an Input Manager Script
         var player = playerRuntimeSet.GetItemAtIndex(0);
-        player.playerInputActions.PauseMenu.Disable();
-        player.playerInputActions.Player.Disable();
-        player.playerInputActions.LevelSummary.Enable();
-        player.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
+        InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSummary);
+        InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
     }
 
     private void LoadNextLevel(InputAction.CallbackContext context)
     {
         // TO DO: Setup DataBase of Worlds and Levels and determine next Level to load that way
-        playerRuntimeSet.GetItemAtIndex(0).playerInputActions.LevelSummary.Disable();
+        InputManager.playerInputActions.Disable();
         Debug.Log("LoadNextlevel");
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }

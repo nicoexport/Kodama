@@ -34,8 +34,8 @@ public class AirbourneState : State
     public override void HandleInput()
     {
         base.HandleInput();
-        horizontalInput = character.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
-        verticalInput = character.playerInputActions.Player.Movement.ReadValue<Vector2>().y;
+        horizontalInput = InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
+        verticalInput = InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().y;
 
         // starting input timer for horizontal input
         if (horizontalInput > 0f)

@@ -27,7 +27,6 @@ public class UILevelTimer : MonoBehaviour
 
     private void UpdateTimer(float timer)
     {
-        Debug.Log("Level Timer:_ " + timer);
         textMeshPro.text = TimeSpan.FromSeconds(timer).ToString("mm\\:ss\\:ff");
     }
 }

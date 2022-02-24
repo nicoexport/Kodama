@@ -19,7 +19,7 @@ public class WallslidingState : State
     public override void Enter()
     {
         base.Enter();
-        character.playerInputActions.Player.Jump.performed += ChangeToWallJumping;
+        InputManager.playerInputActions.Player.Jump.performed += ChangeToWallJumping;
         touchingWall = true;
         grounded = false;
         speed = character.movementSpeed;
@@ -31,14 +31,14 @@ public class WallslidingState : State
     {
         base.Exit();
         character.rb.gravityScale = character.normalGravity;
-        character.playerInputActions.Player.Jump.performed -= ChangeToWallJumping;
+        InputManager.playerInputActions.Player.Jump.performed -= ChangeToWallJumping;
 
     }
 
     public override void HandleInput()
     {
         base.HandleInput();
-        horizontalInput = character.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
+        horizontalInput = InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
     }
 
     public override void LogicUpdate()

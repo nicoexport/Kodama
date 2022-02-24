@@ -38,6 +38,9 @@ public class Character : MonoBehaviour
     public float fastFallGravity { get; private set; }
     public float wallslidingGravity { get; private set; }
 
+
+    public float spawnDelay = 1f;
+
     [HideInInspector]
     public bool wantjump;
     [HideInInspector]
@@ -81,11 +84,7 @@ public class Character : MonoBehaviour
 
     private StateMachine movementSm;
     private CharacterAnimationController cAnimController;
-    public PlayerInputActions playerInputActions { get; private set; }
     public CharacterLifeHandler LifeHandler { get; private set; }
-    private bool controll = false;
-
-
 
     private void Awake()
     {
@@ -93,24 +92,11 @@ public class Character : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         cAnimController = GetComponent<CharacterAnimationController>();
         LifeHandler = GetComponent<CharacterLifeHandler>();
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Player.Enable();
-        playerInputActions.Player.Jump.started += StartJumpInputTimer;
+        InputManager.playerInputActions.Player.Jump.started += StartJumpInputTimer;
         AddCharacterToRuntimeSet();
         InitializeStates();
-    }
-
-    public void GivePlayerControll()
-    {
-        if (controll) return;
-        movementSm.ChangeState(standing);
-        controll = true;
-    }
-
-    public void TakePlayerControll()
-    {
-        if (!controll) return;
-        controll = false;
+        InitializeStateMachine(spawning);
+        StartCoroutine(KodamaUtilities.ActionAfterDelay(spawnDelay, () => { movementSm.ChangeState(standing); }));
     }
 
     private void OnEnable()
@@ -197,7 +183,7 @@ public class Character : MonoBehaviour
     public void UpdateVisuals()
     {
         var touchingWall = CheckCollisionOverlap(frontCheck.position, frontCheckRadius);
-        cAnimController.SetAnimationeState(movementSm.CurrentState, playerInputActions.Player.Movement.ReadValue<Vector2>().x, rb.velocity.x, maxVelocityX, touchingWall);
+        cAnimController.SetAnimationeState(movementSm.CurrentState, InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x, rb.velocity.x, maxVelocityX, touchingWall);
     }
 
     private void InitializeStates()
@@ -211,7 +197,11 @@ public class Character : MonoBehaviour
         wallJumping = new WalljumpingState(movementSm, this);
         spawning = new SpawningState(movementSm, this);
         winning = new WinningState(movementSm, this);
-        movementSm.Initialize(spawning);
+    }
+
+    private void InitializeStateMachine(State state)
+    {
+        movementSm.Initialize(state);
     }
 
     private void ReadMovementValues(CharacterMovementValues values)

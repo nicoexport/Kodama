@@ -32,16 +32,16 @@ public class JumpingState : AirbourneState
     {
         base.Enter();
         character.wantjump = false;
-        character.playerInputActions.Player.Jump.canceled += StopJumping;
+        InputManager.playerInputActions.Player.Jump.canceled += StopJumping;
         keepJumpingTimer = character.longJumpTimer;
-        if (character.playerInputActions.Player.Jump.ReadValue<float>() > 0f) keepJumping = true;
+        if (InputManager.playerInputActions.Player.Jump.ReadValue<float>() > 0f) keepJumping = true;
         Jump(character.jumpForce);
     }
 
     public override void Exit()
     {
         base.Exit();
-        character.playerInputActions.Player.Jump.canceled -= StopJumping;
+        InputManager.playerInputActions.Player.Jump.canceled -= StopJumping;
     }
 
     public override void HandleInput()
