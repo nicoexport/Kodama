@@ -8,6 +8,18 @@ public class GameUI : MonoBehaviour
     private CharacterRuntimeSet characterRuntimeSet;
     [SerializeField]
     private GameObject keyIcon;
+    [SerializeField]
+    private GameObject keyIconBackground;
+
+    private void OnEnable()
+    {
+        LevelManager.OnCompleteLevel += DisableGameUI;
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.OnCompleteLevel -= DisableGameUI;
+    }
 
     public void SetKeyIcon()
     {
@@ -15,6 +27,20 @@ public class GameUI : MonoBehaviour
         if (inv == null) return;
         if (inv.GetKeys() > 0) keyIcon.SetActive(true);
         else keyIcon.SetActive(false);
+    }
+
+    [ContextMenu("DisableGameUI")]
+    private void DisableGameUI()
+    {
+        keyIconBackground.SetActive(false);
+        keyIcon.SetActive(false);
+    }
+
+    [ContextMenu("EnableGameUI")]
+    private void EnableGameUI()
+    {
+        keyIconBackground.SetActive(true);
+        SetKeyIcon();
     }
 
 }
