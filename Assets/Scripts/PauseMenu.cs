@@ -23,15 +23,12 @@ public class PauseMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        //RegisterInputActions();
-        LevelManager.OnPlayerGainedControll += RegisterInputActions;
-        LevelManager.OnCompleteLevel += UnRegisterInputActions;
+        RegisterInputActions();
     }
 
     private void OnDisable()
     {
         UnRegisterInputActions();
-        LevelManager.OnCompleteLevel -= UnRegisterInputActions;
     }
 
     public void PauseGame()
@@ -81,8 +78,8 @@ public class PauseMenu : MonoBehaviour
 
     private void RegisterInputActions()
     {
-        if (characterRuntimeSet.IsEmpty()) return;
-        if (InputManager.playerInputActions == null) return;
+        //if (InputManager.playerInputActions == null) return;
+        Debug.Log("RegisterInputActions");
         InputManager.playerInputActions.Player.Pause.started += InputActionPauseGame;
         InputManager.playerInputActions.PauseMenu.Unpause.started += InputActionResumeGame;
     }
