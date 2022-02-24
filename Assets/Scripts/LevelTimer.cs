@@ -3,8 +3,21 @@ using System;
 
 public class LevelTimer : Timer
 {
-    public delegate void LevelTimerChangedAction(float timer);
-    public static event LevelTimerChangedAction OnTimerChanged;
+
+    public static event Action<float> OnTimerChanged;
+    public static event Action<float> OnTimerFinished;
+
+    private void OnEnable()
+    {
+        LevelManager.OnPlayerGainedControll += RestartTimer;
+        LevelManager.OnCompleteLevel += FinishTimer;
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.OnPlayerGainedControll -= RestartTimer;
+        LevelManager.OnCompleteLevel -= FinishTimer;
+    }
 
     public override void FixedUpdate()
     {
@@ -14,4 +27,17 @@ public class LevelTimer : Timer
             OnTimerChanged?.Invoke(timer);
         }
     }
+
+    private void FinishTimer()
+    {
+        PauseTimer();
+        OnTimerFinished?.Invoke(timer);
+    }
+
+    private void RestartTimer()
+    {
+        StopTimer();
+        StartTimer();
+    }
+
 }

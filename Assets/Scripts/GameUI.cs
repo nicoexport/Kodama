@@ -10,6 +10,8 @@ public class GameUI : MonoBehaviour
     private GameObject keyIcon;
     [SerializeField]
     private GameObject keyIconBackground;
+    [SerializeField]
+    private GameObject levelTimerUI;
 
     private void OnEnable()
     {
@@ -34,12 +36,14 @@ public class GameUI : MonoBehaviour
     {
         keyIconBackground.SetActive(false);
         keyIcon.SetActive(false);
+        levelTimerUI.SetActive(false);
     }
 
     [ContextMenu("EnableGameUI")]
     private void EnableGameUI()
     {
         keyIconBackground.SetActive(true);
+        levelTimerUI.SetActive(true);
         SetKeyIcon();
     }
 

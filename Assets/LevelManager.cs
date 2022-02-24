@@ -31,18 +31,24 @@ public class LevelManager : MonoBehaviour
 
     public static event Action OnCompleteLevel;
     public static event Action OnPlayerGainedControll;
+    public static event Action<float> OnTimerFinished;
 
-    private LevelTimer levelTimer;
+    private void OnEnable()
+    {
+        LevelTimer.OnTimerFinished += BroadCastFinishedTimer;
+    }
 
+    private void OnDisable()
+    {
+        LevelTimer.OnTimerFinished -= BroadCastFinishedTimer;
+    }
 
     private void Awake()
     {
-        levelTimer = GetComponent<LevelTimer>();
         GameObject player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
         if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
         StartCoroutine(KodamaUtilities.ActionAfterDelay(1f, () =>
         {
-            levelTimer.StartTimer();
             InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
             OnPlayerGainedControll?.Invoke();
         }));
@@ -59,13 +65,19 @@ public class LevelManager : MonoBehaviour
     private void CompleteLevel()
     {
         OnCompleteLevel?.Invoke();
-        levelTimer.PauseTimer();
         InputManager.DisableInput();
         // wait for Winning Animation to finish and enable LevelSummaryInput
         StartCoroutine(KodamaUtilities.ActionAfterDelay(levelSummaryContinueDelay, () => { EnableLevelSummaryInput(); }));
         // Save Level Completion
         // Save Record
     }
+
+    private void BroadCastFinishedTimer(float timer)
+    {
+        OnTimerFinished?.Invoke(timer);
+    }
+
+
 
     private void LoadNextLevel(InputAction.CallbackContext context)
     {
