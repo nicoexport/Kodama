@@ -20,4 +20,9 @@ public class InputManager : MonoBehaviour
         OnActionMapChange?.Invoke(actionMap);
     }
 
+    public static void DisableInput()
+    {
+        playerInputActions.Disable();
+    }
+
 }

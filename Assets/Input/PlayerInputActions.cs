@@ -260,6 +260,14 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Return"",
+                    ""type"": ""Button"",
+                    ""id"": ""247925de-7351-4130-98c9-cf762b9b2463"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -293,6 +301,28 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Continue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6a3c072-8ff4-45dd-af62-5b1316aedf09"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""58759d9e-7e91-4456-ab75-a0446f064561"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Return"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -335,6 +365,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         // LevelSummary
         m_LevelSummary = asset.FindActionMap("LevelSummary", throwIfNotFound: true);
         m_LevelSummary_Continue = m_LevelSummary.FindAction("Continue", throwIfNotFound: true);
+        m_LevelSummary_Return = m_LevelSummary.FindAction("Return", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -467,11 +498,13 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputActionMap m_LevelSummary;
     private ILevelSummaryActions m_LevelSummaryActionsCallbackInterface;
     private readonly InputAction m_LevelSummary_Continue;
+    private readonly InputAction m_LevelSummary_Return;
     public struct LevelSummaryActions
     {
         private @PlayerInputActions m_Wrapper;
         public LevelSummaryActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Continue => m_Wrapper.m_LevelSummary_Continue;
+        public InputAction @Return => m_Wrapper.m_LevelSummary_Return;
         public InputActionMap Get() { return m_Wrapper.m_LevelSummary; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -484,6 +517,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Continue.started -= m_Wrapper.m_LevelSummaryActionsCallbackInterface.OnContinue;
                 @Continue.performed -= m_Wrapper.m_LevelSummaryActionsCallbackInterface.OnContinue;
                 @Continue.canceled -= m_Wrapper.m_LevelSummaryActionsCallbackInterface.OnContinue;
+                @Return.started -= m_Wrapper.m_LevelSummaryActionsCallbackInterface.OnReturn;
+                @Return.performed -= m_Wrapper.m_LevelSummaryActionsCallbackInterface.OnReturn;
+                @Return.canceled -= m_Wrapper.m_LevelSummaryActionsCallbackInterface.OnReturn;
             }
             m_Wrapper.m_LevelSummaryActionsCallbackInterface = instance;
             if (instance != null)
@@ -491,6 +527,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Continue.started += instance.OnContinue;
                 @Continue.performed += instance.OnContinue;
                 @Continue.canceled += instance.OnContinue;
+                @Return.started += instance.OnReturn;
+                @Return.performed += instance.OnReturn;
+                @Return.canceled += instance.OnReturn;
             }
         }
     }
@@ -526,5 +565,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     public interface ILevelSummaryActions
     {
         void OnContinue(InputAction.CallbackContext context);
+        void OnReturn(InputAction.CallbackContext context);
     }
 }
