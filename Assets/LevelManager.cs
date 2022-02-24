@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(LevelTimer))]
 public class LevelManager : MonoBehaviour
@@ -25,8 +27,6 @@ public class LevelManager : MonoBehaviour
 
     private LevelTimer levelTimer;
 
-
-
     [Header("Prefabs")]
     [SerializeField]
     private GameObject playerPrefab;
@@ -36,8 +36,7 @@ public class LevelManager : MonoBehaviour
         levelTimer = GetComponent<LevelTimer>();
         GameObject player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
         if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
-        // Make a Level Start Function / Event so things can react to the point of time where the player gains controll
-        StartCoroutine(KodamaUtilities.ActionAfterDelay(2f, () =>
+        StartCoroutine(KodamaUtilities.ActionAfterDelay(0.5f, () =>
         {
             levelTimer.StartTimer();
             playerRuntimeSet.GetItemAtIndex(0).GivePlayerControll();
@@ -53,12 +52,31 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
     private void CompleteLevel()
     {
         OnCompleteLevel?.Invoke();
         levelTimer.PauseTimer();
         // wait for Winning Animation to finish
+
+        // Save Level Completion
+        // Save Record
+
+
+        // TO DO: Add delay for enabling the input
+        // Enable Input for Summary Section TO DO: Seperate this Handling into an Input Manager Script
+        var player = playerRuntimeSet.GetItemAtIndex(0);
+        player.playerInputActions.PauseMenu.Disable();
+        player.playerInputActions.Player.Disable();
+        player.playerInputActions.LevelSummary.Enable();
+        player.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
+    }
+
+    private void LoadNextLevel(InputAction.CallbackContext context)
+    {
+        // TO DO: Setup DataBase of Worlds and Levels and determine next Level to load that way
+        playerRuntimeSet.GetItemAtIndex(0).playerInputActions.LevelSummary.Disable();
+        Debug.Log("LoadNextlevel");
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
 }

@@ -248,6 +248,55 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""LevelSummary"",
+            ""id"": ""fd1870a7-69d3-4566-9091-20819518945a"",
+            ""actions"": [
+                {
+                    ""name"": ""Continue"",
+                    ""type"": ""Button"",
+                    ""id"": ""4bc7dbb1-d85d-46bd-9bab-6680b4ae046c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3ee0f3cd-1491-4676-a94a-d7bbdf1d9a29"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Continue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f6958e0-480c-43af-94ef-4b36264e7798"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Continue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0cb1a5c1-16b7-41bd-b01b-9a64a7b3ba42"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Continue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -283,6 +332,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         // PauseMenu
         m_PauseMenu = asset.FindActionMap("PauseMenu", throwIfNotFound: true);
         m_PauseMenu_Unpause = m_PauseMenu.FindAction("Unpause", throwIfNotFound: true);
+        // LevelSummary
+        m_LevelSummary = asset.FindActionMap("LevelSummary", throwIfNotFound: true);
+        m_LevelSummary_Continue = m_LevelSummary.FindAction("Continue", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -410,6 +462,39 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         }
     }
     public PauseMenuActions @PauseMenu => new PauseMenuActions(this);
+
+    // LevelSummary
+    private readonly InputActionMap m_LevelSummary;
+    private ILevelSummaryActions m_LevelSummaryActionsCallbackInterface;
+    private readonly InputAction m_LevelSummary_Continue;
+    public struct LevelSummaryActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public LevelSummaryActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Continue => m_Wrapper.m_LevelSummary_Continue;
+        public InputActionMap Get() { return m_Wrapper.m_LevelSummary; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(LevelSummaryActions set) { return set.Get(); }
+        public void SetCallbacks(ILevelSummaryActions instance)
+        {
+            if (m_Wrapper.m_LevelSummaryActionsCallbackInterface != null)
+            {
+                @Continue.started -= m_Wrapper.m_LevelSummaryActionsCallbackInterface.OnContinue;
+                @Continue.performed -= m_Wrapper.m_LevelSummaryActionsCallbackInterface.OnContinue;
+                @Continue.canceled -= m_Wrapper.m_LevelSummaryActionsCallbackInterface.OnContinue;
+            }
+            m_Wrapper.m_LevelSummaryActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Continue.started += instance.OnContinue;
+                @Continue.performed += instance.OnContinue;
+                @Continue.canceled += instance.OnContinue;
+            }
+        }
+    }
+    public LevelSummaryActions @LevelSummary => new LevelSummaryActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -437,5 +522,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     public interface IPauseMenuActions
     {
         void OnUnpause(InputAction.CallbackContext context);
+    }
+    public interface ILevelSummaryActions
+    {
+        void OnContinue(InputAction.CallbackContext context);
     }
 }
