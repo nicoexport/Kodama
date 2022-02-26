@@ -3,6 +3,7 @@ using System;
 
 public static class App
 {
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void InitializeApp()
     {
@@ -11,4 +12,5 @@ public static class App
 
         UnityEngine.Object.DontDestroyOnLoad(app);
     }
+
 }

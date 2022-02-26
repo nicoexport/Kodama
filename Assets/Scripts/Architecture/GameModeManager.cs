@@ -77,6 +77,7 @@ public class GameModeManager : Singleton<GameModeManager>
 
         _isSwitching = true;
         // TO DO: Screen fadeout
+        yield return ScreenFade.Instance.Require(0.5f);
 
         if (_currentMode != null)
             yield return _currentMode.OnEnd();
@@ -85,7 +86,7 @@ public class GameModeManager : Singleton<GameModeManager>
 
 
         //TO DO: Screen fade in
+        yield return ScreenFade.Instance.Release(0.5f);
         _isSwitching = false;
     }
-
 }
