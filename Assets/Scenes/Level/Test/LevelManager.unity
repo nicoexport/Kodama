@@ -12307,7 +12307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6353247546920494610, guid: 36e547b4a09fe724ea2b615a36c64045, type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: KeyUI
       objectReference: {fileID: 0}
     - target: {fileID: 6353247548051959659, guid: 36e547b4a09fe724ea2b615a36c64045, type: 3}
       propertyPath: m_AnchoredPosition.x
