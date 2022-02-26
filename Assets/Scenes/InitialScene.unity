@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 202745996}
-  - component: {fileID: 202745995}
   m_Layer: 0
   m_Name: Preloader
   m_TagString: Untagged
@@ -140,19 +139,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &202745995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 202745994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cbbcc250aadd5c468d8ac04598d4dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMenuIndex: 1
 --- !u!4 &202745996
 Transform:
   m_ObjectHideFlags: 0

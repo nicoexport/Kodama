@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e34cc56cddabcb48a12ea3a5359b9e2, type: 3}
   m_Name: World 0
   m_EditorClassIdentifier: 
-  worldName: World 0
+  worldName: Architecture Test World
   worldIndex: 0
   WorldImage: {fileID: 21300000, guid: 8138dcb81fc3c674db9971fda5f15798, type: 3}
   LevelObjects:
-  - {fileID: 11400000, guid: 7c813ff7d48de6c4e9e08b917ac802ef, type: 2}
-  - {fileID: 11400000, guid: 5dcda625d5ed1ab488d4f023f0e244b1, type: 2}
-  - {fileID: 11400000, guid: 801856cbfe943694eb5612d8b6c63100, type: 2}
-  - {fileID: 11400000, guid: 1049758b8573c89409ff4faf558f8b45, type: 2}
+  - {fileID: 11400000, guid: 5d13b52e6b9163d459605ee387182df8, type: 2}
+  - {fileID: 11400000, guid: 5d13b52e6b9163d459605ee387182df8, type: 2}

@@ -7,10 +7,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(LevelTimer))]
-public class LevelManager : MonoBehaviour
+public class LevelManager : MonoBehaviour, IContextManager
 {
-    [SerializeField]
-    private LevelObject levelObject;
+    [field: SerializeField]
+    public LevelObject levelObject { get; private set; }
     [Space(10)]
     [Header("Runtime Sets")]
     [SerializeField]
@@ -35,23 +35,18 @@ public class LevelManager : MonoBehaviour
 
     private void OnEnable()
     {
+        Context.Instance.RegisterContextManager(this);
         LevelTimer.OnTimerFinished += BroadCastFinishedTimer;
     }
 
     private void OnDisable()
     {
+        if (Context.Instance != null) Context.Instance.UnRegisterContextManager(this);
         LevelTimer.OnTimerFinished -= BroadCastFinishedTimer;
     }
 
     private void Awake()
     {
-        GameObject player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
-        if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
-        StartCoroutine(KodamaUtilities.ActionAfterDelay(1f, () =>
-        {
-            InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
-            OnPlayerGainedControll?.Invoke();
-        }));
 
 
         // Registering our Level completion for every Level Win Class in the Runtime Set
@@ -60,6 +55,22 @@ public class LevelManager : MonoBehaviour
             LevelWin win = obj.GetComponent<LevelWin>();
             win.OnLevelWon += CompleteLevel;
         }
+    }
+
+    private void Start()
+    {
+        GameObject player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
+        if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
+        StartCoroutine(KodamaUtilities.ActionAfterDelay(1f, () =>
+        {
+            InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
+            OnPlayerGainedControll?.Invoke();
+        }));
+    }
+
+    public void OnGameModeStarted()
+    {
+
     }
 
     private void CompleteLevel()
@@ -80,15 +91,22 @@ public class LevelManager : MonoBehaviour
     private void LoadNextLevel(InputAction.CallbackContext context)
     {
         // TO DO: Setup DataBase of Worlds and Levels and determine next Level to load that way
-        InputManager.playerInputActions.Disable();
         Debug.Log("LoadNextlevel");
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        InputManager.playerInputActions.Disable();
+        InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
+        InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToLevelSelect;
+
+        GameModeManager.Instance.HandleLevelStartRequested(levelObject);
     }
 
     private void ReturnToLevelSelect(InputAction.CallbackContext context)
     {
         Debug.Log("Return to Level select");
         // Open "Are you sure Dialouge"
+        InputManager.playerInputActions.Disable();
+        InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
+        InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToLevelSelect;
+        GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.worldMode);
     }
 
     private void EnableLevelSummaryInput()

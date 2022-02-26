@@ -18,7 +18,7 @@ public class CharacterAnimationController : MonoBehaviour
     const string walkingAgainstWall = "WALKING_AGAINST_WALL";
     const string spawning = "SPAWNING";
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
     }
