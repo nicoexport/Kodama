@@ -19,7 +19,6 @@ public class ScreenFade : Singleton<ScreenFade>
         for (float alpha = 0; alpha < 1; alpha += Time.deltaTime / fadeTime)
         {
             image.color = new Color(image.color.r, image.color.g, image.color.b, alpha);
-            Debug.Log(alpha);
             yield return null;
         }
     }
@@ -32,9 +31,7 @@ public class ScreenFade : Singleton<ScreenFade>
         for (float alpha = 1; alpha > 0; alpha -= Time.deltaTime / fadeTime)
         {
             image.color = new Color(image.color.r, image.color.g, image.color.b, alpha);
-            Debug.Log(alpha);
             yield return null;
         }
-
     }
 }

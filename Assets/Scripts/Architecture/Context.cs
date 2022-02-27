@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class Context : Singleton<Context>
@@ -21,4 +22,10 @@ public class Context : Singleton<Context>
     {
         for (int i = contextManagers.Count - 1; i >= 0; i--) contextManagers[i].OnGameModeStarted();
     }
+
+    public void RequestLevelLoad(LevelObject levelObject)
+    {
+
+    }
+
 }

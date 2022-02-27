@@ -29,6 +29,9 @@ public class LevelManager : MonoBehaviour, IContextManager
     [SerializeField]
     private float levelSummaryContinueDelay = 2f;
 
+    [SerializeField]
+    private LoadLevelEventChannelSO _loadEventChannel;
+
     public static event Action OnCompleteLevel;
     public static event Action OnPlayerGainedControll;
     public static event Action<float> OnTimerFinished;
@@ -47,8 +50,6 @@ public class LevelManager : MonoBehaviour, IContextManager
 
     private void Awake()
     {
-
-
         // Registering our Level completion for every Level Win Class in the Runtime Set
         foreach (GameObject obj in levelWinRuntimeSet.GetItemList())
         {
@@ -78,7 +79,7 @@ public class LevelManager : MonoBehaviour, IContextManager
         OnCompleteLevel?.Invoke();
         InputManager.DisableInput();
         // wait for Winning Animation to finish and enable LevelSummaryInput
-        StartCoroutine(KodamaUtilities.ActionAfterDelay(levelSummaryContinueDelay, () => { EnableLevelSummaryInput(); }));
+        StartCoroutine(KodamaUtilities.ActionAfterDelay(levelSummaryContinueDelay, () => { EnableSummaryInput(); }));
         // Save Level Completion
         // Save Record
     }
@@ -92,28 +93,28 @@ public class LevelManager : MonoBehaviour, IContextManager
     {
         // TO DO: Setup DataBase of Worlds and Levels and determine next Level to load that way
         Debug.Log("LoadNextlevel");
-        InputManager.playerInputActions.Disable();
-        InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
-        InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToLevelSelect;
-
-        GameModeManager.Instance.HandleLevelStartRequested(levelObject);
+        DisableSummaryInput();
+        _loadEventChannel.RaiseEvent(levelObject, true, true);
     }
 
-    private void ReturnToLevelSelect(InputAction.CallbackContext context)
+    private void ReturnToWorldMode(InputAction.CallbackContext context)
     {
-        Debug.Log("Return to Level select");
-        // Open "Are you sure Dialouge"
-        InputManager.playerInputActions.Disable();
-        InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
-        InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToLevelSelect;
+        DisableSummaryInput();
         GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.worldMode);
     }
 
-    private void EnableLevelSummaryInput()
+    private void EnableSummaryInput()
     {
         InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSummary);
         InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
-        InputManager.playerInputActions.LevelSummary.Return.started += ReturnToLevelSelect;
+        InputManager.playerInputActions.LevelSummary.Return.started += ReturnToWorldMode;
+    }
+
+    private void DisableSummaryInput()
+    {
+        InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
+        InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWorldMode;
+        InputManager.playerInputActions.Disable();
     }
 
 }
