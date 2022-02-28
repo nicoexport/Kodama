@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: dd35b4aaffda8bf4ab5284f52bdd2bf2
+guid: 09852353a92a4b44a96e43d67fddc0a2
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - _loadEventChannel: {fileID: 11400000, guid: 63e18172964853348bffe3927cdf4fad, type: 2}
+  - _transitionImage: {instanceID: 0}
   - _transitionEventChannel: {fileID: 11400000, guid: 7d5652993ae64aa42af87c48ed7db75e, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}

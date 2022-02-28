@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadEventChannel: {fileID: 11400000, guid: 63e18172964853348bffe3927cdf4fad, type: 2}
+  _transitionEventChannel: {fileID: 11400000, guid: 7d5652993ae64aa42af87c48ed7db75e, type: 2}

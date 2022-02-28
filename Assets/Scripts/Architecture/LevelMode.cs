@@ -35,15 +35,4 @@ public class LevelMode : IGameMode
         _state = GameModeState.Started;
 #endif
     }
-
-    public IEnumerator OnLevelLoadRequested(LevelObject levelObject)
-    {
-        if (_state != GameModeState.Started)
-            yield break;
-        yield return ScreenFade.Instance.Require(0.5f);
-        yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-        _activeScene = levelObject.ScenePath;
-        //yield return SceneManager.LoadSceneAsync(_activeScene, LoadSceneMode.Additive);
-        //SceneManager.SetActiveScene(SceneManager.GetSceneByPath(_activeScene));
-    }
 }

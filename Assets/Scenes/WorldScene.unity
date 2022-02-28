@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faf145341de057547a205a42686b4431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultWorld: {fileID: 11400000, guid: 268948abd4809ed4a85c963ba44a7ca1, type: 2}
+  _loadLevelEventChannelSO: {fileID: 11400000, guid: 63e18172964853348bffe3927cdf4fad, type: 2}
 --- !u!4 &288785659
 Transform:
   m_ObjectHideFlags: 0
@@ -438,7 +440,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.11899254, g: 0.13207549, b: 0.1253337, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

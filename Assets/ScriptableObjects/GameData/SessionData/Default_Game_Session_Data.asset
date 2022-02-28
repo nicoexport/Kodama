@@ -9,6 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca37dfe2b6af0b24e821c2bc1552517d, type: 3}
-  m_Name: Default Load Level Event Channel SO
+  m_Script: {fileID: 11500000, guid: bf0ff243ee8c90e46b64676f2a71d68c, type: 3}
+  m_Name: Default_Game_Session_Data
   m_EditorClassIdentifier: 
+  WorldDatas:
+  - {fileID: 11400000, guid: 2ceb26d6ecaf5864ba23beb7ecc1d6d8, type: 2}
+  - {fileID: 11400000, guid: 3acfe35ee7dd2ca459706e815ce224ad, type: 2}

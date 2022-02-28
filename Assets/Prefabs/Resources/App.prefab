@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1a1f75077938444bd012f8be824b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _transitionEventChannel: {fileID: 11400000, guid: 7d5652993ae64aa42af87c48ed7db75e, type: 2}
 --- !u!1001 &2540152626238118139
 PrefabInstance:
   m_ObjectHideFlags: 0

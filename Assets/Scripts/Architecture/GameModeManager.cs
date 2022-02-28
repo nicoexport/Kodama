@@ -5,16 +5,17 @@ using System.Collections;
 
 public class GameModeManager : Singleton<GameModeManager>
 {
+
     [SerializeField]
-    private IGameMode _currentMode;
-    private bool _isSwitching = false;
+    private TransitionEventChannelSO _transitionEventChannel;
 
     public LevelMode levelMode { get; private set; } = new LevelMode();
     public WorldMode worldMode { get; private set; } = new WorldMode();
     public MainMenuMode mainMenuMode { get; private set; } = new MainMenuMode();
-
     public string _levelToLoad { get; private set; }
 
+    private IGameMode _currentMode;
+    private bool _isSwitching = false;
     private int _initialSceneIndex = 0;
 
     protected override void Awake()
@@ -76,17 +77,19 @@ public class GameModeManager : Singleton<GameModeManager>
         if (_currentMode != levelMode && _currentMode == mode) yield break;
 
         _isSwitching = true;
-        // TO DO: Screen fadeout
-        yield return ScreenFade.Instance.Require(0.5f);
+
+        _transitionEventChannel.RaiseEvent(TransitionType.FadeOut, 1f);
+        yield return new WaitForSeconds(1f);
 
         if (_currentMode != null)
             yield return _currentMode.OnEnd();
+
         _currentMode = mode;
         yield return _currentMode.OnStart();
 
+        _transitionEventChannel.RaiseEvent(TransitionType.FadeIn, 1f);
+        yield return new WaitForSeconds(1f);
 
-        //TO DO: Screen fade in
-        yield return ScreenFade.Instance.Release(0.5f);
         _isSwitching = false;
     }
 }

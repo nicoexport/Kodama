@@ -87,9 +87,9 @@ GameObject:
   - component: {fileID: 1878331504143989437}
   - component: {fileID: 1193718754212575418}
   - component: {fileID: 8208326140023038256}
-  - component: {fileID: 3237001989528846580}
+  - component: {fileID: 1571743843}
   m_Layer: 5
-  m_Name: ScreenFadeUI
+  m_Name: Transitions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3237001989528846580
+--- !u!114 &1571743843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,7 +185,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3571267373366665547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cb3051473ca31943b7f16493d63ff4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 09852353a92a4b44a96e43d67fddc0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 1702534644151873115}
+  _transitionImage: {fileID: 7419985907548728119}
+  _transitionEventChannel: {fileID: 11400000, guid: 7d5652993ae64aa42af87c48ed7db75e, type: 2}

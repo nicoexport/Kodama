@@ -1,26 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+
 
 [RequireComponent(typeof(LevelTimer))]
 public class LevelManager : MonoBehaviour, IContextManager
 {
+
+    // TO DO: eventually get the Refrence to the LevelDataSO by looking through all of them and comparing the scene Path
     [field: SerializeField]
-    public LevelObject levelObject { get; private set; }
+    public LevelDataSO levelData { get; private set; }
+
     [Space(10)]
     [Header("Runtime Sets")]
-    [SerializeField]
-    private CharacterRuntimeSet playerRuntimeSet;
     [SerializeField]
     private TransformRuntimeSet playerSpawnRuntimeSet;
     [SerializeField]
     private GameObjectRuntimeSet cinemachineRuntimeSet;
     [SerializeField]
     private GameObjectRuntimeSet levelWinRuntimeSet;
+
+
     [Header("Prefabs")]
     [SerializeField]
     private GameObject playerPrefab;
@@ -36,6 +37,8 @@ public class LevelManager : MonoBehaviour, IContextManager
     public static event Action OnPlayerGainedControll;
     public static event Action<float> OnTimerFinished;
 
+    private LevelFlowHandler _levelExitHandler;
+
     private void OnEnable()
     {
         Context.Instance.RegisterContextManager(this);
@@ -50,6 +53,7 @@ public class LevelManager : MonoBehaviour, IContextManager
 
     private void Awake()
     {
+        _levelExitHandler = GetComponent<LevelFlowHandler>();
         // Registering our Level completion for every Level Win Class in the Runtime Set
         foreach (GameObject obj in levelWinRuntimeSet.GetItemList())
         {
@@ -91,16 +95,14 @@ public class LevelManager : MonoBehaviour, IContextManager
 
     private void LoadNextLevel(InputAction.CallbackContext context)
     {
-        // TO DO: Setup DataBase of Worlds and Levels and determine next Level to load that way
-        Debug.Log("LoadNextlevel");
         DisableSummaryInput();
-        _loadEventChannel.RaiseEvent(levelObject, true, true);
+        _levelExitHandler.NextLevelRequest(levelData);
     }
 
     private void ReturnToWorldMode(InputAction.CallbackContext context)
     {
         DisableSummaryInput();
-        GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.worldMode);
+        // return to world selection Scene
     }
 
     private void EnableSummaryInput()
