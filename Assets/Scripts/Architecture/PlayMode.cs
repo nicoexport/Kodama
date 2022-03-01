@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PlayMode : IGameMode
 {
-    public GameModeState _state { get; private set; }
+    public GameModeState _state { get; private set; } = GameModeState.Ended;
     public string _activeScene { get; private set; }
     private string _scenePath;
 

@@ -30,12 +30,15 @@ public class MainMenuMode : IGameMode
     public IEnumerator OnEnd()
     {
         _state = GameModeState.Ending;
+        yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        Debug.Log("MAIN MENU MODE ENDED");
         _state = GameModeState.Ended;
         yield break;
     }
 
     public void OnEditorStart()
     {
-
+        _activeScene = SceneManager.GetActiveScene().path;
+        _state = GameModeState.Started;
     }
 }

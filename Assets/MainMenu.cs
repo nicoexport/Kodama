@@ -4,8 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField]
-    private LevelObject defaultLevel;
+
 
     [Space(10)]
     public MenuState state;
@@ -38,7 +37,8 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(defaultLevel.ScenePath);
+        // SceneManager.LoadScene(defaultLevel.ScenePath);
+        GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.playMode);
     }
 
     public void QuitGame()
