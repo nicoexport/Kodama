@@ -102,4 +102,23 @@ public class GameModeManager : Singleton<GameModeManager>
     }
 
 
+
+    // TO DO: NEEDS TO BE IMPLEMENTED CORRECTLY INTO A SAVE/LOADD SYSTEM
+    public void ResetSessionData(GameSessionDataSO sessionData)
+    {
+        foreach (WorldDataSO world in sessionData.WorldDatas)
+        {
+            world.Visited = false;
+            world.Completed = false;
+
+            foreach (LevelDataSO level in world.LevelDatas)
+            {
+                level.Visited = false;
+                level.Completed = false;
+                level.RecordTime = Mathf.Infinity;
+            }
+        }
+        var currentWorld = sessionData.CurrentWorld = sessionData.WorldDatas[0];
+        sessionData.CurrentLevel = currentWorld.LevelDatas[0];
+    }
 }

@@ -16,9 +16,4 @@ public class LevelDataSO : ScriptableObject
     {
         RecordTime = time;
     }
-
-    public void ResetRecord()
-    {
-        RecordTime = Mathf.Infinity;
-    }
 }
