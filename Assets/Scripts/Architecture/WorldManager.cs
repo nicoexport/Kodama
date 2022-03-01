@@ -26,6 +26,6 @@ public class WorldManager : Singleton<WorldManager>
     {
         // StartLevel(_currentWorld.LevelObjects[0]);
         var level = _currentWorld.LevelDatas[0];
-        _loadLevelEventChannelSO.RaiseEvent(level, true, true);
+        _loadLevelEventChannelSO.RaiseEventWithLevelData(level, true, true);
     }
 }

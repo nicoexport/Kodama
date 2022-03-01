@@ -29,6 +29,7 @@ public class GameModeManager : Singleton<GameModeManager>
         base.Awake();
         playMode = new PlayMode(WorldsScenePath);
         mainMenuMode = new MainMenuMode(MainMenuScenePath);
+        _sessionData.WorldsScenePath = WorldsScenePath;
 
         Time.timeScale = 0;
 
@@ -99,4 +100,6 @@ public class GameModeManager : Singleton<GameModeManager>
 
         _isSwitching = false;
     }
+
+
 }

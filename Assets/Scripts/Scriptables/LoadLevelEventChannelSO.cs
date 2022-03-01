@@ -8,11 +8,17 @@ using System;
 [CreateAssetMenu(menuName = "Events/Load Level Event Channel")]
 public class LoadLevelEventChannelSO : ScriptableObject
 {
-    public event Action<LevelDataSO, bool, bool> OnLoadingRequested;
+    public event Action<LevelDataSO, bool, bool> OnLoadingLevelDataRequested;
+    public event Action<string, bool, bool> OnLoadingScenePathRequested;
 
-    public void RaiseEvent(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
+    public void RaiseEventWithLevelData(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
     {
-        OnLoadingRequested?.Invoke(levelToLoad, unloadActiveScene, showScreenfade);
+        OnLoadingLevelDataRequested?.Invoke(levelToLoad, unloadActiveScene, showScreenfade);
+    }
+
+    public void RaiseEventWithScenePath(string scenePath, bool unloadActiveScene, bool showScreenfade)
+    {
+        OnLoadingScenePathRequested?.Invoke(scenePath, unloadActiveScene, showScreenfade);
     }
 
 }

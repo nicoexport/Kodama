@@ -12,20 +12,28 @@ public class SceneLoader : MonoBehaviour
 
     private void OnEnable()
     {
-        _loadEventChannel.OnLoadingRequested += HandleLoadingRequest;
+        _loadEventChannel.OnLoadingLevelDataRequested += HandleLevelDataLoadingRequest;
+        _loadEventChannel.OnLoadingScenePathRequested += HandleScenePathLoadingRequested;
     }
 
     private void OnDisable()
     {
-        _loadEventChannel.OnLoadingRequested -= HandleLoadingRequest;
+        _loadEventChannel.OnLoadingLevelDataRequested -= HandleLevelDataLoadingRequest;
+        _loadEventChannel.OnLoadingScenePathRequested -= HandleScenePathLoadingRequested;
     }
 
-    private void HandleLoadingRequest(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
+    private void HandleLevelDataLoadingRequest(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
     {
-        StartCoroutine(LoadScenes(levelToLoad, unloadActiveScene, showScreenfade));
+        StartCoroutine(LoadScenes(levelToLoad.ScenePath, unloadActiveScene, showScreenfade));
     }
 
-    private IEnumerator LoadScenes(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
+    private void HandleScenePathLoadingRequested(string sceneToLoad, bool unloadActiveScene, bool showScreenfade)
+    {
+        StartCoroutine(LoadScenes(sceneToLoad, unloadActiveScene, showScreenfade));
+    }
+
+
+    private IEnumerator LoadScenes(string scenePath, bool unloadActiveScene, bool showScreenfade)
     {
 
 
@@ -40,8 +48,8 @@ public class SceneLoader : MonoBehaviour
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
 
 
-        yield return SceneManager.LoadSceneAsync(levelToLoad.ScenePath, LoadSceneMode.Additive);
-        SceneManager.SetActiveScene(SceneManager.GetSceneByPath(levelToLoad.ScenePath));
+        yield return SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByPath(scenePath));
 
 
         if (showScreenfade)

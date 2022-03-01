@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class GameSessionDataSO : ScriptableObject
 {
     public List<WorldDataSO> WorldDatas;
-    public LevelDataSO LevelSelect;
+    public string WorldsScenePath;
 
     public float TotalPlayTime { get; private set; }
 
