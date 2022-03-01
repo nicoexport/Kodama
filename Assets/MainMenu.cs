@@ -77,4 +77,10 @@ public class MainMenu : MonoBehaviour
                 return;
         }
     }
+
+    // temporaray
+    public void RequestResetSessionData()
+    {
+        GameModeManager.Instance.ResetSessionData();
+    }
 }

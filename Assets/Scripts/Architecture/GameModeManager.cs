@@ -104,8 +104,9 @@ public class GameModeManager : Singleton<GameModeManager>
 
 
     // TO DO: NEEDS TO BE IMPLEMENTED CORRECTLY INTO A SAVE/LOADD SYSTEM
-    public void ResetSessionData(GameSessionDataSO sessionData)
+    public void ResetSessionData()
     {
+        var sessionData = _sessionData;
         foreach (WorldDataSO world in sessionData.WorldDatas)
         {
             world.Visited = false;
