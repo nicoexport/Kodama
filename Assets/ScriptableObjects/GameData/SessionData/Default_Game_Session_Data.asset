@@ -15,3 +15,6 @@ MonoBehaviour:
   WorldDatas:
   - {fileID: 11400000, guid: 2ceb26d6ecaf5864ba23beb7ecc1d6d8, type: 2}
   - {fileID: 11400000, guid: 3acfe35ee7dd2ca459706e815ce224ad, type: 2}
+  WorldsScenePath: Assets/Scenes/WorldScene.unity
+  CurrentWorld: {fileID: 11400000, guid: 2ceb26d6ecaf5864ba23beb7ecc1d6d8, type: 2}
+  CurrentLevel: {fileID: 11400000, guid: 4681e57e0dad1b347a7fb83af464980a, type: 2}
