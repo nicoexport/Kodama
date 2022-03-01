@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Main Menu
   levelIndex: 0
+  worldIndex: 0
   levelImage: {fileID: 0}
   ScenePath: Assets/Scenes/Menu/MainMenu.unity
+  RecordTime: Infinity
+  levelCompleted: 0

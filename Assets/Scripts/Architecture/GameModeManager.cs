@@ -8,11 +8,17 @@ public class GameModeManager : Singleton<GameModeManager>
 
     [SerializeField]
     private TransitionEventChannelSO _transitionEventChannel;
+    [SerializeField]
+    private GameSessionDataSO _sessionData;
 
-    public LevelMode levelMode { get; private set; } = new LevelMode();
-    public WorldMode worldMode { get; private set; } = new WorldMode();
-    public MainMenuMode mainMenuMode { get; private set; } = new MainMenuMode();
+
+    [HideInInspector] public string MainMenuScenePath; //{ get; private set; }
+    [HideInInspector] public string WorldsScenePath; //{ get; private set; }
+
+    public MainMenuMode mainMenuMode { get; private set; }
+    public PlayMode playMode { get; private set; }
     public string _levelToLoad { get; private set; }
+
 
     private IGameMode _currentMode;
     private bool _isSwitching = false;
@@ -21,6 +27,9 @@ public class GameModeManager : Singleton<GameModeManager>
     protected override void Awake()
     {
         base.Awake();
+        playMode = new PlayMode(WorldsScenePath);
+        mainMenuMode = new MainMenuMode(MainMenuScenePath);
+
         Time.timeScale = 0;
 
 #if UNITY_EDITOR
@@ -41,14 +50,14 @@ public class GameModeManager : Singleton<GameModeManager>
 
             // loaded from world scene
             case 2:
-                _currentMode = worldMode;
+                _currentMode = playMode;
                 _currentMode.OnEditorStart();
                 SceneManager.LoadScene(_initialSceneIndex, LoadSceneMode.Additive);
 
                 break;
             // loaded from level scene
             default:
-                _currentMode = levelMode;
+                _currentMode = playMode;
                 _currentMode.OnEditorStart();
                 SceneManager.LoadScene(_initialSceneIndex, LoadSceneMode.Additive);
                 break;
@@ -66,15 +75,13 @@ public class GameModeManager : Singleton<GameModeManager>
 
     public void HandleLevelStartRequested(LevelObject levelObject)
     {
-        _levelToLoad = levelObject.ScenePath;
-        HandleModeStartRequested(levelMode);
     }
 
     private IEnumerator SwitchMode(IGameMode mode)
     {
         Debug.Log("Trying to Switch mode to " + mode);
         yield return new WaitUntil(() => !_isSwitching);
-        if (_currentMode != levelMode && _currentMode == mode) yield break;
+        if (_currentMode == mode) yield break;
 
         _isSwitching = true;
 

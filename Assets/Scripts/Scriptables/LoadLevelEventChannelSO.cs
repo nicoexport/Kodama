@@ -14,4 +14,5 @@ public class LoadLevelEventChannelSO : ScriptableObject
     {
         OnLoadingRequested?.Invoke(levelToLoad, unloadActiveScene, showScreenfade);
     }
+
 }
