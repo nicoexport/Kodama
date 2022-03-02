@@ -56,39 +56,3 @@ public class GameSessionDataSO : ScriptableObject
 
     }
 }
-
-public class LevelData
-{
-    // loaded from game data
-    public string ScenePath;
-    public string LevelName;
-    public Sprite LevelImage;
-    // loaded from save data
-    public bool Visited;
-    public bool Completed;
-    public float RecordTime;
-
-    public LevelData(LevelDataSO levelDataSO)
-    {
-        this.ScenePath = levelDataSO.ScenePath;
-        this.LevelName = levelDataSO.LevelName;
-        this.LevelImage = levelDataSO.LevelImage;
-    }
-}
-
-public class WorldData
-{
-
-    // loaded from game data
-    public string WorldName;
-    // loaded from save data
-    public bool Visited;
-    public bool Completed;
-
-    public List<LevelData> LevelDatas = new List<LevelData>();
-
-    public WorldData(WorldDataSO worldDataSO)
-    {
-        this.WorldName = worldDataSO.WorldName;
-    }
-}

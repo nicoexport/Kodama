@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour, IContextManager
 
     public static event Action OnCompleteLevel;
     public static event Action OnPlayerGainedControll;
-    public static event Action<float> OnTimerFinished;
+    public static event Action<float, bool> OnTimerFinished;
 
     private LevelFlowHandler _levelFlowHandler;
 
@@ -67,6 +67,7 @@ public class LevelManager : MonoBehaviour, IContextManager
     private void Start()
     {
         GetLevelData();
+        _activeLevelData.Visited = true;
         gameSessionData.CurrentLevel = _activeLevelData;
         gameSessionData.CurrentWorld = KodamaUtilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, gameSessionData);
         GameObject player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
@@ -85,9 +86,9 @@ public class LevelManager : MonoBehaviour, IContextManager
 
     private void CompleteLevel()
     {
+        _activeLevelData.Completed = true;
         OnCompleteLevel?.Invoke();
         InputManager.DisableInput();
-        // wait for Winning Animation to finish and enable LevelSummaryInput
         StartCoroutine(KodamaUtilities.ActionAfterDelay(levelSummaryContinueDelay, () => { EnableSummaryInput(); }));
         // Save Level Completion
         // Save Record
@@ -95,7 +96,8 @@ public class LevelManager : MonoBehaviour, IContextManager
 
     private void BroadCastFinishedTimer(float timer)
     {
-        OnTimerFinished?.Invoke(timer);
+        bool newRecord = _activeLevelData.UpdateRecordTime(timer);
+        OnTimerFinished?.Invoke(timer, newRecord);
     }
 
     private void LoadNextLevel(InputAction.CallbackContext context)

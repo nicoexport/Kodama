@@ -12,6 +12,7 @@ public class WorldsScreenManager : Singleton<WorldsScreenManager>
 
     [Header("Temporary")]
     [SerializeField] TextMeshProUGUI worldDisplay;
+    [SerializeField] TextMeshProUGUI recordDisplay;
 
     private WorldData _currentWorld;
     private LevelData _currentLevel;
@@ -41,6 +42,7 @@ public class WorldsScreenManager : Singleton<WorldsScreenManager>
     private void UpdateWorldDisplay()
     {
         worldDisplay.text = _currentWorld.WorldName + ": " + _currentLevel.LevelName;
+        recordDisplay.text = _currentLevel.RecordTime == Mathf.Infinity ? "NO RECORD" : _currentLevel.RecordTime.ToString();
     }
 
     [ContextMenu("ReturnToMainMenu")]

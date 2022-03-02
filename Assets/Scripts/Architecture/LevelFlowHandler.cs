@@ -74,7 +74,7 @@ public class LevelFlowHandler : MonoBehaviour
     private void LoadNextWorld(WorldData worldData)
     {
         _sessionData.CurrentWorld = worldData;
-        //_sessionData.CurrentLevel = worldData.LevelDatas[0];
+        _sessionData.CurrentLevel = worldData.LevelDatas[0];
         _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.WorldsScenePath, true, true);
         Debug.Log("TO DO: Load Next World");
     }

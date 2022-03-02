@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
 
+    [SerializeField]
+    private GameSessionDataSO _sessionData;
 
     [Space(10)]
     public MenuState state;
@@ -38,6 +40,13 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         // SceneManager.LoadScene(defaultLevel.ScenePath);
+        _sessionData.CurrentWorld = _sessionData.WorldDatas[0];
+        _sessionData.CurrentLevel = _sessionData.WorldDatas[0].LevelDatas[0];
+        GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.playMode);
+    }
+
+    public void ResumeGame()
+    {
         GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.playMode);
     }
 

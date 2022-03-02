@@ -43,15 +43,21 @@ public class LevelSummaryUI : MonoBehaviour
         }
     }
 
-    private void DisplayLevelFinishedTimer(float timer)
+    private void DisplayLevelFinishedTimer(float timer, bool newRecord)
     {
         Debug.Log(timer);
         // Set Level Summary Timer Text
         // Reveal Level Timer Text (for now just enable the object)
+        String recordString;
+        if (newRecord)
+            recordString = "NEW RECORD!";
+        else
+            recordString = "";
+
         StartCoroutine(KodamaUtilities.ActionAfterDelay(timerRevealDelay, () =>
         {
             levelFinishedTimerUI.SetActive(true);
-            tmPro.text = TimeSpan.FromSeconds(timer).ToString("mm\\:ss\\:ff");
+            tmPro.text = TimeSpan.FromSeconds(timer).ToString("mm\\:ss\\:ff") + recordString;
         }));
     }
 
