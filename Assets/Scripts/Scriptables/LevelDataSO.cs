@@ -14,6 +14,7 @@ public class LevelDataSO : ScriptableObject
 
     public void UpdateRecordTime(float time)
     {
-        RecordTime = time;
+        if (time < RecordTime)
+            RecordTime = time;
     }
 }

@@ -7,13 +7,15 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField]
     private Canvas canvas;
-    private bool paused = false;
-    [SerializeField]
-    private CharacterRuntimeSet characterRuntimeSet;
     [SerializeField]
     private Button primaryButton;
+
     [SerializeField]
-    private int mainMenuIndex;
+    private GameSessionDataSO _sessionData;
+    [SerializeField]
+    private LoadLevelEventChannelSO _loadLevelEventChannel;
+
+    private bool paused = false;
 
     private void Start()
     {
@@ -64,30 +66,38 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
+#if UNITY_EDITOR
+        ResumeGame();
+        return;
+#else
         UnRegisterInputActions();
         ResumeGame();
         Application.Quit();
+#endif
     }
 
     public void ReturnToMainMenu()
     {
         UnRegisterInputActions();
         ResumeGame();
-        SceneManager.LoadSceneAsync(mainMenuIndex);
+        GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);
+    }
+
+    public void ReturnToWorldsScreen()
+    {
+        UnRegisterInputActions();
+        ResumeGame();
+        _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.WorldsScenePath, true, true);
     }
 
     private void RegisterInputActions()
     {
-        //if (InputManager.playerInputActions == null) return;
-        Debug.Log("RegisterInputActions");
         InputManager.playerInputActions.Player.Pause.started += InputActionPauseGame;
         InputManager.playerInputActions.PauseMenu.Unpause.started += InputActionResumeGame;
     }
 
     private void UnRegisterInputActions()
     {
-        if (characterRuntimeSet.IsEmpty()) return;
-        //if (rtSet.CurrentCharacter.playerInputActions == null) return;
         InputManager.playerInputActions.Player.Pause.started -= InputActionPauseGame;
         InputManager.playerInputActions.PauseMenu.Unpause.started -= InputActionResumeGame;
     }

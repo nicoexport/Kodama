@@ -20,6 +20,7 @@ public class WorldsScreenManager : Singleton<WorldsScreenManager>
         base.Awake();
         _currentWorld = _sessionData.CurrentWorld;
         UpdateWorldDisplay();
+        StartTestLevel();
     }
 
 

@@ -64,7 +64,7 @@ public class GameModeManager : Singleton<GameModeManager>
                 break;
         }
 #else
-        HandleStartRequested(mainMenuMode);
+        HandleModeStartRequested(mainMenuMode);
 #endif
         Time.timeScale = 1;
     }
