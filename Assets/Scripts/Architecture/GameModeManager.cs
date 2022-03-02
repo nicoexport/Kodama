@@ -9,6 +9,8 @@ public class GameModeManager : Singleton<GameModeManager>
     [SerializeField]
     private TransitionEventChannelSO _transitionEventChannel;
     [SerializeField]
+    private GameDataSO _gameData;
+    [SerializeField]
     private GameSessionDataSO _sessionData;
 
 
@@ -27,9 +29,9 @@ public class GameModeManager : Singleton<GameModeManager>
     protected override void Awake()
     {
         base.Awake();
-        playMode = new PlayMode(WorldsScenePath);
-        mainMenuMode = new MainMenuMode(MainMenuScenePath);
-        _sessionData.WorldsScenePath = WorldsScenePath;
+        playMode = new PlayMode(_gameData.WorldsScenePath);
+        mainMenuMode = new MainMenuMode(_gameData.MainMenuScenePath);
+        _sessionData.ReadGameData(_gameData);
 
         Time.timeScale = 0;
 
@@ -104,9 +106,9 @@ public class GameModeManager : Singleton<GameModeManager>
 
 
     // TO DO: NEEDS TO BE IMPLEMENTED CORRECTLY INTO A SAVE/LOADD SYSTEM
-    public void ResetSessionData()
+    public void SetupSessionData()
     {
-        var sessionData = _sessionData;
+        /* var sessionData = _sessionData;
         foreach (WorldDataSO world in sessionData.WorldDatas)
         {
             world.Visited = false;
@@ -120,6 +122,8 @@ public class GameModeManager : Singleton<GameModeManager>
             }
         }
         var currentWorld = sessionData.CurrentWorld = sessionData.WorldDatas[0];
-        sessionData.CurrentLevel = currentWorld.LevelDatas[0];
+        sessionData.CurrentLevel = currentWorld.LevelDatas[0]; */
+
+        _sessionData.ReadGameData(_gameData);
     }
 }

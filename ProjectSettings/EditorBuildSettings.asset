@@ -38,4 +38,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level/Test/Architecture 3.unity
     guid: f5031036413f56c4d9a2415ad1dc9e20
+  - enabled: 1
+    path: Assets/Scenes/Level/Test/Architecture 4.unity
+    guid: ad490f8139a41bf47ba694f3442e9287
+  - enabled: 1
+    path: Assets/Scenes/Level/Test/Architecture 5.unity
+    guid: 6de400c667f2a9f478ed1187ca00363f
+  - enabled: 1
+    path: Assets/Scenes/Level/Test/Architecture 6.unity
+    guid: 185fc88d076c5214493a26cdf9213f52
+  - enabled: 1
+    path: Assets/Scenes/Level/Test/Architecture 7.unity
+    guid: 5f0ac74354988a44e8d8060a7c4b5d1c
   m_configObjects: {}

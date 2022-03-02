@@ -13,7 +13,7 @@ public class WorldsScreenManager : Singleton<WorldsScreenManager>
     [Header("Temporary")]
     [SerializeField] TextMeshProUGUI worldDisplay;
 
-    private WorldDataSO _currentWorld;
+    private WorldData _currentWorld;
 
     protected override void Awake()
     {
@@ -28,7 +28,7 @@ public class WorldsScreenManager : Singleton<WorldsScreenManager>
     private void StartTestLevel()
     {
         var level = _currentWorld.LevelDatas[0];
-        _loadLevelEventChannel.RaiseEventWithLevelData(level, true, true);
+        _loadLevelEventChannel.RaiseEventWithScenePath(level.ScenePath, true, true);
     }
 
 

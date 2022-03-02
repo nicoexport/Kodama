@@ -81,6 +81,6 @@ public class MainMenu : MonoBehaviour
     // temporaray
     public void RequestResetSessionData()
     {
-        GameModeManager.Instance.ResetSessionData();
+        GameModeManager.Instance.SetupSessionData();
     }
 }

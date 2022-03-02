@@ -2,15 +2,14 @@ using UnityEngine;
 using Cinemachine;
 using System;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(LevelTimer))]
 public class LevelManager : MonoBehaviour, IContextManager
 {
-
-    // TO DO: eventually get the Refrence to the LevelDataSO by looking through all of them and comparing the scene Path
     [field: SerializeField]
-    public LevelDataSO levelData { get; private set; }
+    public GameSessionDataSO gameSessionData { get; private set; }
 
     [Space(10)]
     [Header("Runtime Sets")]
@@ -39,6 +38,8 @@ public class LevelManager : MonoBehaviour, IContextManager
 
     private LevelFlowHandler _levelExitHandler;
 
+    private LevelData _levelData;
+
     private void OnEnable()
     {
         Context.Instance.RegisterContextManager(this);
@@ -60,10 +61,12 @@ public class LevelManager : MonoBehaviour, IContextManager
             LevelWin win = obj.GetComponent<LevelWin>();
             win.OnLevelWon += CompleteLevel;
         }
+
     }
 
     private void Start()
     {
+        GetLevelData();
         GameObject player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
         if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
         StartCoroutine(KodamaUtilities.ActionAfterDelay(1f, () =>
@@ -96,7 +99,7 @@ public class LevelManager : MonoBehaviour, IContextManager
     private void LoadNextLevel(InputAction.CallbackContext context)
     {
         DisableSummaryInput();
-        _levelExitHandler.NextLevelRequest(levelData);
+        _levelExitHandler.NextLevelRequest(_levelData);
     }
 
     private void ReturnToWorldMode(InputAction.CallbackContext context)
@@ -119,4 +122,18 @@ public class LevelManager : MonoBehaviour, IContextManager
         InputManager.playerInputActions.Disable();
     }
 
+    void GetLevelData()
+    {
+        string activeScenePath = SceneManager.GetActiveScene().path;
+
+        foreach (WorldData worldData in gameSessionData.WorldDatas)
+        {
+            foreach (LevelData levelData in worldData.LevelDatas)
+            {
+                if (levelData.ScenePath == activeScenePath)
+                    _levelData = levelData;
+            }
+        }
+        Debug.Log("Got Level DAta with name: " + _levelData.LevelName);
+    }
 }

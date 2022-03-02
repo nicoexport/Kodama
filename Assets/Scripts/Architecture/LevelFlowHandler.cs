@@ -13,16 +13,19 @@ public class LevelFlowHandler : MonoBehaviour
     }
 
     // Takes in a LevelDataSO. If its not the Worlds last level it loads the next level of the same world, if it is it loads the next world. 
-    public void NextLevelRequest(LevelDataSO levelData)
+    public void NextLevelRequest(LevelData levelData)
     {
         Debug.Log("LEVELFLOW: TRYING NEXT LEVEL REQUEST");
+        Debug.Log("Level Name: " + levelData.LevelName);
         // iterate over all worlds
         for (int i = 0; i < _sessionData.WorldDatas.Count; i++)
         {
             // Iterate over the worlds levels 
             for (int j = 0; j < _sessionData.WorldDatas[i].LevelDatas.Count; j++)
             {
-                if (_sessionData.WorldDatas[i].LevelDatas[j] == levelData)
+
+
+                if (_sessionData.WorldDatas[i].LevelDatas[j].LevelName == levelData.LevelName)
                 {
                     // if its not the last level of a world just load the next level of the world.
                     if (j < _sessionData.WorldDatas[i].LevelDatas.Count - 1)
@@ -50,13 +53,13 @@ public class LevelFlowHandler : MonoBehaviour
     }
 
 
-    private void LoadLevel(LevelDataSO levelData)
+    private void LoadLevel(LevelData levelData)
     {
         _sessionData.CurrentLevel = levelData;
-        _loadLevelEventChannel.RaiseEventWithLevelData(levelData, true, true);
+        _loadLevelEventChannel.RaiseEventWithScenePath(levelData.ScenePath, true, true);
     }
 
-    private void LoadWorld(WorldDataSO worldData)
+    private void LoadWorld(WorldData worldData)
     {
         _sessionData.CurrentWorld = worldData;
         //_sessionData.CurrentLevel = worldData.LevelDatas[0];
