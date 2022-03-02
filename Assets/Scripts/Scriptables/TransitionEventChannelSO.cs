@@ -9,7 +9,6 @@ public class TransitionEventChannelSO : ScriptableObject
     public void RaiseEvent(TransitionType transitionType, float duration)
     {
         OnTransitionRequested?.Invoke(transitionType, duration);
-        Debug.Log("OnTransitionRequested");
     }
 }
 

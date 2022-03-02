@@ -9,11 +9,11 @@ public class PauseMenu : MonoBehaviour
     private Canvas canvas;
     [SerializeField]
     private Button primaryButton;
+    [SerializeField]
+    private VoidEventChannelSO _returnToWorldEvent;
+    [SerializeField]
+    private VoidEventChannelSO _returnToMainMenuEvent;
 
-    [SerializeField]
-    private GameSessionDataSO _sessionData;
-    [SerializeField]
-    private LoadLevelEventChannelSO _loadLevelEventChannel;
 
     private bool paused = false;
 
@@ -78,16 +78,17 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        UnRegisterInputActions();
+        //UnRegisterInputActions();
         ResumeGame();
-        GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);
+        // GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);
+        _returnToMainMenuEvent.RaiseEvent();
     }
 
     public void ReturnToWorldsScreen()
     {
-        UnRegisterInputActions();
+        //UnRegisterInputActions();
         ResumeGame();
-        _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.WorldsScenePath, true, true);
+        _returnToWorldEvent.RaiseEvent();
     }
 
     private void RegisterInputActions()

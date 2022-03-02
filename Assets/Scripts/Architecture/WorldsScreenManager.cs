@@ -14,27 +14,33 @@ public class WorldsScreenManager : Singleton<WorldsScreenManager>
     [SerializeField] TextMeshProUGUI worldDisplay;
 
     private WorldData _currentWorld;
+    private LevelData _currentLevel;
 
     protected override void Awake()
     {
         base.Awake();
         _currentWorld = _sessionData.CurrentWorld;
+        _currentLevel = _sessionData.CurrentLevel;
         UpdateWorldDisplay();
-        StartTestLevel();
+    }
+
+    void Start()
+    {
+        // StartTestLevel();
     }
 
 
     [ContextMenu("StartLevel")]
-    private void StartTestLevel()
+    public void StartLevel()
     {
-        var level = _currentWorld.LevelDatas[0];
+        var level = _currentLevel;
         _loadLevelEventChannel.RaiseEventWithScenePath(level.ScenePath, true, true);
     }
 
 
     private void UpdateWorldDisplay()
     {
-        worldDisplay.text = _currentWorld.WorldName;
+        worldDisplay.text = _currentWorld.WorldName + ": " + _currentLevel.LevelName;
     }
 
     [ContextMenu("ReturnToMainMenu")]
@@ -42,4 +48,5 @@ public class WorldsScreenManager : Singleton<WorldsScreenManager>
     {
         GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);
     }
+
 }

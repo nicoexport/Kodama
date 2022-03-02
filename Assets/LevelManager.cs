@@ -36,9 +36,9 @@ public class LevelManager : MonoBehaviour, IContextManager
     public static event Action OnPlayerGainedControll;
     public static event Action<float> OnTimerFinished;
 
-    private LevelFlowHandler _levelExitHandler;
+    private LevelFlowHandler _levelFlowHandler;
 
-    private LevelData _levelData;
+    private LevelData _activeLevelData;
 
     private void OnEnable()
     {
@@ -54,7 +54,7 @@ public class LevelManager : MonoBehaviour, IContextManager
 
     private void Awake()
     {
-        _levelExitHandler = GetComponent<LevelFlowHandler>();
+        _levelFlowHandler = GetComponent<LevelFlowHandler>();
         // Registering our Level completion for every Level Win Class in the Runtime Set
         foreach (GameObject obj in levelWinRuntimeSet.GetItemList())
         {
@@ -67,6 +67,8 @@ public class LevelManager : MonoBehaviour, IContextManager
     private void Start()
     {
         GetLevelData();
+        gameSessionData.CurrentLevel = _activeLevelData;
+        gameSessionData.CurrentWorld = KodamaUtilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, gameSessionData);
         GameObject player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
         if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
         StartCoroutine(KodamaUtilities.ActionAfterDelay(1f, () =>
@@ -99,26 +101,26 @@ public class LevelManager : MonoBehaviour, IContextManager
     private void LoadNextLevel(InputAction.CallbackContext context)
     {
         DisableSummaryInput();
-        _levelExitHandler.NextLevelRequest(_levelData);
+        _levelFlowHandler.NextLevelRequest(_activeLevelData);
     }
 
-    private void ReturnToWorldMode(InputAction.CallbackContext context)
+    private void FinishLevelAndReturnToWorldMode(InputAction.CallbackContext context)
     {
         DisableSummaryInput();
-        // return to world selection Scene
+        _levelFlowHandler.FinishLevelAndExit(_activeLevelData);
     }
 
     private void EnableSummaryInput()
     {
         InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSummary);
         InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
-        InputManager.playerInputActions.LevelSummary.Return.started += ReturnToWorldMode;
+        InputManager.playerInputActions.LevelSummary.Return.started += FinishLevelAndReturnToWorldMode;
     }
 
     private void DisableSummaryInput()
     {
         InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
-        InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWorldMode;
+        InputManager.playerInputActions.LevelSummary.Return.started -= FinishLevelAndReturnToWorldMode;
         InputManager.playerInputActions.Disable();
     }
 
@@ -131,9 +133,9 @@ public class LevelManager : MonoBehaviour, IContextManager
             foreach (LevelData levelData in worldData.LevelDatas)
             {
                 if (levelData.ScenePath == activeScenePath)
-                    _levelData = levelData;
+                    _activeLevelData = levelData;
             }
         }
-        Debug.Log("Got Level DAta with name: " + _levelData.LevelName);
+        Debug.Log("Got Level DAta with name: " + _activeLevelData.LevelName);
     }
 }
