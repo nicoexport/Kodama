@@ -36,6 +36,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -208,6 +209,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Player_walk_against_wall_sheet_2: 969435889859837686
+      Player_walk_against_wall_sheet_3: -8499198752688654314
+      Player_walk_against_wall_sheet_0: -1758263305670255701
+      Player_walk_against_wall_sheet_1: -5887039753095257225
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
