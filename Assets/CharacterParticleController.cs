@@ -6,6 +6,7 @@ public class CharacterParticleController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _walkingDust;
     [SerializeField] private ParticleSystem _wallDust;
+    [SerializeField] private ParticleSystem _landDust;
 
     private CharacterAnimationController _animController;
 
@@ -61,6 +62,11 @@ public class CharacterParticleController : MonoBehaviour
         switch (newAnimState)
         {
             case CharacterAnimationController.idle:
+                if (currentAnimState == CharacterAnimationController.falling)
+                {
+                    _landDust.Stop();
+                    _landDust.Play();
+                }
                 break;
 
             case CharacterAnimationController.running:
