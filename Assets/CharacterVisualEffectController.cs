@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
-public class CharacterParticleController : MonoBehaviour
+public class CharacterVisualEffectController : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _walkingDust;
-    [SerializeField] private ParticleSystem _wallDust;
+    [SerializeField] private VisualEffect _walkingDust;
+    [SerializeField] private VisualEffect _wallDust;
+
+    [SerializeField] private List<VisualEffect> _allEffects;
 
     private CharacterAnimationController _animController;
 
@@ -26,36 +29,9 @@ public class CharacterParticleController : MonoBehaviour
 
     private void HandleAnimationStateChange(string currentAnimState, string newAnimState)
     {
-        switch (currentAnimState)
+        foreach (VisualEffect effect in _allEffects)
         {
-            case CharacterAnimationController.idle:
-                break;
-
-            case CharacterAnimationController.running:
-                _walkingDust.Stop();
-                break;
-
-            case CharacterAnimationController.falling:
-                break;
-
-            case CharacterAnimationController.jumping:
-                break;
-
-            case CharacterAnimationController.doubleJumping:
-                break;
-
-            case CharacterAnimationController.wallSliding:
-                _wallDust.Stop();
-                break;
-
-            case CharacterAnimationController.wallJumping:
-                break;
-
-            case CharacterAnimationController.walkingAgainstWall:
-                break;
-
-            case CharacterAnimationController.spawning:
-                break;
+            effect.Stop();
         }
 
         switch (newAnimState)
@@ -64,7 +40,7 @@ public class CharacterParticleController : MonoBehaviour
                 break;
 
             case CharacterAnimationController.running:
-                _walkingDust.Play();
+                _walkingDust.Reinit();
                 break;
 
             case CharacterAnimationController.falling:
@@ -77,7 +53,7 @@ public class CharacterParticleController : MonoBehaviour
                 break;
 
             case CharacterAnimationController.wallSliding:
-                _wallDust.Play();
+                _wallDust.Reinit();
                 break;
 
             case CharacterAnimationController.wallJumping:

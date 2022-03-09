@@ -20,7 +20,7 @@ MonoBehaviour:
     x: 391
     y: -190
     width: 976
-    height: 1416
+    height: 1467
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -281,7 +281,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":-0.38999998569488528,"y":0.029999999329447748,"z":0.0}}'
+      m_SerializableObject: '{"vector":{"x":0.0,"y":0.029999999329447748,"z":0.0}}'
     m_Space: 1
   m_Property:
     name: A
@@ -451,7 +451,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":-0.41999998688697817,"y":0.05999999865889549,"z":0.0}}'
+      m_SerializableObject: '{"vector":{"x":0.0,"y":0.05999999865889549,"z":0.0}}'
     m_Space: 1
   m_Property:
     name: B
@@ -743,7 +743,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661614589}
   - {fileID: 8926484042661614593}
-  m_UIPosition: {x: 943, y: 794}
+  m_UIPosition: {x: 943, y: 845}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -1354,7 +1354,7 @@ MonoBehaviour:
   m_OutputSlots:
   - {fileID: 8926484042661614618}
   attribute: position
-  location: 0
+  location: 1
   mask: xyz
 --- !u!114 &8926484042661614618
 MonoBehaviour:
