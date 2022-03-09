@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 960, y: 540, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6819589678296574641}
   - {fileID: 6121057404035394130}
@@ -90,12 +91,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6712541552270602866, guid: 78a22b7e14b93e043b07d21a2b5a1ab3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6712541552270602867, guid: 78a22b7e14b93e043b07d21a2b5a1ab3, type: 3}
       propertyPath: characterRuntimeSet
       value: 
       objectReference: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
+    - target: {fileID: 6712541553160822590, guid: 78a22b7e14b93e043b07d21a2b5a1ab3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78a22b7e14b93e043b07d21a2b5a1ab3, type: 3}
 --- !u!4 &6121057404035394130 stripped
@@ -110,6 +115,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6121057403864693161}
     m_Modifications:
+    - target: {fileID: 1304853542538431132, guid: 75d15683b95cfaa4683eb8950dbac536, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 8.600098
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304853542538431132, guid: 75d15683b95cfaa4683eb8950dbac536, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -42.599976
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304853542908976934, guid: 75d15683b95cfaa4683eb8950dbac536, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 8.600098
+      objectReference: {fileID: 0}
     - target: {fileID: 1482965446987763526, guid: 75d15683b95cfaa4683eb8950dbac536, type: 3}
       propertyPath: m_RootOrder
       value: 0

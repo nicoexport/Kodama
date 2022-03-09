@@ -78,9 +78,11 @@ public class CharacterParticleController : MonoBehaviour
                 break;
 
             case CharacterAnimationController.falling:
+                _leafGlimmer.Play();
                 break;
 
             case CharacterAnimationController.jumping:
+                _leafGlimmer.Play();
                 break;
 
             case CharacterAnimationController.doubleJumping:
@@ -91,6 +93,7 @@ public class CharacterParticleController : MonoBehaviour
                 break;
 
             case CharacterAnimationController.wallJumping:
+                _leafGlimmer.Play();
                 break;
 
             case CharacterAnimationController.walkingAgainstWall:
