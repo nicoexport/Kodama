@@ -7,6 +7,7 @@ public class CharacterParticleController : MonoBehaviour
     [SerializeField] private ParticleSystem _walkingDust;
     [SerializeField] private ParticleSystem _wallDust;
     [SerializeField] private ParticleSystem _landDust;
+    [SerializeField] private ParticleSystem _leafGlimmer;
 
     private CharacterAnimationController _animController;
 
@@ -27,6 +28,8 @@ public class CharacterParticleController : MonoBehaviour
 
     private void HandleAnimationStateChange(string currentAnimState, string newAnimState)
     {
+        _leafGlimmer.Stop();
+
         switch (currentAnimState)
         {
             case CharacterAnimationController.idle:
@@ -71,6 +74,7 @@ public class CharacterParticleController : MonoBehaviour
 
             case CharacterAnimationController.running:
                 _walkingDust.Play();
+                _leafGlimmer.Play();
                 break;
 
             case CharacterAnimationController.falling:
