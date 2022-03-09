@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
+using System;
 
 [RequireComponent(typeof(Animator))]
 public class CharacterAnimationController : MonoBehaviour
@@ -8,15 +10,17 @@ public class CharacterAnimationController : MonoBehaviour
     private string currentAnimState;
     private Animator animator;
 
-    const string idle = "IDLE";
-    const string running = "RUNNING";
-    const string falling = "FALLING";
-    const string jumping = "JUMPING";
-    const string doubleJumping = "DOUBLEJUMPING";
-    const string wallSliding = "WALLSLIDING";
-    const string wallJumping = "WALLJUMPING";
-    const string walkingAgainstWall = "WALKING_AGAINST_WALL";
-    const string spawning = "SPAWNING";
+    public event Action<string, string> OnAnimationStateChange;
+
+    public const string idle = "IDLE";
+    public const string running = "RUNNING";
+    public const string falling = "FALLING";
+    public const string jumping = "JUMPING";
+    public const string doubleJumping = "DOUBLEJUMPING";
+    public const string wallSliding = "WALLSLIDING";
+    public const string wallJumping = "WALLJUMPING";
+    public const string walkingAgainstWall = "WALKING_AGAINST_WALL";
+    public const string spawning = "SPAWNING";
 
     private void Awake()
     {
@@ -71,7 +75,7 @@ public class CharacterAnimationController : MonoBehaviour
 
         if (newAnimState == currentAnimState) return;
         animator.Play(newAnimState, 0);
+        OnAnimationStateChange?.Invoke(currentAnimState, newAnimState);
         currentAnimState = newAnimState;
     }
-
 }
