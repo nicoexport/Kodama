@@ -5,14 +5,7 @@ using UnityEngine;
 
 public class LevelNavigationUI : MonoBehaviour
 {
-    [SerializeField] private WorldDataSO _worldDataSO;
-    [SerializeField] private GameSessionDataSO _sessionDataSO;
     [SerializeField] private List<LevelNavigationSocket> _sockets = new List<LevelNavigationSocket>();
-
-    private void Awake()
-    {
-        SetupSockets(KodamaUtilities.GetWorldDataFromWorldDataSO(_worldDataSO, _sessionDataSO));
-    }
 
     private void OnEnable()
     {

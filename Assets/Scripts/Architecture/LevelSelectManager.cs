@@ -3,7 +3,8 @@ using System;
 
 public class LevelSelectManager : MonoBehaviour
 {
-    [SerializeField] GameSessionDataSO _sessionData;
+    [SerializeField] private GameSessionDataSO _sessionData;
+    [SerializeField] private WorldDataSO _defaultWorld;
 
     private WorldData _selectedWorld;
     private LevelData _selectedLevel;
@@ -19,6 +20,11 @@ public class LevelSelectManager : MonoBehaviour
             _selectedLevel = _sessionData.CurrentLevel;
         else
             _selectedLevel = _selectedWorld.LevelDatas[0];
+
+
+        // if something went wrong and the selected world is still null, we will pick the default world assigned in inspector
+        if (_selectedWorld == null)
+            _selectedWorld = KodamaUtilities.GetWorldDataFromWorldDataSO(_defaultWorld, _sessionData);
     }
 
     private void Start()
