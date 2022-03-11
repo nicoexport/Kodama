@@ -14,12 +14,12 @@ public class LevelPanelUI : MonoBehaviour
 
     private void OnEnable()
     {
-        LevelSelectButton.OnButtonSelectedAction += UpdateLevelPanel;
+        LevelNavigationSocket.OnButtonSelectedAction += UpdateLevelPanel;
     }
 
     private void OnDisable()
     {
-        LevelSelectButton.OnButtonSelectedAction -= UpdateLevelPanel;
+        LevelNavigationSocket.OnButtonSelectedAction -= UpdateLevelPanel;
     }
 
     private void UpdateLevelPanel(LevelData levelData)

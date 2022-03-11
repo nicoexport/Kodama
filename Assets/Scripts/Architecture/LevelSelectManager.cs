@@ -8,7 +8,6 @@ public class LevelSelectManager : MonoBehaviour
     private WorldData _selectedWorld;
     private LevelData _selectedLevel;
 
-
     public static event Action<WorldData> OnWorldSelected;
 
     private void Awake()
@@ -25,16 +24,5 @@ public class LevelSelectManager : MonoBehaviour
     private void Start()
     {
         OnWorldSelected?.Invoke(_selectedWorld);
-    }
-
-    private void SelectNextLevel()
-    {
-
-
-    }
-
-    private void SelectPreviousLevel()
-    {
-
     }
 }

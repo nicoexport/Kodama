@@ -77,5 +77,16 @@ public static class KodamaUtilities
         return null;
     }
 
+    public static WorldData GetWorldDataFromWorldDataSO(WorldDataSO worldDataSO, GameSessionDataSO gameSessionDataSO)
+    {
+        foreach (WorldData worldData in gameSessionDataSO.WorldDatas)
+        {
+            if (worldData.WorldName == worldDataSO.WorldName)
+            {
+                return worldData;
+            }
+        }
+        return null;
+    }
 }
 
