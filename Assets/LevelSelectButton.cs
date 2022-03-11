@@ -9,7 +9,7 @@ public class LevelSelectButton : MonoBehaviour
     private LevelData _levelData;
     private TextMeshProUGUI _buttonText;
 
-    static event Action<LevelData> OnButtonSelectedAction;
+    public static event Action<LevelData> OnButtonSelectedAction;
 
     private void Awake()
     {
