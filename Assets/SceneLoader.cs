@@ -52,11 +52,9 @@ public class SceneLoader : MonoBehaviour
         SceneManager.SetActiveScene(SceneManager.GetSceneByPath(scenePath));
 
 
-        if (showScreenfade)
-        {
-            _transitionEventChannel.RaiseEvent(TransitionType.FadeIn, 1f);
-            yield return new WaitForSeconds(1f);
-        }
+        if (!showScreenfade) yield break;
+        _transitionEventChannel.RaiseEvent(TransitionType.FadeIn, 1f);
+        yield return new WaitForSeconds(1f);
         // yield return ScreenFade.Instance.Release(1f);
     }
 }

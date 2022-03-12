@@ -11,12 +11,10 @@ public class LevelNavigationSocket : MonoBehaviour
     public static event Action<LevelData> OnButtonClickedAction;
 
     private LevelData _levelData;
-    private int _index = 99;
-    
+
     public void SetupSocket(LevelData levelData, bool lastSocket, int index)
     {
         _levelData = levelData;
-        _index = index;
         // sets the path object inactive if it is the last socket
         pathObject.SetActive(!lastSocket);
 
