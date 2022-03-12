@@ -183,7 +183,7 @@ public class Character : MonoBehaviour
     public void UpdateVisuals()
     {
         var touchingWall = CheckCollisionOverlap(frontCheck.position, frontCheckRadius);
-        cAnimController.SetAnimationeState(movementSm.CurrentState, InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x, rb.velocity.x, maxVelocityX, touchingWall);
+        cAnimController.SetAnimationState(movementSm.CurrentState, InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x, rb.velocity.x, maxVelocityX, touchingWall);
     }
 
     private void InitializeStates()

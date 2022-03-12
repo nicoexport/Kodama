@@ -21,13 +21,14 @@ public class CharacterAnimationController : MonoBehaviour
     public const string wallJumping = "WALLJUMPING";
     public const string walkingAgainstWall = "WALKING_AGAINST_WALL";
     public const string spawning = "SPAWNING";
+    public const string winning = "WINNING"; // TO DO : winning animation
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
-    public void SetAnimationeState(State state, float horizontalInput, float xVelocity, float maxVelocityX, bool touchingWall)
+    public void SetAnimationState(State state, float horizontalInput, float xVelocity, float maxVelocityX, bool touchingWall)
     {
         string newAnimState = idle;
         switch (state.ToString())
@@ -67,6 +68,9 @@ public class CharacterAnimationController : MonoBehaviour
 
             case "SpawningState":
                 newAnimState = spawning;
+                break;
+            case "WinningState":
+                newAnimState = winning;
                 break;
             default:
                 newAnimState = idle;

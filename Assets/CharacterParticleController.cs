@@ -60,6 +60,9 @@ public class CharacterParticleController : MonoBehaviour
 
             case CharacterAnimationController.spawning:
                 break;
+            
+            case CharacterAnimationController.winning:
+                break;
         }
 
         switch (newAnimState)
