@@ -29,6 +29,11 @@ public class LevelNavigationManager : MonoBehaviour
         LevelNavigationSocket.OnButtonClickedAction += LoadLevel;
     }
 
+    private void OnDisable()
+    {
+        LevelNavigationSocket.OnButtonClickedAction -= LoadLevel;
+    }
+
     private void Start()
     {
         OnWorldSelected?.Invoke(_selectedWorld);

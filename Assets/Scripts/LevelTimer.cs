@@ -21,11 +21,9 @@ public class LevelTimer : Timer
 
     public override void FixedUpdate()
     {
-        if (count)
-        {
-            CountUpTimer();
-            OnTimerChanged?.Invoke(timer);
-        }
+        if (!count) return;
+        CountUpTimer();
+        OnTimerChanged?.Invoke(timer);
     }
 
     private void FinishTimer()
