@@ -1,39 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class LevelNavigationUI : MonoBehaviour
 {
-    [SerializeField] private List<LevelNavigationSocket> _sockets = new List<LevelNavigationSocket>();
+    [SerializeField] private List<LevelNavigationSocket> sockets = new List<LevelNavigationSocket>();
 
     private void OnEnable()
     {
-        LevelSelectManager.OnWorldSelected += SetupSockets;
+        LevelNavigationManager.OnWorldSelected += SetupSockets;
     }
 
     private void OnDisable()
     {
-        LevelSelectManager.OnWorldSelected -= SetupSockets;
+        LevelNavigationManager.OnWorldSelected -= SetupSockets;
     }
 
     private void SetupSockets(WorldData worldData)
     {
-        foreach (LevelNavigationSocket socket in _sockets)
+        foreach (var socket in sockets)
         {
             socket.gameObject.SetActive(false);
         }
 
-        int socketAmount = worldData.LevelDatas.Count;
-        if (socketAmount > _sockets.Count)
+        var socketAmount = worldData.LevelDatas.Count;
+        if (socketAmount > sockets.Count)
             return;
-        for (int i = 0; i < socketAmount; i++)
+        for (var i = 0; i < socketAmount; i++)
         {
-            _sockets[i].gameObject.SetActive(true);
-            if (i >= socketAmount - 1)
-                _sockets[i].SetupSocket(worldData.LevelDatas[i], true, i + 1);
-            else
-                _sockets[i].SetupSocket(worldData.LevelDatas[i], false, i + 1);
+            sockets[i].gameObject.SetActive(true);
+            sockets[i].SetupSocket(worldData.LevelDatas[i], i >= socketAmount - 1, i + 1);
         }
     }
 

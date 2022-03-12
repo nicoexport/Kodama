@@ -4,30 +4,34 @@ using System;
 
 public class LevelNavigationSocket : MonoBehaviour
 {
-    [SerializeField] private GameObject _buttonObject;
-    [SerializeField] private GameObject _PathObject;
+    [SerializeField] private GameObject buttonObject;
+    [SerializeField] private GameObject pathObject;
 
     public static event Action<LevelData> OnButtonSelectedAction;
+    public static event Action<LevelData> OnButtonClickedAction;
 
     private LevelData _levelData;
     private int _index = 99;
-
+    
     public void SetupSocket(LevelData levelData, bool lastSocket, int index)
     {
         _levelData = levelData;
         _index = index;
-        if (!lastSocket)
-            _PathObject.SetActive(true);
-        else
-            _PathObject.SetActive(false);
+        // sets the path object inactive if it is the last socket
+        pathObject.SetActive(!lastSocket);
 
-        var buttonTextObject = _buttonObject.GetComponentInChildren<TextMeshProUGUI>();
+        var buttonTextObject = buttonObject.GetComponentInChildren<TextMeshProUGUI>();
         buttonTextObject.text = index.ToString();
     }
 
     public void OnButtonSelected()
     {
-        Debug.Log("OnButtonSelected: " + _levelData.LevelName);
+        print("OnButtonSelected: " + _levelData.LevelName);
         OnButtonSelectedAction?.Invoke(_levelData);
+    }
+
+    public void OnButtonClicked()
+    {
+        OnButtonClickedAction?.Invoke(_levelData);
     }
 }

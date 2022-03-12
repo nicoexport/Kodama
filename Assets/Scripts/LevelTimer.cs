@@ -9,13 +9,13 @@ public class LevelTimer : Timer
 
     private void OnEnable()
     {
-        LevelManager.OnPlayerGainedControll += RestartTimer;
+        LevelManager.OnPlayerGainedControl += RestartTimer;
         LevelManager.OnCompleteLevel += FinishTimer;
     }
 
     private void OnDisable()
     {
-        LevelManager.OnPlayerGainedControll -= RestartTimer;
+        LevelManager.OnPlayerGainedControl -= RestartTimer;
         LevelManager.OnCompleteLevel -= FinishTimer;
     }
 

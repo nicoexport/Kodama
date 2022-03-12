@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
+
 public class LevelSelectUI : MonoBehaviour
 {
     [SerializeField]
@@ -9,12 +10,12 @@ public class LevelSelectUI : MonoBehaviour
 
     private void OnEnable()
     {
-        LevelSelectManager.OnWorldSelected += UpdateLevelSelectUI;
+        LevelNavigationManager.OnWorldSelected += UpdateLevelSelectUI;
     }
 
     private void OnDisable()
     {
-        LevelSelectManager.OnWorldSelected -= UpdateLevelSelectUI;
+        LevelNavigationManager.OnWorldSelected -= UpdateLevelSelectUI;
     }
 
     private void Awake()

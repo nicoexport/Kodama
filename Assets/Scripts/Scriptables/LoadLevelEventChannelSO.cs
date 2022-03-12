@@ -11,7 +11,7 @@ public class LoadLevelEventChannelSO : ScriptableObject
     public event Action<LevelDataSO, bool, bool> OnLoadingLevelDataRequested;
     public event Action<string, bool, bool> OnLoadingScenePathRequested;
 
-    public void RaiseEventWithLevelData(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
+    public void RaiseEventWithLevelDataSO(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
     {
         OnLoadingLevelDataRequested?.Invoke(levelToLoad, unloadActiveScene, showScreenfade);
     }

@@ -29,11 +29,8 @@ public class LevelManager : MonoBehaviour, IContextManager
     [SerializeField]
     private float levelSummaryContinueDelay = 2f;
 
-    [SerializeField]
-    private LoadLevelEventChannelSO _loadEventChannel;
-
     public static event Action OnCompleteLevel;
-    public static event Action OnPlayerGainedControll;
+    public static event Action OnPlayerGainedControl;
     public static event Action<float, bool> OnTimerFinished;
 
     private LevelFlowHandler _levelFlowHandler;
@@ -56,26 +53,26 @@ public class LevelManager : MonoBehaviour, IContextManager
     {
         _levelFlowHandler = GetComponent<LevelFlowHandler>();
         // Registering our Level completion for every Level Win Class in the Runtime Set
-        foreach (GameObject obj in levelWinRuntimeSet.GetItemList())
+        foreach (var obj in levelWinRuntimeSet.GetItemList())
         {
-            LevelWin win = obj.GetComponent<LevelWin>();
+            var win = obj.GetComponent<LevelWin>();
             win.OnLevelWon += CompleteLevel;
         }
 
     }
 
-    private void Start()
+    private void Start() 
     {
         GetLevelData();
-        _activeLevelData.Visited = true;
+        _activeLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
         gameSessionData.CurrentLevel = _activeLevelData;
         gameSessionData.CurrentWorld = KodamaUtilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, gameSessionData);
-        GameObject player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
+        var player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
         if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
         StartCoroutine(KodamaUtilities.ActionAfterDelay(1f, () =>
         {
             InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
-            OnPlayerGainedControll?.Invoke();
+            OnPlayerGainedControl?.Invoke();
         }));
     }
 
@@ -89,14 +86,14 @@ public class LevelManager : MonoBehaviour, IContextManager
         _activeLevelData.Completed = true;
         OnCompleteLevel?.Invoke();
         InputManager.DisableInput();
-        StartCoroutine(KodamaUtilities.ActionAfterDelay(levelSummaryContinueDelay, () => { EnableSummaryInput(); }));
+        StartCoroutine(KodamaUtilities.ActionAfterDelay(levelSummaryContinueDelay, EnableSummaryInput));
         // Save Level Completion
         // Save Record
     }
 
     private void BroadCastFinishedTimer(float timer)
     {
-        bool newRecord = _activeLevelData.UpdateRecordTime(timer);
+        var newRecord = _activeLevelData.UpdateRecordTime(timer);
         OnTimerFinished?.Invoke(timer, newRecord);
     }
 
@@ -126,9 +123,9 @@ public class LevelManager : MonoBehaviour, IContextManager
         InputManager.playerInputActions.Disable();
     }
 
-    void GetLevelData()
+    private void GetLevelData()
     {
-        string activeScenePath = SceneManager.GetActiveScene().path;
+        var activeScenePath = SceneManager.GetActiveScene().path;
 
         foreach (WorldData worldData in gameSessionData.WorldDatas)
         {
