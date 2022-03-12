@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
 
 public class LevelNavigationUI : MonoBehaviour
 {
     [SerializeField] private List<LevelNavigationSocket> sockets = new List<LevelNavigationSocket>();
+    [SerializeField] private EventSystem _eventSystem;
 
     private void OnEnable()
     {
@@ -28,10 +30,12 @@ public class LevelNavigationUI : MonoBehaviour
         var socketAmount = worldData.LevelDatas.Count;
         if (socketAmount > sockets.Count)
             return;
+        
         for (var i = 0; i < socketAmount; i++)
         {
             sockets[i].gameObject.SetActive(true);
             sockets[i].SetupSocket(worldData.LevelDatas[i], i >= socketAmount - 1, i + 1);
+            sockets[i].SetButtonInteractable(worldData.LevelDatas[i].Unlocked);
         }
     }
 

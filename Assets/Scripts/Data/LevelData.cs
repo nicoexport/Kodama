@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class LevelData
 {
-    public string ScenePath;
-    public string LevelName;
-    public Sprite LevelImage;
+    public readonly string ScenePath;
+    public readonly string LevelName;
+    private Sprite LevelImage;
+    public bool Unlocked { get; set; } = false;
     public bool Visited;
     public bool Completed;
     public float RecordTime = Mathf.Infinity;
+    
 
     public LevelData(LevelDataSO levelDataSO)
     {
@@ -18,11 +20,8 @@ public class LevelData
 
     public bool UpdateRecordTime(float time)
     {
-        if (time < RecordTime)
-        {
-            RecordTime = time;
-            return true;
-        }
-        return false;
+        if (!(time < RecordTime)) return false;
+        RecordTime = time;
+        return true;
     }
 }

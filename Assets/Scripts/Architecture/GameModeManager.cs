@@ -104,10 +104,12 @@ public class GameModeManager : Singleton<GameModeManager>
 
 
 
-    // TO DO: NEEDS TO BE IMPLEMENTED CORRECTLY INTO A SAVE/LOADD SYSTEM
+    // TO DO: NEEDS TO BE IMPLEMENTED CORRECTLY INTO A SAVE/LOAD SYSTEM
     public void SetupSessionData()
     {
         Debug.Log("SETUP GAME SESSION DATA");
         _sessionData.ReadGameData(_gameData);
+        // TO DO: Complete game session data by adding Save Data
+        
     }
 }

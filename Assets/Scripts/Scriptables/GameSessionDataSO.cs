@@ -39,6 +39,7 @@ public class GameSessionDataSO : ScriptableObject
 
         CurrentWorld = WorldDatas[0];
         CurrentLevel = CurrentWorld.LevelDatas[0];
+        CurrentWorld.Unlocked = true;
     }
 
 

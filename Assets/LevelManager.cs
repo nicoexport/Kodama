@@ -29,6 +29,8 @@ public class LevelManager : MonoBehaviour, IContextManager
     [SerializeField]
     private float levelSummaryContinueDelay = 2f;
 
+    [SerializeField] private LevelFinishedEventChannel _levelFinishedEventChannel;
+    
     public static event Action OnCompleteLevel;
     public static event Action OnPlayerGainedControl;
     public static event Action<float, bool> OnTimerFinished;
@@ -85,6 +87,7 @@ public class LevelManager : MonoBehaviour, IContextManager
     {
         _activeLevelData.Completed = true;
         OnCompleteLevel?.Invoke();
+        _levelFinishedEventChannel.RaiseEvent(_activeLevelData);
         InputManager.DisableInput();
         StartCoroutine(KodamaUtilities.ActionAfterDelay(levelSummaryContinueDelay, EnableSummaryInput));
         // Save Level Completion
