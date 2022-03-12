@@ -32,7 +32,7 @@ public class LevelSelectUI : MonoBehaviour
         }
     }
 
-    private void UpdateLevelSelectUI(WorldData worldData)
+    private void UpdateLevelSelectUI(WorldData worldData, LevelData levelData)
     {
         UpdateButtons(worldData);
     }

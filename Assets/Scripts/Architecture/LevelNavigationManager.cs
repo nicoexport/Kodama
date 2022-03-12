@@ -12,7 +12,7 @@ public class LevelNavigationManager : MonoBehaviour
     private WorldData _selectedWorld;
     private LevelData _selectedLevel;
 
-    public static event Action<WorldData> OnWorldSelected;
+    public static event Action<WorldData, LevelData> OnWorldSelected;
 
     private void Awake()
     {
@@ -36,7 +36,7 @@ public class LevelNavigationManager : MonoBehaviour
 
     private void Start()
     {
-        OnWorldSelected?.Invoke(_selectedWorld);
+        OnWorldSelected?.Invoke(_selectedWorld, _sessionData.CurrentLevel);
     }
 
     private void LoadLevel(LevelData obj)

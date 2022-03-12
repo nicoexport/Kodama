@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 
 public class LevelNavigationUI : MonoBehaviour
 {
     [SerializeField] private List<LevelNavigationSocket> sockets = new List<LevelNavigationSocket>();
-    [SerializeField] private EventSystem _eventSystem;
+    private EventSystem _eventSystem;
 
+
+    private void Awake()
+    {
+        _eventSystem = FindObjectOfType<EventSystem>();
+    }
     private void OnEnable()
     {
         LevelNavigationManager.OnWorldSelected += SetupSockets;
@@ -20,7 +26,7 @@ public class LevelNavigationUI : MonoBehaviour
         LevelNavigationManager.OnWorldSelected -= SetupSockets;
     }
 
-    private void SetupSockets(WorldData worldData)
+    private void SetupSockets(WorldData worldData, LevelData currentLevelData)
     {
         foreach (var socket in sockets)
         {
@@ -36,7 +42,18 @@ public class LevelNavigationUI : MonoBehaviour
             sockets[i].gameObject.SetActive(true);
             sockets[i].SetupSocket(worldData.LevelDatas[i], i >= socketAmount - 1, i + 1);
             sockets[i].SetButtonInteractable(worldData.LevelDatas[i].Unlocked);
+            if (worldData.LevelDatas[i] == currentLevelData)
+            {
+                SetActiveButton(sockets[i].Button);
+            }
         }
+        
+        
+    }
+
+    private void SetActiveButton(Button button)
+    {
+        _eventSystem.SetSelectedGameObject(button.gameObject);
     }
 
 }

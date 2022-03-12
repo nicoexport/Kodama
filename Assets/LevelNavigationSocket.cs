@@ -8,7 +8,7 @@ public class LevelNavigationSocket : MonoBehaviour
     [SerializeField] private GameObject buttonObject;
     [SerializeField] private GameObject pathObject;
     
-    private Button _button;
+    public Button Button { get; private set; }
     
     public static event Action<LevelData> OnButtonSelectedAction;
     public static event Action<LevelData> OnButtonClickedAction;
@@ -17,7 +17,7 @@ public class LevelNavigationSocket : MonoBehaviour
 
     private void Awake()
     {
-        _button = buttonObject.GetComponent<Button>();
+        Button = buttonObject.GetComponent<Button>();
     }
     public void SetupSocket(LevelData levelData, bool lastSocket, int index)
     {
@@ -31,7 +31,7 @@ public class LevelNavigationSocket : MonoBehaviour
 
     public void SetButtonInteractable(bool value)
     {
-        _button.interactable = value;
+        Button.interactable = value;
     }
     
     public void OnButtonSelected()

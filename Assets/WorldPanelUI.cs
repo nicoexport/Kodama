@@ -19,7 +19,7 @@ public class WorldPanelUI : MonoBehaviour
         LevelNavigationManager.OnWorldSelected -= UpdatePanel;
     }
 
-    private void UpdatePanel(WorldData worldData)
+    private void UpdatePanel(WorldData worldData, LevelData levelData)
     {
         _worldName.text = worldData.WorldName;
     }
