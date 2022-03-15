@@ -10,12 +10,12 @@ public class LevelSelectUI : MonoBehaviour
 
     private void OnEnable()
     {
-        LevelNavigationManager.OnWorldSelected += UpdateLevelSelectUI;
+        LevelSelectManager.OnWorldSelected += UpdateLevelSelectUI;
     }
 
     private void OnDisable()
     {
-        LevelNavigationManager.OnWorldSelected -= UpdateLevelSelectUI;
+        LevelSelectManager.OnWorldSelected -= UpdateLevelSelectUI;
     }
 
     private void Awake()
