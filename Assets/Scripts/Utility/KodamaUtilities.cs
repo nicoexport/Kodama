@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using TMPro;
 
 
 public static class KodamaUtilities
@@ -87,6 +88,12 @@ public static class KodamaUtilities
             }
         }
         return null;
+    }
+
+    public static Vector2 GetWorldPositionOfCanvasElement(RectTransform element, Camera camera)
+    {
+        RectTransformUtility.ScreenPointToWorldPointInRectangle(element, element.rect.position, camera, out var result);
+        return result;
     }
 }
 

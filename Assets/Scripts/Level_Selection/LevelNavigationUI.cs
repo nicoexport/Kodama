@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -17,7 +18,6 @@ public class LevelNavigationUI : MonoBehaviour
     private void Awake()
     {
         _eventSystem = FindObjectOfType<EventSystem>();
-        _camera = Camera.main;
     }
     private void OnEnable()
     {
@@ -60,6 +60,9 @@ public class LevelNavigationUI : MonoBehaviour
 
     private void MoveUIPlayer(LevelData levelData, LevelNavigationSocket socket)
     {
+        LeanTween.cancel(_uIPlayerObject);
+        LeanTween.move(_uIPlayerObject, socket.Button.transform.position, 1f)
+            .setOnComplete(() => { print("moved"); });
     }
 
 }

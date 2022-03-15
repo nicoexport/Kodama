@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64bcd08b1288e745b9acadb999510ea, type: 3}
   m_Name: World 0
   m_EditorClassIdentifier: 
-  WorldName: Petras Welt
+  WorldName: Test World 0
   LevelDatas:
   - {fileID: 11400000, guid: 4681e57e0dad1b347a7fb83af464980a, type: 2}
   - {fileID: 11400000, guid: 076668e77f445e14992812055c4fdd4b, type: 2}
