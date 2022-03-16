@@ -12,15 +12,15 @@ public class LevelPanelUI : MonoBehaviour
     
     private void OnEnable()
     {   
-        LevelNavigationSocket.OnButtonSelectedAction += UpdateLevelPanel;
+        LevelSelectSocket.OnButtonSelectedAction += UpdateLevelPanel;
     }
 
     private void OnDisable()
     {
-        LevelNavigationSocket.OnButtonSelectedAction -= UpdateLevelPanel;
+        LevelSelectSocket.OnButtonSelectedAction -= UpdateLevelPanel;
     }
 
-    private void UpdateLevelPanel(LevelData levelData, LevelNavigationSocket socket)
+    private void UpdateLevelPanel(LevelData levelData, LevelSelectSocket socket)
     {
         levelNameText.text = levelData.LevelName;
         var record = levelData.RecordTime;

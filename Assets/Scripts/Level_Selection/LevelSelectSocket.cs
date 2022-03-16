@@ -3,14 +3,14 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 
-public class LevelNavigationSocket : MonoBehaviour
+public class LevelSelectSocket : MonoBehaviour
 {
     [SerializeField] private GameObject buttonObject;
     [SerializeField] private GameObject pathObject;
     
     public Button Button { get; private set; }
     
-    public static event Action<LevelData, LevelNavigationSocket> OnButtonSelectedAction;
+    public static event Action<LevelData, LevelSelectSocket> OnButtonSelectedAction;
     public static event Action<LevelData> OnButtonClickedAction;
 
     private LevelData _levelData;

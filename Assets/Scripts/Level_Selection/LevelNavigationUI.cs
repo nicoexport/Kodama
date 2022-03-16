@@ -1,16 +1,17 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
-public class LevelNavigationUI : MonoBehaviour
+public class LevelNavigationUI : MonoBehaviour, ISelectUI
 {
-    [FormerlySerializedAs("sockets")] [SerializeField] private List<LevelNavigationSocket> _sockets = new List<LevelNavigationSocket>();
+    [FormerlySerializedAs("sockets")] [SerializeField] private List<LevelSelectSocket> _sockets = new List<LevelSelectSocket>();
     [SerializeField] private GameObject _uIPlayerObject;
     [SerializeField] private float _playerMoveTimeInSeconds = 0.5f;
+    [SerializeField] private GameObject _ui;
 
     private EventSystem _eventSystem;
     private IUICharacter _uiPlayer;
@@ -20,20 +21,19 @@ public class LevelNavigationUI : MonoBehaviour
     {
         _eventSystem = FindObjectOfType<EventSystem>();
         _uiPlayer = _uIPlayerObject.GetComponent<IUICharacter>();
+        _ui.SetActive(false);
     }
     private void OnEnable()
     {
-        LevelNavigationManager.OnLevelSelectStart += SetupSockets;
-        LevelNavigationSocket.OnButtonSelectedAction += MoveUIPlayer;
+        LevelSelectSocket.OnButtonSelectedAction += MoveUIPlayer;
     }
 
     private void OnDisable()
     {
-        LevelNavigationManager.OnLevelSelectStart -= SetupSockets;
-        LevelNavigationSocket.OnButtonSelectedAction -= MoveUIPlayer;
+        LevelSelectSocket.OnButtonSelectedAction -= MoveUIPlayer;
     }
 
-    private void SetupSockets(WorldData worldData, LevelData currentLevelData)
+    private IEnumerator SetupSockets(WorldData worldData, LevelData currentLevelData)
     {
         foreach (var socket in _sockets)
         {
@@ -42,7 +42,7 @@ public class LevelNavigationUI : MonoBehaviour
 
         var socketAmount = worldData.LevelDatas.Count;
         if (socketAmount > _sockets.Count)
-            return;
+            yield break;
         
         for (var i = 0; i < socketAmount; i++)
         {
@@ -50,9 +50,11 @@ public class LevelNavigationUI : MonoBehaviour
             socket.gameObject.SetActive(true);
             socket.SetupSocket(worldData.LevelDatas[i], i >= socketAmount - 1, i + 1);
             socket.SetButtonInteractable(worldData.LevelDatas[i].Unlocked);
-            if (worldData.LevelDatas[i] != currentLevelData) continue;
-            _uIPlayerObject.transform.position = socket.Button.transform.position;
-            SetActiveButton(socket.Button);
+            if (worldData.LevelDatas[i] == currentLevelData)
+            {
+                _uIPlayerObject.transform.position = socket.Button.transform.position;
+                SetActiveButton(socket.Button);
+            }
         }
     }
     private void SetActiveButton(Button button)
@@ -60,7 +62,7 @@ public class LevelNavigationUI : MonoBehaviour
         _eventSystem.SetSelectedGameObject(button.gameObject);
     }
 
-    private void MoveUIPlayer(LevelData levelData, LevelNavigationSocket socket)
+    private void MoveUIPlayer(LevelData levelData, LevelSelectSocket socket)
     {
         LeanTween.cancel(_uIPlayerObject);
         _eventSystem.enabled = false;
@@ -73,4 +75,15 @@ public class LevelNavigationUI : MonoBehaviour
             });
     }
 
+    public IEnumerator OnStart(GameSessionDataSO sessionData)
+    {
+        _ui.SetActive(true);
+       yield return SetupSockets(sessionData.CurrentWorld, sessionData.CurrentLevel);
+    }
+
+    public IEnumerator OnEnd()
+    {
+        _ui.SetActive(false);
+        yield break;
+    }
 }

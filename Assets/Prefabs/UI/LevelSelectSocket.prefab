@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 7942586749106073049}
   - component: {fileID: 8466689041731915971}
   m_Layer: 5
-  m_Name: LevelSocket
+  m_Name: LevelSelectSocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
