@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Level/Test/SampleScene 3.unity
     guid: 5c24ca16d493dc94881e5f437a0c9399
   - enabled: 1
-    path: Assets/Scenes/Level/Test/Architecture.unity
+    path: Assets/Scenes/Level/Test/Architecture 0.unity
     guid: 16212cf59a0f46644b8a7c3ef1f09e2c
   - enabled: 1
     path: Assets/Scenes/Level/Test/Architecture 1.unity
@@ -50,4 +50,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level/Test/Architecture 7.unity
     guid: 5f0ac74354988a44e8d8060a7c4b5d1c
+  - enabled: 1
+    path: Assets/Scenes/Level/Test/Architecture 8.unity
+    guid: ccebc9a68d0818243ae40147e51bd83f
+  - enabled: 1
+    path: Assets/Scenes/Level/Test/Architecture 9.unity
+    guid: 84fc8bcfd580f5b4d8a7c28b8c016854
+  - enabled: 1
+    path: Assets/Scenes/Level/Test/Architecture 10.unity
+    guid: 73fb560a6abf1cd45b78b6ff273f80c8
+  - enabled: 1
+    path: Assets/Scenes/Level/Test/Architecture 11.unity
+    guid: 538edca56e3ce1a42a39ebe526d083e8
+  - enabled: 1
+    path: Assets/Scenes/Level/Test/River 0.unity
+    guid: 259ff3afb4dfb834fad8fdc169a3d2e7
+  - enabled: 1
+    path: Assets/Scenes/Level/Test/River 1.unity
+    guid: 3e2bfb0a2873ff644a5b59097a5d3c92
+  - enabled: 1
+    path: Assets/Scenes/Level/Test/River 2.unity
+    guid: f4954eef26b50474cb39029fbe16e7ff
+  - enabled: 1
+    path: Assets/Scenes/Level/Test/River 3.unity
+    guid: 9f57c96980662b54e96a152d2c13e50f
   m_configObjects: {}

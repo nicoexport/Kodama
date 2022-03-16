@@ -1,5 +1,7 @@
+using UnityEngine;
+
 public interface IUICharacter
 {
-    void StartMoving();
+    void StartMoving(Transform goal);
     void StopMoving();
 }

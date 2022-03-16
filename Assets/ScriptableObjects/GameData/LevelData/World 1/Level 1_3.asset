@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3cac5b1f7c6e6e438ff914d46f2d1c4, type: 3}
   m_Name: Level 1_3
   m_EditorClassIdentifier: 
-  ScenePath: Assets/Scenes/Level/Test/Architecture 7.unity
+  ScenePath: Assets/Scenes/Level/Test/River 3.unity
   LevelName: Level 1_3
   LevelImage: {fileID: 0}
   Visited: 0

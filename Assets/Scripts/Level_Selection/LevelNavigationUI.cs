@@ -63,8 +63,8 @@ public class LevelNavigationUI : MonoBehaviour
     private void MoveUIPlayer(LevelData levelData, LevelNavigationSocket socket)
     {
         LeanTween.cancel(_uIPlayerObject);
-        _uiPlayer.StartMoving();
         _eventSystem.enabled = false;
+        _uiPlayer.StartMoving(socket.Button.transform);
         LeanTween.move(_uIPlayerObject, socket.Button.transform.position, _playerMoveTimeInSeconds)
             .setOnComplete(() =>
             {

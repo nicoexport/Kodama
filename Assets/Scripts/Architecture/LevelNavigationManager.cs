@@ -61,6 +61,16 @@ public class LevelNavigationManager : MonoBehaviour
     {
         
     }
+
+    [ContextMenu("UnlockLevels")]
+    private void TestUnlockLevelsOfCurrentWorld()
+    {
+        foreach (var level in _selectedWorld.LevelDatas)
+        {
+            level.Unlocked = true;
+        }
+        OnLevelSelectStart?.Invoke(_selectedWorld , _sessionData.CurrentLevel);
+    }
 }
 
 public enum LevelSelectionState
