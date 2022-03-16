@@ -11,12 +11,12 @@ public class WorldPanelUI : MonoBehaviour
 
     private void OnEnable()
     {
-        LevelNavigationManager.OnWorldSelected += UpdatePanel;
+        LevelNavigationManager.OnLevelSelectStart += UpdatePanel;
     }
 
     private void OnDisable()
     {
-        LevelNavigationManager.OnWorldSelected -= UpdatePanel;
+        LevelNavigationManager.OnLevelSelectStart -= UpdatePanel;
     }
 
     private void UpdatePanel(WorldData worldData, LevelData levelData)

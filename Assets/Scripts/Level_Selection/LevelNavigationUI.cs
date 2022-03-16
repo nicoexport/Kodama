@@ -10,25 +10,26 @@ public class LevelNavigationUI : MonoBehaviour
 {
     [FormerlySerializedAs("sockets")] [SerializeField] private List<LevelNavigationSocket> _sockets = new List<LevelNavigationSocket>();
     [SerializeField] private GameObject _uIPlayerObject;
-    private EventSystem _eventSystem;
-
-    private Camera _camera;
     [SerializeField] private float _playerMoveTimeInSeconds = 0.5f;
 
+    private EventSystem _eventSystem;
+    private IUICharacter _uiPlayer;
+    
 
     private void Awake()
     {
         _eventSystem = FindObjectOfType<EventSystem>();
+        _uiPlayer = _uIPlayerObject.GetComponent<IUICharacter>();
     }
     private void OnEnable()
     {
-        LevelNavigationManager.OnWorldSelected += SetupSockets;
+        LevelNavigationManager.OnLevelSelectStart += SetupSockets;
         LevelNavigationSocket.OnButtonSelectedAction += MoveUIPlayer;
     }
 
     private void OnDisable()
     {
-        LevelNavigationManager.OnWorldSelected -= SetupSockets;
+        LevelNavigationManager.OnLevelSelectStart -= SetupSockets;
         LevelNavigationSocket.OnButtonSelectedAction -= MoveUIPlayer;
     }
 
@@ -62,9 +63,14 @@ public class LevelNavigationUI : MonoBehaviour
     private void MoveUIPlayer(LevelData levelData, LevelNavigationSocket socket)
     {
         LeanTween.cancel(_uIPlayerObject);
+        _uiPlayer.StartMoving();
         _eventSystem.enabled = false;
         LeanTween.move(_uIPlayerObject, socket.Button.transform.position, _playerMoveTimeInSeconds)
-            .setOnComplete(() => { _eventSystem.enabled = true; });
+            .setOnComplete(() =>
+            {
+                _eventSystem.enabled = true;
+                _uiPlayer.StopMoving();
+            });
     }
 
 }
