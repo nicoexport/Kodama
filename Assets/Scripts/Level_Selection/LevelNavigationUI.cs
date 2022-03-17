@@ -1,13 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
 public class LevelNavigationUI : MonoBehaviour, ISelectUI
 {
+    public event Action OnReturnToWorldSelect; 
     [FormerlySerializedAs("sockets")] [SerializeField] private List<LevelSelectSocket> _sockets = new List<LevelSelectSocket>();
     [SerializeField] private GameObject _uIPlayerObject;
     [SerializeField] private float _playerMoveTimeInSeconds = 0.5f;
@@ -26,11 +29,14 @@ public class LevelNavigationUI : MonoBehaviour, ISelectUI
     private void OnEnable()
     {
         LevelSelectSocket.OnButtonSelectedAction += MoveUIPlayer;
+        InputManager.playerInputActions.LevelSelectUI.Exit.started += ReturnToWorldSelect;
     }
+
 
     private void OnDisable()
     {
         LevelSelectSocket.OnButtonSelectedAction -= MoveUIPlayer;
+        InputManager.playerInputActions.LevelSelectUI.Exit.started -= ReturnToWorldSelect;
     }
 
     private IEnumerator SetupSockets(WorldData worldData, LevelData currentLevelData)
@@ -62,6 +68,11 @@ public class LevelNavigationUI : MonoBehaviour, ISelectUI
         _eventSystem.SetSelectedGameObject(button.gameObject);
     }
 
+    private void ReturnToWorldSelect(InputAction.CallbackContext obj)
+    {
+        OnReturnToWorldSelect?.Invoke();
+    }
+    
     private void MoveUIPlayer(LevelData levelData, LevelSelectSocket socket)
     {
         LeanTween.cancel(_uIPlayerObject);

@@ -322,7 +322,7 @@
             ]
         },
         {
-            "name": "UI",
+            "name": "LevelSelectUI",
             "id": "531f737f-3080-44aa-b236-f4afca4e5bbf",
             "actions": [
                 {
@@ -411,6 +411,15 @@
                     "type": "PassThrough",
                     "id": "e967b685-60a0-45ae-9860-433b9ada8445",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Exit",
+                    "type": "Button",
+                    "id": "6d318f7a-64f6-49da-ba1d-36f292b7e298",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -843,6 +852,28 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22030249-f7e6-4fdd-9ed3-55cb5cb2d735",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ad1e3ba-df4c-42a3-975d-8f39df92656e",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

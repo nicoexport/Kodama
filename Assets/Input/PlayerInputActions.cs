@@ -344,7 +344,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""UI"",
+            ""name"": ""LevelSelectUI"",
             ""id"": ""531f737f-3080-44aa-b236-f4afca4e5bbf"",
             ""actions"": [
                 {
@@ -433,6 +433,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""e967b685-60a0-45ae-9860-433b9ada8445"",
                     ""expectedControlType"": ""Quaternion"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""6d318f7a-64f6-49da-ba1d-36f292b7e298"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -867,6 +876,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22030249-f7e6-4fdd-9ed3-55cb5cb2d735"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ad1e3ba-df4c-42a3-975d-8f39df92656e"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -908,18 +939,19 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_LevelSummary = asset.FindActionMap("LevelSummary", throwIfNotFound: true);
         m_LevelSummary_Continue = m_LevelSummary.FindAction("Continue", throwIfNotFound: true);
         m_LevelSummary_Return = m_LevelSummary.FindAction("Return", throwIfNotFound: true);
-        // UI
-        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
-        m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
-        m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
-        m_UI_Point = m_UI.FindAction("Point", throwIfNotFound: true);
-        m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
-        m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
-        m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
-        m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
-        m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
-        m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        // LevelSelectUI
+        m_LevelSelectUI = asset.FindActionMap("LevelSelectUI", throwIfNotFound: true);
+        m_LevelSelectUI_Navigate = m_LevelSelectUI.FindAction("Navigate", throwIfNotFound: true);
+        m_LevelSelectUI_Submit = m_LevelSelectUI.FindAction("Submit", throwIfNotFound: true);
+        m_LevelSelectUI_Cancel = m_LevelSelectUI.FindAction("Cancel", throwIfNotFound: true);
+        m_LevelSelectUI_Point = m_LevelSelectUI.FindAction("Point", throwIfNotFound: true);
+        m_LevelSelectUI_Click = m_LevelSelectUI.FindAction("Click", throwIfNotFound: true);
+        m_LevelSelectUI_ScrollWheel = m_LevelSelectUI.FindAction("ScrollWheel", throwIfNotFound: true);
+        m_LevelSelectUI_MiddleClick = m_LevelSelectUI.FindAction("MiddleClick", throwIfNotFound: true);
+        m_LevelSelectUI_RightClick = m_LevelSelectUI.FindAction("RightClick", throwIfNotFound: true);
+        m_LevelSelectUI_TrackedDevicePosition = m_LevelSelectUI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
+        m_LevelSelectUI_TrackedDeviceOrientation = m_LevelSelectUI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        m_LevelSelectUI_Exit = m_LevelSelectUI.FindAction("Exit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1099,74 +1131,79 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     }
     public LevelSummaryActions @LevelSummary => new LevelSummaryActions(this);
 
-    // UI
-    private readonly InputActionMap m_UI;
-    private IUIActions m_UIActionsCallbackInterface;
-    private readonly InputAction m_UI_Navigate;
-    private readonly InputAction m_UI_Submit;
-    private readonly InputAction m_UI_Cancel;
-    private readonly InputAction m_UI_Point;
-    private readonly InputAction m_UI_Click;
-    private readonly InputAction m_UI_ScrollWheel;
-    private readonly InputAction m_UI_MiddleClick;
-    private readonly InputAction m_UI_RightClick;
-    private readonly InputAction m_UI_TrackedDevicePosition;
-    private readonly InputAction m_UI_TrackedDeviceOrientation;
-    public struct UIActions
+    // LevelSelectUI
+    private readonly InputActionMap m_LevelSelectUI;
+    private ILevelSelectUIActions m_LevelSelectUIActionsCallbackInterface;
+    private readonly InputAction m_LevelSelectUI_Navigate;
+    private readonly InputAction m_LevelSelectUI_Submit;
+    private readonly InputAction m_LevelSelectUI_Cancel;
+    private readonly InputAction m_LevelSelectUI_Point;
+    private readonly InputAction m_LevelSelectUI_Click;
+    private readonly InputAction m_LevelSelectUI_ScrollWheel;
+    private readonly InputAction m_LevelSelectUI_MiddleClick;
+    private readonly InputAction m_LevelSelectUI_RightClick;
+    private readonly InputAction m_LevelSelectUI_TrackedDevicePosition;
+    private readonly InputAction m_LevelSelectUI_TrackedDeviceOrientation;
+    private readonly InputAction m_LevelSelectUI_Exit;
+    public struct LevelSelectUIActions
     {
         private @PlayerInputActions m_Wrapper;
-        public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
-        public InputAction @Submit => m_Wrapper.m_UI_Submit;
-        public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
-        public InputAction @Point => m_Wrapper.m_UI_Point;
-        public InputAction @Click => m_Wrapper.m_UI_Click;
-        public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
-        public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
-        public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
-        public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
-        public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
-        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public LevelSelectUIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Navigate => m_Wrapper.m_LevelSelectUI_Navigate;
+        public InputAction @Submit => m_Wrapper.m_LevelSelectUI_Submit;
+        public InputAction @Cancel => m_Wrapper.m_LevelSelectUI_Cancel;
+        public InputAction @Point => m_Wrapper.m_LevelSelectUI_Point;
+        public InputAction @Click => m_Wrapper.m_LevelSelectUI_Click;
+        public InputAction @ScrollWheel => m_Wrapper.m_LevelSelectUI_ScrollWheel;
+        public InputAction @MiddleClick => m_Wrapper.m_LevelSelectUI_MiddleClick;
+        public InputAction @RightClick => m_Wrapper.m_LevelSelectUI_RightClick;
+        public InputAction @TrackedDevicePosition => m_Wrapper.m_LevelSelectUI_TrackedDevicePosition;
+        public InputAction @TrackedDeviceOrientation => m_Wrapper.m_LevelSelectUI_TrackedDeviceOrientation;
+        public InputAction @Exit => m_Wrapper.m_LevelSelectUI_Exit;
+        public InputActionMap Get() { return m_Wrapper.m_LevelSelectUI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
-        public void SetCallbacks(IUIActions instance)
+        public static implicit operator InputActionMap(LevelSelectUIActions set) { return set.Get(); }
+        public void SetCallbacks(ILevelSelectUIActions instance)
         {
-            if (m_Wrapper.m_UIActionsCallbackInterface != null)
+            if (m_Wrapper.m_LevelSelectUIActionsCallbackInterface != null)
             {
-                @Navigate.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate;
-                @Navigate.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate;
-                @Navigate.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate;
-                @Submit.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
-                @Submit.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
-                @Submit.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
-                @Cancel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
-                @Cancel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
-                @Cancel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
-                @Point.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPoint;
-                @Point.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPoint;
-                @Point.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPoint;
-                @Click.started -= m_Wrapper.m_UIActionsCallbackInterface.OnClick;
-                @Click.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnClick;
-                @Click.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnClick;
-                @ScrollWheel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnScrollWheel;
-                @ScrollWheel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnScrollWheel;
-                @ScrollWheel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnScrollWheel;
-                @MiddleClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMiddleClick;
-                @MiddleClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMiddleClick;
-                @MiddleClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMiddleClick;
-                @RightClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
-                @RightClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
-                @RightClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
-                @TrackedDevicePosition.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDevicePosition;
-                @TrackedDevicePosition.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDevicePosition;
-                @TrackedDevicePosition.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDevicePosition;
-                @TrackedDeviceOrientation.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
-                @TrackedDeviceOrientation.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
-                @TrackedDeviceOrientation.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
+                @Navigate.started -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnNavigate;
+                @Navigate.performed -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnNavigate;
+                @Navigate.canceled -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnNavigate;
+                @Submit.started -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnSubmit;
+                @Submit.performed -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnSubmit;
+                @Submit.canceled -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnSubmit;
+                @Cancel.started -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnCancel;
+                @Cancel.performed -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnCancel;
+                @Cancel.canceled -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnCancel;
+                @Point.started -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnPoint;
+                @Point.performed -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnPoint;
+                @Point.canceled -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnPoint;
+                @Click.started -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnClick;
+                @Click.performed -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnClick;
+                @Click.canceled -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnClick;
+                @ScrollWheel.started -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnScrollWheel;
+                @ScrollWheel.performed -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnScrollWheel;
+                @ScrollWheel.canceled -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnScrollWheel;
+                @MiddleClick.started -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnMiddleClick;
+                @MiddleClick.performed -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnMiddleClick;
+                @MiddleClick.canceled -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnMiddleClick;
+                @RightClick.started -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnRightClick;
+                @RightClick.performed -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnRightClick;
+                @RightClick.canceled -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnRightClick;
+                @TrackedDevicePosition.started -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnTrackedDevicePosition;
+                @TrackedDevicePosition.performed -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnTrackedDevicePosition;
+                @TrackedDevicePosition.canceled -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnTrackedDevicePosition;
+                @TrackedDeviceOrientation.started -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnTrackedDeviceOrientation;
+                @TrackedDeviceOrientation.performed -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnTrackedDeviceOrientation;
+                @TrackedDeviceOrientation.canceled -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnTrackedDeviceOrientation;
+                @Exit.started -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnExit;
+                @Exit.performed -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnExit;
+                @Exit.canceled -= m_Wrapper.m_LevelSelectUIActionsCallbackInterface.OnExit;
             }
-            m_Wrapper.m_UIActionsCallbackInterface = instance;
+            m_Wrapper.m_LevelSelectUIActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Navigate.started += instance.OnNavigate;
@@ -1199,10 +1236,13 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+                @Exit.started += instance.OnExit;
+                @Exit.performed += instance.OnExit;
+                @Exit.canceled += instance.OnExit;
             }
         }
     }
-    public UIActions @UI => new UIActions(this);
+    public LevelSelectUIActions @LevelSelectUI => new LevelSelectUIActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -1236,7 +1276,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnContinue(InputAction.CallbackContext context);
         void OnReturn(InputAction.CallbackContext context);
     }
-    public interface IUIActions
+    public interface ILevelSelectUIActions
     {
         void OnNavigate(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
@@ -1248,5 +1288,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        void OnExit(InputAction.CallbackContext context);
     }
 }

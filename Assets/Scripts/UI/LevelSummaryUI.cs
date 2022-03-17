@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.InputSystem;
 using TMPro;
+using Utility;
 
 public class LevelSummaryUI : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class LevelSummaryUI : MonoBehaviour
         else
             recordString = "";
 
-        StartCoroutine(KodamaUtilities.ActionAfterDelay(timerRevealDelay, () =>
+        StartCoroutine(Utilities.ActionAfterDelay(timerRevealDelay, () =>
         {
             levelFinishedTimerUI.SetActive(true);
             tmPro.text = TimeSpan.FromSeconds(timer).ToString("mm\\:ss\\:ff") + recordString;

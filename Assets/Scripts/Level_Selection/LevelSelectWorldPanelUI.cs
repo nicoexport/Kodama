@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class WorldPanelUI : MonoBehaviour
+public class LevelSelectWorldPanelUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _worldName;
     [SerializeField] private TextMeshProUGUI _completionText;

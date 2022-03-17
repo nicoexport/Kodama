@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine.Serialization;
+using Utility;
 
 [SuppressMessage("ReSharper", "CheckNamespace")]
 public class LevelNavigationManager : MonoBehaviour
@@ -31,25 +32,31 @@ public class LevelNavigationManager : MonoBehaviour
     private void Awake()
     {
         _waitForTransition = new WaitForSeconds(_transitionDurationInSeconds);
+        InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSelectUI);
         
         _selectedWorld = _sessionData.CurrentWorld;
         _selectedLevel = _selectedWorld.LevelDatas.Contains(_sessionData.CurrentLevel) ? _sessionData.CurrentLevel : _selectedWorld.LevelDatas[0];
-        _selectedWorld ??= KodamaUtilities.GetWorldDataFromWorldDataSO(_defaultWorld, _sessionData);
+        _selectedWorld ??= Utilities.GetWorldDataFromWorldDataSO(_defaultWorld, _sessionData);
+        SwitchUI(_levelSelect);
     }
 
     private void OnEnable()
     {
         LevelSelectSocket.OnButtonClickedAction += LoadLevel;
+        WorldSelectSocket.OnButtonClickedAction += OpenWorld;
+        _levelSelect.OnReturnToWorldSelect += HandleReturnToWorldSelectRequest;
     }
+
 
     private void OnDisable()
     {
         LevelSelectSocket.OnButtonClickedAction -= LoadLevel;
+        WorldSelectSocket.OnButtonClickedAction -= OpenWorld;
+        _levelSelect.OnReturnToWorldSelect -= HandleReturnToWorldSelectRequest;
     }
 
     private void Start()
     {
-        SwitchUI(_levelSelect);
     }
 
     private void SwitchUI(ISelectUI selectUI)
@@ -60,12 +67,13 @@ public class LevelNavigationManager : MonoBehaviour
     private IEnumerator SwitchUIEnumerator(ISelectUI selectUI)
     {
         yield return new WaitUntil(() => !_isSwitching);
-        if (_currentUI == selectUI) yield break;
         
-
+        if (_currentUI == selectUI) yield break;
+            _transitionEventChannel.RaiseEvent(TransitionType.FadeOut, 0f);
+        
         if (_currentUI != null)
         {
-            _transitionEventChannel.RaiseEvent(TransitionType.FadeOut, 0.5f);
+            _transitionEventChannel.RaiseEvent(TransitionType.FadeOut, _transitionDurationInSeconds);
             yield return _waitForTransition;
             yield return _currentUI.OnEnd();
         }
@@ -74,7 +82,7 @@ public class LevelNavigationManager : MonoBehaviour
 
         yield return _currentUI.OnStart(_sessionData);
         
-        _transitionEventChannel.RaiseEvent(TransitionType.FadeIn, 0.5f);
+        _transitionEventChannel.RaiseEvent(TransitionType.FadeIn, _transitionDurationInSeconds);
         yield return _waitForTransition;
 
         _isSwitching = false;
@@ -84,10 +92,27 @@ public class LevelNavigationManager : MonoBehaviour
     {
         _loadEvenChannel.RaiseEventWithScenePath(obj.ScenePath,true, true);
     }
+
+    private void OpenWorld(WorldData worldData)
+    {
+        if (!ReferenceEquals(_currentUI, _worldSelect)) return;
+        _sessionData.CurrentWorld = worldData;
+        _sessionData.CurrentLevel = _sessionData.CurrentWorld.LevelDatas[0];
+
+        SwitchUI(_levelSelect);
+    }
+    
+    private void HandleReturnToWorldSelectRequest()
+    {
+        SwitchUI(_worldSelect);
+    }
+
+    #region ContextMenu
     
     [ContextMenu("UnlockLevels")]
     private void TestUnlockLevelsOfCurrentWorld()
     {
+        if (_currentUI != _levelSelect) return;
         foreach (var level in _sessionData.CurrentWorld.LevelDatas)
         {
             level.Unlocked = true;
@@ -95,6 +120,33 @@ public class LevelNavigationManager : MonoBehaviour
 
         StartCoroutine(_levelSelect.OnStart(_sessionData));
     }
+    
+    [ContextMenu("UnlockWorlds")]
+    private void TestUnlockWorlds()
+    {
+        if (_currentUI != _worldSelect) return;
+
+        foreach (var worldData in _sessionData.WorldDatas)
+        {
+            worldData.Unlocked = true;
+        }
+
+        StartCoroutine(_worldSelect.Reset(_sessionData));
+    }
+    
+
+    [ContextMenu("SwitchToWorldSelect")]
+    private void TestSwitchToWorldSelect()
+    {
+        SwitchUI(_worldSelect);
+    }
+
+    [ContextMenu("SwitchToLevelSelect")]
+    private void TestSwitchToLevelSelect()
+    {
+        SwitchUI(_levelSelect);
+    }
+    #endregion
 }
 
 public enum LevelSelectionState

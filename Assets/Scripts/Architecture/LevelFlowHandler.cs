@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utility;
 
 public class LevelFlowHandler : MonoBehaviour
 {
@@ -87,7 +88,7 @@ public class LevelFlowHandler : MonoBehaviour
 
     public void FinishLevelAndExit(LevelData currentLevel)
     {
-        _sessionData.CurrentLevel = KodamaUtilities.GameSessionGetNextLevelData(currentLevel, _sessionData);
+        _sessionData.CurrentLevel = Utilities.GameSessionGetNextLevelData(currentLevel, _sessionData);
         _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.WorldsScenePath, true, true);
     }
 

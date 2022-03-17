@@ -1,9 +1,9 @@
-using System;
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using Utility;
+
 
 public class WorldSelect : MonoBehaviour, ISelectUI
 {
@@ -27,8 +27,8 @@ public class WorldSelect : MonoBehaviour, ISelectUI
 
     public IEnumerator OnEnd()
     {
+        yield return ClearSockets();
         _ui.SetActive(false);
-        yield break;
     }
     
     private IEnumerator SetupUI(GameSessionDataSO gameSessionData)
@@ -52,5 +52,17 @@ public class WorldSelect : MonoBehaviour, ISelectUI
             }
         }
         yield break;
+    }
+
+    private IEnumerator ClearSockets()
+    {
+        _socketsParent.transform.DeleteChildren();
+        yield break;
+    }
+
+    public IEnumerator Reset(GameSessionDataSO sessionDataSo)
+    {
+        yield return ClearSockets();
+        yield return OnStart(sessionDataSo);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Utility;
 
 [RequireComponent(typeof(CharacterLifeHandler))]
 public class Character : MonoBehaviour
@@ -96,7 +97,7 @@ public class Character : MonoBehaviour
         AddCharacterToRuntimeSet();
         InitializeStates();
         InitializeStateMachine(spawning);
-        StartCoroutine(KodamaUtilities.ActionAfterDelay(spawnDelay, () => { movementSm.ChangeState(standing); }));
+        StartCoroutine(Utilities.ActionAfterDelay(spawnDelay, () => { movementSm.ChangeState(standing); }));
     }
 
     private void OnEnable()

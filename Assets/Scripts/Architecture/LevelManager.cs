@@ -3,6 +3,7 @@ using Cinemachine;
 using System;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Utility;
 
 
 [RequireComponent(typeof(LevelTimer))]
@@ -68,10 +69,10 @@ public class LevelManager : MonoBehaviour, IContextManager
         GetLevelData();
         _activeLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
         gameSessionData.CurrentLevel = _activeLevelData;
-        gameSessionData.CurrentWorld = KodamaUtilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, gameSessionData);
+        gameSessionData.CurrentWorld = Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, gameSessionData);
         var player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
         if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
-        StartCoroutine(KodamaUtilities.ActionAfterDelay(1f, () =>
+        StartCoroutine(Utilities.ActionAfterDelay(1f, () =>
         {
             InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
             OnPlayerGainedControl?.Invoke();
@@ -89,7 +90,7 @@ public class LevelManager : MonoBehaviour, IContextManager
         OnCompleteLevel?.Invoke();
         _levelFinishedEventChannel.RaiseEvent(_activeLevelData);
         InputManager.DisableInput();
-        StartCoroutine(KodamaUtilities.ActionAfterDelay(levelSummaryContinueDelay, EnableSummaryInput));
+        StartCoroutine(Utilities.ActionAfterDelay(levelSummaryContinueDelay, EnableSummaryInput));
         // Save Level Completion
         // Save Record
     }
