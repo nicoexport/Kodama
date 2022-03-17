@@ -38,6 +38,16 @@ public class LevelSelectSocket : MonoBehaviour
     public void SetButtonInteractable(bool value)
     {
         Button.interactable = value;
+        Button.enabled = value;
+        var image = Button.GetComponent<Image>();
+        if (value == false)
+        {
+            image.color *= Button.colors.disabledColor;
+        }
+        else
+        {
+            image.color = Button.colors.normalColor;
+        }
     }
     
     public void OnButtonSelected()
