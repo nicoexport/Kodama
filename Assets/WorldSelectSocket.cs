@@ -9,11 +9,11 @@ public class WorldSelectSocket : MonoBehaviour
 {
     [SerializeField] private GameObject _buttonObject;
     [SerializeField] private GameObject _pathObject;
-    public static event Action<WorldData, WorldSelectSocket> OnButtonSelectedAction;
+    public static event Action<WorldData, Transform> OnButtonSelectedAction;
     public static event Action<WorldData> OnButtonClickedAction;
     public Button Button { get; private set; }
 
-    private WorldData _worldData;
+    public WorldData WorldData { get; private set; }
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class WorldSelectSocket : MonoBehaviour
 
     public void SetupSocket(WorldData worldData, bool lastSocket, int index)
     {
-        _worldData = worldData;
+        WorldData = worldData;
         _pathObject.SetActive(!lastSocket);
         SetUpButton(worldData, lastSocket, index);
     }
@@ -40,11 +40,11 @@ public class WorldSelectSocket : MonoBehaviour
 
     public void OnButtonClicked()
     {
-        OnButtonClickedAction?.Invoke(_worldData);
+        OnButtonClickedAction?.Invoke(WorldData);
     }
 
     public void OnButtonSelected()
     {
-        OnButtonSelectedAction?.Invoke(_worldData, this);
+        OnButtonSelectedAction?.Invoke(WorldData, Button.transform);
     }
 }

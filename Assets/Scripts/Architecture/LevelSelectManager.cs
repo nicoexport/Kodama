@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 using Utility;
 
 [SuppressMessage("ReSharper", "CheckNamespace")]
-public class LevelNavigationManager : MonoBehaviour
+public class LevelSelectManager : MonoBehaviour
 {
     
     [SerializeField] private GameSessionDataSO _sessionData;

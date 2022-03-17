@@ -74,12 +74,13 @@ public class LevelSelect : MonoBehaviour, ISelectUI
         OnReturnToWorldSelect?.Invoke();
     }
     
-    private void MoveUIPlayer(LevelData levelData, LevelSelectSocket socket)
+    
+    private void MoveUIPlayer(LevelData levelData, Transform transform1)
     {
         LeanTween.cancel(_uIPlayerObject);
         _eventSystem.enabled = false;
-        _uiPlayer.StartMoving(socket.Button.transform);
-        LeanTween.move(_uIPlayerObject, socket.Button.transform.position, _playerMoveTimeInSeconds)
+        _uiPlayer.StartMoving(transform1);
+        LeanTween.move(_uIPlayerObject, transform1.position, _playerMoveTimeInSeconds)
             .setOnComplete(() =>
             {
                 _eventSystem.enabled = true;

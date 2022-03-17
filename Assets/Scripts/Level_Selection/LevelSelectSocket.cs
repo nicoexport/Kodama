@@ -10,7 +10,7 @@ public class LevelSelectSocket : MonoBehaviour
     
     public Button Button { get; private set; }
     
-    public static event Action<LevelData, LevelSelectSocket> OnButtonSelectedAction;
+    public static event Action<LevelData, Transform> OnButtonSelectedAction;
     public static event Action<LevelData> OnButtonClickedAction;
 
     private LevelData _levelData;
@@ -43,7 +43,7 @@ public class LevelSelectSocket : MonoBehaviour
     public void OnButtonSelected()
     {
         print("OnButtonSelected: " + _levelData.LevelName);
-        OnButtonSelectedAction?.Invoke(_levelData, this);
+        OnButtonSelectedAction?.Invoke(_levelData, Button.transform);
     }
 
     public void OnButtonClicked()

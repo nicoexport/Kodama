@@ -19,7 +19,7 @@ namespace UI
             WorldSelectSocket.OnButtonSelectedAction -= UpdatePanel;
         }
 
-        private void UpdatePanel(WorldData worldData, WorldSelectSocket socket)
+        private void UpdatePanel(WorldData worldData, Transform transform1)
         {
             _worldName.text = worldData.WorldName;
         }

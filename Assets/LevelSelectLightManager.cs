@@ -17,9 +17,10 @@ public class LevelSelectLightManager : MonoBehaviour
    private void OnDisable()
    {
       LevelSelect.OnLevelSelectStarted -= HandleLevelSelectStarted;
+      WorldSelectSocket.OnButtonSelectedAction -= HandleWorldIconSelected;
    }
 
-   private void HandleWorldIconSelected(WorldData worldData, WorldSelectSocket arg2)
+   private void HandleWorldIconSelected(WorldData worldData, Transform transform1)
    {
       SetLightColorAll(worldData.Style.MenuLightColor);  
    }

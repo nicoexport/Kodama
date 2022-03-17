@@ -20,7 +20,7 @@ public class LevelPanelUI : MonoBehaviour
         LevelSelectSocket.OnButtonSelectedAction -= UpdateLevelPanel;
     }
 
-    private void UpdateLevelPanel(LevelData levelData, LevelSelectSocket socket)
+    private void UpdateLevelPanel(LevelData levelData, Transform transform1)
     {
         levelNameText.text = levelData.LevelName;
         var record = levelData.RecordTime;
