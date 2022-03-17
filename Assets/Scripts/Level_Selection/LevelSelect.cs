@@ -8,9 +8,10 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
-public class LevelNavigationUI : MonoBehaviour, ISelectUI
+public class LevelSelect : MonoBehaviour, ISelectUI
 {
-    public event Action OnReturnToWorldSelect; 
+    public static event Action<WorldData> OnLevelSelectStarted;
+    public event Action OnReturnToWorldSelect;
     [FormerlySerializedAs("sockets")] [SerializeField] private List<LevelSelectSocket> _sockets = new List<LevelSelectSocket>();
     [SerializeField] private GameObject _uIPlayerObject;
     [SerializeField] private float _playerMoveTimeInSeconds = 0.5f;
@@ -90,6 +91,7 @@ public class LevelNavigationUI : MonoBehaviour, ISelectUI
     {
         _ui.SetActive(true);
        yield return SetupSockets(sessionData.CurrentWorld, sessionData.CurrentLevel);
+       OnLevelSelectStarted?.Invoke(sessionData.CurrentWorld);
     }
 
     public IEnumerator OnEnd()

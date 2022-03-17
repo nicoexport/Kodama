@@ -8,11 +8,6 @@ using Utility;
 [SuppressMessage("ReSharper", "CheckNamespace")]
 public class LevelNavigationManager : MonoBehaviour
 {
-    public static event Action<WorldData, LevelData> OnLevelSelectStart;
-    public static event Action OnLevelSelectEnd;
-
-    public static event Action<GameSessionDataSO> OnWorldSelectStart;
-    public static event Action OnWorldSelectEnd;
     
     [SerializeField] private GameSessionDataSO _sessionData;
     [SerializeField] private WorldDataSO _defaultWorld;
@@ -20,7 +15,7 @@ public class LevelNavigationManager : MonoBehaviour
     [SerializeField] private TransitionEventChannelSO _transitionEventChannel;
     [SerializeField] private float _transitionDurationInSeconds;
 
-    [SerializeField] private LevelNavigationUI _levelSelect;
+    [SerializeField] private LevelSelect _levelSelect;
     [SerializeField] private WorldSelect _worldSelect;
 
     private WorldData _selectedWorld;
@@ -112,7 +107,7 @@ public class LevelNavigationManager : MonoBehaviour
     [ContextMenu("UnlockLevels")]
     private void TestUnlockLevelsOfCurrentWorld()
     {
-        if (_currentUI != _levelSelect) return;
+        if ((LevelSelect) _currentUI != _levelSelect) return;
         foreach (var level in _sessionData.CurrentWorld.LevelDatas)
         {
             level.Unlocked = true;
@@ -124,7 +119,7 @@ public class LevelNavigationManager : MonoBehaviour
     [ContextMenu("UnlockWorlds")]
     private void TestUnlockWorlds()
     {
-        if (_currentUI != _worldSelect) return;
+        if ((WorldSelect) _currentUI != _worldSelect) return;
 
         foreach (var worldData in _sessionData.WorldDatas)
         {
