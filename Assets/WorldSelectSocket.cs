@@ -30,7 +30,7 @@ public class WorldSelectSocket : MonoBehaviour
     private void SetUpButton(WorldData worldData, bool lastSocket, int index)
     {
         var image = _buttonObject.GetComponent<Image>();
-        image.sprite = worldData.WorldStyleSo.MenuButtonIconSprite;
+        image.sprite = worldData.Style.MenuButtonIconSprite;
         
         var buttonTextObject = _buttonObject.GetComponentInChildren<TextMeshProUGUI>();
         buttonTextObject.text = index.ToString();

@@ -55,7 +55,7 @@ public class LevelSelect : MonoBehaviour, ISelectUI
         {
             var socket = _sockets[i];
             socket.gameObject.SetActive(true);
-            socket.SetupSocket(worldData.LevelDatas[i], i >= socketAmount - 1, i + 1);
+            socket.SetupSocket(worldData, worldData.LevelDatas[i], i >= socketAmount - 1, i + 1);
             socket.SetButtonInteractable(worldData.LevelDatas[i].Unlocked);
             if (worldData.LevelDatas[i] == currentLevelData)
             {

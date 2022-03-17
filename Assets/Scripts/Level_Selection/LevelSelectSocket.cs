@@ -19,16 +19,22 @@ public class LevelSelectSocket : MonoBehaviour
     {
         Button = buttonObject.GetComponent<Button>();
     }
-    public void SetupSocket(LevelData levelData, bool lastSocket, int index)
+    public void SetupSocket(WorldData worldData, LevelData levelData, bool lastSocket, int index)
     {
         _levelData = levelData;
         // sets the path object inactive if it is the last socket
         pathObject.SetActive(!lastSocket);
-
-        var buttonTextObject = buttonObject.GetComponentInChildren<TextMeshProUGUI>();
-        buttonTextObject.text = index.ToString();
+        SetUpButton(worldData, index);
     }
 
+    private void SetUpButton(WorldData worldData, int index)
+    {
+        var buttonTextObject = buttonObject.GetComponentInChildren<TextMeshProUGUI>();
+        buttonTextObject.text = index.ToString();
+
+        var image = buttonObject.GetComponent<Image>();
+        image.sprite = worldData.Style.MenuButtonIconSprite;
+    }
     public void SetButtonInteractable(bool value)
     {
         Button.interactable = value;

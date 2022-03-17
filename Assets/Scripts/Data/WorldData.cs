@@ -8,7 +8,7 @@ public class WorldData
     public bool Visited;
     public bool Completed;
     private bool _unlocked;
-    public WorldStyleSo WorldStyleSo;
+    public WorldStyleSo Style;
 
     public bool Unlocked
     {
@@ -26,7 +26,7 @@ public class WorldData
     public WorldData(WorldDataSO worldDataSo)
     {
         this.WorldName = worldDataSo.WorldName;
-        this.WorldStyleSo = worldDataSo.WorldStyleSo;
+        this.Style = worldDataSo.WorldStyleSo;
     }
     
     

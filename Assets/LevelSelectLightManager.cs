@@ -21,12 +21,12 @@ public class LevelSelectLightManager : MonoBehaviour
 
    private void HandleWorldIconSelected(WorldData worldData, WorldSelectSocket arg2)
    {
-      SetLightColorAll(worldData.WorldStyleSo.MenuLightColor);  
+      SetLightColorAll(worldData.Style.MenuLightColor);  
    }
 
    private void HandleLevelSelectStarted(WorldData worldData)
    {
-      SetLightColorAll(worldData.WorldStyleSo.MenuLightColor);
+      SetLightColorAll(worldData.Style.MenuLightColor);
    }
 
    private void SetLightColorAll(Color color)
