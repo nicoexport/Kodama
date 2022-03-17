@@ -15,5 +15,6 @@ MonoBehaviour:
   <WorldDatas>k__BackingField:
   - {fileID: 11400000, guid: 2ceb26d6ecaf5864ba23beb7ecc1d6d8, type: 2}
   - {fileID: 11400000, guid: 3acfe35ee7dd2ca459706e815ce224ad, type: 2}
+  - {fileID: 11400000, guid: 212df113ee8ebc048a6577939c01abbe, type: 2}
   <WorldsScenePath>k__BackingField: Assets/Scenes/WorldScene.unity
   <MainMenuScenePath>k__BackingField: Assets/Scenes/MainMenuScene.unity
