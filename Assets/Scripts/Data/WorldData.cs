@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Scriptable;
 
 public class WorldData
 {
@@ -7,6 +8,7 @@ public class WorldData
     public bool Visited;
     public bool Completed;
     private bool _unlocked;
+    public WorldStyleSo WorldStyleSo;
 
     public bool Unlocked
     {
@@ -21,9 +23,10 @@ public class WorldData
     
     public List<LevelData> LevelDatas = new List<LevelData>();
 
-    public WorldData(WorldDataSO worldDataSO)
+    public WorldData(WorldDataSO worldDataSo)
     {
-        this.WorldName = worldDataSO.WorldName;
+        this.WorldName = worldDataSo.WorldName;
+        this.WorldStyleSo = worldDataSo.WorldStyleSo;
     }
     
     

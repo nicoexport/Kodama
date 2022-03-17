@@ -24,8 +24,17 @@ public class WorldSelectSocket : MonoBehaviour
     {
         _worldData = worldData;
         _pathObject.SetActive(!lastSocket);
+        SetUpButton(worldData, lastSocket, index);
+    }
+
+    private void SetUpButton(WorldData worldData, bool lastSocket, int index)
+    {
+        var image = _buttonObject.GetComponent<Image>();
+        image.sprite = worldData.WorldStyleSo.MenuButtonIconSprite;
+        
         var buttonTextObject = _buttonObject.GetComponentInChildren<TextMeshProUGUI>();
         buttonTextObject.text = index.ToString();
+        
         Button.interactable = worldData.Unlocked;
     }
 

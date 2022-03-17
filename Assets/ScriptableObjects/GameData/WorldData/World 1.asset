@@ -18,3 +18,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6d987036658b18a4bb9aa440129e4981, type: 2}
   - {fileID: 11400000, guid: c76ef89224903324a9aa80e3e315c7df, type: 2}
   - {fileID: 11400000, guid: a72c38ff1ffb40a4fb9306c6ca878143, type: 2}
+  WorldStyleSo: {fileID: 11400000, guid: 9ad5ea8b140d84244a2f059cf42345db, type: 2}
