@@ -6,6 +6,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using Utility;
 
 
@@ -16,6 +17,7 @@ public class WorldSelect : MonoBehaviour, ISelectUI
     [SerializeField] private GameObject _socketPrefab;
     [SerializeField] private GameObject _uIPlayerObject;
     [SerializeField] private float _playerMoveTimeInSeconds = 0.5f;
+    [SerializeField] private VoidEventChannelSO _returnToMainMenuChannel;
 
     private EventSystem  _eventSystem;
     private IUICharacter _uiPlayer;
@@ -35,6 +37,7 @@ public class WorldSelect : MonoBehaviour, ISelectUI
     private void OnDisable()
     {
         WorldSelectSocket.OnButtonSelectedAction -= MoveUIPlayer;
+        InputManager.playerInputActions.LevelSelectUI.Exit.started -= HandleExit;
     }
 
     public IEnumerator OnStart(GameSessionDataSO sessionData)
@@ -43,10 +46,12 @@ public class WorldSelect : MonoBehaviour, ISelectUI
         yield return SetupUI(sessionData);
         _uIPlayerObject.transform.position = _eventSystem.currentSelectedGameObject.transform.position;
         MoveUIPlayer(sessionData.CurrentWorld,_eventSystem.currentSelectedGameObject.transform);
+        InputManager.playerInputActions.LevelSelectUI.Exit.started += HandleExit;
     }
 
     public IEnumerator OnEnd()
     {
+        InputManager.playerInputActions.LevelSelectUI.Exit.started -= HandleExit;
         yield return ClearSockets();
         _ui.SetActive(false);
     }
@@ -100,5 +105,10 @@ public class WorldSelect : MonoBehaviour, ISelectUI
     {
         yield return ClearSockets();
         yield return OnStart(sessionDataSo);
+    }
+
+    private void HandleExit(InputAction.CallbackContext obj)
+    {
+        GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);
     }
 }

@@ -30,7 +30,6 @@ public class LevelSelect : MonoBehaviour, ISelectUI
     private void OnEnable()
     {
         LevelSelectSocket.OnButtonSelectedAction += MoveUIPlayer;
-        InputManager.playerInputActions.LevelSelectUI.Exit.started += ReturnToWorldSelect;
     }
 
 
@@ -93,10 +92,12 @@ public class LevelSelect : MonoBehaviour, ISelectUI
         _ui.SetActive(true);
        yield return SetupSockets(sessionData.CurrentWorld, sessionData.CurrentLevel);
        OnLevelSelectStarted?.Invoke(sessionData.CurrentWorld);
+        InputManager.playerInputActions.LevelSelectUI.Exit.started += ReturnToWorldSelect;
     }
 
     public IEnumerator OnEnd()
     {
+        InputManager.playerInputActions.LevelSelectUI.Exit.started -= ReturnToWorldSelect;
         _ui.SetActive(false);
         yield break;
     }

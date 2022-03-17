@@ -1426,7 +1426,7 @@ GameObject:
   - component: {fileID: 656629934}
   - component: {fileID: 656629933}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: --Selects---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8554,6 +8554,7 @@ MonoBehaviour:
   _socketPrefab: {fileID: 7815201187805743731, guid: 753403ccd0a65a842ae0b43b01949894, type: 3}
   _uIPlayerObject: {fileID: 301880681}
   _playerMoveTimeInSeconds: 0.5
+  _returnToMainMenuChannel: {fileID: 11400000, guid: 3be5cdf36fdcfd74cb537953cabedf07, type: 2}
 --- !u!1 &1694389642
 GameObject:
   m_ObjectHideFlags: 0
