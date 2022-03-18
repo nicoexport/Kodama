@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e69abf997ac464c933e5ce055a91545, type: 3}
   m_Name: World Style 2
   m_EditorClassIdentifier: 
-  MenuButtonIconSprite: {fileID: 21300000, guid: f7e73a23ac54a0c4b88d358d4048b1d4, type: 3}
+  MenuButtonIconSprite: {fileID: 21300000, guid: 6c6baa575f157244c9f7bc062bd50779, type: 3}
   MenuLightColor: {r: 0.7254902, g: 0.3882353, b: 0.6542937, a: 1}

@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
 
     [Space(10)]
     public MenuState state;
-    public enum MenuState { main, level, settings }
+    public enum MenuState { main,settings }
 
 
     [Space(10)]
@@ -18,15 +18,11 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject mainCanvas;
     [SerializeField]
-    private GameObject levelCanvas;
-    [SerializeField]
     private GameObject settingsCanvas;
 
     [Header("Buttons")]
     [SerializeField]
     private Button primaryButtonMain;
-    [SerializeField]
-    private Button primaryButtonLevel;
     [SerializeField]
     private Button primaryButtonSettings;
 
@@ -39,7 +35,6 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        // SceneManager.LoadScene(defaultLevel.ScenePath);
         _sessionData.CurrentWorld = _sessionData.WorldDatas[0];
         _sessionData.CurrentLevel = _sessionData.WorldDatas[0].LevelDatas[0];
         GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.playMode);
@@ -60,7 +55,6 @@ public class MainMenu : MonoBehaviour
         switch (menuname)
         {
             case "main":
-                levelCanvas.SetActive(false);
                 settingsCanvas.SetActive(false);
                 mainCanvas.SetActive(true);
                 primaryButtonMain.Select();
@@ -68,26 +62,16 @@ public class MainMenu : MonoBehaviour
                 break;
             case "settings":
                 mainCanvas.SetActive(false);
-                levelCanvas.SetActive(false);
                 settingsCanvas.SetActive(true);
                 primaryButtonSettings.Select();
                 state = MenuState.settings;
                 break;
-
-            case "level":
-                mainCanvas.SetActive(false);
-                settingsCanvas.SetActive(false);
-                levelCanvas.SetActive(true);
-                primaryButtonLevel.Select();
-                state = MenuState.level;
-                break;
-
+            
             default:
                 return;
         }
     }
-
-    // temporaray
+    
     public void RequestResetSessionData()
     {
         GameModeManager.Instance.SetupSaveData();

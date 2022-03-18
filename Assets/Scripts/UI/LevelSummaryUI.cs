@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using UnityEngine.InputSystem;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.Serialization;
 using Utility;
 
 public class LevelSummaryUI : MonoBehaviour
@@ -14,14 +16,21 @@ public class LevelSummaryUI : MonoBehaviour
     private GameObject levelFinishedTimerUI;
     [SerializeField]
     private float timerRevealDelay = 1f;
-    [SerializeField]
-    private TextMeshProUGUI tmPro;
+    [FormerlySerializedAs("tmPro")] [SerializeField]
+    private TextMeshProUGUI _timerText;
+
+    [SerializeField] private TextMeshProUGUI _recordText;
+    [SerializeField] private float _recordScale;
+    [Range(0.1f,2f)]
+    [SerializeField] private float _recordWaveLength;
 
     private void OnEnable()
     {
         InputManager.OnActionMapChange += ToggleButtons;
         LevelManager.OnTimerFinished += DisplayLevelFinishedTimer;
         summaryButtons.SetActive(false);
+        _timerText.gameObject.SetActive(false);
+        _recordText.gameObject.SetActive(false);
         levelFinishedTimerUI.SetActive(false);
     }
 
@@ -49,17 +58,21 @@ public class LevelSummaryUI : MonoBehaviour
         Debug.Log(timer);
         // Set Level Summary Timer Text
         // Reveal Level Timer Text (for now just enable the object)
-        String recordString;
-        if (newRecord)
-            recordString = "NEW RECORD!";
-        else
-            recordString = "";
 
         StartCoroutine(Utilities.ActionAfterDelay(timerRevealDelay, () =>
         {
             levelFinishedTimerUI.SetActive(true);
-            tmPro.text = TimeSpan.FromSeconds(timer).ToString("mm\\:ss\\:ff") + recordString;
+            _timerText.gameObject.SetActive(true);
+            _timerText.text = TimeSpan.FromSeconds(timer).ToString("mm\\:ss\\:ff");
+            if (newRecord) StartCoroutine(Utilities.ActionAfterDelay(0.5f, DisplayRecordsText));
         }));
+    }
+
+    private void DisplayRecordsText()
+    {
+        _recordText.gameObject.SetActive(true);
+        var rectTransform = _recordText.GetComponent<RectTransform>();
+        LeanTween.scale(rectTransform, rectTransform.localScale * _recordScale, _recordWaveLength).setLoopPingPong();
     }
 
 }
