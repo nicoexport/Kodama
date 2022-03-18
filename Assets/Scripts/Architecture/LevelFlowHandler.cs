@@ -4,7 +4,7 @@ using Utility;
 public class LevelFlowHandler : MonoBehaviour
 {
     [SerializeField]
-    private GameSessionDataSO _sessionData;
+    private SaveDataSo _sessionData;
     [SerializeField]
     private LoadLevelEventChannelSO _loadLevelEventChannel;
     [SerializeField]
@@ -105,5 +105,6 @@ public class LevelFlowHandler : MonoBehaviour
     private void LoadCredits()
     {
         Debug.Log("TO DO: Load Credits");
+        LoadMainMenu();
     }
 }

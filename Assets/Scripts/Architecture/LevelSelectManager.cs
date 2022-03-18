@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using Utility;
 
@@ -9,7 +10,7 @@ using Utility;
 public class LevelSelectManager : MonoBehaviour
 {
     
-    [SerializeField] private GameSessionDataSO _sessionData;
+    [FormerlySerializedAs("_sessionData")] [SerializeField] private SaveDataSo _saveData;
     [SerializeField] private WorldDataSO _defaultWorld;
     [FormerlySerializedAs("loadEvenChannel")] [SerializeField] private LoadLevelEventChannelSO _loadEvenChannel;
     [SerializeField] private TransitionEventChannelSO _transitionEventChannel;
@@ -20,19 +21,36 @@ public class LevelSelectManager : MonoBehaviour
 
     private WorldData _selectedWorld;
     private LevelData _selectedLevel;
+    private EventSystem _eventSystem;
 
     private bool _isSwitching;
     private WaitForSeconds _waitForTransition;
     private ISelectUI _currentUI;
+    
     private void Awake()
     {
         _waitForTransition = new WaitForSeconds(_transitionDurationInSeconds);
+        _eventSystem = FindObjectOfType<EventSystem>();
         InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSelectUI);
         
-        _selectedWorld = _sessionData.CurrentWorld;
-        _selectedLevel = _selectedWorld.LevelDatas.Contains(_sessionData.CurrentLevel) ? _sessionData.CurrentLevel : _selectedWorld.LevelDatas[0];
-        _selectedWorld ??= Utilities.GetWorldDataFromWorldDataSO(_defaultWorld, _sessionData);
-        SwitchUI(_levelSelect);
+        _selectedWorld = _saveData.CurrentWorld;
+        _selectedLevel = _selectedWorld.LevelDatas.Contains(_saveData.CurrentLevel) ? _saveData.CurrentLevel : _selectedWorld.LevelDatas[0];
+        _selectedWorld ??= Utilities.GetWorldDataFromWorldDataSO(_defaultWorld, _saveData);
+        if (_saveData.FreshSave == true)
+        {
+            _saveData.BreakInSaveData();
+            SwitchUI(_worldSelect);
+        }
+        else
+        {
+            SwitchUI(_levelSelect);
+        }
+    }
+
+    private void Start()
+    {
+
+        
     }
 
     private void OnEnable()
@@ -41,17 +59,12 @@ public class LevelSelectManager : MonoBehaviour
         WorldSelectSocket.OnButtonClickedAction += OpenWorld;
         _levelSelect.OnReturnToWorldSelect += HandleReturnToWorldSelectRequest;
     }
-
-
+    
     private void OnDisable()
     {
         LevelSelectSocket.OnButtonClickedAction -= LoadLevel;
         WorldSelectSocket.OnButtonClickedAction -= OpenWorld;
         _levelSelect.OnReturnToWorldSelect -= HandleReturnToWorldSelectRequest;
-    }
-
-    private void Start()
-    {
     }
 
     private void SwitchUI(ISelectUI selectUI)
@@ -62,9 +75,11 @@ public class LevelSelectManager : MonoBehaviour
     private IEnumerator SwitchUIEnumerator(ISelectUI selectUI)
     {
         yield return new WaitUntil(() => !_isSwitching);
-        
         if (_currentUI == selectUI) yield break;
-            _transitionEventChannel.RaiseEvent(TransitionType.FadeOut, 0f);
+
+        _isSwitching = true;
+        _transitionEventChannel.RaiseEvent(TransitionType.FadeOut, 0f);
+        
         
         if (_currentUI != null)
         {
@@ -75,7 +90,7 @@ public class LevelSelectManager : MonoBehaviour
 
         _currentUI = selectUI;
 
-        yield return _currentUI.OnStart(_sessionData);
+        yield return _currentUI.OnStart(_saveData);
         
         _transitionEventChannel.RaiseEvent(TransitionType.FadeIn, _transitionDurationInSeconds);
         yield return _waitForTransition;
@@ -85,14 +100,15 @@ public class LevelSelectManager : MonoBehaviour
 
     private void LoadLevel(LevelData obj)
     {
+        _eventSystem.enabled = false;
         _loadEvenChannel.RaiseEventWithScenePath(obj.ScenePath,true, true);
     }
 
     private void OpenWorld(WorldData worldData)
     {
         if (!ReferenceEquals(_currentUI, _worldSelect)) return;
-        _sessionData.CurrentWorld = worldData;
-        _sessionData.CurrentLevel = _sessionData.CurrentWorld.LevelDatas[0];
+        _saveData.CurrentWorld = worldData;
+        _saveData.CurrentLevel = _saveData.CurrentWorld.LevelDatas[0];
 
         SwitchUI(_levelSelect);
     }
@@ -108,12 +124,12 @@ public class LevelSelectManager : MonoBehaviour
     private void TestUnlockLevelsOfCurrentWorld()
     {
         if ((LevelSelect) _currentUI != _levelSelect) return;
-        foreach (var level in _sessionData.CurrentWorld.LevelDatas)
+        foreach (var level in _saveData.CurrentWorld.LevelDatas)
         {
             level.Unlocked = true;
         }
 
-        StartCoroutine(_levelSelect.OnStart(_sessionData));
+        StartCoroutine(_levelSelect.OnStart(_saveData));
     }
     
     [ContextMenu("UnlockWorlds")]
@@ -121,12 +137,12 @@ public class LevelSelectManager : MonoBehaviour
     {
         if ((WorldSelect) _currentUI != _worldSelect) return;
 
-        foreach (var worldData in _sessionData.WorldDatas)
+        foreach (var worldData in _saveData.WorldDatas)
         {
             worldData.Unlocked = true;
         }
 
-        StartCoroutine(_worldSelect.Reset(_sessionData));
+        StartCoroutine(_worldSelect.Reset(_saveData));
     }
     
 

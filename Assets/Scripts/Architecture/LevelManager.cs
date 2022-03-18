@@ -10,7 +10,7 @@ using Utility;
 public class LevelManager : MonoBehaviour, IContextManager
 {
     [field: SerializeField]
-    public GameSessionDataSO gameSessionData { get; private set; }
+    public SaveDataSo SaveData { get; private set; }
 
     [Space(10)]
     [Header("Runtime Sets")]
@@ -68,8 +68,8 @@ public class LevelManager : MonoBehaviour, IContextManager
     {
         GetLevelData();
         _activeLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
-        gameSessionData.CurrentLevel = _activeLevelData;
-        gameSessionData.CurrentWorld = Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, gameSessionData);
+        SaveData.CurrentLevel = _activeLevelData;
+        SaveData.CurrentWorld = Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, SaveData);
         var player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
         if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
         StartCoroutine(Utilities.ActionAfterDelay(1f, () =>
@@ -131,7 +131,7 @@ public class LevelManager : MonoBehaviour, IContextManager
     {
         var activeScenePath = SceneManager.GetActiveScene().path;
 
-        foreach (WorldData worldData in gameSessionData.WorldDatas)
+        foreach (WorldData worldData in SaveData.WorldDatas)
         {
             foreach (LevelData levelData in worldData.LevelDatas)
             {

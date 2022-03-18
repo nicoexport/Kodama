@@ -12,7 +12,9 @@ public class LevelSelect : MonoBehaviour, ISelectUI
 {
     public static event Action<WorldData> OnLevelSelectStarted;
     public event Action OnReturnToWorldSelect;
-    [FormerlySerializedAs("sockets")] [SerializeField] private List<LevelSelectSocket> _sockets = new List<LevelSelectSocket>();
+    
+    [FormerlySerializedAs("sockets")] 
+    [SerializeField] private List<LevelSelectSocket> _sockets = new List<LevelSelectSocket>();
     [SerializeField] private GameObject _uIPlayerObject;
     [SerializeField] private float _playerMoveTimeInSeconds = 0.5f;
     [SerializeField] private GameObject _ui;
@@ -27,6 +29,7 @@ public class LevelSelect : MonoBehaviour, ISelectUI
         _uiPlayer = _uIPlayerObject.GetComponent<IUICharacter>();
         _ui.SetActive(false);
     }
+
     private void OnEnable()
     {
         LevelSelectSocket.OnButtonSelectedAction += MoveUIPlayer;
@@ -87,11 +90,11 @@ public class LevelSelect : MonoBehaviour, ISelectUI
             });
     }
 
-    public IEnumerator OnStart(GameSessionDataSO sessionData)
+    public IEnumerator OnStart(SaveDataSo sessionData)
     {
         _ui.SetActive(true);
-       yield return SetupSockets(sessionData.CurrentWorld, sessionData.CurrentLevel);
-       OnLevelSelectStarted?.Invoke(sessionData.CurrentWorld);
+        yield return SetupSockets(sessionData.CurrentWorld, sessionData.CurrentLevel);
+        OnLevelSelectStarted?.Invoke(sessionData.CurrentWorld);
         InputManager.playerInputActions.LevelSelectUI.Exit.started += ReturnToWorldSelect;
     }
 

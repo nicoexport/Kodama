@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "Game Data/Game Session Data")]
-public class GameSessionDataSO : ScriptableObject
+public class SaveDataSo : ScriptableObject
 {
 
     public string MainMenuScenePath;
@@ -12,6 +12,7 @@ public class GameSessionDataSO : ScriptableObject
     public List<WorldData> WorldDatas = new List<WorldData>();
     public WorldData CurrentWorld;
     public LevelData CurrentLevel;
+    public bool FreshSave { get; private set; } = true;
 
 
     /// <summary>
@@ -20,6 +21,7 @@ public class GameSessionDataSO : ScriptableObject
     /// <param name="gameDataSO"></param>
     public void ReadGameData(GameDataSO gameDataSO)
     {
+        FreshSave = true;
         WorldsScenePath = gameDataSO.WorldsScenePath;
         MainMenuScenePath = gameDataSO.MainMenuScenePath;
 
@@ -42,6 +44,10 @@ public class GameSessionDataSO : ScriptableObject
         CurrentWorld.Unlocked = true;
     }
 
+    public void BreakInSaveData()
+    {
+        FreshSave = false;
+    }
 
     /// <summary>
     /// Completes our session data by loading in save data,
@@ -52,7 +58,7 @@ public class GameSessionDataSO : ScriptableObject
 
     }
 
-    void SaveSessionData()
+    void SaveData()
     {
 
     }

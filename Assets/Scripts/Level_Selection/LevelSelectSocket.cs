@@ -19,6 +19,7 @@ public class LevelSelectSocket : MonoBehaviour
     {
         Button = buttonObject.GetComponent<Button>();
     }
+    
     public void SetupSocket(WorldData worldData, LevelData levelData, bool lastSocket, int index)
     {
         _levelData = levelData;
@@ -35,6 +36,7 @@ public class LevelSelectSocket : MonoBehaviour
         var image = buttonObject.GetComponent<Image>();
         image.sprite = worldData.Style.MenuButtonIconSprite;
     }
+    
     public void SetButtonInteractable(bool value)
     {
         Button.interactable = value;

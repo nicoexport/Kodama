@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
 {
 
     [SerializeField]
-    private GameSessionDataSO _sessionData;
+    private SaveDataSo _sessionData;
 
     [Space(10)]
     public MenuState state;
@@ -90,6 +90,6 @@ public class MainMenu : MonoBehaviour
     // temporaray
     public void RequestResetSessionData()
     {
-        GameModeManager.Instance.SetupSessionData();
+        GameModeManager.Instance.SetupSaveData();
     }
 }

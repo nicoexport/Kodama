@@ -5,7 +5,7 @@ using TMPro;
 public class WorldsScreenManager : Singleton<WorldsScreenManager>
 {
     [SerializeField]
-    private GameSessionDataSO _sessionData;
+    private SaveDataSo _sessionData;
     [SerializeField]
     private LoadLevelEventChannelSO _loadLevelEventChannel;
 

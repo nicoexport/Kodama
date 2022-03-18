@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class LevelPanelUI : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class LevelPanelUI : MonoBehaviour
     [SerializeField] private string emptyRecordString;
     
     private void OnEnable()
-    {   
+    {
         LevelSelectSocket.OnButtonSelectedAction += UpdateLevelPanel;
     }
 

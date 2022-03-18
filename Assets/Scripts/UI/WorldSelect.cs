@@ -40,7 +40,7 @@ public class WorldSelect : MonoBehaviour, ISelectUI
         InputManager.playerInputActions.LevelSelectUI.Exit.started -= HandleExit;
     }
 
-    public IEnumerator OnStart(GameSessionDataSO sessionData)
+    public IEnumerator OnStart(SaveDataSo sessionData)
     {
         _ui.SetActive(true);
         yield return SetupUI(sessionData);
@@ -56,23 +56,23 @@ public class WorldSelect : MonoBehaviour, ISelectUI
         _ui.SetActive(false);
     }
     
-    private IEnumerator SetupUI(GameSessionDataSO gameSessionData)
+    private IEnumerator SetupUI(SaveDataSo saveData)
     {
-        yield return SetupSockets(gameSessionData);
+        yield return SetupSockets(saveData);
     }
     
-    private IEnumerator SetupSockets(GameSessionDataSO gameSessionData)
+    private IEnumerator SetupSockets(SaveDataSo saveData)
     {
 
-        for (var index = 0; index < gameSessionData.WorldDatas.Count; index++)
+        for (var index = 0; index < saveData.WorldDatas.Count; index++)
         {
-            var worldData = gameSessionData.WorldDatas[index];
+            var worldData = saveData.WorldDatas[index];
             var socketGameObject = Instantiate(_socketPrefab, _socketsParent.transform.position, quaternion.identity,
                 _socketsParent.transform);
             var socket = socketGameObject.GetComponent<WorldSelectSocket>();
-            socket.SetupSocket(worldData, index >= gameSessionData.WorldDatas.Count  - 1, index);
+            socket.SetupSocket(worldData, index >= saveData.WorldDatas.Count  - 1, index);
 
-            if (worldData == gameSessionData.CurrentWorld)
+            if (worldData == saveData.CurrentWorld)
             {
                 _eventSystem.SetSelectedGameObject(socket.Button.gameObject);
             }
@@ -101,7 +101,7 @@ public class WorldSelect : MonoBehaviour, ISelectUI
         yield break;
     }
 
-    public IEnumerator Reset(GameSessionDataSO sessionDataSo)
+    public IEnumerator Reset(SaveDataSo sessionDataSo)
     {
         yield return ClearSockets();
         yield return OnStart(sessionDataSo);
@@ -109,6 +109,7 @@ public class WorldSelect : MonoBehaviour, ISelectUI
 
     private void HandleExit(InputAction.CallbackContext obj)
     {
+        _eventSystem.enabled = false;
         GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
+using UnityEngine.Serialization;
 
 public class GameModeManager : Singleton<GameModeManager>
 {
@@ -10,8 +11,8 @@ public class GameModeManager : Singleton<GameModeManager>
     private TransitionEventChannelSO _transitionEventChannel;
     [SerializeField]
     private GameDataSO _gameData;
-    [SerializeField]
-    private GameSessionDataSO _sessionData;
+    [FormerlySerializedAs("_sessionData")] [SerializeField]
+    private SaveDataSo _saveData;
 
 
     [HideInInspector] public string MainMenuScenePath; //{ get; private set; }
@@ -31,7 +32,7 @@ public class GameModeManager : Singleton<GameModeManager>
         base.Awake();
         playMode = new PlayMode(_gameData.WorldsScenePath);
         mainMenuMode = new MainMenuMode(_gameData.MainMenuScenePath);
-        SetupSessionData();
+        SetupSaveData();
         Time.timeScale = 0;
 
 #if UNITY_EDITOR
@@ -59,6 +60,7 @@ public class GameModeManager : Singleton<GameModeManager>
                 break;
             // loaded from level scene
             default:
+                _saveData.BreakInSaveData();    
                 _currentMode = playMode;
                 _currentMode.OnEditorStart();
                 SceneManager.LoadScene(_initialSceneIndex, LoadSceneMode.Additive);
@@ -105,10 +107,10 @@ public class GameModeManager : Singleton<GameModeManager>
 
 
     // TO DO: NEEDS TO BE IMPLEMENTED CORRECTLY INTO A SAVE/LOAD SYSTEM
-    public void SetupSessionData()
+    public void SetupSaveData()
     {
         Debug.Log("SETUP GAME SESSION DATA");
-        _sessionData.ReadGameData(_gameData);
+        _saveData.ReadGameData(_gameData);
         // TO DO: Complete game session data by adding Save Data
         
     }
