@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
+[System.Serializable]
 [CreateAssetMenu(menuName = "Game Data/Game Session Data")]
 public class SaveDataSo : ScriptableObject
 {

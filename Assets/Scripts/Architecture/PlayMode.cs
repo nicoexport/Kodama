@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using SaveLoad;
 
 public class PlayMode : IGameMode
 {
@@ -31,6 +32,7 @@ public class PlayMode : IGameMode
     public IEnumerator OnEnd()
     {
         _state = GameModeState.Ending;
+        SaveManager.Instance.OnSave();
         yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         Debug.Log("PLAY MODE ENDED");
         _state = GameModeState.Ended;

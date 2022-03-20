@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Scriptable;
 
+[System.Serializable]
 public class WorldData
 {
     public string WorldName;

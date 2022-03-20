@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
+using System.Security.Principal;
+using SaveLoad;
 using UnityEngine.Serialization;
 
 public class GameModeManager : Singleton<GameModeManager>
@@ -109,9 +111,15 @@ public class GameModeManager : Singleton<GameModeManager>
     // TO DO: NEEDS TO BE IMPLEMENTED CORRECTLY INTO A SAVE/LOAD SYSTEM
     public void SetupSaveData()
     {
-        Debug.Log("SETUP GAME SESSION DATA");
-        _saveData.ReadGameData(_gameData);
+        Debug.Log("SETTING UP SAVE DATA");
+        if(SaveManager.Instance.OnLoad())
+            print("LOADED SAVE DATA");
+        else
+        {
+            print("SETUP NEW SAVE DATA");
+            _saveData.ReadGameData(_gameData);
+        }
         // TO DO: Complete game session data by adding Save Data
-        
     }
+    
 }
