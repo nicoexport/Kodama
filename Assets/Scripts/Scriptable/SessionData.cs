@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 [System.Serializable]
 [CreateAssetMenu(menuName = "Game Data/Game Session Data")]
-public class SaveDataSo : ScriptableObject
+public class SessionData : ScriptableObject
 {
 
     public string MainMenuScenePath;

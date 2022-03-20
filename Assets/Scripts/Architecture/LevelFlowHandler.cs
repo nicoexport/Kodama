@@ -4,7 +4,7 @@ using Utility;
 public class LevelFlowHandler : MonoBehaviour
 {
     [SerializeField]
-    private SaveDataSo _sessionData;
+    private SessionData _sessionData;
     [SerializeField]
     private LoadLevelEventChannelSO _loadLevelEventChannel;
     [SerializeField]

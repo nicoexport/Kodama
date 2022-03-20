@@ -1,29 +1,72 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SaveLoad
 {
     public class SaveManager : Singleton<SaveManager>
     {
-        [SerializeField] private SaveDataSo _saveDataSo;
+        [FormerlySerializedAs("_saveDataSo")] 
+        [SerializeField] private SessionData _sessionData;
         
-        public void OnSave()
+        public void SaveSessionData()
         {
-            SaveData saveData = new SaveData(_saveDataSo);
-            SerializationManger.Save("save", saveData);
+            var saveData = ConvertSessionData(_sessionData);
+            if(SerializationManger.Save("test", saveData))
+                print("SAVED THE GAME");
         }
 
         public bool OnLoad()
         {
-            SaveData saveData = (SaveData) SerializationManger.Load(Application.persistentDataPath + "saves/save.save");
-            if (saveData != null)
+            return false;
+        }
+
+        private SaveData ConvertSessionData(SessionData sessionData)
+        {
+            var currentWorldSaveData = ConvertWorldData(sessionData.CurrentWorld);
+            var currentLevelSaveData = ConvertLevelData(sessionData.CurrentLevel);
+            var saveData = new SaveData
             {
-                _saveDataSo = saveData.SaveDataSo;
-                return true;
-            }
-            else
+                CurrentWorld = currentWorldSaveData,
+                CurrentLevel = currentLevelSaveData
+            };
+            foreach (WorldData worldData in sessionData.WorldDatas)
             {
-                return false;
+                var worldSaveData = ConvertWorldData(worldData);
+                saveData.WorldSaveDatas.Add(worldSaveData);
             }
+            
+            return saveData;
+        }
+        
+        private WorldSaveData ConvertWorldData(WorldData worldData)
+        {
+            var worldSaveData = new WorldSaveData
+            {
+                WorldName = worldData.WorldName,
+                Unlocked = worldData.Unlocked,
+                Visited = worldData.Visited,
+                Completed = worldData.Completed
+            };
+            foreach (LevelData levelData in worldData.LevelDatas)
+            {
+                var levelSaveData = ConvertLevelData(levelData);
+                worldSaveData.LevelSaveDatas.Add(levelSaveData);     
+            }
+
+            return worldSaveData;
+        }
+        
+        private LevelSaveData ConvertLevelData(LevelData levelData)
+        {
+            var levelSaveData = new LevelSaveData
+            {
+                LevelName = levelData.LevelName,
+                Unlocked = levelData.Unlocked,
+                Visited = levelData.Visited,
+                Completed = levelData.Completed,
+                RecordTime = levelData.RecordTime
+            };
+            return levelSaveData;
         }
     }
 }

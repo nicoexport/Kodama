@@ -20,11 +20,11 @@ namespace Utility
         /// /// Takes in a levelData and returns the first world containing this levelData in its LevelDatas List.
         /// </summary>
         /// <param name="levelData">levelData to Check</param>
-        /// <param name="saveDataSo">game SessionData to check in</param>
+        /// <param name="sessionData">game SessionData to check in</param>
         /// <returns></returns>
-        public static WorldData GameSessionGetWorldDataFromLevelData(LevelData levelData, SaveDataSo saveDataSo)
+        public static WorldData GameSessionGetWorldDataFromLevelData(LevelData levelData, SessionData sessionData)
         {
-            foreach (WorldData worldData in saveDataSo.WorldDatas)
+            foreach (WorldData worldData in sessionData.WorldDatas)
             {
                 foreach (LevelData level in worldData.LevelDatas)
                 {
@@ -39,13 +39,13 @@ namespace Utility
         ///  Takes in a levelData and a gameSessionData and returns the successor of the passed in leveldata
         /// </summary>
         /// <param name="levelData">Level you want to get the successor from</param>
-        /// <param name="saveDataSo"> the game session data you are referring to</param>
+        /// <param name="sessionData"> the game session data you are referring to</param>
         /// <returns></returns>
-        public static LevelData GameSessionGetNextLevelData(LevelData levelData, SaveDataSo saveDataSo)
+        public static LevelData GameSessionGetNextLevelData(LevelData levelData, SessionData sessionData)
         {
             var resultLevelData = levelData;
 
-            var worldDatas = saveDataSo.WorldDatas;
+            var worldDatas = sessionData.WorldDatas;
 
             for (int i = 0; i < worldDatas.Count; i++)
             {
@@ -80,9 +80,9 @@ namespace Utility
             return null;
         }
 
-        public static WorldData GetWorldDataFromWorldDataSO(WorldDataSO worldDataSO, SaveDataSo saveDataSo)
+        public static WorldData GetWorldDataFromWorldDataSO(WorldDataSO worldDataSO, SessionData sessionData)
         {
-            foreach (WorldData worldData in saveDataSo.WorldDatas)
+            foreach (WorldData worldData in sessionData.WorldDatas)
             {
                 if (worldData.WorldName == worldDataSO.WorldName)
                 {

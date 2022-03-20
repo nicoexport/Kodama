@@ -90,7 +90,7 @@ public class LevelSelect : MonoBehaviour, ISelectUI
             });
     }
 
-    public IEnumerator OnStart(SaveDataSo sessionData)
+    public IEnumerator OnStart(SessionData sessionData)
     {
         _ui.SetActive(true);
         yield return SetupSockets(sessionData.CurrentWorld, sessionData.CurrentLevel);

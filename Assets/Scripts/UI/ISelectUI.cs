@@ -3,6 +3,6 @@ using UnityEngine;
     
 public interface ISelectUI
 {
-    IEnumerator OnStart(SaveDataSo sessionData);
+    IEnumerator OnStart(SessionData sessionData);
     IEnumerator OnEnd();
 }

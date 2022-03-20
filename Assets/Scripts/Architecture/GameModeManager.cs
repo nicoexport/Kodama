@@ -14,7 +14,7 @@ public class GameModeManager : Singleton<GameModeManager>
     [SerializeField]
     private GameDataSO _gameData;
     [FormerlySerializedAs("_sessionData")] [SerializeField]
-    private SaveDataSo _saveData;
+    private SessionData _sessionData;
 
 
     [HideInInspector] public string MainMenuScenePath; //{ get; private set; }
@@ -62,7 +62,7 @@ public class GameModeManager : Singleton<GameModeManager>
                 break;
             // loaded from level scene
             default:
-                _saveData.BreakInSaveData();    
+                _sessionData.BreakInSaveData();    
                 _currentMode = playMode;
                 _currentMode.OnEditorStart();
                 SceneManager.LoadScene(_initialSceneIndex, LoadSceneMode.Additive);
@@ -117,7 +117,7 @@ public class GameModeManager : Singleton<GameModeManager>
         else
         {
             print("SETUP NEW SAVE DATA");
-            _saveData.ReadGameData(_gameData);
+            _sessionData.ReadGameData(_gameData);
         }
         // TO DO: Complete game session data by adding Save Data
     }

@@ -6,9 +6,9 @@ using Scriptable;
 public class WorldData
 {
     public string WorldName;
+    private bool _unlocked;
     public bool Visited;
     public bool Completed;
-    private bool _unlocked;
     public WorldStyleSo Style;
 
     public bool Unlocked

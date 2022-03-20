@@ -6,14 +6,29 @@ namespace SaveLoad
     [System.Serializable]
     public class SaveData
     {
-        public SaveData(SaveDataSo saveDataSo)
-        {
-            this.worldDatas = saveDataSo.WorldDatas;
-        }
+        public LevelSaveData CurrentLevel;
+        public WorldSaveData CurrentWorld;
+        public List<WorldSaveData> WorldSaveDatas = new List<WorldSaveData>();
         
-        Dictionary<string, string> = new Dictionary<string, string>();
-        public SaveDataSo SaveDataSo;
+    }
+    
+    [System.Serializable]
+    public class LevelSaveData
+    {
+        public string LevelName;
+        public bool Unlocked;
+        public bool Visited;
+        public bool Completed;
+        public float RecordTime;
+    }
 
-        public List<WorldData> worldDatas;
+    [System.Serializable]
+    public class WorldSaveData
+    {
+        public string WorldName;
+        public bool Unlocked;
+        public bool Visited;
+        public bool Completed;
+        public List<LevelSaveData> LevelSaveDatas = new List<LevelSaveData>();
     }
 }

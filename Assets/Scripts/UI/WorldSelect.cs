@@ -40,7 +40,7 @@ public class WorldSelect : MonoBehaviour, ISelectUI
         InputManager.playerInputActions.LevelSelectUI.Exit.started -= HandleExit;
     }
 
-    public IEnumerator OnStart(SaveDataSo sessionData)
+    public IEnumerator OnStart(SessionData sessionData)
     {
         _ui.SetActive(true);
         yield return SetupUI(sessionData);
@@ -56,23 +56,23 @@ public class WorldSelect : MonoBehaviour, ISelectUI
         _ui.SetActive(false);
     }
     
-    private IEnumerator SetupUI(SaveDataSo saveData)
+    private IEnumerator SetupUI(SessionData sessionData)
     {
-        yield return SetupSockets(saveData);
+        yield return SetupSockets(sessionData);
     }
     
-    private IEnumerator SetupSockets(SaveDataSo saveData)
+    private IEnumerator SetupSockets(SessionData sessionData)
     {
 
-        for (var index = 0; index < saveData.WorldDatas.Count; index++)
+        for (var index = 0; index < sessionData.WorldDatas.Count; index++)
         {
-            var worldData = saveData.WorldDatas[index];
+            var worldData = sessionData.WorldDatas[index];
             var socketGameObject = Instantiate(_socketPrefab, _socketsParent.transform.position, quaternion.identity,
                 _socketsParent.transform);
             var socket = socketGameObject.GetComponent<WorldSelectSocket>();
-            socket.SetupSocket(worldData, index >= saveData.WorldDatas.Count  - 1, index);
+            socket.SetupSocket(worldData, index >= sessionData.WorldDatas.Count  - 1, index);
 
-            if (worldData == saveData.CurrentWorld)
+            if (worldData == sessionData.CurrentWorld)
             {
                 _eventSystem.SetSelectedGameObject(socket.Button.gameObject);
             }
@@ -101,10 +101,10 @@ public class WorldSelect : MonoBehaviour, ISelectUI
         yield break;
     }
 
-    public IEnumerator Reset(SaveDataSo sessionDataSo)
+    public IEnumerator Reset(SessionData sessionData)
     {
         yield return ClearSockets();
-        yield return OnStart(sessionDataSo);
+        yield return OnStart(sessionData);
     }
 
     private void HandleExit(InputAction.CallbackContext obj)

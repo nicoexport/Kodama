@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
 {
 
     [SerializeField]
-    private SaveDataSo _sessionData;
+    private SessionData _sessionData;
 
     [Space(10)]
     public MenuState state;
