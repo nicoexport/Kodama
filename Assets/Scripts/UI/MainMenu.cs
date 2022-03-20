@@ -74,6 +74,6 @@ public class MainMenu : MonoBehaviour
     
     public void RequestResetSessionData()
     {
-        GameModeManager.Instance.SetupSaveData();
+        print("TO DO: CLEARING SAVE DATA");
     }
 }

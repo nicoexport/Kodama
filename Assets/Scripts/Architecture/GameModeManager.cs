@@ -34,7 +34,7 @@ public class GameModeManager : Singleton<GameModeManager>
         base.Awake();
         playMode = new PlayMode(_gameData.WorldsScenePath);
         mainMenuMode = new MainMenuMode(_gameData.MainMenuScenePath);
-        SetupSaveData();
+        SaveManager.Instance.OnLoad();
         Time.timeScale = 0;
 
 #if UNITY_EDITOR
@@ -105,21 +105,4 @@ public class GameModeManager : Singleton<GameModeManager>
 
         _isSwitching = false;
     }
-
-
-
-    // TO DO: NEEDS TO BE IMPLEMENTED CORRECTLY INTO A SAVE/LOAD SYSTEM
-    public void SetupSaveData()
-    {
-        Debug.Log("SETTING UP SAVE DATA");
-        if(SaveManager.Instance.OnLoad())
-            print("LOADED SAVE DATA");
-        else
-        {
-            print("SETUP NEW SAVE DATA");
-            _sessionData.ReadGameData(_gameData);
-        }
-        // TO DO: Complete game session data by adding Save Data
-    }
-    
 }

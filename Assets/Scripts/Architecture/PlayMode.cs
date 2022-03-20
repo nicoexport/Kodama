@@ -32,7 +32,7 @@ public class PlayMode : IGameMode
     public IEnumerator OnEnd()
     {
         _state = GameModeState.Ending;
-        SaveManager.Instance.SaveSessionData();
+        SaveManager.Instance.OnSave();
         yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         Debug.Log("PLAY MODE ENDED");
         _state = GameModeState.Ended;

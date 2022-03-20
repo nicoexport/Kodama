@@ -7,44 +7,14 @@ using System.Collections.Generic;
 [CreateAssetMenu(menuName = "Game Data/Game Session Data")]
 public class SessionData : ScriptableObject
 {
-
+    public string Version;
     public string MainMenuScenePath;
     public string WorldsScenePath;
     public List<WorldData> WorldDatas = new List<WorldData>();
     public WorldData CurrentWorld;
     public LevelData CurrentLevel;
-    public bool FreshSave { get; private set; } = true;
-
-
-    /// <summary>
-    /// Reads Data from a GameDataSO and sets up our session data by populating it.
-    /// </summary>
-    /// <param name="gameDataSO"></param>
-    public void ReadGameData(GameDataSO gameDataSO)
-    {
-        FreshSave = true;
-        WorldsScenePath = gameDataSO.WorldsScenePath;
-        MainMenuScenePath = gameDataSO.MainMenuScenePath;
-
-        // reading World and level datas
-        WorldDatas.Clear();
-        foreach (WorldDataSO worldSO in gameDataSO.WorldDatas)
-        {
-            var worldData = new WorldData(worldSO);
-
-            foreach (LevelDataSO levelDataSO in worldSO.LevelDatas)
-            {
-                var levelData = new LevelData(levelDataSO);
-                worldData.LevelDatas.Add(levelData);
-            }
-            WorldDatas.Add(worldData);
-        }
-
-        CurrentWorld = WorldDatas[0];
-        CurrentLevel = CurrentWorld.LevelDatas[0];
-        CurrentWorld.Unlocked = true;
-    }
-
+    public bool FreshSave = true;
+    
     public void BreakInSaveData()
     {
         FreshSave = false;
