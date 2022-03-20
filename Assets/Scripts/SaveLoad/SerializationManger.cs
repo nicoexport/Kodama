@@ -30,7 +30,7 @@ namespace SaveLoad
 
             BinaryFormatter formatter = GetBinaryFormatter();
             FileStream file = File.Open(path, FileMode.Open);
-            
+       
             try
             {
                 object save = formatter.Deserialize(file);

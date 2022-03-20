@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -34,6 +35,12 @@ namespace SaveLoad
             }
             ReadSaveDataIntoSessionData(saveData, _sessionData);
             print("SAVE FILE LOADED");
+        }
+
+        public void OnDelete()
+        {
+            var path = Application.persistentDataPath + "/saves/test.save";
+            File.Delete(path);
         }
 
         private SaveData ConvertSessionData(SessionData sessionData)

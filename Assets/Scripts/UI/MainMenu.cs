@@ -1,6 +1,8 @@
+using SaveLoad;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class MainMenu : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class MainMenu : MonoBehaviour
 
     [Space(10)]
     public MenuState state;
-    public enum MenuState { main,settings }
+    public enum MenuState { main,settings,deleteFile }
 
 
     [Space(10)]
@@ -20,11 +22,15 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject settingsCanvas;
 
+    [SerializeField] private GameObject _deleteSaveCanvas;
+
     [Header("Buttons")]
     [SerializeField]
     private Button primaryButtonMain;
     [SerializeField]
     private Button primaryButtonSettings;
+
+   [SerializeField] private Button _primaryButtonDeleteSave;
 
 
 
@@ -50,21 +56,31 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void SwitchMenu(string menuname)
+    public void SwitchMenu(string menuName)
     {
-        switch (menuname)
+        switch (menuName)
         {
             case "main":
                 settingsCanvas.SetActive(false);
                 mainCanvas.SetActive(true);
+                _deleteSaveCanvas.SetActive(false);
                 primaryButtonMain.Select();
                 state = MenuState.main;
                 break;
             case "settings":
                 mainCanvas.SetActive(false);
                 settingsCanvas.SetActive(true);
+                _deleteSaveCanvas.SetActive(false);
                 primaryButtonSettings.Select();
                 state = MenuState.settings;
+                break;
+            
+            case "deleteFile":
+                mainCanvas.SetActive(false);
+                settingsCanvas.SetActive(false);
+                _deleteSaveCanvas.SetActive(true);
+                _primaryButtonDeleteSave.Select();
+                state = MenuState.deleteFile;
                 break;
             
             default:
@@ -75,5 +91,6 @@ public class MainMenu : MonoBehaviour
     public void RequestResetSessionData()
     {
         print("TO DO: CLEARING SAVE DATA");
+        SaveManager.Instance.OnDelete();
     }
 }
