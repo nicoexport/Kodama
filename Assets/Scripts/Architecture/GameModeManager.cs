@@ -34,7 +34,6 @@ public class GameModeManager : Singleton<GameModeManager>
         base.Awake();
         playMode = new PlayMode(_gameData.WorldsScenePath);
         mainMenuMode = new MainMenuMode(_gameData.MainMenuScenePath);
-        SaveManager.Instance.OnLoad();
         Time.timeScale = 0;
 
 #if UNITY_EDITOR

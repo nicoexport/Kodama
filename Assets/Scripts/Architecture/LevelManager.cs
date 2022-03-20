@@ -66,10 +66,13 @@ public class LevelManager : MonoBehaviour, IContextManager
 
     private void Start() 
     {
-        GetLevelData();
-        _activeLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
-        SessionData.CurrentLevel = _activeLevelData;
-        SessionData.CurrentWorld = Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, SessionData);
+        _activeLevelData = GetLevelData();
+        if (_activeLevelData != null)
+        {
+            _activeLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
+            SessionData.CurrentLevel = _activeLevelData;
+            SessionData.CurrentWorld = Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, SessionData);
+        }
         var player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
         if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
         StartCoroutine(Utilities.ActionAfterDelay(1f, () =>
@@ -86,6 +89,11 @@ public class LevelManager : MonoBehaviour, IContextManager
 
     private void CompleteLevel()
     {
+        if (_activeLevelData == null)
+        {
+            Debug.LogWarningFormat("LEVEL EXIT: {0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
+            return;
+        }
         _activeLevelData.Completed = true;
         OnCompleteLevel?.Invoke();
         _levelFinishedEventChannel.RaiseEvent(_activeLevelData);
@@ -127,7 +135,7 @@ public class LevelManager : MonoBehaviour, IContextManager
         InputManager.playerInputActions.Disable();
     }
 
-    private void GetLevelData()
+    private LevelData GetLevelData()
     {
         var activeScenePath = SceneManager.GetActiveScene().path;
 
@@ -136,9 +144,10 @@ public class LevelManager : MonoBehaviour, IContextManager
             foreach (LevelData levelData in worldData.LevelDatas)
             {
                 if (levelData.ScenePath == activeScenePath)
-                    _activeLevelData = levelData;
+                    return levelData;
             }
         }
-        Debug.Log("Got Level DAta with name: " + _activeLevelData.LevelName);
+        Debug.LogWarningFormat("{0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
+        return null;
     }
 }

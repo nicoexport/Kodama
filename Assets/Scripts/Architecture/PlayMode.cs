@@ -19,7 +19,7 @@ public class PlayMode : IGameMode
         if (_state != GameModeState.Ended) yield break;
         _state = GameModeState.Starting;
 
-        // TO DO: LOAD SAVE
+        SaveManager.Instance.OnLoad();
 
         _activeScene = _scenePath;
 
@@ -41,6 +41,7 @@ public class PlayMode : IGameMode
     public void OnEditorStart()
     {
 #if UNITY_EDITOR
+        SaveManager.Instance.OnLoad();
         _activeScene = SceneManager.GetActiveScene().path;
         _state = GameModeState.Started;
 #endif
