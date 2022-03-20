@@ -38,19 +38,13 @@ public class LevelSelectManager : MonoBehaviour
         _selectedWorld ??= Utilities.GetWorldDataFromWorldDataSO(_defaultWorld, _sessionData);
         if (_sessionData.FreshSave == true)
         {
-            _sessionData.BreakInSaveData();
+            _sessionData.FreshSave = false;
             SwitchUI(_worldSelect);
         }
         else
         {
             SwitchUI(_levelSelect);
         }
-    }
-
-    private void Start()
-    {
-
-        
     }
 
     private void OnEnable()

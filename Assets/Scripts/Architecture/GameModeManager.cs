@@ -61,7 +61,7 @@ public class GameModeManager : Singleton<GameModeManager>
                 break;
             // loaded from level scene
             default:
-                _sessionData.BreakInSaveData();    
+                _sessionData.FreshSave = false; 
                 _currentMode = playMode;
                 _currentMode.OnEditorStart();
                 SceneManager.LoadScene(_initialSceneIndex, LoadSceneMode.Additive);

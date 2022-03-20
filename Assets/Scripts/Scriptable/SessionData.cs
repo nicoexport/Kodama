@@ -15,22 +15,4 @@ public class SessionData : ScriptableObject
     public LevelData CurrentLevel;
     public bool FreshSave = true;
     
-    public void BreakInSaveData()
-    {
-        FreshSave = false;
-    }
-
-    /// <summary>
-    /// Completes our session data by loading in save data,
-    ///  such as the visited or completed state of worlds and levels
-    /// </summary>
-    void LoadSaveData()
-    {
-
-    }
-
-    void SaveData()
-    {
-
-    }
 }

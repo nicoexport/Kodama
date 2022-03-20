@@ -35,6 +35,7 @@ namespace SaveLoad
             }
             ReadSaveDataIntoSessionData(saveData, _sessionData);
             print("SAVE FILE LOADED");
+            print(_sessionData.CurrentWorld.WorldName + " " + _sessionData.CurrentLevel.LevelName);
         }
 
         public void OnDelete()
@@ -59,6 +60,7 @@ namespace SaveLoad
                 saveData.WorldSaveDatas.Add(worldSaveData);
             }
             
+            print(saveData.CurrentWorld.WorldName + " " + saveData.CurrentLevel.LevelName);
             return saveData;
         }
         
@@ -121,6 +123,7 @@ namespace SaveLoad
         
         private void ReadSaveDataIntoSessionData(SaveData saveData, SessionData sessionData)
         {
+            sessionData.FreshSave = false;
             string currentLevelName = saveData.CurrentLevel.LevelName;
             string currentWorldName = saveData.CurrentWorld.WorldName;
             for (var i = 0; i < sessionData.WorldDatas.Count; i++)
