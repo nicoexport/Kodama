@@ -44,7 +44,7 @@ public class LevelSelectSocket : MonoBehaviour
         var image = Button.GetComponent<Image>();
         if (value == false)
         {
-            image.color *= Button.colors.disabledColor;
+            image.color = Button.colors.disabledColor;
         }
         else
         {

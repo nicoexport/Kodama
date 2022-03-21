@@ -41,8 +41,6 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        _sessionData.CurrentWorld = _sessionData.WorldDatas[0];
-        _sessionData.CurrentLevel = _sessionData.WorldDatas[0].LevelDatas[0];
         GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.playMode);
     }
 
