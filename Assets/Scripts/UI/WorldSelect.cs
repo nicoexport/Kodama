@@ -18,6 +18,7 @@ public class WorldSelect : MonoBehaviour, ISelectUI
     [SerializeField] private GameObject _uIPlayerObject;
     [SerializeField] private float _playerMoveTimeInSeconds = 0.5f;
     [SerializeField] private VoidEventChannelSO _returnToMainMenuChannel;
+    public SelectUIState _state { get; private set; }
 
     private EventSystem  _eventSystem;
     private IUICharacter _uiPlayer;
@@ -42,20 +43,25 @@ public class WorldSelect : MonoBehaviour, ISelectUI
 
     public IEnumerator OnStart(SessionData sessionData)
     {
+        _state = SelectUIState.Starting;
         _ui.SetActive(true);
         yield return SetupUI(sessionData);
         _uIPlayerObject.transform.position = _eventSystem.currentSelectedGameObject.transform.position;
         MoveUIPlayer(sessionData.CurrentWorld,_eventSystem.currentSelectedGameObject.transform);
         InputManager.playerInputActions.LevelSelectUI.Exit.started += HandleExit;
+        _state = SelectUIState.Started;
     }
 
     public IEnumerator OnEnd()
     {
+        _state = SelectUIState.Ending;
         InputManager.playerInputActions.LevelSelectUI.Exit.started -= HandleExit;
         yield return ClearSockets();
         _ui.SetActive(false);
+        _state = SelectUIState.Ended;
     }
-    
+
+
     private IEnumerator SetupUI(SessionData sessionData)
     {
         yield return SetupSockets(sessionData);

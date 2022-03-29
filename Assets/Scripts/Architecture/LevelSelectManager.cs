@@ -32,7 +32,6 @@ public class LevelSelectManager : MonoBehaviour
     {
         _waitForTransition = new WaitForSeconds(_transitionDurationInSeconds);
         _eventSystem = FindObjectOfType<EventSystem>();
-        InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSelectUI);
         
         _selectedWorld = _sessionData.CurrentWorld;
         _selectedLevel = _selectedWorld.LevelDatas.Contains(_sessionData.CurrentLevel) ? _sessionData.CurrentLevel : _selectedWorld.LevelDatas[0];
@@ -119,7 +118,7 @@ public class LevelSelectManager : MonoBehaviour
     private void EnablePlayerInput()
     {
         _eventSystem.enabled = true;
-        InputManager.playerInputActions.LevelSelectUI.Enable();
+        InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSelectUI);
         print("Player Input enabled");
     }
 

@@ -22,6 +22,7 @@ public class LevelSelect : MonoBehaviour, ISelectUI
     private EventSystem _eventSystem;
     private IUICharacter _uiPlayer;
     
+    public SelectUIState _state { get; private set; }
 
     private void Awake()
     {
@@ -79,6 +80,7 @@ public class LevelSelect : MonoBehaviour, ISelectUI
     
     private void MoveUIPlayer(LevelData levelData, Transform transform1)
     {
+        if (_state != SelectUIState.Started) return;
         LeanTween.cancel(_uIPlayerObject);
         _eventSystem.enabled = false;
         _uiPlayer.StartMoving(transform1);
@@ -92,16 +94,21 @@ public class LevelSelect : MonoBehaviour, ISelectUI
 
     public IEnumerator OnStart(SessionData sessionData)
     {
+        _state = SelectUIState.Starting;
         _ui.SetActive(true);
         yield return SetupSockets(sessionData.CurrentWorld, sessionData.CurrentLevel);
         OnLevelSelectStarted?.Invoke(sessionData.CurrentWorld);
         InputManager.playerInputActions.LevelSelectUI.Exit.started += ReturnToWorldSelect;
+        _state = SelectUIState.Started;
     }
 
     public IEnumerator OnEnd()
     {
+        _state = SelectUIState.Ending;
         InputManager.playerInputActions.LevelSelectUI.Exit.started -= ReturnToWorldSelect;
         _ui.SetActive(false);
+        _state = SelectUIState.Ending;
         yield break;
     }
+
 }
