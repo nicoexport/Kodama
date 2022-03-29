@@ -35,14 +35,11 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator LoadScenes(string scenePath, bool unloadActiveScene, bool showScreenfade)
     {
-
-
         if (showScreenfade)
         {
             _transitionEventChannel.RaiseEvent(TransitionType.FadeOut, 1f);
             yield return new WaitForSeconds(1f);
         }
-        // yield return ScreenFade.Instance.Require(1f);
 
         if (unloadActiveScene)
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
@@ -50,11 +47,10 @@ public class SceneLoader : MonoBehaviour
 
         yield return SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
         SceneManager.SetActiveScene(SceneManager.GetSceneByPath(scenePath));
-
-
+        
+        
         if (!showScreenfade) yield break;
         _transitionEventChannel.RaiseEvent(TransitionType.FadeIn, 1f);
-        yield return new WaitForSeconds(1f);
-        // yield return ScreenFade.Instance.Release(1f);
+        //yield return new WaitForSeconds(1f);
     }
 }

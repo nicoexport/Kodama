@@ -57,6 +57,7 @@ public class PauseMenu : MonoBehaviour
         canvas.gameObject.SetActive(false);
         paused = false;
     }
+    
 
     private void InputActionResumeGame(InputAction.CallbackContext context)
     {
@@ -78,16 +79,15 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        //UnRegisterInputActions();
         ResumeGame();
-        // GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);
+        DisableInput();
         _returnToMainMenuEvent.RaiseEvent();
     }
 
     public void ReturnToWorldsScreen()
     {
-        //UnRegisterInputActions();
         ResumeGame();
+        DisableInput();
         _returnToWorldEvent.RaiseEvent();
     }
 
@@ -101,6 +101,11 @@ public class PauseMenu : MonoBehaviour
     {
         InputManager.playerInputActions.Player.Pause.started -= InputActionPauseGame;
         InputManager.playerInputActions.PauseMenu.Unpause.started -= InputActionResumeGame;
+    }
+
+    private void DisableInput()
+    {
+        InputManager.playerInputActions.Disable();
     }
 
 }

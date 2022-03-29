@@ -76,25 +76,25 @@ public class LevelFlowHandler : MonoBehaviour
     {
         _sessionData.CurrentWorld = worldData;
         _sessionData.CurrentLevel = worldData.LevelDatas[0];
-        _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.WorldsScenePath, true, true);
+        _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.LevelSelectScenePath, true, true);
         Debug.Log("TO DO: Load Next World");
     }
 
     public void ExitLevelEarly(LevelData currentLevel)
     {
         _sessionData.CurrentLevel = currentLevel;
-        _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.WorldsScenePath, true, true);
+        _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.LevelSelectScenePath, true, true);
     }
 
     public void FinishLevelAndExit(LevelData currentLevel)
     {
         _sessionData.CurrentLevel = Utilities.GameSessionGetNextLevelData(currentLevel, _sessionData);
-        _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.WorldsScenePath, true, true);
+        _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.LevelSelectScenePath, true, true);
     }
 
     void LoadWorldScreen()
     {
-        _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.WorldsScenePath, true, true);
+        _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.LevelSelectScenePath, true, true);
     }
 
     void LoadMainMenu()

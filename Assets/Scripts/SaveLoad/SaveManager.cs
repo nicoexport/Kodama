@@ -99,7 +99,7 @@ namespace SaveLoad
         {
             sessionData.Version = gameDataSO.Version;
             sessionData.MainMenuScenePath = gameDataSO.MainMenuScenePath;
-            sessionData.WorldsScenePath = gameDataSO.WorldsScenePath;
+            sessionData.LevelSelectScenePath = gameDataSO.WorldsScenePath;
 
             // reading World and level datas
             sessionData.WorldDatas.Clear();
