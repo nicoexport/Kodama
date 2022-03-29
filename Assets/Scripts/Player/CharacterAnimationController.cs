@@ -8,7 +8,7 @@ using System;
 public class CharacterAnimationController : MonoBehaviour
 {
     private string currentAnimState;
-    private Animator animator;
+    public Animator animator { get; private set; }
 
     public event Action<string, string> OnAnimationStateChange;
 
@@ -21,7 +21,8 @@ public class CharacterAnimationController : MonoBehaviour
     public const string wallJumping = "WALLJUMPING";
     public const string walkingAgainstWall = "WALKING_AGAINST_WALL";
     public const string spawning = "SPAWNING";
-    public const string winning = "WINNING"; // TO DO : winning animation
+    public const string winning = "WINNING";
+    public const string dying = "DYING";
 
     private void Awake()
     {
@@ -71,6 +72,9 @@ public class CharacterAnimationController : MonoBehaviour
                 break;
             case "WinningState":
                 newAnimState = winning;
+                break;
+            case "DyingState":
+                newAnimState = dying;
                 break;
             default:
                 newAnimState = idle;

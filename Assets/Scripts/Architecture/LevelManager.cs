@@ -1,6 +1,7 @@
 using UnityEngine;
 using Cinemachine;
 using System;
+using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Utility;
@@ -36,7 +37,8 @@ public class LevelManager : MonoBehaviour, IContextManager
     public static event Action OnPlayerGainedControl;
     public static event Action<float, bool> OnTimerFinished;
 
-    private LevelFlowHandler _levelFlowHandler;
+    private LevelFlowManager _levelFlowManager;
+    private PlayerManager _playerManager;
 
     private LevelData _activeLevelData;
 
@@ -54,14 +56,15 @@ public class LevelManager : MonoBehaviour, IContextManager
 
     private void Awake()
     {
-        _levelFlowHandler = GetComponent<LevelFlowHandler>();
-        // Registering our Level completion for every Level Win Class in the Runtime Set
+        _levelFlowManager = GetComponent<LevelFlowManager>();
+        _playerManager = GetComponent<PlayerManager>();
+     
+        
         foreach (var obj in levelWinRuntimeSet.GetItemList())
         {
             var win = obj.GetComponent<LevelWin>();
             win.OnLevelWon += CompleteLevel;
         }
-
     }
 
     private void Start() 
@@ -73,18 +76,20 @@ public class LevelManager : MonoBehaviour, IContextManager
             SessionData.CurrentLevel = _activeLevelData;
             SessionData.CurrentWorld = Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, SessionData);
         }
-        var player = Instantiate(playerPrefab, playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
-        if (cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = player.transform;
-        StartCoroutine(Utilities.ActionAfterDelay(1f, () =>
-        {
-            InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
-            OnPlayerGainedControl?.Invoke();
-        }));
+
+        StartCoroutine(SpawnPlayerEnumerator());
     }
 
     public void OnGameModeStarted()
     {
 
+    }
+
+    private IEnumerator SpawnPlayerEnumerator()
+    {
+        yield return _playerManager.SpawnPlayer();
+        InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
+        OnPlayerGainedControl?.Invoke();
     }
 
     private void CompleteLevel()
@@ -112,13 +117,13 @@ public class LevelManager : MonoBehaviour, IContextManager
     private void LoadNextLevel(InputAction.CallbackContext context)
     {
         DisableSummaryInput();
-        _levelFlowHandler.NextLevelRequest(_activeLevelData);
+        _levelFlowManager.NextLevelRequest(_activeLevelData);
     }
 
     private void FinishLevelAndReturnToWorldMode(InputAction.CallbackContext context)
     {
         DisableSummaryInput();
-        _levelFlowHandler.FinishLevelAndExit(_activeLevelData);
+        _levelFlowManager.FinishLevelAndExit(_activeLevelData);
     }
 
     private void EnableSummaryInput()

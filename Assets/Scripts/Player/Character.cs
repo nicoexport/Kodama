@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -81,6 +82,7 @@ public class Character : MonoBehaviour
     public WalljumpingState wallJumping;
     public SpawningState spawning;
     public WinningState winning;
+    public DyingState dying;
 
 
     private StateMachine movementSm;
@@ -158,15 +160,17 @@ public class Character : MonoBehaviour
         rb.AddForce(newForce, ForceMode2D.Impulse);
     }
 
-    // TO DO: restetting move parameters
+    public IEnumerator DieEnumerator()
+    {
+        movementSm.ChangeState(dying);
+        UpdateVisuals();
+        var waitForAnim = new WaitForSeconds(cAnimController.animator.GetCurrentAnimatorClipInfo(0).Length);
+        yield return waitForAnim;
+    }
+    
     public void ResetMoveParams()
     {
         rb.gravityScale = normalGravity;
-    }
-
-    public void ChangeState(State state)
-    {
-        movementSm.ChangeState(state);
     }
 
     public State GetState()
@@ -179,9 +183,7 @@ public class Character : MonoBehaviour
         return Physics2D.OverlapCircle(point, radius, whatIsGround);
     }
 
-
-
-    public void UpdateVisuals()
+    private void UpdateVisuals()
     {
         var touchingWall = CheckCollisionOverlap(frontCheck.position, frontCheckRadius);
         cAnimController.SetAnimationState(movementSm.CurrentState, InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x, rb.velocity.x, maxVelocityX, touchingWall);
@@ -198,6 +200,7 @@ public class Character : MonoBehaviour
         wallJumping = new WalljumpingState(movementSm, this);
         spawning = new SpawningState(movementSm, this);
         winning = new WinningState(movementSm, this);
+        dying = new DyingState(movementSm, this);
     }
 
     private void InitializeStateMachine(State state)
@@ -234,14 +237,8 @@ public class Character : MonoBehaviour
         if (hasPressedLeftTimer <= 0f) hasPressedLeft = false;
         if (hasPressedRightTimer > 0f) hasPressedRightTimer -= Time.fixedDeltaTime;
         if (hasPressedRightTimer <= 0f) hasPressedRight = false;
-
     }
-
-    public float GetMaxVelocityX()
-    {
-        return maxVelocityX;
-    }
-
+    
     private void AddCharacterToRuntimeSet()
     {
         if (characterRuntimeSet.IsEmpty())

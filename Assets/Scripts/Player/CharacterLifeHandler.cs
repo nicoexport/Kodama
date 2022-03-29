@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,23 +6,35 @@ using UnityEngine.SceneManagement;
 
 public class CharacterLifeHandler : MonoBehaviour
 {
-    [SerializeField]
-    private int defaultHealth = 1;
-    public int health { get; private set; }
+    public static event Action<Character> OnPlayerDeath;
+    public static event Action OnPlayerDied;
+    public int Health { get; private set; }
+    [SerializeField] private int defaultHealth = 1;
+    private Character _character;
 
-    public void Start()
+    private void Awake()
     {
-        health = defaultHealth;
+        _character = GetComponent<Character>();
+        Health = defaultHealth;
     }
 
     public void TakeDamage(int amount)
     {
-        health -= amount;
-        if (health <= 0) PlayerDie();
+        if (Health <= 0) return;
+        Health -= amount;
+        if (Health <= 0) Die();
     }
 
-    public void PlayerDie()
+    private void Die()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        StartCoroutine(DieEnumerator());
+    }
+
+    private IEnumerator DieEnumerator()
+    {
+        OnPlayerDeath?.Invoke(_character);
+        InputManager.playerInputActions.Disable();
+        yield return _character.DieEnumerator();
+        OnPlayerDied?.Invoke();
     }
 }

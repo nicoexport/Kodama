@@ -1,7 +1,7 @@
 using UnityEngine;
 using Utility;
 
-public class LevelFlowHandler : MonoBehaviour
+public class LevelFlowManager : MonoBehaviour
 {
     [SerializeField]
     private SessionData _sessionData;
@@ -17,12 +17,14 @@ public class LevelFlowHandler : MonoBehaviour
     {
         _returnToMainMenuEvent.OnEventRaised += LoadMainMenu;
         _returnToWorldScreenEvent.OnEventRaised += LoadWorldScreen;
+        CharacterLifeHandler.OnPlayerDied += RestartLevel;
     }
 
     private void OnDisable()
     {
         _returnToMainMenuEvent.OnEventRaised -= LoadMainMenu;
         _returnToWorldScreenEvent.OnEventRaised -= LoadWorldScreen;
+        CharacterLifeHandler.OnPlayerDied -= RestartLevel;
     }
 
     // Takes in a LevelDataSO. If its not the Worlds last level it loads the next level of the same world, if it is it loads the next world. 
@@ -65,7 +67,6 @@ public class LevelFlowHandler : MonoBehaviour
         }
     }
 
-
     private void LoadNextLevel(LevelData levelData)
     {
         _sessionData.CurrentLevel = levelData;
@@ -78,6 +79,11 @@ public class LevelFlowHandler : MonoBehaviour
         _sessionData.CurrentLevel = worldData.LevelDatas[0];
         _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.LevelSelectScenePath, true, true);
         Debug.Log("TO DO: Load Next World");
+    }
+
+    private void RestartLevel()
+    {
+        _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.CurrentLevel.ScenePath, true, true);
     }
 
     public void ExitLevelEarly(LevelData currentLevel)

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7014410135455515719}
   - component: {fileID: 7014410135455515717}
   - component: {fileID: 7160439882145635487}
+  - component: {fileID: 1980565582993771711}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -81,3 +82,19 @@ MonoBehaviour:
   _loadLevelEventChannel: {fileID: 11400000, guid: 63e18172964853348bffe3927cdf4fad, type: 2}
   _returnToWorldScreenEvent: {fileID: 11400000, guid: bf1e1e317389c394bb61aa6490d0e52d, type: 2}
   _returnToMainMenuEvent: {fileID: 11400000, guid: 3be5cdf36fdcfd74cb537953cabedf07, type: 2}
+--- !u!114 &1980565582993771711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014410135455515718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81aa9376fd23324438ef77eefbe1c8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerPrefab: {fileID: 5291515768158270416, guid: cb00620d02a672a4a9a912ce652757d5, type: 3}
+  _playerSpawnRuntimeSet: {fileID: 11400000, guid: 56d467417e7a3d541a2de4603bfeaa36, type: 2}
+  _cinemachineRuntimeSet: {fileID: 11400000, guid: 6d2041fbf0ceda240b3430c5307c2aad, type: 2}
+  _spawnTime: 1

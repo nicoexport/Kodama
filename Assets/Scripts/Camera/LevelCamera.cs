@@ -1,45 +1,74 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LevelCamera : MonoBehaviour
 {
-    [SerializeField]
-    private Vector3 goalScale;
-    [SerializeField]
-    private float zoomSpeed = 1f;
-    [SerializeField]
-    private float zoomDelta = 0.001f;
-    private bool zoom;
+    [FormerlySerializedAs("goalScale")] [SerializeField]
+    private Vector3 _goalScale;
+    [FormerlySerializedAs("zoomSpeed")] [SerializeField]
+    private float _zoomSpeed = 1f;
+    [FormerlySerializedAs("zoomDelta")] [SerializeField]
+    private float _zoomDelta = 0.001f;
+    private bool _zoomIn;
+    private bool _zoomOut;
+    private Vector3 _gameplayScale;
+
+    private void Awake()
+    {
+        _gameplayScale = transform.localScale;
+        transform.localScale = _goalScale;
+    }
 
     private void OnEnable()
     {
-        LevelManager.OnCompleteLevel += StartZoom;
+        LevelManager.OnCompleteLevel += StartZoomIn;
     }
+
 
     private void OnDisable()
     {
-        LevelManager.OnCompleteLevel -= StartZoom;
+        LevelManager.OnCompleteLevel -= StartZoomIn;
     }
 
-    private void StartZoom()
+    private void StartZoomIn()
     {
-        zoom = true;
+        _zoomIn = true;
     }
+    
 
+    private void Start()
+    {
+        _zoomOut = true;
+    }
+    
     private void Zoom()
     {
-        if (!zoom) return;
-        transform.localScale = Vector3.Lerp(transform.localScale, goalScale, zoomSpeed * Time.deltaTime);
-        if (transform.localScale.x <= (goalScale.x + zoomDelta))
+        if (!_zoomIn) return;
+        transform.localScale = Vector3.Lerp(transform.localScale, _goalScale, _zoomSpeed * Time.deltaTime);
+        if (transform.localScale.x <= (_goalScale.x + _zoomDelta))
         {
-            zoom = false;
-            transform.localScale = goalScale;
+            _zoomIn = false;
+            transform.localScale = _goalScale;
+        }
+    }
+
+    private void ZoomOut()
+    {
+        if (!_zoomOut) return;
+        transform.localScale = Vector3.Lerp(transform.localScale, _gameplayScale, _zoomSpeed * Time.deltaTime);
+        if (transform.localScale.x >= (_gameplayScale.x + _zoomDelta))
+        {
+            _zoomOut = false;
+            transform.localScale = _gameplayScale;
         }
     }
 
     private void FixedUpdate()
     {
         Zoom();
+        ZoomOut();
     }
 }

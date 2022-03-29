@@ -89,6 +89,7 @@ public class WorldSelect : MonoBehaviour, ISelectUI
     
     private void MoveUIPlayer(WorldData worldData, Transform transform1)
     {
+        if (_state != SelectUIState.Started) return;
         LeanTween.cancel(_uIPlayerObject);
         _eventSystem.enabled = false;
         _uiPlayer.StartMoving(transform1);
