@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class CharacterLifeHandler : MonoBehaviour
 {
-    public static event Action<Character> OnPlayerDeath;
-    public static event Action OnPlayerDied;
+    public event Action<Character> OnCharacterDeath;
     public int Health { get; private set; }
     [SerializeField] private int defaultHealth = 1;
     private Character _character;
@@ -27,14 +26,7 @@ public class CharacterLifeHandler : MonoBehaviour
 
     private void Die()
     {
-        StartCoroutine(DieEnumerator());
+        OnCharacterDeath?.Invoke(_character);
     }
-
-    private IEnumerator DieEnumerator()
-    {
-        OnPlayerDeath?.Invoke(_character);
-        InputManager.playerInputActions.Disable();
-        yield return _character.DieEnumerator();
-        OnPlayerDied?.Invoke();
-    }
+    
 }

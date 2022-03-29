@@ -17,14 +17,14 @@ public class LevelFlowManager : MonoBehaviour
     {
         _returnToMainMenuEvent.OnEventRaised += LoadMainMenu;
         _returnToWorldScreenEvent.OnEventRaised += LoadWorldScreen;
-        CharacterLifeHandler.OnPlayerDied += RestartLevel;
+        PlayerManager.OnPlayerDied += RestartLevel;
     }
 
     private void OnDisable()
     {
         _returnToMainMenuEvent.OnEventRaised -= LoadMainMenu;
         _returnToWorldScreenEvent.OnEventRaised -= LoadWorldScreen;
-        CharacterLifeHandler.OnPlayerDied -= RestartLevel;
+        PlayerManager.OnPlayerDied -= RestartLevel;
     }
 
     // Takes in a LevelDataSO. If its not the Worlds last level it loads the next level of the same world, if it is it loads the next world. 
