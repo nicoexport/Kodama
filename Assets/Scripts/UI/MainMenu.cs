@@ -33,7 +33,11 @@ public class MainMenu : MonoBehaviour
    [SerializeField] private Button _primaryButtonDeleteSave;
 
 
-
+   private void Awake()
+   {
+       InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSelectUI);
+   }
+   
     private void Start()
     {
         SwitchMenu("main");

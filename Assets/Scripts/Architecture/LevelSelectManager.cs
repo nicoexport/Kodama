@@ -9,6 +9,7 @@ using Utility;
 [SuppressMessage("ReSharper", "CheckNamespace")]
 public class LevelSelectManager : MonoBehaviour
 {
+    public static event Action<ISelectUI> OnSelectUISwitched;
     
     [FormerlySerializedAs("_saveData")] [SerializeField] private SessionData _sessionData;
     [SerializeField] private WorldDataSO _defaultWorld;
@@ -70,8 +71,9 @@ public class LevelSelectManager : MonoBehaviour
     {
         yield return new WaitUntil(() => !_isSwitching);
         if (_currentUI == selectUI) yield break;
-
+        
         _isSwitching = true;
+        DisablePlayerInput();
         _transitionEventChannel.RaiseEvent(TransitionType.FadeOut, 0f);
         
         
@@ -85,16 +87,18 @@ public class LevelSelectManager : MonoBehaviour
         _currentUI = selectUI;
 
         yield return _currentUI.OnStart(_sessionData);
-        
+        OnSelectUISwitched?.Invoke(_currentUI);
         _transitionEventChannel.RaiseEvent(TransitionType.FadeIn, _transitionDurationInSeconds);
         yield return _waitForTransition;
-
+        EnablePlayerInput();
+        
         _isSwitching = false;
     }
 
     private void LoadLevel(LevelData obj)
     {
         _eventSystem.enabled = false;
+        InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
         _loadEvenChannel.RaiseEventWithScenePath(obj.ScenePath,true, true);
     }
 
@@ -112,6 +116,20 @@ public class LevelSelectManager : MonoBehaviour
         SwitchUI(_worldSelect);
     }
 
+    private void EnablePlayerInput()
+    {
+        _eventSystem.enabled = true;
+        InputManager.playerInputActions.LevelSelectUI.Enable();
+        print("Player Input enabled");
+    }
+
+    private void DisablePlayerInput()
+    {
+        _eventSystem.enabled = false;
+        InputManager.playerInputActions.Disable();
+        print("Player Input disabled");
+    }
+    
     #region ContextMenu
     
     [ContextMenu("UnlockLevels")]
