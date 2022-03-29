@@ -25,12 +25,13 @@ public class PauseMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        RegisterInputActions();
+        LevelManager.OnPlayerGainedControl += RegisterInputActions;
     }
 
     private void OnDisable()
     {
         UnRegisterInputActions();
+        LevelManager.OnPlayerGainedControl -= RegisterInputActions;
     }
 
     public void PauseGame()
