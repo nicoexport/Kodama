@@ -7,6 +7,14 @@ public class PlayerSpawn : MonoBehaviour
     [SerializeField]
     TransformRuntimeSet playerSpawnRuntimeSet;
 
+    private SpriteRenderer _renderer;
+
+    private void Awake()
+    {
+        _renderer = GetComponent<SpriteRenderer>();
+        _renderer.enabled = false;
+    }
+
     private void OnEnable()
     {
         if (playerSpawnRuntimeSet.IsEmpty())
