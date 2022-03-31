@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utility;
 
 public class LevelFlowManager : MonoBehaviour
@@ -83,7 +84,7 @@ public class LevelFlowManager : MonoBehaviour
 
     private void RestartLevel()
     {
-        _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.CurrentLevel.ScenePath, true, true);
+        _loadLevelEventChannel.RaiseEventWithScenePath(SceneManager.GetActiveScene().path, true, true);
     }
 
     public void ExitLevelEarly(LevelData currentLevel)

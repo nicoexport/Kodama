@@ -19426,7 +19426,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultHealth: 1
-  _loadLevelEventChannel: {fileID: 11400000, guid: 63e18172964853348bffe3927cdf4fad, type: 2}
 --- !u!114 &5291515768158270442
 MonoBehaviour:
   m_ObjectHideFlags: 0

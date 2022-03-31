@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6011243458864889325}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: point2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 6011243459000486230}
   - component: {fileID: 6011243459000486225}
   - component: {fileID: 6011243459000486231}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Accelarator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   point1: {fileID: 6011243459793407285}
   point2: {fileID: 6011243458864889325}
-  force: 40
+  force: 50
   vertical: 0
   down: 0
   reverse: 1
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6011243459092048440}
   - component: {fileID: 6011243459092048441}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 6011243459430236715}
   - component: {fileID: 6011243459430236713}
   - component: {fileID: 6011243459430236712}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5044,7 +5044,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6011243459793407285}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: point1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5075,7 +5075,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6011243460171248170}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
