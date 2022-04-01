@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Level;
+using Level.Logic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GameUI : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class GameUI : MonoBehaviour
     {
         LevelManager.OnCompleteLevel += DisableGameUI;
         HellCollider.OnTriggerEntered += FadeOut;
+        LevelBounds.OnNearingLevelBounds += HandleNearingLevelBounds;
     }
 
 
@@ -25,6 +28,7 @@ public class GameUI : MonoBehaviour
     {
         LevelManager.OnCompleteLevel -= DisableGameUI;
         HellCollider.OnTriggerEntered -= FadeOut;
+        LevelBounds.OnNearingLevelBounds -= HandleNearingLevelBounds;
     }
 
     public void SetKeyIcon()
@@ -58,6 +62,15 @@ public class GameUI : MonoBehaviour
         foreach (var group in canvasGroups)
         {
             LeanTween.alphaCanvas(group, 0f, 2f);
+        }
+    }
+    
+    private void HandleNearingLevelBounds(float value)
+    {
+        var canvasGroups = GetComponentsInChildren<CanvasGroup>();
+        foreach (var group in canvasGroups)
+        {
+            group.alpha = 1 - value;
         }
     }
 }

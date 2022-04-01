@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using Level;
+using Level.Logic;
 using Unity.Mathematics;
 using UnityEngine;
 using Utility;
@@ -17,11 +18,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float _spawnTime = 1f;
     private GameObject _currentPlayer;
     private CharacterLifeHandler _lifeHandler;
+    private bool _playerIsDead = false;
 
 
     private void OnEnable()
     {
         HellCollider.OnTriggerEntered += HandleHellColliderEntered;
+        LevelBounds.OnNearingLevelBounds += HandleNearingLevelBounds;
     }
 
 
@@ -29,6 +32,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (_lifeHandler) _lifeHandler.OnCharacterDeath -= KillPlayer;
         HellCollider.OnTriggerEntered -= HandleHellColliderEntered;
+        LevelBounds.OnNearingLevelBounds -= HandleNearingLevelBounds;
     }
 
     public IEnumerator SpawnPlayer()
@@ -50,5 +54,13 @@ public class PlayerManager : MonoBehaviour
     private void HandleHellColliderEntered(float timeToKill)
     {
         StartCoroutine(Utilities.ActionAfterDelayEnumerator(timeToKill, () => { OnPlayerDied?.Invoke(); }));
+    }
+    
+    private void HandleNearingLevelBounds(float value)
+    {
+        if(value < 1f) return;
+        if (_playerIsDead) return;
+        OnPlayerDied?.Invoke();
+        _playerIsDead = true;
     }
 }
