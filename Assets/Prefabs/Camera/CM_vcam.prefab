@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 544820478108778402}
   - component: {fileID: 544820478108778400}
-  - component: {fileID: 544820478108778403}
+  - component: {fileID: 425110440263843954}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &544820478108778403
+--- !u!114 &425110440263843954
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,18 +61,18 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_XDamping: 0
-  m_YDamping: 0
-  m_ZDamping: 0
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_CameraDistance: 10
-  m_DeadZoneWidth: 0.02
+  m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 0.85
+  m_SoftZoneWidth: 0.8
   m_SoftZoneHeight: 0.8
   m_BiasX: 0
   m_BiasY: 0
@@ -146,8 +146,8 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 17.9
-    NearClipPlane: 0.3
-    FarClipPlane: 200
+    NearClipPlane: 0
+    FarClipPlane: 220
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}

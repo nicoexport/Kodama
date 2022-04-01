@@ -55,7 +55,12 @@ namespace Level.Logic
             Gizmos.color = Color.blue;
             var position = transform.position;
             Gizmos.DrawWireSphere(position, _outerRadius);
-            Gizmos.color = Color.white;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.gray;
+            var position = transform.position;
             Gizmos.DrawWireSphere(position, _innerRadius);
         }
     }

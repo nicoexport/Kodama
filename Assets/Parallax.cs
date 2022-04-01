@@ -9,8 +9,9 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Parallax : MonoBehaviour
 {
+    [SerializeField] private CharacterRuntimeSet _characterRuntimeSet;
     private Camera _camera;
-    [SerializeField] private Transform _subject;
+    private Transform _subject;
     private Vector2 _startPosition;
     private float _startZ;
     private Transform _transform;
@@ -30,6 +31,11 @@ public class Parallax : MonoBehaviour
     private void FixedUpdate()
     {
         if (!_cameraTransform) return;
+        if (!_subject)
+        {
+            _subject = _characterRuntimeSet.GetItemAtIndex(0).transform;
+            return;
+        }
         var distanceFromSubject = _transform.position.z - _subject.transform.position.z;
         var clippingPlane = _camera.transform.position.z +(distanceFromSubject>0? _camera.farClipPlane : _camera.nearClipPlane);
         var parallaxFactor = Mathf.Abs(distanceFromSubject / clippingPlane);
