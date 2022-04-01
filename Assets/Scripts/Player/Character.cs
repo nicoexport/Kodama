@@ -99,7 +99,7 @@ public class Character : MonoBehaviour
         AddCharacterToRuntimeSet();
         InitializeStates();
         InitializeStateMachine(spawning);
-        StartCoroutine(Utilities.ActionAfterDelay(spawnDelay, () => { movementSm.ChangeState(standing); }));
+        StartCoroutine(Utilities.ActionAfterDelayEnumerator(spawnDelay, () => { movementSm.ChangeState(standing); }));
     }
 
     private void OnEnable()

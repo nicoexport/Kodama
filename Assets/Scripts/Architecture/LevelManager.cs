@@ -103,7 +103,7 @@ public class LevelManager : MonoBehaviour, IContextManager
         OnCompleteLevel?.Invoke();
         _levelFinishedEventChannel.RaiseEvent(_activeLevelData);
         InputManager.DisableInput();
-        StartCoroutine(Utilities.ActionAfterDelay(levelSummaryContinueDelay, EnableSummaryInput));
+        StartCoroutine(Utilities.ActionAfterDelayEnumerator(levelSummaryContinueDelay, EnableSummaryInput));
         // Save Level Completion
         // Save Record
     }

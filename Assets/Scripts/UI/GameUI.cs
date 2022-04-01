@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Level;
 using UnityEngine;
 
 public class GameUI : MonoBehaviour
@@ -12,15 +13,18 @@ public class GameUI : MonoBehaviour
     private GameObject keyIconBackground;
     [SerializeField]
     private GameObject levelTimerUI;
-
+    
     private void OnEnable()
     {
         LevelManager.OnCompleteLevel += DisableGameUI;
+        HellCollider.OnTriggerEntered += FadeOut;
     }
+
 
     private void OnDisable()
     {
         LevelManager.OnCompleteLevel -= DisableGameUI;
+        HellCollider.OnTriggerEntered -= FadeOut;
     }
 
     public void SetKeyIcon()
@@ -46,5 +50,14 @@ public class GameUI : MonoBehaviour
         levelTimerUI.SetActive(true);
         SetKeyIcon();
     }
-
+    
+    private void FadeOut(float f)
+    {
+        print("FADEOUT");
+        var canvasGroups = GetComponentsInChildren<CanvasGroup>();
+        foreach (var group in canvasGroups)
+        {
+            LeanTween.alphaCanvas(group, 0f, 2f);
+        }
+    }
 }

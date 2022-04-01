@@ -59,12 +59,12 @@ public class LevelSummaryUI : MonoBehaviour
         // Set Level Summary Timer Text
         // Reveal Level Timer Text (for now just enable the object)
 
-        StartCoroutine(Utilities.ActionAfterDelay(timerRevealDelay, () =>
+        StartCoroutine(Utilities.ActionAfterDelayEnumerator(timerRevealDelay, () =>
         {
             levelFinishedTimerUI.SetActive(true);
             _timerText.gameObject.SetActive(true);
             _timerText.text = TimeSpan.FromSeconds(timer).ToString("mm\\:ss\\:ff");
-            if (newRecord) StartCoroutine(Utilities.ActionAfterDelay(0.5f, DisplayRecordsText));
+            if (newRecord) StartCoroutine(Utilities.ActionAfterDelayEnumerator(0.5f, DisplayRecordsText));
         }));
     }
 

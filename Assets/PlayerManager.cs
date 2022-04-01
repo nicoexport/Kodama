@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Level;
 using Unity.Mathematics;
 using UnityEngine;
+using Utility;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -16,9 +18,17 @@ public class PlayerManager : MonoBehaviour
     private GameObject _currentPlayer;
     private CharacterLifeHandler _lifeHandler;
 
+
+    private void OnEnable()
+    {
+        HellCollider.OnTriggerEntered += HandleHellColliderEntered;
+    }
+
+
     private void OnDisable()
     {
         if (_lifeHandler) _lifeHandler.OnCharacterDeath -= KillPlayer;
+        HellCollider.OnTriggerEntered -= HandleHellColliderEntered;
     }
 
     public IEnumerator SpawnPlayer()
@@ -35,5 +45,10 @@ public class PlayerManager : MonoBehaviour
         Destroy(_currentPlayer);
         Instantiate(_playerDeathPrefab, character.transform.position, quaternion.identity);
         OnPlayerDied?.Invoke();
+    }
+    
+    private void HandleHellColliderEntered(float timeToKill)
+    {
+        StartCoroutine(Utilities.ActionAfterDelayEnumerator(timeToKill, () => { OnPlayerDied?.Invoke(); }));
     }
 }

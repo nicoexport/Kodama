@@ -9,8 +9,8 @@ namespace Utility
 {
     public static class Utilities
     {
-
-        public static IEnumerator ActionAfterDelay(float delay, Action callback)
+        
+        public static IEnumerator ActionAfterDelayEnumerator(float delay, Action callback)
         {
             yield return new WaitForSeconds(delay);
             callback();
