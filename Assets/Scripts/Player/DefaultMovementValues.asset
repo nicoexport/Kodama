@@ -16,15 +16,15 @@ MonoBehaviour:
   airMoveSpeed: 250
   maxVelocityX: 40
   groundDecelDrag: 15
-  jumpForce: 60
+  jumpForce: 65
   jumpInputTimerMax: 0.1
   horizontalInputTimer: 0.3
-  longJumpMultiplier: 4
+  longJumpMultiplier: 5
   longJumpTimer: 0.35
   wallSlideInputThresh: 0
   horizontalWallJumpForce: 50
   verticalWallJumpForce: 90
   wallJumpTimer: 0.5
-  normalGravity: 7
+  normalGravity: 9
   fastFallGravity: 15
   wallslidingGravity: 2

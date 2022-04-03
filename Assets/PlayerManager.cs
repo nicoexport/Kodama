@@ -40,7 +40,12 @@ public class PlayerManager : MonoBehaviour
         _currentPlayer = Instantiate(_playerPrefab, _playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
         _lifeHandler = _currentPlayer.GetComponent<CharacterLifeHandler>();
         _lifeHandler.OnCharacterDeath += KillPlayer;
-        if (_cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) cmCam.Follow = _currentPlayer.transform;
+        if (_cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam))
+        {
+            Vector2 position = _currentPlayer.transform.position;
+            cmCam.transform.position = position;
+            cmCam.Follow = _currentPlayer.transform;
+        }
         yield return new WaitForSeconds(_spawnTime);
     }
 
