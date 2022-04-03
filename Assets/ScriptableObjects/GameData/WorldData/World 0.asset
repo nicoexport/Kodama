@@ -12,11 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64bcd08b1288e745b9acadb999510ea, type: 3}
   m_Name: World 0
   m_EditorClassIdentifier: 
-  WorldName: Test World 0
+  WorldName: The Forrest
   LevelDatas:
-  - {fileID: 11400000, guid: 4681e57e0dad1b347a7fb83af464980a, type: 2}
-  - {fileID: 11400000, guid: 076668e77f445e14992812055c4fdd4b, type: 2}
-  - {fileID: 11400000, guid: 4fc13a126de787348a7bb9336b866415, type: 2}
-  - {fileID: 11400000, guid: 40ae9caa6793e6f4e82252a4e25a5f30, type: 2}
-  - {fileID: 11400000, guid: 61c386f5533d2ce4e923f4ed2d7d1052, type: 2}
+  - {fileID: 11400000, guid: f49b63d189a48d44a89f34b91914587d, type: 2}
   WorldStyleSo: {fileID: 11400000, guid: ca651e1f8f0035948a02d8ef0ad9602b, type: 2}

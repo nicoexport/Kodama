@@ -14,7 +14,7 @@ public class ObjectVanisher : MonoBehaviour
     [SerializeField]
     private bool cycle = false;
     [SerializeField]
-    private float disappearDelay;
+    protected float disappearDelay;
     [SerializeField]
     private float reappearDelay;
     [SerializeField]
@@ -23,8 +23,8 @@ public class ObjectVanisher : MonoBehaviour
     private UnityEvent vanishedEvent;
     [SerializeField]
     private UnityEvent reappearEvent;
-
-    private void Awake()
+    
+    protected virtual void Awake()
     {
         if (playOnAwake) VanishObject();
         if (cycle) reappear = true;
@@ -35,7 +35,7 @@ public class ObjectVanisher : MonoBehaviour
         StartCoroutine(VanishAndRespawnObject());
     }
 
-    private IEnumerator VanishAndRespawnObject()
+    protected virtual IEnumerator VanishAndRespawnObject()
     {
         vanishEvent.Invoke();
         yield return new WaitForSeconds(disappearDelay);
@@ -43,10 +43,15 @@ public class ObjectVanisher : MonoBehaviour
         vanishedEvent.Invoke();
         if (reappear)
         {
+            yield return ReappearEnumerator();
+        }
+    }
+
+    protected virtual IEnumerator ReappearEnumerator()
+    {
             yield return new WaitForSeconds(reappearDelay);
             obj.SetActive(true);
             reappearEvent.Invoke();
             if (cycle) VanishObject();
-        }
     }
 }

@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64bcd08b1288e745b9acadb999510ea, type: 3}
   m_Name: World 1
   m_EditorClassIdentifier: 
-  WorldName: World 1
+  WorldName: The Sky
   LevelDatas:
-  - {fileID: 11400000, guid: 76ad5bb78f8859c42a1a83ba577c2fad, type: 2}
-  - {fileID: 11400000, guid: 6d987036658b18a4bb9aa440129e4981, type: 2}
-  - {fileID: 11400000, guid: c76ef89224903324a9aa80e3e315c7df, type: 2}
-  - {fileID: 11400000, guid: a72c38ff1ffb40a4fb9306c6ca878143, type: 2}
-  WorldStyleSo: {fileID: 11400000, guid: 9ad5ea8b140d84244a2f059cf42345db, type: 2}
+  - {fileID: 11400000, guid: 7bff404ba65f28f47a2f839c4648e2d9, type: 2}
+  - {fileID: 11400000, guid: 817e3fa6fa3595243a5d0a0139766f07, type: 2}
+  - {fileID: 11400000, guid: e8259b7f730f4664f84407d0767428ce, type: 2}
+  WorldStyleSo: {fileID: 11400000, guid: 53e0a7db56ddda545b2832f7d2894308, type: 2}
