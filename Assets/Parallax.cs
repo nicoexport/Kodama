@@ -9,13 +9,12 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Parallax : MonoBehaviour
 {
-    [SerializeField] private CharacterRuntimeSet _characterRuntimeSet;
-    private Camera _camera;
-    private Transform _subject;
-    private Vector2 _startPosition;
-    private float _startZ;
-    private Transform _transform;
-    private Transform _cameraTransform;
+    [SerializeField] protected Transform _subject;
+    protected Camera _camera;
+    protected Vector2 _startPosition;
+    protected float _startZ;
+    protected Transform _transform;
+    protected Transform CameraTransform;
     
 
     private void Awake()
@@ -23,23 +22,20 @@ public class Parallax : MonoBehaviour
         _transform = transform;
         _camera = Camera.main;
         print(_camera.name);
-        _cameraTransform = _camera.transform;
-        _startPosition = transform.position;
-        _startZ = transform.position.z;
+        CameraTransform = _camera.transform;
+        var position = transform.position;
+        _startPosition = position;
+        _startZ = position.z;
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        if (!_cameraTransform) return;
-        if (!_subject)
-        {
-            _subject = _characterRuntimeSet.GetItemAtIndex(0).transform;
-            return;
-        }
+        if (!CameraTransform) return;
+        if (!_subject) return;
         var distanceFromSubject = _transform.position.z - _subject.transform.position.z;
         var clippingPlane = _camera.transform.position.z +(distanceFromSubject>0? _camera.farClipPlane : _camera.nearClipPlane);
         var parallaxFactor = Mathf.Abs(distanceFromSubject / clippingPlane);
-        var travel = (Vector2)_cameraTransform.position - _startPosition;
+        var travel = (Vector2)CameraTransform.position - _startPosition;
         var newPos = _startPosition + travel * parallaxFactor;
         _transform.position = new Vector3(newPos.x, newPos.y, _startZ);
     }

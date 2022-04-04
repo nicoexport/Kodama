@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8209404686615357855}
   - component: {fileID: 8209404686615357848}
-  - component: {fileID: 8209404686615357854}
+  - component: {fileID: 1383915946071195506}
   m_Layer: 0
   m_Name: clouds1
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8209404686615357854
+--- !u!114 &1383915946071195506
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,9 +94,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8209404686615357849}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5b07a9697045db46bcaefb92aff8f9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b634feeacb747fb9f7c19bfdbdde125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _subject: {fileID: 0}
   _characterRuntimeSet: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
 --- !u!1 &8209404687241619408
 GameObject:
@@ -108,7 +109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8209404687241619414}
   - component: {fileID: 8209404687241619415}
-  - component: {fileID: 8209404687241619413}
+  - component: {fileID: 6994981749680690253}
   m_Layer: 0
   m_Name: clouds2
   m_TagString: Untagged
@@ -183,7 +184,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8209404687241619413
+--- !u!114 &6994981749680690253
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,9 +193,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8209404687241619408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5b07a9697045db46bcaefb92aff8f9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b634feeacb747fb9f7c19bfdbdde125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _subject: {fileID: 0}
   _characterRuntimeSet: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
 --- !u!1 &8209404687350053240
 GameObject:
@@ -206,7 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8209404687350053247}
   - component: {fileID: 8209404687350053246}
-  - component: {fileID: 8209404687350053245}
+  - component: {fileID: 1643194961237858648}
   m_Layer: 0
   m_Name: horizon
   m_TagString: Untagged
@@ -281,7 +283,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8209404687350053245
+--- !u!114 &1643194961237858648
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,9 +292,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8209404687350053240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5b07a9697045db46bcaefb92aff8f9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b634feeacb747fb9f7c19bfdbdde125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _subject: {fileID: 0}
   _characterRuntimeSet: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
 --- !u!1 &8209404687451151646
 GameObject:
