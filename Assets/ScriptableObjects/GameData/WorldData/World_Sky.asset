@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64bcd08b1288e745b9acadb999510ea, type: 3}
+  m_Name: World_Sky
+  m_EditorClassIdentifier: 
+  WorldName: The Sky
+  LevelDatas:
+  - {fileID: 11400000, guid: 2dd4b9a52c3581d4683af87fed1a9cd0, type: 2}
+  - {fileID: 11400000, guid: 2fe61922da9ed0446bb62a1f28fb8bf4, type: 2}
+  - {fileID: 11400000, guid: 7d20cfe099fea964db53a7c926d0e603, type: 2}
+  WorldStyleSo: {fileID: 11400000, guid: 53e0a7db56ddda545b2832f7d2894308, type: 2}
