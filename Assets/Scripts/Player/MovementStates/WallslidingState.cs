@@ -38,7 +38,9 @@ public class WallslidingState : State
     public override void HandleInput()
     {
         base.HandleInput();
-        horizontalInput = InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
+        var hInput = InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
+        if (Mathf.Abs(hInput) >= 0.7f)
+            horizontalInput = hInput;
     }
 
     public override void LogicUpdate()
