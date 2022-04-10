@@ -27,7 +27,9 @@ namespace Level.Logic
         {
             if (!_playerTransform)
             {
-                _playerTransform = _characterRuntime.GetItemAtIndex(0).transform;
+                
+                var player = _characterRuntime.GetItemAtIndex(0);
+                if (player != null) _playerTransform = player.transform;
                 return;
             }
             

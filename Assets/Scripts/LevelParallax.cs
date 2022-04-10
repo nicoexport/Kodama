@@ -11,7 +11,8 @@ namespace DefaultNamespace
             if (!CameraTransform) return;
             if (!_subject)
             {
-                _subject = _characterRuntimeSet.GetItemAtIndex(0).transform;
+                var player = _characterRuntimeSet.GetItemAtIndex(0);
+                if (player != null) _subject = player.transform;
                 return;
             }  
             var distanceFromSubject = _transform.position.z - _subject.transform.position.z;

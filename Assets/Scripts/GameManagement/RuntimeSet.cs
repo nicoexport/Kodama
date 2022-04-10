@@ -13,6 +13,7 @@ public abstract class RuntimeSet<T> : ScriptableObject
 
     public T GetItemAtIndex(int index)
     {
+        if (_items.Count == 0) return default;
         return _items[index];
     }
 
