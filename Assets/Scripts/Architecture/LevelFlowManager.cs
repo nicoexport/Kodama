@@ -97,7 +97,9 @@ public class LevelFlowManager : MonoBehaviour
 
     public void FinishLevelAndExit(LevelData currentLevel)
     {
-        _sessionData.CurrentLevel = Utilities.GameSessionGetNextLevelData(currentLevel, _sessionData);
+        // var nextLevel = Utilities.GameSessionGetNextLevelData(currentLevel, _sessionData);
+        // if (_sessionData.CurrentWorld.LevelDatas.Contains(nextLevel))
+        //     _sessionData.CurrentLevel = nextLevel;
         _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.LevelSelectScenePath, true, true);
     }
 
