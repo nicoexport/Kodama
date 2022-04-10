@@ -54,7 +54,9 @@ public class PlayerManager : MonoBehaviour
 
     private void KillPlayer(Character character)
     {
-        Destroy(_currentPlayer);
+        var rend = _currentPlayer.GetComponent<SpriteRenderer>();
+        if (rend) rend.enabled = false;
+        //Destroy(_currentPlayer);
         Instantiate(_playerDeathPrefab, character.transform.position, quaternion.identity);
         OnPlayerDied?.Invoke();
     }

@@ -110,6 +110,7 @@ public class Character : MonoBehaviour
 
     private void OnDisable()
     {
+        //movementSm.CurrentState.Exit();
         characterRuntimeSet.RemoveFromList(this);
         LevelManager.OnCompleteLevel -= () => { movementSm.ChangeState(winning); };
     }
