@@ -10,12 +10,12 @@ public class DamageZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            var character = other.GetComponent<Character>();
-            if (character != null) character.LifeHandler.TakeDamage(damage);
+            var lifeHandler = other.GetComponent<CharacterLifeHandler>();
+            if (lifeHandler != null) lifeHandler.TakeDamage(damage);
         }
-        if (destroyedOnGroundCollision && other.tag == "Ground")
+        if (destroyedOnGroundCollision && other.CompareTag("Ground"))
         {
             Destroy(gameObject, 0.1f);
         }

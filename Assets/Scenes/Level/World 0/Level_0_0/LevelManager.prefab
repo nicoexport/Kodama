@@ -95,7 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 5291515768158270416, guid: b7647844b33485e4dbe49363315124ce, type: 3}
-  _playerDeathPrefab: {fileID: 5241159265832121808, guid: f337b56ee6310e2419704730d72f4fdd, type: 3}
+  _playerDeathPrefab: {fileID: 5241159265832121808, guid: 62aeb9cb65eeb974fa4aa0e2b2d5db50, type: 3}
+  _playerWinPrefab: {fileID: 4096625821652199342, guid: 7cddd570b2dab6840bc797b7b9462f81, type: 3}
   _playerSpawnRuntimeSet: {fileID: 11400000, guid: 56d467417e7a3d541a2de4603bfeaa36, type: 2}
   _cinemachineRuntimeSet: {fileID: 11400000, guid: 6d2041fbf0ceda240b3430c5307c2aad, type: 2}
   _spawnTime: 1

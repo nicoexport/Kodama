@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
     public static event Action OnPlayerDied;
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private GameObject _playerDeathPrefab;
+    [SerializeField] private GameObject _playerWinPrefab;
     [SerializeField] private TransformRuntimeSet _playerSpawnRuntimeSet;
     [SerializeField] private GameObjectRuntimeSet _cinemachineRuntimeSet;
     [SerializeField] private float _spawnTime = 1f;
@@ -25,6 +26,7 @@ public class PlayerManager : MonoBehaviour
     {
         HellCollider.OnTriggerEntered += HandleHellColliderEntered;
         LevelBounds.OnNearingLevelBounds += HandleNearingLevelBounds;
+        LevelManager.OnCompleteLevel += HandleLevelComplete;
     }
 
 
@@ -33,6 +35,7 @@ public class PlayerManager : MonoBehaviour
         if (_lifeHandler) _lifeHandler.OnCharacterDeath -= KillPlayer;
         HellCollider.OnTriggerEntered -= HandleHellColliderEntered;
         LevelBounds.OnNearingLevelBounds -= HandleNearingLevelBounds;
+        LevelManager.OnCompleteLevel -= HandleLevelComplete;
     }
 
     public IEnumerator SpawnPlayer()
@@ -54,6 +57,17 @@ public class PlayerManager : MonoBehaviour
         Destroy(_currentPlayer);
         Instantiate(_playerDeathPrefab, character.transform.position, quaternion.identity);
         OnPlayerDied?.Invoke();
+    }
+
+    private void HandleLevelComplete()
+    {
+        // var pos = _currentPlayer.transform.position;
+        // Destroy(_currentPlayer);
+        // Instantiate(_playerWinPrefab, pos, quaternion.identity);
+        var lifeHandler = _currentPlayer.GetComponent<CharacterLifeHandler>();
+        var rb = _currentPlayer.GetComponent<Rigidbody2D>();
+        if (lifeHandler) lifeHandler.Damageable = false;
+        if (rb) rb.constraints = RigidbodyConstraints2D.FreezePositionX;
     }
     
     private void HandleHellColliderEntered(float timeToKill)
