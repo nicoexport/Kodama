@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3cac5b1f7c6e6e438ff914d46f2d1c4, type: 3}
   m_Name: Sky 5
   m_EditorClassIdentifier: 
-  ScenePath: Assets/Scenes/Level/World 0/Sky 2.unity
-  LevelName: Sky 2
+  ScenePath: Assets/Scenes/Level/World 0/Sky 5.unity
+  LevelName: Sky 5
   LevelImage: {fileID: 0}
   Visited: 0
   Completed: 0

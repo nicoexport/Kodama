@@ -54,6 +54,8 @@ public class PlayerManager : MonoBehaviour
 
     private void KillPlayer(Character character)
     {
+        var rb = _currentPlayer.GetComponent<Rigidbody2D>();
+        if (rb) rb.constraints = RigidbodyConstraints2D.FreezePositionX;
         var rend = _currentPlayer.GetComponent<SpriteRenderer>();
         if (rend) rend.enabled = false;
         //Destroy(_currentPlayer);

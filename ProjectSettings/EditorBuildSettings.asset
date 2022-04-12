@@ -35,4 +35,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level/World 0/Sky 2.unity
     guid: 42c150f6662d3d148b9bc74099247ca7
+  - enabled: 1
+    path: Assets/Scenes/Level/World 0/Sky 3.unity
+    guid: a3a110c6c8599674ebd30d7509c57fd0
+  - enabled: 1
+    path: Assets/Scenes/Level/World 0/Sky 5.unity
+    guid: 4bc38a1dca1fa72489f75a3df568e5cb
+  - enabled: 1
+    path: Assets/Scenes/Level/World 0/Sky 4.unity
+    guid: af606c163db00724984e166d91cdb865
   m_configObjects: {}

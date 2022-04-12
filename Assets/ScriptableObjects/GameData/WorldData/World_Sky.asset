@@ -17,4 +17,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2dd4b9a52c3581d4683af87fed1a9cd0, type: 2}
   - {fileID: 11400000, guid: 2fe61922da9ed0446bb62a1f28fb8bf4, type: 2}
   - {fileID: 11400000, guid: 7d20cfe099fea964db53a7c926d0e603, type: 2}
+  - {fileID: 11400000, guid: a5081610099472d4bb5320a1aa49fc86, type: 2}
+  - {fileID: 11400000, guid: 6f515d79b9b82734e9434da887f53aad, type: 2}
+  - {fileID: 11400000, guid: 9d42ff94e2c7ff04caf189e0c65b49c8, type: 2}
   WorldStyleSo: {fileID: 11400000, guid: 53e0a7db56ddda545b2832f7d2894308, type: 2}
