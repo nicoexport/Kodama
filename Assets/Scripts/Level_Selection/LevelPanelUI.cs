@@ -31,7 +31,7 @@ public class LevelPanelUI : MonoBehaviour
     {
         LeanTween.cancel(_rectTransform);
         _rectTransform.localScale = Vector3.one;
-        LeanTween.scale(_rectTransform, Vector3.one * 0.9f, 0.5f).setEasePunch().setDelay(0.5f);
+        LeanTween.scale(_rectTransform, Vector3.one * 0.9f, 1f).setEasePunch();
         levelNameText.text = levelData.LevelName;
         var record = levelData.RecordTime;
         recordText.text = float.IsPositiveInfinity(record) ? emptyRecordString : TimeSpan.FromSeconds(levelData.RecordTime).ToString("mm\\:ss\\:ff");
