@@ -1,26 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(menuName = "SceneObjects/LevelObject")]
-public class LevelObject : ScriptableObject
+namespace World_Level
 {
-    public string levelName;
-    public int levelIndex;
-    public int worldIndex;
-    public Sprite levelImage;
-    public string ScenePath;
-    public float RecordTime = Mathf.Infinity;
-    public bool levelCompleted;
-
-    public void UpdateRecordTime(float time)
+    [CreateAssetMenu(menuName = "SceneObjects/LevelObject")]
+    public class LevelObject : ScriptableObject
     {
-        RecordTime = time;
-    }
+        public string levelName;
+        public int levelIndex;
+        public int worldIndex;
+        public Sprite levelImage;
+        public string ScenePath;
+        public float RecordTime = Mathf.Infinity;
+        public bool levelCompleted;
 
-    public void ResetRecord()
-    {
-        RecordTime = Mathf.Infinity;
+        public void UpdateRecordTime(float time)
+        {
+            RecordTime = time;
+        }
+
+        public void ResetRecord()
+        {
+            RecordTime = Mathf.Infinity;
+        }
     }
 }

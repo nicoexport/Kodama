@@ -1,18 +1,20 @@
 using UnityEngine;
-using System.Collections.Generic;
 
-public class AddTransformToRuntimeSet : MonoBehaviour
+namespace GameManagement
 {
-    [SerializeField]
-    private TransformRuntimeSet transformRuntimeSet;
-
-    private void OnEnable()
+    public class AddTransformToRuntimeSet : MonoBehaviour
     {
-        transformRuntimeSet.AddToList(this.transform);
-    }
+        [SerializeField]
+        private TransformRuntimeSet transformRuntimeSet;
 
-    private void OnDisable()
-    {
-        transformRuntimeSet.RemoveFromList(this.transform);
+        private void OnEnable()
+        {
+            transformRuntimeSet.AddToList(this.transform);
+        }
+
+        private void OnDisable()
+        {
+            transformRuntimeSet.RemoveFromList(this.transform);
+        }
     }
 }

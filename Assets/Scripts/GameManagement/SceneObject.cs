@@ -1,8 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "SceneObjects/SceneObject")]
-public class SceneObject : ScriptableObject
+namespace GameManagement
 {
-    public string SceneName;
-    public string ScenePath;
+    [CreateAssetMenu(menuName = "SceneObjects/SceneObject")]
+    public class SceneObject : ScriptableObject
+    {
+        public string SceneName;
+        public string ScenePath;
+    }
 }

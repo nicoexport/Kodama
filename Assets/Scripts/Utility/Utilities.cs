@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data;
+using Scriptable;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

@@ -1,16 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class LevelReset : MonoBehaviour
+namespace Level.Logic
 {
-    private void Update()
+    public class LevelReset : MonoBehaviour
     {
-        if (Keyboard.current.lKey.wasPressedThisFrame)
+        private void Update()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (Keyboard.current.lKey.wasPressedThisFrame)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
     }
 }

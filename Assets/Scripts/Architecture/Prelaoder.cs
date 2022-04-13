@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Prelaoder : MonoBehaviour
+namespace Architecture
 {
-    [SerializeField]
-    private int mainMenuIndex = 1;
-
-    private void Start()
+    public class Prelaoder : MonoBehaviour
     {
-        SceneManager.LoadScene(mainMenuIndex);
+        [SerializeField]
+        private int mainMenuIndex = 1;
+
+        private void Start()
+        {
+            SceneManager.LoadScene(mainMenuIndex);
+        }
     }
 }
 

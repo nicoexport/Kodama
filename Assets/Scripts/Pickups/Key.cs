@@ -1,17 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
-public class Key : PickupObject
+namespace Pickups
 {
-    [SerializeField]
-    private int keyAmount = 1;
-
-    public override void PickUp(Collider2D col)
+    public class Key : PickupObject
     {
-        var inv = col.GetComponent<CharacterInventory>();
-        if (inv == null) return;
-        inv.AddKeys(keyAmount);
-        base.PickUp(col);
+        [SerializeField]
+        private int keyAmount = 1;
+
+        public override void PickUp(Collider2D col)
+        {
+            var inv = col.GetComponent<CharacterInventory>();
+            if (inv == null) return;
+            inv.AddKeys(keyAmount);
+            base.PickUp(col);
+        }
     }
 }

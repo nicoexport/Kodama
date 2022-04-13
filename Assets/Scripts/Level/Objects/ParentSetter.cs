@@ -1,25 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ParentSetter : MonoBehaviour
+namespace Level.Objects
 {
-    [SerializeField]
-    private bool onCollision;
-
-    private void OnCollisionEnter2D(Collision2D col)
+    public class ParentSetter : MonoBehaviour
     {
-        if (onCollision && col.collider.tag == "Player")
+        [SerializeField]
+        private bool onCollision;
+
+        private void OnCollisionEnter2D(Collision2D col)
         {
-            col.collider.transform.SetParent(transform);
+            if (onCollision && col.collider.tag == "Player")
+            {
+                col.collider.transform.SetParent(transform);
+            }
         }
-    }
 
-    private void OnCollisionExit2D(Collision2D col)
-    {
-        if (onCollision && col.collider.tag == "Player")
+        private void OnCollisionExit2D(Collision2D col)
         {
-            col.collider.transform.SetParent(null);
+            if (onCollision && col.collider.tag == "Player")
+            {
+                col.collider.transform.SetParent(null);
+            }
         }
     }
 }

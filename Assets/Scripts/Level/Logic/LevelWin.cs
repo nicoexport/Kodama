@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using System;
+using UnityEngine;
 
-public class LevelWin : MonoBehaviour
+namespace Level.Logic
 {
-    public event Action OnLevelWon;
-
-    public void WinLevel()
+    public class LevelWin : MonoBehaviour
     {
-        OnLevelWon?.Invoke();
+        public event Action OnLevelWon;
+
+        public void WinLevel()
+        {
+            OnLevelWon?.Invoke();
+        }
     }
 }

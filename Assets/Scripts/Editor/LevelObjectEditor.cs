@@ -1,35 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
+using World_Level;
 
-[CustomEditor(typeof(LevelObject), true)]
-public class LevelObjectEditor : Editor
+namespace Editor
 {
-
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(LevelObject), true)]
+    public class LevelObjectEditor : UnityEditor.Editor
     {
-        var level = target as LevelObject;
-        var oldScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(level.ScenePath);
 
-        serializedObject.Update();
-
-        level.levelName = EditorGUILayout.TextField("Level Name", level.levelName);
-        level.levelIndex = EditorGUILayout.IntField("Level Index", level.levelIndex);
-        level.worldIndex = EditorGUILayout.IntField("World Index", level.worldIndex);
-        level.RecordTime = EditorGUILayout.FloatField("Record Time", level.RecordTime);
-        level.levelImage = (Sprite)EditorGUILayout.ObjectField("levelImage", level.levelImage, typeof(Sprite), false);
-
-        EditorGUI.BeginChangeCheck();
-        var newScene = EditorGUILayout.ObjectField("scene", oldScene, typeof(SceneAsset), false) as SceneAsset;
-
-        if (EditorGUI.EndChangeCheck())
+        public override void OnInspectorGUI()
         {
-            var newPath = AssetDatabase.GetAssetPath(newScene);
-            var scenePathProperty = serializedObject.FindProperty("ScenePath");
-            scenePathProperty.stringValue = newPath;
+            var level = target as LevelObject;
+            var oldScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(level.ScenePath);
+
+            serializedObject.Update();
+
+            level.levelName = EditorGUILayout.TextField("Level Name", level.levelName);
+            level.levelIndex = EditorGUILayout.IntField("Level Index", level.levelIndex);
+            level.worldIndex = EditorGUILayout.IntField("World Index", level.worldIndex);
+            level.RecordTime = EditorGUILayout.FloatField("Record Time", level.RecordTime);
+            level.levelImage = (Sprite)EditorGUILayout.ObjectField("levelImage", level.levelImage, typeof(Sprite), false);
+
+            EditorGUI.BeginChangeCheck();
+            var newScene = EditorGUILayout.ObjectField("scene", oldScene, typeof(SceneAsset), false) as SceneAsset;
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                var newPath = AssetDatabase.GetAssetPath(newScene);
+                var scenePathProperty = serializedObject.FindProperty("ScenePath");
+                scenePathProperty.stringValue = newPath;
+            }
+            serializedObject.ApplyModifiedProperties();
+            EditorUtility.SetDirty(level);
         }
-        serializedObject.ApplyModifiedProperties();
-        EditorUtility.SetDirty(level);
     }
 }

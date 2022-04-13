@@ -1,24 +1,31 @@
-using UnityEngine;
 using System;
-/// <summary>
-/// This class is used for scene loading events.
-/// Takes a array of the scenes we want to load, a bool to specifiy if we want to unlod the currently active scene and a bool to specify if we want to show a screen fade in and out
-///</summary>
+using UnityEngine;
 
-[CreateAssetMenu(menuName = "Events/Load Level Event Channel")]
-public class LoadLevelEventChannelSO : ScriptableObject
+namespace Scriptable
 {
-    public event Action<LevelDataSO, bool, bool> OnLoadingLevelDataRequested;
-    public event Action<string, bool, bool> OnLoadingScenePathRequested;
+    /// <summary>
+    /// This class is used for scene loading events.
+    /// Takes a array of the scenes we want to load, a bool to specifiy if we want to unlod the currently active scene and a bool to specify if we want to show a screen fade in and out
+    ///</summary>
 
-    public void RaiseEventWithLevelDataSO(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
+    [CreateAssetMenu(menuName = "Events/Load Level Event Channel")]
+    public class LoadLevelEventChannelSO : ScriptableObject
     {
-        OnLoadingLevelDataRequested?.Invoke(levelToLoad, unloadActiveScene, showScreenfade);
-    }
+        public event LoadLevelWithData OnLoadingLevelDataRequested;
+        public delegate void LoadLevelWithData(LevelDataSO levelDataSo, bool unloadActiveScene, bool showScreenfade);
 
-    public void RaiseEventWithScenePath(string scenePath, bool unloadActiveScene, bool showScreenfade)
-    {
-        OnLoadingScenePathRequested?.Invoke(scenePath, unloadActiveScene, showScreenfade);
-    }
+        public event LoadLevelWithPath OnLoadingScenePathRequested;
+        public delegate void LoadLevelWithPath(string path, bool unloadActiveScene, bool showScreenfade);
 
+        public void RaiseEventWithLevelDataSO(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
+        {
+            OnLoadingLevelDataRequested?.Invoke(levelToLoad, unloadActiveScene, showScreenfade);
+        }
+
+        public void RaiseEventWithScenePath(string scenePath, bool unloadActiveScene, bool showScreenfade)
+        {
+            OnLoadingScenePathRequested?.Invoke(scenePath, unloadActiveScene, showScreenfade);
+        }
+
+    }
 }

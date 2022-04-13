@@ -1,24 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterInventory : MonoBehaviour
+namespace Player
 {
-    [SerializeField]
-    private int keys = 0;
-
-    public void AddKeys(int amount)
+    public class CharacterInventory : MonoBehaviour
     {
-        keys += amount;
-    }
+        [SerializeField]
+        private int keys = 0;
 
-    public void SetKeys(int amount)
-    {
-        keys = amount;
-    }
+        public void AddKeys(int amount)
+        {
+            keys += amount;
+        }
 
-    public int GetKeys()
-    {
-        return keys;
+        public void SetKeys(int amount)
+        {
+            keys = amount;
+        }
+
+        public int GetKeys()
+        {
+            return keys;
+        }
     }
 }

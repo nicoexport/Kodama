@@ -1,13 +1,17 @@
 using System;
+using Data;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Events/ Level Finished Event Channel")]
-public class LevelFinishedEventChannel : ScriptableObject
+namespace Scriptable
 {
-    public event Action<LevelData> OnLevelFinished;
-
-    public void RaiseEvent(LevelData levelData)
+    [CreateAssetMenu(menuName = "Events/ Level Finished Event Channel")]
+    public class LevelFinishedEventChannel : ScriptableObject
     {
-        OnLevelFinished?.Invoke(levelData);
+        public event Action<LevelData> OnLevelFinished;
+
+        public void RaiseEvent(LevelData levelData)
+        {
+            OnLevelFinished?.Invoke(levelData);
+        }
     }
 }

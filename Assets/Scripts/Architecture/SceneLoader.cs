@@ -1,56 +1,60 @@
-using UnityEngine;
 using System.Collections;
+using Scriptable;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+namespace Architecture
 {
-    [SerializeField]
-    private LoadLevelEventChannelSO _loadEventChannel;
-    [SerializeField]
-    private TransitionEventChannelSO _transitionEventChannel = default;
-
-
-    private void OnEnable()
+    public class SceneLoader : MonoBehaviour
     {
-        _loadEventChannel.OnLoadingLevelDataRequested += HandleLevelDataLoadingRequest;
-        _loadEventChannel.OnLoadingScenePathRequested += HandleScenePathLoadingRequested;
-    }
-
-    private void OnDisable()
-    {
-        _loadEventChannel.OnLoadingLevelDataRequested -= HandleLevelDataLoadingRequest;
-        _loadEventChannel.OnLoadingScenePathRequested -= HandleScenePathLoadingRequested;
-    }
-
-    private void HandleLevelDataLoadingRequest(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
-    {
-        StartCoroutine(LoadScenes(levelToLoad.ScenePath, unloadActiveScene, showScreenfade));
-    }
-
-    private void HandleScenePathLoadingRequested(string sceneToLoad, bool unloadActiveScene, bool showScreenfade)
-    {
-        StartCoroutine(LoadScenes(sceneToLoad, unloadActiveScene, showScreenfade));
-    }
+        [SerializeField]
+        private LoadLevelEventChannelSO _loadEventChannel;
+        [SerializeField]
+        private TransitionEventChannelSO _transitionEventChannel = default;
 
 
-    private IEnumerator LoadScenes(string scenePath, bool unloadActiveScene, bool showScreenfade)
-    {
-        if (showScreenfade)
+        private void OnEnable()
         {
-            _transitionEventChannel.RaiseEvent(TransitionType.FadeOut, 1f);
-            yield return new WaitForSeconds(1f);
+            _loadEventChannel.OnLoadingLevelDataRequested += HandleLevelDataLoadingRequest;
+            _loadEventChannel.OnLoadingScenePathRequested += HandleScenePathLoadingRequested;
         }
 
-        if (unloadActiveScene)
-            yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        private void OnDisable()
+        {
+            _loadEventChannel.OnLoadingLevelDataRequested -= HandleLevelDataLoadingRequest;
+            _loadEventChannel.OnLoadingScenePathRequested -= HandleScenePathLoadingRequested;
+        }
+
+        private void HandleLevelDataLoadingRequest(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
+        {
+            StartCoroutine(LoadScenes(levelToLoad.ScenePath, unloadActiveScene, showScreenfade));
+        }
+
+        private void HandleScenePathLoadingRequested(string sceneToLoad, bool unloadActiveScene, bool showScreenfade)
+        {
+            StartCoroutine(LoadScenes(sceneToLoad, unloadActiveScene, showScreenfade));
+        }
 
 
-        yield return SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
-        SceneManager.SetActiveScene(SceneManager.GetSceneByPath(scenePath));
+        private IEnumerator LoadScenes(string scenePath, bool unloadActiveScene, bool showScreenfade)
+        {
+            if (showScreenfade)
+            {
+                _transitionEventChannel.RaiseEvent(TransitionType.FadeOut, 1f);
+                yield return new WaitForSeconds(1f);
+            }
+
+            if (unloadActiveScene)
+                yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+
+
+            yield return SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
+            SceneManager.SetActiveScene(SceneManager.GetSceneByPath(scenePath));
         
         
-        if (!showScreenfade) yield break;
-        _transitionEventChannel.RaiseEvent(TransitionType.FadeIn, 1f);
-        //yield return new WaitForSeconds(1f);
+            if (!showScreenfade) yield break;
+            _transitionEventChannel.RaiseEvent(TransitionType.FadeIn, 1f);
+            //yield return new WaitForSeconds(1f);
+        }
     }
 }

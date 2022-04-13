@@ -1,11 +1,13 @@
-using UnityEngine;
 using System.Collections.Generic;
-using Scriptable;
+using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game Data/World Data")]
-public class WorldDataSO : ScriptableObject
+namespace Scriptable
 {
-    public string WorldName;
-    public List<LevelDataSO> LevelDatas;
-    public WorldStyleSo WorldStyleSo;
+    [CreateAssetMenu(menuName = "Game Data/World Data")]
+    public class WorldDataSO : ScriptableObject
+    {
+        public string WorldName;
+        public List<LevelDataSO> LevelDatas;
+        public WorldStyleSo WorldStyleSo;
+    }
 }

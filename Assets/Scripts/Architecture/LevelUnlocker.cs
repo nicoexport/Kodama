@@ -1,45 +1,47 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Data;
+using Scriptable;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class LevelUnlocker : MonoBehaviour
+namespace Architecture
 {
-    [SerializeField] private LevelFinishedEventChannel _levelFinishedEventChannel;
-    [FormerlySerializedAs("_gameSession")] [SerializeField] private SessionData _session;
-
-    private void OnEnable()
+    public class LevelUnlocker : MonoBehaviour
     {
-        _levelFinishedEventChannel.OnLevelFinished += HandleUnlocks;
-    }
+        [SerializeField] private LevelFinishedEventChannel _levelFinishedEventChannel;
+        [FormerlySerializedAs("_gameSession")] [SerializeField] private SessionData _session;
 
-    private void OnDisable()
-    {
-        _levelFinishedEventChannel.OnLevelFinished -= HandleUnlocks;
-    }
-
-    private void HandleUnlocks(LevelData obj)
-    {
-        
-        for (int i = 0; i < _session.WorldDatas.Count; i++)
+        private void OnEnable()
         {
-            for (int j = 0; j < _session.WorldDatas[i].LevelDatas.Count; j++)
-            {
-                if (_session.WorldDatas[i].LevelDatas[j].LevelName == obj.LevelName)
-                {
-                    // if its not the last level of a world just unlock the next level of the world.
-                    if (j < _session.WorldDatas[i].LevelDatas.Count - 1)
-                    {
-                        _session.WorldDatas[i].LevelDatas[j + 1].Unlocked = true;
-                        return;
-                    }
+            _levelFinishedEventChannel.OnLevelFinished += HandleUnlocks;
+        }
 
-                    // if its the last level of the world and its not the last world load the next world.
-                    else if (i < _session.WorldDatas.Count - 1)
+        private void OnDisable()
+        {
+            _levelFinishedEventChannel.OnLevelFinished -= HandleUnlocks;
+        }
+
+        private void HandleUnlocks(LevelData obj)
+        {
+        
+            for (int i = 0; i < _session.WorldDatas.Count; i++)
+            {
+                for (int j = 0; j < _session.WorldDatas[i].LevelDatas.Count; j++)
+                {
+                    if (_session.WorldDatas[i].LevelDatas[j].LevelName == obj.LevelName)
                     {
-                        _session.WorldDatas[i + 1].Unlocked = true;
-                        return;
+                        // if its not the last level of a world just unlock the next level of the world.
+                        if (j < _session.WorldDatas[i].LevelDatas.Count - 1)
+                        {
+                            _session.WorldDatas[i].LevelDatas[j + 1].Unlocked = true;
+                            return;
+                        }
+
+                        // if its the last level of the world and its not the last world load the next world.
+                        else if (i < _session.WorldDatas.Count - 1)
+                        {
+                            _session.WorldDatas[i + 1].Unlocked = true;
+                            return;
+                        }
                     }
                 }
             }

@@ -1,69 +1,71 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class CharacterVisualEffectController : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private VisualEffect _walkingDust;
-    [SerializeField] private VisualEffect _wallDust;
-
-    [SerializeField] private List<VisualEffect> _allEffects;
-
-    private CharacterAnimationController _animController;
-
-    private void Awake()
+    public class CharacterVisualEffectController : MonoBehaviour
     {
-        _animController = GetComponent<CharacterAnimationController>();
-    }
+        [SerializeField] private VisualEffect _walkingDust;
+        [SerializeField] private VisualEffect _wallDust;
 
-    private void OnEnable()
-    {
-        _animController.OnAnimationStateChange += HandleAnimationStateChange;
-    }
+        [SerializeField] private List<VisualEffect> _allEffects;
 
-    private void OnDisable()
-    {
-        _animController.OnAnimationStateChange -= HandleAnimationStateChange;
-    }
+        private CharacterAnimationController _animController;
 
-    private void HandleAnimationStateChange(string currentAnimState, string newAnimState)
-    {
-        foreach (VisualEffect effect in _allEffects)
+        private void Awake()
         {
-            effect.Stop();
+            _animController = GetComponent<CharacterAnimationController>();
         }
 
-        switch (newAnimState)
+        private void OnEnable()
         {
-            case CharacterAnimationController.idle:
-                break;
+            _animController.OnAnimationStateChange += HandleAnimationStateChange;
+        }
 
-            case CharacterAnimationController.running:
-                _walkingDust.Reinit();
-                break;
+        private void OnDisable()
+        {
+            _animController.OnAnimationStateChange -= HandleAnimationStateChange;
+        }
 
-            case CharacterAnimationController.falling:
-                break;
+        private void HandleAnimationStateChange(string currentAnimState, string newAnimState)
+        {
+            foreach (VisualEffect effect in _allEffects)
+            {
+                effect.Stop();
+            }
 
-            case CharacterAnimationController.jumping:
-                break;
+            switch (newAnimState)
+            {
+                case CharacterAnimationController.idle:
+                    break;
 
-            case CharacterAnimationController.doubleJumping:
-                break;
+                case CharacterAnimationController.running:
+                    _walkingDust.Reinit();
+                    break;
 
-            case CharacterAnimationController.wallSliding:
-                _wallDust.Reinit();
-                break;
+                case CharacterAnimationController.falling:
+                    break;
 
-            case CharacterAnimationController.wallJumping:
-                break;
+                case CharacterAnimationController.jumping:
+                    break;
 
-            case CharacterAnimationController.walkingAgainstWall:
-                break;
+                case CharacterAnimationController.doubleJumping:
+                    break;
 
-            case CharacterAnimationController.spawning:
-                break;
+                case CharacterAnimationController.wallSliding:
+                    _wallDust.Reinit();
+                    break;
+
+                case CharacterAnimationController.wallJumping:
+                    break;
+
+                case CharacterAnimationController.walkingAgainstWall:
+                    break;
+
+                case CharacterAnimationController.spawning:
+                    break;
+            }
         }
     }
 }

@@ -1,35 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using Data;
 using TMPro;
+using UnityEngine;
 
-public class LevelSelectButton : MonoBehaviour
+namespace Level_Selection
 {
-    private LevelData _levelData;
-    private TextMeshProUGUI _buttonText;
-
-    public static event Action<LevelData> OnButtonSelectedAction;
-
-    private void Awake()
+    public class LevelSelectButton : MonoBehaviour
     {
-        _buttonText = GetComponentInChildren<TextMeshProUGUI>();
-    }
+        private LevelData _levelData;
+        private TextMeshProUGUI _buttonText;
 
-    public void SetLevelData(LevelData levelData)
-    {
-        _levelData = levelData;
-    }
+        public static event Action<LevelData> OnButtonSelectedAction;
 
-    public void UpdateButtonDisplay()
-    {
-        Debug.Log("Trying to set button to: " + _levelData.LevelName);
-        _buttonText.text = _levelData.LevelName;
-    }
+        private void Awake()
+        {
+            _buttonText = GetComponentInChildren<TextMeshProUGUI>();
+        }
 
-    public void OnButtonSelected()
-    {
-        Debug.Log("OnButtonSelected: " + _levelData.LevelName);
-        OnButtonSelectedAction?.Invoke(_levelData);
+        public void SetLevelData(LevelData levelData)
+        {
+            _levelData = levelData;
+        }
+
+        public void UpdateButtonDisplay()
+        {
+            Debug.Log("Trying to set button to: " + _levelData.LevelName);
+            _buttonText.text = _levelData.LevelName;
+        }
+
+        public void OnButtonSelected()
+        {
+            Debug.Log("OnButtonSelected: " + _levelData.LevelName);
+            OnButtonSelectedAction?.Invoke(_levelData);
+        }
     }
 }

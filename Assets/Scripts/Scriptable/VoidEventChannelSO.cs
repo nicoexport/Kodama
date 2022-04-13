@@ -1,13 +1,16 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
-[CreateAssetMenu(menuName = "Events/Void Event Channel")]
-public class VoidEventChannelSO : ScriptableObject
+namespace Scriptable
 {
-    public event Action OnEventRaised;
-    
-    public void RaiseEvent()
+    [CreateAssetMenu(menuName = "Events/Void Event Channel")]
+    public class VoidEventChannelSO : ScriptableObject
     {
-        OnEventRaised?.Invoke();
+        public event Action OnEventRaised;
+    
+        public void RaiseEvent()
+        {
+            OnEventRaised?.Invoke();
+        }
     }
 }

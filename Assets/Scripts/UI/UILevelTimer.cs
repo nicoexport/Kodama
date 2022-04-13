@@ -1,32 +1,33 @@
-
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 using System;
+using Level.Logic;
+using TMPro;
+using UnityEngine;
 
-public class UILevelTimer : MonoBehaviour
+namespace UI
 {
-    private TextMeshProUGUI textMeshPro;
-
-    private void Start()
+    public class UILevelTimer : MonoBehaviour
     {
-        textMeshPro = GetComponentInChildren<TextMeshProUGUI>();
-        textMeshPro.text = TimeSpan.FromSeconds(0f).ToString("mm\\:ss\\:ff");
-    }
+        private TextMeshProUGUI textMeshPro;
 
-    private void OnEnable()
-    {
-        LevelTimer.OnTimerChanged += UpdateTimer;
-    }
+        private void Start()
+        {
+            textMeshPro = GetComponentInChildren<TextMeshProUGUI>();
+            textMeshPro.text = TimeSpan.FromSeconds(0f).ToString("mm\\:ss\\:ff");
+        }
 
-    private void OnDisable()
-    {
-        LevelTimer.OnTimerChanged -= UpdateTimer;
-    }
+        private void OnEnable()
+        {
+            LevelTimer.OnTimerChanged += UpdateTimer;
+        }
 
-    private void UpdateTimer(float timer)
-    {
-        textMeshPro.text = TimeSpan.FromSeconds(timer).ToString("mm\\:ss\\:ff");
+        private void OnDisable()
+        {
+            LevelTimer.OnTimerChanged -= UpdateTimer;
+        }
+
+        private void UpdateTimer(float timer)
+        {
+            textMeshPro.text = TimeSpan.FromSeconds(timer).ToString("mm\\:ss\\:ff");
+        }
     }
 }

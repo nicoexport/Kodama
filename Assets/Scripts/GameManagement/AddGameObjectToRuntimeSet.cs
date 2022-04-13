@@ -1,18 +1,20 @@
 using UnityEngine;
-using System.Collections.Generic;
 
-public class AddGameObjectToRuntimeSet : MonoBehaviour
+namespace GameManagement
 {
-    [SerializeField]
-    private GameObjectRuntimeSet gameObjectRuntimeSet;
-
-    private void OnEnable()
+    public class AddGameObjectToRuntimeSet : MonoBehaviour
     {
-        gameObjectRuntimeSet.AddToList(this.gameObject);
-    }
+        [SerializeField]
+        private GameObjectRuntimeSet gameObjectRuntimeSet;
 
-    private void OnDisable()
-    {
-        gameObjectRuntimeSet.RemoveFromList(this.gameObject);
+        private void OnEnable()
+        {
+            gameObjectRuntimeSet.AddToList(this.gameObject);
+        }
+
+        private void OnDisable()
+        {
+            gameObjectRuntimeSet.RemoveFromList(this.gameObject);
+        }
     }
 }

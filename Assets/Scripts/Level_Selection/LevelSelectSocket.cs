@@ -1,65 +1,69 @@
-using UnityEngine;
-using TMPro;
 using System;
+using Data;
+using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelSelectSocket : MonoBehaviour
+namespace Level_Selection
 {
-    [SerializeField] private GameObject buttonObject;
-    [SerializeField] private GameObject pathObject;
-    
-    public Button Button { get; private set; }
-    
-    public static event Action<LevelData, Transform> OnButtonSelectedAction;
-    public static event Action<LevelData> OnButtonClickedAction;
-
-    private LevelData _levelData;
-
-    private void Awake()
+    public class LevelSelectSocket : MonoBehaviour
     {
-        Button = buttonObject.GetComponent<Button>();
-    }
+        [SerializeField] private GameObject buttonObject;
+        [SerializeField] private GameObject pathObject;
     
-    public void SetupSocket(WorldData worldData, LevelData levelData, bool lastSocket, int index)
-    {
-        _levelData = levelData;
-        // sets the path object inactive if it is the last socket
-        pathObject.SetActive(!lastSocket);
-        SetUpButton(worldData, index);
-    }
-
-    private void SetUpButton(WorldData worldData, int index)
-    {
-        var buttonTextObject = buttonObject.GetComponentInChildren<TextMeshProUGUI>();
-        buttonTextObject.text = index.ToString();
-
-        var image = buttonObject.GetComponent<Image>();
-        image.sprite = worldData.Style.MenuButtonIconSprite;
-    }
+        public Button Button { get; private set; }
     
-    public void SetButtonInteractable(bool value)
-    {
-        Button.interactable = value;
-        Button.enabled = value;
-        var image = Button.GetComponent<Image>();
-        if (value == false)
+        public static event Action<LevelData, Transform> OnButtonSelectedAction;
+        public static event Action<LevelData> OnButtonClickedAction;
+
+        private LevelData _levelData;
+
+        private void Awake()
         {
-            image.color = Button.colors.disabledColor;
+            Button = buttonObject.GetComponent<Button>();
         }
-        else
-        {
-            image.color = Button.colors.normalColor;
-        }
-    }
     
-    public void OnButtonSelected()
-    {
-        print("OnButtonSelected: " + _levelData.LevelName);
-        OnButtonSelectedAction?.Invoke(_levelData, Button.transform);
-    }
+        public void SetupSocket(WorldData worldData, LevelData levelData, bool lastSocket, int index)
+        {
+            _levelData = levelData;
+            // sets the path object inactive if it is the last socket
+            pathObject.SetActive(!lastSocket);
+            SetUpButton(worldData, index);
+        }
 
-    public void OnButtonClicked()
-    {
-        OnButtonClickedAction?.Invoke(_levelData);
+        private void SetUpButton(WorldData worldData, int index)
+        {
+            var buttonTextObject = buttonObject.GetComponentInChildren<TextMeshProUGUI>();
+            buttonTextObject.text = index.ToString();
+
+            var image = buttonObject.GetComponent<Image>();
+            image.sprite = worldData.Style.MenuButtonIconSprite;
+        }
+    
+        public void SetButtonInteractable(bool value)
+        {
+            Button.interactable = value;
+            Button.enabled = value;
+            var image = Button.GetComponent<Image>();
+            if (value == false)
+            {
+                image.color = Button.colors.disabledColor;
+            }
+            else
+            {
+                image.color = Button.colors.normalColor;
+            }
+        }
+    
+        public void OnButtonSelected()
+        {
+            print("OnButtonSelected: " + _levelData.LevelName);
+            OnButtonSelectedAction?.Invoke(_levelData, Button.transform);
+        }
+
+        public void OnButtonClicked()
+        {
+            OnButtonClickedAction?.Invoke(_levelData);
+        }
     }
 }

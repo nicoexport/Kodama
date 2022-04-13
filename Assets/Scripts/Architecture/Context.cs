@@ -1,31 +1,32 @@
-using UnityEngine;
-using System;
 using System.Collections.Generic;
-using System.Collections;
-using UnityEngine.SceneManagement;
+using Utility;
+using World_Level;
 
-public class Context : Singleton<Context>
+namespace Architecture
 {
-    private List<IContextManager> contextManagers = new List<IContextManager>();
-
-    public void RegisterContextManager(IContextManager manager)
+    public class Context : Singleton<Context>
     {
-        if (!contextManagers.Contains(manager)) contextManagers.Add(manager);
+        private List<IContextManager> contextManagers = new List<IContextManager>();
+
+        public void RegisterContextManager(IContextManager manager)
+        {
+            if (!contextManagers.Contains(manager)) contextManagers.Add(manager);
+        }
+
+        public void UnRegisterContextManager(IContextManager manager)
+        {
+            if (contextManagers.Contains(manager)) contextManagers.Remove(manager);
+        }
+
+        public void OnGameModeStarted()
+        {
+            for (int i = contextManagers.Count - 1; i >= 0; i--) contextManagers[i].OnGameModeStarted();
+        }
+
+        public void RequestLevelLoad(LevelObject levelObject)
+        {
+
+        }
+
     }
-
-    public void UnRegisterContextManager(IContextManager manager)
-    {
-        if (contextManagers.Contains(manager)) contextManagers.Remove(manager);
-    }
-
-    public void OnGameModeStarted()
-    {
-        for (int i = contextManagers.Count - 1; i >= 0; i--) contextManagers[i].OnGameModeStarted();
-    }
-
-    public void RequestLevelLoad(LevelObject levelObject)
-    {
-
-    }
-
 }

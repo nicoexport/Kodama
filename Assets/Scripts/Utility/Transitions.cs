@@ -1,59 +1,64 @@
+using System.Collections;
+using Scriptable;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-/// <summary>
-///  This class gives functionality for screen transitions and should be used in the Initialize scene
-/// </summary>
 
-public class Transitions : MonoBehaviour
+namespace Utility
 {
-    [SerializeField]
-    private Image _transitionImage;
-    [SerializeField]
-    private TransitionEventChannelSO _transitionEventChannel = default;
+    /// <summary>
+    ///  This class gives functionality for screen transitions and should be used in the Initialize scene
+    /// </summary>
 
-    private void Awake()
+    public class Transitions : MonoBehaviour
     {
-        //_transitionImage = GetComponentInChildren<Image>();
-        _transitionImage.gameObject.SetActive(false);
-    }
+        [SerializeField]
+        private Image _transitionImage;
+        [SerializeField]
+        private TransitionEventChannelSO _transitionEventChannel = default;
 
-    private void OnEnable() => _transitionEventChannel.OnTransitionRequested += HandleTransitionRequest;
-    private void OnDisable() => _transitionEventChannel.OnTransitionRequested -= HandleTransitionRequest;
-
-    private void HandleTransitionRequest(TransitionType transitionType, float duration)
-    {
-        switch (transitionType)
+        private void Awake()
         {
-            case TransitionType.FadeIn:
-                StartCoroutine(FadeIn(duration));
-                break;
-            case TransitionType.FadeOut:
-                StartCoroutine(FadeOut(duration));
-                break;
-
-            default:
-                break;
+            //_transitionImage = GetComponentInChildren<Image>();
+            _transitionImage.gameObject.SetActive(false);
         }
-    }
 
-    private IEnumerator FadeIn(float duration)
-    {
-        for (float alpha = 1; alpha > 0; alpha -= Time.deltaTime / duration)
+        private void OnEnable() => _transitionEventChannel.OnTransitionRequested += HandleTransitionRequest;
+        private void OnDisable() => _transitionEventChannel.OnTransitionRequested -= HandleTransitionRequest;
+
+        private void HandleTransitionRequest(TransitionType transitionType, float duration)
         {
-            _transitionImage.color = new Color(_transitionImage.color.r, _transitionImage.color.g, _transitionImage.color.b, alpha);
-            yield return null;
+            switch (transitionType)
+            {
+                case TransitionType.FadeIn:
+                    StartCoroutine(FadeIn(duration));
+                    break;
+                case TransitionType.FadeOut:
+                    StartCoroutine(FadeOut(duration));
+                    break;
+
+                default:
+                    break;
+            }
         }
-        _transitionImage.gameObject.SetActive(false);
-    }
 
-    private IEnumerator FadeOut(float duration)
-    {
-        _transitionImage.gameObject.SetActive(true);
-        for (float alpha = 0; alpha < 1; alpha += Time.deltaTime / duration)
+        private IEnumerator FadeIn(float duration)
         {
-            _transitionImage.color = new Color(_transitionImage.color.r, _transitionImage.color.g, _transitionImage.color.b, alpha);
-            yield return null;
+            for (float alpha = 1; alpha > 0; alpha -= Time.deltaTime / duration)
+            {
+                _transitionImage.color = new Color(_transitionImage.color.r, _transitionImage.color.g, _transitionImage.color.b, alpha);
+                yield return null;
+            }
+            _transitionImage.gameObject.SetActive(false);
+        }
+
+        private IEnumerator FadeOut(float duration)
+        {
+            _transitionImage.gameObject.SetActive(true);
+            for (float alpha = 0; alpha < 1; alpha += Time.deltaTime / duration)
+            {
+                _transitionImage.color = new Color(_transitionImage.color.r, _transitionImage.color.g, _transitionImage.color.b, alpha);
+                yield return null;
+            }
         }
     }
 }

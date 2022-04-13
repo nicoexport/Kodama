@@ -1,21 +1,24 @@
-using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine;
 
-public interface IGameMode
+namespace Architecture
 {
-    GameModeState _state { get; }
-    string _activeScene { get; }
-    IEnumerator OnStart();
-    IEnumerator OnEnd();
-    void OnEditorStart();
-}
+    public interface IGameMode
+    {
+        GameModeState _state { get; }
+        string _activeScene { get; }
+        IEnumerator OnStart();
+        IEnumerator OnEnd();
+        void OnEditorStart();
+    }
 
-public enum GameModeState
-{
-    Starting,
-    Started,
-    Ending,
-    Ended,
-    Loading
+    public enum GameModeState
+    {
+        Starting,
+        Started,
+        Ending,
+        Ended,
+        Loading
+    }
 }

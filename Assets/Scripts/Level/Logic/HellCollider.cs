@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Level
+namespace Level.Logic
 {
     public class HellCollider : MonoBehaviour
     {

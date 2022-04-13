@@ -1,28 +1,31 @@
-using UnityEngine;
+using GameManagement;
 using UnityEditor;
 
-[CustomEditor(typeof(SceneObject), true)]
-public class SceneObjectEditor : Editor
+namespace Editor
 {
-
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(SceneObject), true)]
+    public class SceneObjectEditor : UnityEditor.Editor
     {
-        var currentScene = target as SceneObject;
-        var oldScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(currentScene.ScenePath);
 
-        serializedObject.Update();
-
-        currentScene.SceneName = EditorGUILayout.TextField("SceneName", currentScene.SceneName);
-        EditorGUI.BeginChangeCheck();
-        var newScene = EditorGUILayout.ObjectField("scene", oldScene, typeof(SceneAsset), false) as SceneAsset;
-
-        if (EditorGUI.EndChangeCheck())
+        public override void OnInspectorGUI()
         {
-            var newPath = AssetDatabase.GetAssetPath(newScene);
-            var scenePathProperty = serializedObject.FindProperty("ScenePath");
-            scenePathProperty.stringValue = newPath;
+            var currentScene = target as SceneObject;
+            var oldScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(currentScene.ScenePath);
+
+            serializedObject.Update();
+
+            currentScene.SceneName = EditorGUILayout.TextField("SceneName", currentScene.SceneName);
+            EditorGUI.BeginChangeCheck();
+            var newScene = EditorGUILayout.ObjectField("scene", oldScene, typeof(SceneAsset), false) as SceneAsset;
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                var newPath = AssetDatabase.GetAssetPath(newScene);
+                var scenePathProperty = serializedObject.FindProperty("ScenePath");
+                scenePathProperty.stringValue = newPath;
+            }
+            serializedObject.ApplyModifiedProperties();
+            EditorUtility.SetDirty(currentScene);
         }
-        serializedObject.ApplyModifiedProperties();
-        EditorUtility.SetDirty(currentScene);
     }
 }

@@ -1,23 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
-public class DamageZone : MonoBehaviour
+namespace Level.Objects
 {
-    public int damage = 1;
-    [SerializeField]
-    private bool destroyedOnGroundCollision = false;
-
-    private void OnTriggerEnter2D(Collider2D other)
+    public class DamageZone : MonoBehaviour
     {
-        if (other.CompareTag("Player"))
+        public int damage = 1;
+        [SerializeField]
+        private bool destroyedOnGroundCollision = false;
+
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            var lifeHandler = other.GetComponent<CharacterLifeHandler>();
-            if (lifeHandler != null) lifeHandler.TakeDamage(damage);
-        }
-        if (destroyedOnGroundCollision && other.CompareTag("Ground"))
-        {
-            Destroy(gameObject, 0.1f);
+            if (other.CompareTag("Player"))
+            {
+                var lifeHandler = other.GetComponent<CharacterLifeHandler>();
+                if (lifeHandler != null) lifeHandler.TakeDamage(damage);
+            }
+            if (destroyedOnGroundCollision && other.CompareTag("Ground"))
+            {
+                Destroy(gameObject, 0.1f);
+            }
         }
     }
 }

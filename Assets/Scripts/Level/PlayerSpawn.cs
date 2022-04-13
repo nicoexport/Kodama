@@ -1,34 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
+using GameManagement;
 using UnityEngine;
 
-public class PlayerSpawn : MonoBehaviour
+namespace Level
 {
-    [SerializeField]
-    TransformRuntimeSet playerSpawnRuntimeSet;
-
-    private SpriteRenderer _renderer;
-
-    private void Awake()
+    public class PlayerSpawn : MonoBehaviour
     {
-        _renderer = GetComponent<SpriteRenderer>();
-        _renderer.enabled = false;
-    }
+        [SerializeField]
+        TransformRuntimeSet playerSpawnRuntimeSet;
 
-    private void OnEnable()
-    {
-        if (playerSpawnRuntimeSet.IsEmpty())
+        private SpriteRenderer _renderer;
+
+        private void Awake()
         {
-            playerSpawnRuntimeSet.AddToList(this.transform);
+            _renderer = GetComponent<SpriteRenderer>();
+            _renderer.enabled = false;
         }
-        else
-        {
-            Debug.Log("multiple spawns exist");
-        }
-    }
 
-    private void OnDisable()
-    {
-        playerSpawnRuntimeSet.RemoveFromList(this.transform);
+        private void OnEnable()
+        {
+            if (playerSpawnRuntimeSet.IsEmpty())
+            {
+                playerSpawnRuntimeSet.AddToList(this.transform);
+            }
+            else
+            {
+                Debug.Log("multiple spawns exist");
+            }
+        }
+
+        private void OnDisable()
+        {
+            playerSpawnRuntimeSet.RemoveFromList(this.transform);
+        }
     }
 }

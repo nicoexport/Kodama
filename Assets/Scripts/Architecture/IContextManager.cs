@@ -1,6 +1,7 @@
-using UnityEngine;
-
-public interface IContextManager
+namespace Architecture
 {
-    void OnGameModeStarted();
+    public interface IContextManager
+    {
+        void OnGameModeStarted();
+    }
 }

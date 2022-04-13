@@ -1,37 +1,39 @@
 using UnityEngine;
-using System;
 
-public abstract class Timer : MonoBehaviour
+namespace Level.Logic
 {
-    protected bool count;
-    protected float timer = 0.0f;
-
-    public virtual void StartTimer()
+    public abstract class Timer : MonoBehaviour
     {
-        count = true;
-    }
+        protected bool count;
+        protected float timer = 0.0f;
 
-    public virtual void PauseTimer()
-    {
-        count = false;
-    }
-
-    public virtual void StopTimer()
-    {
-        timer = 0.0f;
-        count = false;
-    }
-
-    public virtual void CountUpTimer()
-    {
-        timer += Time.deltaTime;
-    }
-
-    public virtual void FixedUpdate()
-    {
-        if (count)
+        public virtual void StartTimer()
         {
-            CountUpTimer();
+            count = true;
+        }
+
+        public virtual void PauseTimer()
+        {
+            count = false;
+        }
+
+        public virtual void StopTimer()
+        {
+            timer = 0.0f;
+            count = false;
+        }
+
+        public virtual void CountUpTimer()
+        {
+            timer += Time.deltaTime;
+        }
+
+        public virtual void FixedUpdate()
+        {
+            if (count)
+            {
+                CountUpTimer();
+            }
         }
     }
 }

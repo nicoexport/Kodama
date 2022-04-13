@@ -1,41 +1,44 @@
-using UnityEngine;
 using System;
+using Architecture;
 
-public class LevelTimer : Timer
+namespace Level.Logic
 {
-
-    public static event Action<float> OnTimerChanged;
-    public static event Action<float> OnTimerFinished;
-
-    private void OnEnable()
+    public class LevelTimer : Timer
     {
-        LevelManager.OnPlayerGainedControl += RestartTimer;
-        LevelManager.OnCompleteLevel += FinishTimer;
-    }
 
-    private void OnDisable()
-    {
-        LevelManager.OnPlayerGainedControl -= RestartTimer;
-        LevelManager.OnCompleteLevel -= FinishTimer;
-    }
+        public static event Action<float> OnTimerChanged;
+        public static event Action<float> OnTimerFinished;
 
-    public override void FixedUpdate()
-    {
-        if (!count) return;
-        CountUpTimer();
-        OnTimerChanged?.Invoke(timer);
-    }
+        private void OnEnable()
+        {
+            LevelManager.OnPlayerGainedControl += RestartTimer;
+            LevelManager.OnCompleteLevel += FinishTimer;
+        }
 
-    private void FinishTimer()
-    {
-        PauseTimer();
-        OnTimerFinished?.Invoke(timer);
-    }
+        private void OnDisable()
+        {
+            LevelManager.OnPlayerGainedControl -= RestartTimer;
+            LevelManager.OnCompleteLevel -= FinishTimer;
+        }
 
-    private void RestartTimer()
-    {
-        StopTimer();
-        StartTimer();
-    }
+        public override void FixedUpdate()
+        {
+            if (!count) return;
+            CountUpTimer();
+            OnTimerChanged?.Invoke(timer);
+        }
 
+        private void FinishTimer()
+        {
+            PauseTimer();
+            OnTimerFinished?.Invoke(timer);
+        }
+
+        private void RestartTimer()
+        {
+            StopTimer();
+            StartTimer();
+        }
+
+    }
 }

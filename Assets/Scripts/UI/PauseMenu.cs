@@ -1,112 +1,116 @@
-using UnityEngine.InputSystem;
+using Architecture;
+using Scriptable;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+namespace UI
 {
-    [SerializeField]
-    private Canvas canvas;
-    [SerializeField]
-    private Button primaryButton;
-    [SerializeField]
-    private VoidEventChannelSO _returnToWorldEvent;
-    [SerializeField]
-    private VoidEventChannelSO _returnToMainMenuEvent;
-
-
-    private bool paused = false;
-
-    private void Start()
+    public class PauseMenu : MonoBehaviour
     {
-        canvas.gameObject.SetActive(false);
-        paused = false;
-    }
+        [SerializeField]
+        private Canvas canvas;
+        [SerializeField]
+        private Button primaryButton;
+        [SerializeField]
+        private VoidEventChannelSO _returnToWorldEvent;
+        [SerializeField]
+        private VoidEventChannelSO _returnToMainMenuEvent;
 
-    private void OnEnable()
-    {
-        LevelManager.OnPlayerGainedControl += RegisterInputActions;
-    }
 
-    private void OnDisable()
-    {
-        UnRegisterInputActions();
-        LevelManager.OnPlayerGainedControl -= RegisterInputActions;
-    }
+        private bool paused = false;
 
-    public void PauseGame()
-    {
-        if (paused) return;
-        Time.timeScale = 0f;
-        InputManager.ToggleActionMap(InputManager.playerInputActions.PauseMenu);
-        canvas.gameObject.SetActive(true);
-        primaryButton.Select();
-        paused = true;
-    }
+        private void Start()
+        {
+            canvas.gameObject.SetActive(false);
+            paused = false;
+        }
 
-    private void InputActionPauseGame(InputAction.CallbackContext context)
-    {
-        if (canvas == null) return;
-        PauseGame();
-    }
+        private void OnEnable()
+        {
+            LevelManager.OnPlayerGainedControl += RegisterInputActions;
+        }
 
-    public void ResumeGame()
-    {
-        if (!paused) return;
-        Time.timeScale = 1f;
-        InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
-        canvas.gameObject.SetActive(false);
-        paused = false;
-    }
+        private void OnDisable()
+        {
+            UnRegisterInputActions();
+            LevelManager.OnPlayerGainedControl -= RegisterInputActions;
+        }
+
+        public void PauseGame()
+        {
+            if (paused) return;
+            Time.timeScale = 0f;
+            InputManager.ToggleActionMap(InputManager.playerInputActions.PauseMenu);
+            canvas.gameObject.SetActive(true);
+            primaryButton.Select();
+            paused = true;
+        }
+
+        private void InputActionPauseGame(InputAction.CallbackContext context)
+        {
+            if (canvas == null) return;
+            PauseGame();
+        }
+
+        public void ResumeGame()
+        {
+            if (!paused) return;
+            Time.timeScale = 1f;
+            InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
+            canvas.gameObject.SetActive(false);
+            paused = false;
+        }
     
 
-    private void InputActionResumeGame(InputAction.CallbackContext context)
-    {
-        if (canvas == null) return;
-        ResumeGame();
-    }
+        private void InputActionResumeGame(InputAction.CallbackContext context)
+        {
+            if (canvas == null) return;
+            ResumeGame();
+        }
 
-    public void QuitGame()
-    {
+        public void QuitGame()
+        {
 #if UNITY_EDITOR
-        ResumeGame();
-        return;
+            ResumeGame();
+            return;
 #else
         UnRegisterInputActions();
         ResumeGame();
         Application.Quit();
 #endif
-    }
+        }
 
-    public void ReturnToMainMenu()
-    {
-        ResumeGame();
-        DisableInput();
-        _returnToMainMenuEvent.RaiseEvent();
-    }
+        public void ReturnToMainMenu()
+        {
+            ResumeGame();
+            DisableInput();
+            _returnToMainMenuEvent.RaiseEvent();
+        }
 
-    public void ReturnToWorldsScreen()
-    {
-        ResumeGame();
-        DisableInput();
-        _returnToWorldEvent.RaiseEvent();
-    }
+        public void ReturnToWorldsScreen()
+        {
+            ResumeGame();
+            DisableInput();
+            _returnToWorldEvent.RaiseEvent();
+        }
 
-    private void RegisterInputActions()
-    {
-        InputManager.playerInputActions.Player.Pause.started += InputActionPauseGame;
-        InputManager.playerInputActions.PauseMenu.Unpause.started += InputActionResumeGame;
-    }
+        private void RegisterInputActions()
+        {
+            InputManager.playerInputActions.Player.Pause.started += InputActionPauseGame;
+            InputManager.playerInputActions.PauseMenu.Unpause.started += InputActionResumeGame;
+        }
 
-    private void UnRegisterInputActions()
-    {
-        InputManager.playerInputActions.Player.Pause.started -= InputActionPauseGame;
-        InputManager.playerInputActions.PauseMenu.Unpause.started -= InputActionResumeGame;
-    }
+        private void UnRegisterInputActions()
+        {
+            InputManager.playerInputActions.Player.Pause.started -= InputActionPauseGame;
+            InputManager.playerInputActions.PauseMenu.Unpause.started -= InputActionResumeGame;
+        }
 
-    private void DisableInput()
-    {
-        InputManager.playerInputActions.Disable();
-    }
+        private void DisableInput()
+        {
+            InputManager.playerInputActions.Disable();
+        }
 
+    }
 }

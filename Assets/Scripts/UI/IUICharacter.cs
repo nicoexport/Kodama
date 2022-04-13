@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public interface IUICharacter
+namespace UI
 {
-    void StartMoving(Transform goal);
-    void StopMoving();
+    public interface IUICharacter
+    {
+        void StartMoving(Transform goal);
+        void StopMoving();
+    }
 }

@@ -1,17 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class OneWayTeleporter : MonoBehaviour
+namespace Level.Objects
 {
-    [SerializeField]
-    private Transform exit;
-
-
-    private void OnTriggerEnter2D(Collider2D entity)
+    public class OneWayTeleporter : MonoBehaviour
     {
-        if (entity.tag != "Player") return;
-        Debug.Log("Player entered");
-        entity.transform.position = exit.transform.position;
+        [SerializeField]
+        private Transform exit;
+
+
+        private void OnTriggerEnter2D(Collider2D entity)
+        {
+            if (entity.tag != "Player") return;
+            Debug.Log("Player entered");
+            entity.transform.position = exit.transform.position;
+        }
     }
 }

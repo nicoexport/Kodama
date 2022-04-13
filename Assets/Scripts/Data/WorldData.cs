@@ -1,34 +1,36 @@
-using UnityEngine;
 using System.Collections.Generic;
 using Scriptable;
 
-[System.Serializable]
-public class WorldData
+namespace Data
 {
-    public string WorldName;
-    private bool _unlocked;
-    public bool Visited;
-    public bool Completed;
-    public WorldStyleSo Style;
-
-    public bool Unlocked
+    [System.Serializable]
+    public class WorldData
     {
-        get => _unlocked;
-        set
+        public string WorldName;
+        private bool _unlocked;
+        public bool Visited;
+        public bool Completed;
+        public WorldStyleSo Style;
+
+        public bool Unlocked
         {
-            _unlocked = value;
-            if (value == true)
-                LevelDatas[0].Unlocked = true;
+            get => _unlocked;
+            set
+            {
+                _unlocked = value;
+                if (value == true)
+                    LevelDatas[0].Unlocked = true;
+            }
         }
-    }
     
-    public List<LevelData> LevelDatas = new List<LevelData>();
+        public List<LevelData> LevelDatas = new List<LevelData>();
 
-    public WorldData(WorldDataSO worldDataSo)
-    {
-        this.WorldName = worldDataSo.WorldName;
-        this.Style = worldDataSo.WorldStyleSo;
+        public WorldData(WorldDataSO worldDataSo)
+        {
+            this.WorldName = worldDataSo.WorldName;
+            this.Style = worldDataSo.WorldStyleSo;
+        }
+    
+    
     }
-    
-    
 }

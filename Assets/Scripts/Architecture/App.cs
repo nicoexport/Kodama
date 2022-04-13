@@ -1,14 +1,17 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
-public static class App
+namespace Architecture
 {
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void InitializeApp()
+    public static class App
     {
-        var app = UnityEngine.Object.Instantiate(Resources.Load("P_App")) as GameObject;
-        if (app == null) throw new ApplicationException();
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void InitializeApp()
+        {
+            var app = UnityEngine.Object.Instantiate(Resources.Load("P_App")) as GameObject;
+            if (app == null) throw new ApplicationException();
 
-        UnityEngine.Object.DontDestroyOnLoad(app);
+            UnityEngine.Object.DontDestroyOnLoad(app);
+        }
     }
 }

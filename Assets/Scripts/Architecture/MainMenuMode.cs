@@ -1,44 +1,47 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuMode : IGameMode
+namespace Architecture
 {
-    public GameModeState _state { get; private set; } = GameModeState.Ended;
-    public string _activeScene { get; private set; }
-    private string _scenePath;
-
-    public MainMenuMode(string scenePath)
+    public class MainMenuMode : IGameMode
     {
-        this._scenePath = scenePath;
-    }
+        public GameModeState _state { get; private set; } = GameModeState.Ended;
+        public string _activeScene { get; private set; }
+        private string _scenePath;
 
-    public IEnumerator OnStart()
-    {
-        if (_state != GameModeState.Ended) yield break;
-        _state = GameModeState.Starting;
+        public MainMenuMode(string scenePath)
+        {
+            this._scenePath = scenePath;
+        }
 
-        _activeScene = _scenePath;
+        public IEnumerator OnStart()
+        {
+            if (_state != GameModeState.Ended) yield break;
+            _state = GameModeState.Starting;
 
-        yield return SceneManager.LoadSceneAsync(_activeScene, LoadSceneMode.Additive);
-        SceneManager.SetActiveScene(SceneManager.GetSceneByPath(_activeScene));
+            _activeScene = _scenePath;
 
-        Debug.Log("MAIN MENU MODE STARTED");
-        _state = GameModeState.Started;
-    }
+            yield return SceneManager.LoadSceneAsync(_activeScene, LoadSceneMode.Additive);
+            SceneManager.SetActiveScene(SceneManager.GetSceneByPath(_activeScene));
 
-    public IEnumerator OnEnd()
-    {
-        _state = GameModeState.Ending;
-        yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-        Debug.Log("MAIN MENU MODE ENDED");
-        _state = GameModeState.Ended;
-        yield break;
-    }
+            Debug.Log("MAIN MENU MODE STARTED");
+            _state = GameModeState.Started;
+        }
 
-    public void OnEditorStart()
-    {
-        _activeScene = SceneManager.GetActiveScene().path;
-        _state = GameModeState.Started;
+        public IEnumerator OnEnd()
+        {
+            _state = GameModeState.Ending;
+            yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+            Debug.Log("MAIN MENU MODE ENDED");
+            _state = GameModeState.Ended;
+            yield break;
+        }
+
+        public void OnEditorStart()
+        {
+            _activeScene = SceneManager.GetActiveScene().path;
+            _state = GameModeState.Started;
+        }
     }
 }
