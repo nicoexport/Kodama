@@ -30,14 +30,16 @@ namespace Player
 
         public void SetAnimationState(State state, float horizontalInput, float xVelocity, float maxVelocityX, bool touchingWall)
         {
+            //print("Trying to set animation state");
             string newAnimState = idle;
+            
             switch (state.ToString())
             {
-                case "StandingState":
+                case "Player.MovementStates.StandingState":
                     newAnimState = idle;
                     break;
 
-                case "RunningState":
+                case "Player.MovementStates.RunningState":
                     if (touchingWall) newAnimState = walkingAgainstWall;
                     else
                     {
@@ -46,33 +48,33 @@ namespace Player
                     }
                     break;
 
-                case "FallingState":
+                case "Player.MovementStates.FallingState":
                     newAnimState = falling;
                     break;
 
-                case "JumpingState":
+                case "Player.MovementStates.JumpingState":
                     newAnimState = jumping;
                     break;
 
-                case "DoubleJumpingState":
+                case "Player.MovementStates.DoubleJumpingState":
                     newAnimState = doubleJumping;
                     break;
 
-                case "WallslidingState":
+                case "Player.MovementStates.WallslidingState":
                     newAnimState = wallSliding;
                     break;
 
-                case "WalljumpingState":
+                case "Player.MovementStates.WalljumpingState":
                     newAnimState = wallJumping;
                     break;
 
-                case "SpawningState":
+                case "Player.MovementStates.SpawningState":
                     newAnimState = spawning;
                     break;
-                case "WinningState":
+                case "Player.MovementStates.WinningState":
                     newAnimState = winning;
                     break;
-                case "DyingState":
+                case "Player.MovementStates.DyingState":
                     newAnimState = dying;
                     break;
                 default:
@@ -82,6 +84,7 @@ namespace Player
 
             if (newAnimState == currentAnimState) return;
             animator.Play(newAnimState, 0);
+            print(newAnimState);
             OnAnimationStateChange?.Invoke(currentAnimState, newAnimState);
             currentAnimState = newAnimState;
         }
