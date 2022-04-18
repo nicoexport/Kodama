@@ -7,7 +7,7 @@ namespace Scriptable.Pooling
 {
     public abstract class ObjectPoolSo<T> : ScriptableObject, IPool<T> where T : class
     {
-        public ObjectPool<T> Pool;
+        public IObjectPool<T> Pool;
         protected bool HasBeenInitialized { get; set; }
         [SerializeField] protected int DefaultSize;
         [SerializeField] protected int MaxSize;

@@ -42,7 +42,6 @@ namespace Audio
             {
                 SoundEmitter soundEmitter = _soundEmitterPool.Pool.Get().GetComponent<SoundEmitter>();
                 if (soundEmitter == null) return;
-                soundEmitter.Stop();
                 soundEmitter.PlayAudioClip(clipsToPlay[i], audioCueRequestData.AudioConfig,audioCueRequestData.AudioCue.Looping, audioCueRequestData.Position);
                 if (!audioCueRequestData.AudioCue.Looping)
                     soundEmitter.OnSoundFinishedPlaying += OnSoundEmitterFinishedPlaying;

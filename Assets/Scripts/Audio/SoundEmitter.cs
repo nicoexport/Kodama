@@ -40,12 +40,12 @@ namespace Audio
         {
             _audioSource.Pause();
         }
-
+        
         public void Stop()
         {
             _audioSource.Stop();
         }
-
+        
         public bool IsLooping()
         {
             return _audioSource.loop;

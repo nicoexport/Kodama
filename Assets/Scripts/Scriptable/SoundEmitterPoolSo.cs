@@ -24,7 +24,7 @@ namespace Scriptable
             Pool = new ObjectPool<GameObject>(createFunc: Create,
                 actionOnGet: (obj) => obj.SetActive(true),
                 actionOnRelease: (obj) => obj.SetActive(false),
-                actionOnDestroy: (obj) => DestroyImmediate(obj),
+                actionOnDestroy: Destroy,
                 collectionCheck: false,
                 defaultCapacity: DefaultSize,
                 maxSize: MaxSize);
