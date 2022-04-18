@@ -426,6 +426,56 @@ MonoBehaviour:
   - {x: -3.5385036, y: -20.796972, z: 0}
   - {x: 0.13447952, y: -22.926128, z: 0}
   - {x: 55.44603, y: 82.90454, z: 0}
+--- !u!1 &151822166 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1208814143570580757, guid: ec419af002412c543a6c38eda7cae636, type: 3}
+  m_PrefabInstance: {fileID: 1208814143338016144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &151822171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151822166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e05485e8d114d0bb77ce1dc30ca1242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnStart: 0
+  _audioCue: {fileID: 11400000, guid: 5d5828d973eca514db769648559e0985, type: 2}
+  _audioConfig: {fileID: 11400000, guid: d3ac1600bcbc54f41a1ec5c55f8b6883, type: 2}
+  _audioCueChannel: {fileID: 11400000, guid: 80c2d175c928f3e459dfff6bdc2a175b, type: 2}
+--- !u!114 &151822172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151822166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 151822171}
+          m_TargetAssemblyTypeName: Audio.AudioCue, Assembly-CSharp
+          m_MethodName: PlayAudioCue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &376291229
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,6 +574,106 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _subject: {fileID: 1826920057}
+--- !u!1 &518919721 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1208814144136299451, guid: ec419af002412c543a6c38eda7cae636, type: 3}
+  m_PrefabInstance: {fileID: 1208814143338016144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &518919726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518919721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e05485e8d114d0bb77ce1dc30ca1242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnStart: 0
+  _audioCue: {fileID: 11400000, guid: 5d5828d973eca514db769648559e0985, type: 2}
+  _audioConfig: {fileID: 11400000, guid: d3ac1600bcbc54f41a1ec5c55f8b6883, type: 2}
+  _audioCueChannel: {fileID: 11400000, guid: 80c2d175c928f3e459dfff6bdc2a175b, type: 2}
+--- !u!114 &518919729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518919721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 518919726}
+          m_TargetAssemblyTypeName: Audio.AudioCue, Assembly-CSharp
+          m_MethodName: PlayAudioCue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!1 &736043706 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1208814143658255660, guid: ec419af002412c543a6c38eda7cae636, type: 3}
+  m_PrefabInstance: {fileID: 1208814143338016144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &736043711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736043706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e05485e8d114d0bb77ce1dc30ca1242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnStart: 0
+  _audioCue: {fileID: 11400000, guid: 5d5828d973eca514db769648559e0985, type: 2}
+  _audioConfig: {fileID: 11400000, guid: d3ac1600bcbc54f41a1ec5c55f8b6883, type: 2}
+  _audioCueChannel: {fileID: 11400000, guid: 80c2d175c928f3e459dfff6bdc2a175b, type: 2}
+--- !u!114 &736043714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736043706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 736043711}
+          m_TargetAssemblyTypeName: Audio.AudioCue, Assembly-CSharp
+          m_MethodName: PlayAudioCue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &749666225
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -883,6 +1033,56 @@ MonoBehaviour:
   - {x: -34.44081, y: -29.449621, z: 0}
   - {x: -30.767828, y: -31.578777, z: 0}
   - {x: 55.44603, y: 82.90454, z: 0}
+--- !u!1 &1029924592 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1208814144340422042, guid: ec419af002412c543a6c38eda7cae636, type: 3}
+  m_PrefabInstance: {fileID: 1208814143338016144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1029924597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029924592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e05485e8d114d0bb77ce1dc30ca1242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnStart: 0
+  _audioCue: {fileID: 11400000, guid: 5d5828d973eca514db769648559e0985, type: 2}
+  _audioConfig: {fileID: 11400000, guid: d3ac1600bcbc54f41a1ec5c55f8b6883, type: 2}
+  _audioCueChannel: {fileID: 11400000, guid: 80c2d175c928f3e459dfff6bdc2a175b, type: 2}
+--- !u!114 &1029924600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029924592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1029924597}
+          m_TargetAssemblyTypeName: Audio.AudioCue, Assembly-CSharp
+          m_MethodName: PlayAudioCue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1215791381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,6 +1345,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _subject: {fileID: 1826920057}
+--- !u!1 &1412873769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1412873772}
+  - component: {fileID: 1412873771}
+  - component: {fileID: 1412873770}
+  m_Layer: 0
+  m_Name: TestAudioCue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1412873770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412873769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a790bfe10941e78ee749b66f63f9fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1412873771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412873769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e05485e8d114d0bb77ce1dc30ca1242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnStart: 0
+  _audioCue: {fileID: 11400000, guid: 5d5828d973eca514db769648559e0985, type: 2}
+  _audioConfig: {fileID: 11400000, guid: d3ac1600bcbc54f41a1ec5c55f8b6883, type: 2}
+  _audioCueChannel: {fileID: 11400000, guid: 80c2d175c928f3e459dfff6bdc2a175b, type: 2}
+--- !u!4 &1412873772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412873769}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.599537, y: -9.06563, z: 5.070367}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1542664072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,7 +1437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sfxChannel: {fileID: 11400000, guid: 80c2d175c928f3e459dfff6bdc2a175b, type: 2}
   _musicChannel: {fileID: 11400000, guid: e0b3e965b093069419ea9a1605492a77, type: 2}
-  _soundEmitterPrefab: {fileID: 5621591875301739347, guid: bd4474462e6f67946af20f7ba35acc19, type: 3}
+  _soundEmitterPool: {fileID: 11400000, guid: 39a0f9e6f2d7d004db33a769de433abc, type: 2}
 --- !u!4 &1542664074
 Transform:
   m_ObjectHideFlags: 0
@@ -1512,6 +1773,56 @@ MonoBehaviour:
   - {x: -14.657425, y: -17.958101, z: 0}
   - {x: -5.54327, y: -17.958103, z: 0}
   - {x: 55.44603, y: 82.90454, z: 0}
+--- !u!1 &2064533451 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7588730936097916809, guid: ec419af002412c543a6c38eda7cae636, type: 3}
+  m_PrefabInstance: {fileID: 1208814143338016144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2064533456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064533451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e05485e8d114d0bb77ce1dc30ca1242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnStart: 0
+  _audioCue: {fileID: 11400000, guid: 5d5828d973eca514db769648559e0985, type: 2}
+  _audioConfig: {fileID: 11400000, guid: d3ac1600bcbc54f41a1ec5c55f8b6883, type: 2}
+  _audioCueChannel: {fileID: 11400000, guid: 80c2d175c928f3e459dfff6bdc2a175b, type: 2}
+--- !u!114 &2064533459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064533451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2064533456}
+          m_TargetAssemblyTypeName: Audio.AudioCue, Assembly-CSharp
+          m_MethodName: PlayAudioCue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1208814143338016144
 PrefabInstance:
   m_ObjectHideFlags: 0

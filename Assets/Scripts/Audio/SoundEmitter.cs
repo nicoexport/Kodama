@@ -22,7 +22,7 @@ namespace Audio
         public void PlayAudioClip(AudioClip audioClip, AudioConfigSo config, bool hasToLoop, Vector3 position = default)
         {
             _audioSource.clip = audioClip; 
-            // apply config
+            config.ApplyConfigToAudioSource(_audioSource);
             _audioSource.transform.position = position;
             _audioSource.loop = hasToLoop;
             _audioSource.Play();

@@ -4,10 +4,32 @@ using UnityEngine.Pool;
 
 namespace Scriptable.Pooling
 {
-    public class GameObjectPoolSo : ObjectPool<GameObject>
+    public abstract class GameObjectPoolSo : ObjectPoolSo<GameObject>
     {
-        public GameObjectPoolSo(Func<GameObject> createFunc, Action<GameObject> actionOnGet = null, Action<GameObject> actionOnRelease = null, Action<GameObject> actionOnDestroy = null, bool collectionCheck = true, int defaultCapacity = 10, int maxSize = 10000) : base(createFunc, actionOnGet, actionOnRelease, actionOnDestroy, collectionCheck, defaultCapacity, maxSize)
+        private Transform _parent;
+        private protected Transform _poolRoot;
+
+        private Transform PoolRoot
         {
+            get
+            {
+                if (!_poolRoot)
+                {
+                    _poolRoot = new GameObject(name).transform;
+                    _poolRoot.SetParent(_parent);
+                }
+                return _poolRoot;
+            }
         }
+        
+        public void SetParent(Transform t)
+        {
+            _parent = t;
+            PoolRoot.SetParent(t);
+        }
+        
+        public abstract override GameObject Create();
+        public abstract override void Initialize();
+
     }
 }

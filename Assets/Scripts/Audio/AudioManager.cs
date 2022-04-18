@@ -2,6 +2,7 @@ using System;
 using System.Runtime.Serialization;
 using Scriptable;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -11,29 +12,14 @@ namespace Audio
     {
         [SerializeField] private AudioCueChannelSo _sfxChannel;
         [SerializeField] private AudioCueChannelSo _musicChannel;
-
-        [SerializeField] private GameObject _soundEmitterPrefab;
-
-        private ObjectPool<GameObject> _pool;
+        [SerializeField] private SoundEmitterPoolSo _soundEmitterPool;
         
         private void Awake()
         {
-            _pool = new ObjectPool<GameObject>(createFunc: () => CreatePoolObject(), 
-                actionOnGet: (obj) => obj.SetActive(true), 
-                actionOnRelease: (obj) => obj.SetActive(false),
-                actionOnDestroy: (obj) => Destroy(obj),
-                collectionCheck: false, 
-                defaultCapacity: 10,
-                maxSize: 10);
-            _pool.Get();
+            _soundEmitterPool.SetParent(this.transform);
+            _soundEmitterPool.Initialize();
         }
-
-        private GameObject CreatePoolObject()
-        {
-            var obj = Instantiate(original: _soundEmitterPrefab, parent: this.transform);
-            obj.name = "SoundEmitter";
-            return obj;
-        }
+        
 
         private void OnEnable()
         {
@@ -49,7 +35,25 @@ namespace Audio
 
         private void PlayAudio(AudioCueRequestData audioCueRequestData)
         {
-            
+            AudioClip[] clipsToPlay = audioCueRequestData.AudioCue.GetClips();
+            int numberOfClips = clipsToPlay.Length;
+
+            for (int i = 0; i < numberOfClips; i++)
+            {
+                SoundEmitter soundEmitter = _soundEmitterPool.Pool.Get().GetComponent<SoundEmitter>();
+                if (soundEmitter == null) return;
+                soundEmitter.Stop();
+                soundEmitter.PlayAudioClip(clipsToPlay[i], audioCueRequestData.AudioConfig,audioCueRequestData.AudioCue.Looping, audioCueRequestData.Position);
+                if (!audioCueRequestData.AudioCue.Looping)
+                    soundEmitter.OnSoundFinishedPlaying += OnSoundEmitterFinishedPlaying;
+            }
+        }
+
+        private void OnSoundEmitterFinishedPlaying(SoundEmitter soundEmitter)
+        {
+            soundEmitter.OnSoundFinishedPlaying -= OnSoundEmitterFinishedPlaying;
+            soundEmitter.Stop();
+            _soundEmitterPool.Pool.Release(soundEmitter.gameObject);
         }
     }
 }
