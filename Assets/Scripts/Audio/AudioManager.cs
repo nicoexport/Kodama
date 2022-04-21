@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Serialization;
+using Pooling;
 using Scriptable;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -12,12 +13,12 @@ namespace Audio
     {
         [SerializeField] private AudioCueChannelSo _sfxChannel;
         [SerializeField] private AudioCueChannelSo _musicChannel;
-        [SerializeField] private SoundEmitterPoolSo _soundEmitterPool;
+        [SerializeField] private GameObject _soundEmitterPrefab;
+        private GameObjectPool _soundEmitterPool;
         
         private void Awake()
         {
-            _soundEmitterPool.SetParent(this.transform);
-            _soundEmitterPool.Initialize();
+            _soundEmitterPool = new GameObjectPool(_soundEmitterPrefab, this.transform, 12, 12);
         }
         
 
@@ -40,7 +41,7 @@ namespace Audio
 
             for (int i = 0; i < numberOfClips; i++)
             {
-                SoundEmitter soundEmitter = _soundEmitterPool.Pool.Get().GetComponent<SoundEmitter>();
+                SoundEmitter soundEmitter = _soundEmitterPool.Get().GetComponent<SoundEmitter>();
                 if (soundEmitter == null) return;
                 soundEmitter.PlayAudioClip(clipsToPlay[i], audioCueRequestData.AudioConfig,audioCueRequestData.AudioCue.Looping, audioCueRequestData.Position);
                 if (!audioCueRequestData.AudioCue.Looping)
@@ -52,7 +53,7 @@ namespace Audio
         {
             soundEmitter.OnSoundFinishedPlaying -= OnSoundEmitterFinishedPlaying;
             soundEmitter.Stop();
-            _soundEmitterPool.Pool.Release(soundEmitter.gameObject);
+            _soundEmitterPool.Release(soundEmitter.gameObject);
         }
     }
 }

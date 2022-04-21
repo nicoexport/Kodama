@@ -168,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sfxChannel: {fileID: 11400000, guid: 80c2d175c928f3e459dfff6bdc2a175b, type: 2}
   _musicChannel: {fileID: 11400000, guid: e0b3e965b093069419ea9a1605492a77, type: 2}
-  _soundEmitterPool: {fileID: 11400000, guid: 39a0f9e6f2d7d004db33a769de433abc, type: 2}
+  _soundEmitterPrefab: {fileID: 5621591875301739347, guid: bd4474462e6f67946af20f7ba35acc19, type: 3}
 --- !u!1 &6700455226139587072
 GameObject:
   m_ObjectHideFlags: 0
