@@ -19,9 +19,9 @@ namespace Pooling
                 collectionCheck: false,
                 defaultCapacity: defaultSize,
                 maxSize: maxSize
-                );
+            );
         }
-
+        
         public GameObject Get()
         {
             return _pool.Get();

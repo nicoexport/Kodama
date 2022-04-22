@@ -15,12 +15,12 @@ namespace Audio
         [SerializeField] private AudioCueChannelSo _musicChannel;
         [SerializeField] private GameObject _soundEmitterPrefab;
         private GameObjectPool _soundEmitterPool;
-        
+
         private void Awake()
         {
             _soundEmitterPool = new GameObjectPool(_soundEmitterPrefab, this.transform, 12, 12);
         }
-        
+
 
         private void OnEnable()
         {
@@ -42,8 +42,11 @@ namespace Audio
             for (int i = 0; i < numberOfClips; i++)
             {
                 SoundEmitter soundEmitter = _soundEmitterPool.Get().GetComponent<SoundEmitter>();
+                
                 if (soundEmitter == null) return;
-                soundEmitter.PlayAudioClip(clipsToPlay[i], audioCueRequestData.AudioConfig,audioCueRequestData.AudioCue.Looping, audioCueRequestData.Position);
+                soundEmitter.PlayAudioClip(clipsToPlay[i], audioCueRequestData.AudioConfig,
+                    audioCueRequestData.AudioCue.Looping, audioCueRequestData.Position);
+                
                 if (!audioCueRequestData.AudioCue.Looping)
                     soundEmitter.OnSoundFinishedPlaying += OnSoundEmitterFinishedPlaying;
             }
