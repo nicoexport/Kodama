@@ -9,13 +9,13 @@ namespace Pooling
     {
         private readonly IObjectPool<GameObject> _pool;
 
-        public GameObjectPool(GameObject gameObject, Transform parent, int defaultSize, int maxSize)
+        public GameObjectPool(GameObject gameObject, Transform parent, Func<GameObject> createFunc, Action<GameObject> actionOnGet, Action<GameObject> actionOnRelease, Action<GameObject> actionOnDestroy, int defaultSize, int maxSize)
         {
             _pool = new ObjectPool<GameObject>(
-                createFunc: () => Object.Instantiate(gameObject, parent),
-                actionOnGet: (obj) => obj.SetActive(true),
-                actionOnRelease: (obj) => obj.SetActive(false),
-                actionOnDestroy: Object.Destroy,
+                createFunc: createFunc,
+                actionOnGet: actionOnGet,
+                actionOnRelease: actionOnRelease,
+                actionOnDestroy: actionOnRelease,
                 collectionCheck: false,
                 defaultCapacity: defaultSize,
                 maxSize: maxSize
