@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d81690c9d6bd41b0bc07dc93d29a1ce8, type: 3}
-  m_Name: SOEC_Default_Level_Finished_Event_Channel
+  m_Script: {fileID: 11500000, guid: 48a7659eee6519b408c60b38f87986ea, type: 3}
+  m_Name: CH_Default_Transition_Event_Channel
   m_EditorClassIdentifier: 

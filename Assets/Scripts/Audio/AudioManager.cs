@@ -1,46 +1,37 @@
 using System;
-using System.Runtime.Serialization;
+using System.Collections;
 using Pooling;
 using Scriptable;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Pool;
-using Object = UnityEngine.Object;
+using Utility;
 
 namespace Audio
 {
-    public class AudioManager : MonoBehaviour
+    public class AudioManager : Singleton<AudioManager>
     {
         [SerializeField] private AudioCueChannelSo _sfxChannel;
         [SerializeField] private AudioCueChannelSo _musicChannel;
         [SerializeField] private GameObject _soundEmitterPrefab;
+        [SerializeField] private float _musicFadeDuration = 1f;
         private GameObjectPool _soundEmitterPool;
+        private SoundEmitter _currentMusicTrack;
 
-        private void Awake()
+        protected override void Awake()
         {
-            _soundEmitterPool = new GameObjectPool(
-                _soundEmitterPrefab,
-                this.transform,
-                () => GameObject.Instantiate(_soundEmitterPrefab, this.transform),
-                obj => obj.SetActive(true),
-                obj => obj.SetActive(false),
-                GameObject.Destroy,
-                12,
-                12
-                );
+            base.Awake();
+            _soundEmitterPool = new GameObjectPool(this.transform, _soundEmitterPrefab, 12);
         }
         
         private void OnEnable()
         {
             _sfxChannel.OnAudioCueRequested += PlayAudioCue;
-            _musicChannel.OnAudioCueRequested += PlayAudioCue;
+            _musicChannel.OnAudioCueRequested += PlayMusic;
         }
 
         private void OnDisable()
         {
             _sfxChannel.OnAudioCueRequested -= PlayAudioCue;
-            _musicChannel.OnAudioCueRequested -= PlayAudioCue;
+            _musicChannel.OnAudioCueRequested -= PlayMusic;
         }
 
         private void PlayAudioCue(AudioCueRequestData audioCueRequestData)
@@ -50,7 +41,7 @@ namespace Audio
 
             for (int i = 0; i < numberOfClips; i++)
             {
-                SoundEmitter soundEmitter = _soundEmitterPool.Get().GetComponent<SoundEmitter>();
+                SoundEmitter soundEmitter = _soundEmitterPool.Request().GetComponent<SoundEmitter>();
                 
                 if (soundEmitter == null) return;
                 soundEmitter.PlayAudioClip(clipsToPlay[i], audioCueRequestData.AudioConfig,
@@ -63,14 +54,84 @@ namespace Audio
 
         private void PlayMusic(AudioCueRequestData audioCueRequestData)
         {
-            
+            AudioClip[] clipsToPlay = audioCueRequestData.AudioCue.GetClips();
+            int numberOfClips = clipsToPlay.Length;
+
+            for (int i = 0; i < numberOfClips; i++)
+            {
+                var soundEmitter = _soundEmitterPool.Request().GetComponent<SoundEmitter>();
+                if (!soundEmitter) return;
+                
+                if (_currentMusicTrack != null && _currentMusicTrack.IsPlaying())
+                {
+                    FadeOut(_currentMusicTrack, _musicFadeDuration, obj =>
+                    {
+                        _soundEmitterPool.Return(obj);
+                    });
+                }
+
+                _currentMusicTrack = soundEmitter;
+                _currentMusicTrack.PlayAudioClip(clipsToPlay[i], audioCueRequestData.AudioConfig, 
+                    audioCueRequestData.AudioCue.Looping, audioCueRequestData.Position);
+                FadeIn(_currentMusicTrack, audioCueRequestData.AudioConfig.Volume, _musicFadeDuration);
+
+                if (!audioCueRequestData.AudioCue.Looping)
+                {
+                    soundEmitter.OnSoundFinishedPlaying += OnSoundEmitterFinishedPlaying;
+                }
+            }
         }
 
+        void FadeOut(SoundEmitter soundEmitter, float durationInSeconds, Action<GameObject> fadeOutFinished = default) {
+            StartCoroutine(FadeOutEnumerator(soundEmitter, durationInSeconds, fadeOutFinished));
+        }
+
+        IEnumerator FadeOutEnumerator(SoundEmitter soundEmitter, float durationInSeconds, Action<GameObject> fadeOutFinished) {
+            for (float volume = soundEmitter.GetVolume(); volume > 0; volume -= Time.deltaTime / durationInSeconds) {
+                soundEmitter.SetVolume(volume);
+                yield return null;
+            }
+            fadeOutFinished?.Invoke(soundEmitter.gameObject);
+        }
+
+        void FadeIn(SoundEmitter soundEmitter, float volume, float durationInSeconds, Action<GameObject> fadeInFinished = default) {
+            StartCoroutine(FadeInEnumerator(soundEmitter, volume, durationInSeconds, fadeInFinished));
+        }
+
+        IEnumerator FadeInEnumerator(SoundEmitter soundEmitter, float volume, float durationInSeconds, Action<GameObject> fadeInFinished) {
+            for (float vol = 0; vol < volume; vol += Time.deltaTime / durationInSeconds) {
+                soundEmitter.SetVolume(volume);
+                yield return null;
+            }
+            fadeInFinished?.Invoke(soundEmitter.gameObject);
+        }
+
+        public void PauseMusic()
+        {
+            if (!_currentMusicTrack) return; 
+            _currentMusicTrack.Pause();
+        }
+
+        public void ResumeMusic()
+        {
+            if (!_currentMusicTrack) return; 
+            _currentMusicTrack.Resume();
+        }
+
+        public void StopMusic()
+        {
+            if (!_currentMusicTrack) return; 
+            FadeOut(_currentMusicTrack, 0.5f, o =>
+            {
+                _soundEmitterPool.Return(o);
+            } );
+        }
+        
         private void OnSoundEmitterFinishedPlaying(SoundEmitter soundEmitter)
         {
             soundEmitter.OnSoundFinishedPlaying -= OnSoundEmitterFinishedPlaying;
             soundEmitter.Stop();
-            _soundEmitterPool.Release(soundEmitter.gameObject);
+            _soundEmitterPool.Return(soundEmitter.gameObject);
         }
     }
 }

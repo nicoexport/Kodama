@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf16a73bf8ee4957aaffe37b2308e2f0, type: 3}
-  m_Name: AUCONF_Default_Config
+  m_Name: AUCFG_Default_Config
   m_EditorClassIdentifier: 
   OutputAudioMixerGroup: {fileID: 0}
   _priorityLevel: 128

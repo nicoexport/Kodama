@@ -120,6 +120,5 @@ namespace Architecture
             Debug.Log("TO DO: Load Credits");
             LoadMainMenu();
         }
-  
     }
 }

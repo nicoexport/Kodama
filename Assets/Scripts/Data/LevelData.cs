@@ -9,6 +9,7 @@ namespace Data
         public readonly string ScenePath;
         public readonly string LevelName;
         private Sprite LevelImage;
+        public readonly AudioCueSo LevelMusicAudioCueSo;
         public bool Unlocked { get; set; } = false;
         public bool Visited;
         public bool Completed;
@@ -20,6 +21,7 @@ namespace Data
             this.ScenePath = levelDataSO.ScenePath;
             this.LevelName = levelDataSO.LevelName;
             this.LevelImage = levelDataSO.LevelImage;
+            this.LevelMusicAudioCueSo = levelDataSO.LevelMusicAudioCueSo;
         }
 
         public bool UpdateRecordTime(float time)

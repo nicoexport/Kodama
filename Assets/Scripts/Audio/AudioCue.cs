@@ -1,14 +1,22 @@
+using System;
 using Scriptable;
 using UnityEngine;
 
 namespace Audio
 {
+    [Serializable]
     public class AudioCue : MonoBehaviour
     {
         [SerializeField] private bool _playOnStart;
         [SerializeField] private AudioCueSo _audioCue;
         [SerializeField] private AudioConfigSo _audioConfig;
         [SerializeField] private AudioCueChannelSo _audioCueChannel;
+
+        public AudioCueSo Cue
+        {
+            get => _audioCue;
+            set => _audioCue = value;
+        }
 
         private void Start()
         {

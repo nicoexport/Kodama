@@ -15,6 +15,7 @@ MonoBehaviour:
   ScenePath: Assets/Scenes/Level/World 0/SCENE_Forrest_1.unity
   LevelName: Forrest 1
   LevelImage: {fileID: 0}
+  LevelMusicAudioCueSo: {fileID: 11400000, guid: be8393d0398100e4fac449f64a5f8f68, type: 2}
   Visited: 0
   Completed: 0
   RecordTime: Infinity
