@@ -49,11 +49,12 @@ namespace UI
         public void StartGame()
         {
             GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.playMode);
+            AudioManager.Instance.StopMusic();
         }
 
         public void ResumeGame()
         {
-            GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.playMode);
+            StartGame();
         }
 
         public void QuitGame()

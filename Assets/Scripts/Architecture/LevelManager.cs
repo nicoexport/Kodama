@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Audio;
 using Data;
 using GameManagement;
 using Level.Logic;
@@ -12,7 +13,7 @@ using Utility;
 namespace Architecture
 {
     [RequireComponent(typeof(LevelTimer))]
-    public class LevelManager : MonoBehaviour, IContextManager
+    public class LevelManager : Singleton<LevelManager>, IContextManager
     {
         [field: SerializeField]
         public SessionData SessionData { get; private set; }
@@ -26,6 +27,7 @@ namespace Architecture
         [SerializeField]
         private GameObjectRuntimeSet levelWinRuntimeSet;
 
+        [SerializeField] private AudioCue _levelMusicCue;
 
         [Header("Prefabs")]
         [SerializeField]
@@ -62,8 +64,7 @@ namespace Architecture
         {
             _levelFlowManager = GetComponent<LevelFlowManager>();
             _playerManager = GetComponent<PlayerManager>();
-     
-        
+            
             foreach (var obj in levelWinRuntimeSet.GetItemList())
             {
                 var win = obj.GetComponent<LevelWin>();
@@ -81,7 +82,16 @@ namespace Architecture
                 SessionData.CurrentWorld = Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, SessionData);
             }
 
+            StartLevelMusic();
             StartCoroutine(SpawnPlayerEnumerator());
+        }
+
+        private void StartLevelMusic()
+        {
+            if(!_levelMusicCue) 
+                return;
+            _levelMusicCue.Cue = _activeLevelData.LevelMusicAudioCueSo;
+            _levelMusicCue.PlayAudioCue();
         }
 
         public void OnGameModeStarted()
@@ -107,6 +117,7 @@ namespace Architecture
             OnCompleteLevel?.Invoke();
             _levelFinishedEventChannel.RaiseEvent(_activeLevelData);
             InputManager.DisableInput();
+            AudioManager.Instance.StopMusic();
             StartCoroutine(Utilities.ActionAfterDelayEnumerator(levelSummaryContinueDelay, EnableSummaryInput));
             // Save Level Completion
             // Save Record
@@ -158,6 +169,14 @@ namespace Architecture
             }
             Debug.LogWarningFormat("{0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
             return null;
+        }
+
+        protected void OnValidate() 
+        {
+            if (!_levelMusicCue)
+            {
+                TryGetComponent(out _levelMusicCue);
+            }
         }
     }
 }

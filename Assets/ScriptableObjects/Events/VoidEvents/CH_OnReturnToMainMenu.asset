@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9317edefb363e24f9788917bc5c053e, type: 3}
-  m_Name: SOEC_OnReturnToMainMenu
+  m_Name: CH_OnReturnToMainMenu
   m_EditorClassIdentifier: 

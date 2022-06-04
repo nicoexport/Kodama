@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7014410135455515717}
   - component: {fileID: 7160439882145635487}
   - component: {fileID: 1980565582993771711}
+  - component: {fileID: 8474205929830345615}
   m_Layer: 0
   m_Name: P_Level_Manager
   m_TagString: Untagged
@@ -100,3 +101,19 @@ MonoBehaviour:
   _playerSpawnRuntimeSet: {fileID: 11400000, guid: 56d467417e7a3d541a2de4603bfeaa36, type: 2}
   _cinemachineRuntimeSet: {fileID: 11400000, guid: 6d2041fbf0ceda240b3430c5307c2aad, type: 2}
   _spawnTime: 1
+--- !u!114 &8474205929830345615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014410135455515718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e05485e8d114d0bb77ce1dc30ca1242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnStart: 0
+  _audioCue: {fileID: 0}
+  _audioConfig: {fileID: 11400000, guid: 180d7350e59e56f4695427a033929129, type: 2}
+  _audioCueChannel: {fileID: 11400000, guid: e0b3e965b093069419ea9a1605492a77, type: 2}

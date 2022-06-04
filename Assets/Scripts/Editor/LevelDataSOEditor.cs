@@ -20,6 +20,8 @@ namespace Editor
             level.LevelImage = (Sprite)EditorGUILayout.ObjectField("Level Image", level.LevelImage, typeof(Sprite), false);
             level.Visited = EditorGUILayout.Toggle("Visited", level.Visited);
             level.Completed = EditorGUILayout.Toggle("Completed", level.Completed);
+            level.LevelMusicAudioCueSo = (AudioCueSo) EditorGUILayout.ObjectField("Level Music",
+                level.LevelMusicAudioCueSo, typeof(AudioCueSo), false);
 
 
             EditorGUI.BeginChangeCheck();

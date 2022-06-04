@@ -55,5 +55,20 @@ namespace Audio
             yield return new WaitForSeconds(clipLength);
             OnSoundFinishedPlaying?.Invoke(this);
         }
+
+        public float GetVolume()
+        {
+            return _audioSource.volume;
+        }
+
+        public void SetVolume(float volume)
+        {
+            _audioSource.volume = volume;
+        }
+
+        public bool IsPlaying()
+        {
+            return _audioSource.isPlaying;
+        }
     }
 }

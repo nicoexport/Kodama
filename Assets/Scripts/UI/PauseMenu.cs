@@ -1,4 +1,5 @@
 using Architecture;
+using Audio;
 using Scriptable;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -42,6 +43,7 @@ namespace UI
             if (paused) return;
             Time.timeScale = 0f;
             InputManager.ToggleActionMap(InputManager.playerInputActions.PauseMenu);
+            AudioManager.Instance.PauseMusic();
             canvas.gameObject.SetActive(true);
             primaryButton.Select();
             paused = true;
@@ -58,6 +60,7 @@ namespace UI
             if (!paused) return;
             Time.timeScale = 1f;
             InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
+            AudioManager.Instance.ResumeMusic();
             canvas.gameObject.SetActive(false);
             paused = false;
         }
