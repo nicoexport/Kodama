@@ -44,9 +44,9 @@ namespace Player.MovementStates
             InputManager.playerInputActions.Player.Jump.canceled += StopJumping;
             character.wantjump = false;
             touchingWall = false;
-            horizontalForce = character.horizontalWallJumpForce;
-            verticalForce = character.verticalWallJumpForce;
-            keepJumpingTimer = character.wallJumpTimer;
+            horizontalForce = character.MovementValues.horizontalWallJumpForce;
+            verticalForce = character.MovementValues.verticalWallJumpForce;
+            keepJumpingTimer = character.MovementValues.wallJumpTimer;
             if (InputManager.playerInputActions.Player.Jump.ReadValue<float>() > 0f) keepJumping = true;
             WallJump(horizontalForce, verticalForce);
         }

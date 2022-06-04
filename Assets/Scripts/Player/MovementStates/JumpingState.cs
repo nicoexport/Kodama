@@ -34,9 +34,9 @@ namespace Player.MovementStates
             base.Enter();
             character.wantjump = false;
             InputManager.playerInputActions.Player.Jump.canceled += StopJumping;
-            keepJumpingTimer = character.longJumpTimer;
+            keepJumpingTimer = character.MovementValues.longJumpTimer;
             if (InputManager.playerInputActions.Player.Jump.ReadValue<float>() > 0f) keepJumping = true;
-            Jump(character.jumpForce);
+            Jump(character.MovementValues.jumpForce);
         }
 
         public override void Exit()
@@ -63,7 +63,7 @@ namespace Player.MovementStates
             if (keepJumping && keepJumpingTimer > 0f)
             {
 
-                var force = new Vector2(0f, character.jumpForce * character.longJumpMultiplier);
+                var force = new Vector2(0f, character.MovementValues.jumpForce * character.MovementValues.longJumpMultiplier);
                 character.rb.AddForce(force, ForceMode2D.Force);
 
                 keepJumpingTimer -= Time.deltaTime;

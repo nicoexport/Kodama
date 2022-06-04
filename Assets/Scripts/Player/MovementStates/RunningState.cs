@@ -10,7 +10,7 @@ namespace Player.MovementStates
         public override void Enter()
         {
             base.Enter();
-            speed = character.movementSpeed;
+            speed = character.MovementValues.moveSpeed;
             running = true;
         }
 

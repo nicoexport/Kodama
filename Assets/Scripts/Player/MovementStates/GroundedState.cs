@@ -21,7 +21,7 @@ namespace Player.MovementStates
         public override void Enter()
         {
             base.Enter();
-            additionalDrag = character.groundDecelDrag;
+            additionalDrag = character.MovementValues.groundDecelDrag;
             grounded = true;
             horizontalInput = 0.0f;
             InputManager.playerInputActions.Player.Jump.started += ChangeToJump;

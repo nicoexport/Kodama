@@ -11,36 +11,17 @@ namespace Player
     [RequireComponent(typeof(CharacterLifeHandler))]
     public class Character : MonoBehaviour
     {
-        [SerializeField]
-        private CharacterMovementValues defaultMovementValues;
+        [field: SerializeField]
+        public CharacterMovementValues MovementValues { get; private set; }
         [SerializeField]
         private CharacterRuntimeSet characterRuntimeSet;
-
-        public float movementSpeed { get; private set; }
-        public float airMovementSpeed { get; private set; }
-        public float maxVelocityX { get; private set; }
-        public float jumpForce { get; private set; }
-        public float groundDecelDrag { get; private set; }
-        private float jumpInputTimerMax;
+        
         private float jumpInputTimer;
-
-        public float horizontalInputTimer { get; private set; }
+        
         [HideInInspector]
         public float hasPressedRightTimer;
         [HideInInspector]
         public float hasPressedLeftTimer;
-
-        public float longJumpMultiplier { get; private set; }
-        public float longJumpTimer { get; private set; }
-
-        public float wallSlideInputThresh { get; private set; }
-        public float horizontalWallJumpForce { get; private set; }
-        public float verticalWallJumpForce { get; private set; }
-        public float wallJumpTimer { get; private set; }
-
-        public float normalGravity { get; private set; }
-        public float fastFallGravity { get; private set; }
-        public float wallslidingGravity { get; private set; }
 
 
         public float spawnDelay = 1f;
@@ -93,7 +74,6 @@ namespace Player
 
         private void Awake()
         {
-            ReadMovementValues(defaultMovementValues);
             rb = GetComponent<Rigidbody2D>();
             cAnimController = GetComponent<CharacterAnimationController>();
             LifeHandler = GetComponent<CharacterLifeHandler>();
@@ -142,7 +122,7 @@ namespace Player
         private void StartJumpInputTimer(InputAction.CallbackContext context)
         {
             wantjump = true;
-            jumpInputTimer = jumpInputTimerMax;
+            jumpInputTimer = MovementValues.jumpInputTimerMax;
         }
 
         // Method used for moving the character left and right
@@ -151,8 +131,8 @@ namespace Player
             // rb.velocity = new Vector2(horizontalMove * speed * Time.deltaTime * 10f, rb.velocity.y);
             var newForce = new Vector2(horizontalMove * Time.deltaTime * speed, 0f);
             rb.AddForce(newForce, ForceMode2D.Impulse);
-            if (rb.velocity.x > maxVelocityX) rb.velocity = new Vector2(maxVelocityX, rb.velocity.y);
-            else if (rb.velocity.x < -maxVelocityX) rb.velocity = new Vector2(-maxVelocityX, rb.velocity.y);
+            if (rb.velocity.x > MovementValues.maxVelocityX) rb.velocity = new Vector2(MovementValues.maxVelocityX, rb.velocity.y);
+            else if (rb.velocity.x < -MovementValues.maxVelocityX) rb.velocity = new Vector2(-MovementValues.maxVelocityX, rb.velocity.y);
             if (logVelocity) Debug.Log("Velocity x: " + rb.velocity.x + " y: " + rb.velocity.y);
         }
 
@@ -173,7 +153,7 @@ namespace Player
     
         public void ResetMoveParams()
         {
-            rb.gravityScale = normalGravity;
+            rb.gravityScale = MovementValues.normalGravity;
         }
 
         public State GetState()
@@ -189,7 +169,7 @@ namespace Player
         private void UpdateVisuals()
         {
             var touchingWall = CheckCollisionOverlap(frontCheck.position, frontCheckRadius);
-            cAnimController.SetAnimationState(movementSm.CurrentState, InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x, rb.velocity.x, maxVelocityX, touchingWall);
+            cAnimController.SetAnimationState(movementSm.CurrentState, InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x, rb.velocity.x, MovementValues.maxVelocityX, touchingWall);
         }
 
         private void InitializeStates()
@@ -209,27 +189,6 @@ namespace Player
         private void InitializeStateMachine(State state)
         {
             movementSm.Initialize(state);
-        }
-
-        private void ReadMovementValues(CharacterMovementValues values)
-        {
-            movementSpeed = values.moveSpeed;
-            airMovementSpeed = values.airMoveSpeed;
-            maxVelocityX = values.maxVelocityX;
-            groundDecelDrag = values.groundDecelDrag;
-            jumpForce = values.jumpForce;
-            jumpInputTimerMax = values.jumpInputTimerMax;
-            horizontalInputTimer = values.horizontalInputTimer;
-            longJumpMultiplier = values.longJumpMultiplier;
-            longJumpTimer = values.longJumpTimer;
-            wallSlideInputThresh = values.wallSlideInputThresh;
-            horizontalWallJumpForce = values.horizontalWallJumpForce;
-            verticalWallJumpForce = values.verticalWallJumpForce;
-            wallJumpTimer = values.wallJumpTimer;
-            normalGravity = values.normalGravity;
-            fastFallGravity = values.fastFallGravity;
-            wallslidingGravity = values.wallslidingGravity;
-            Debug.Log(longJumpTimer);
         }
 
         private void CountDownInputTimer()

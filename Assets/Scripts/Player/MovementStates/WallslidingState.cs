@@ -23,15 +23,15 @@ namespace Player.MovementStates
             InputManager.playerInputActions.Player.Jump.performed += ChangeToWallJumping;
             touchingWall = true;
             grounded = false;
-            speed = character.movementSpeed;
+            speed = character.MovementValues.moveSpeed;
             //For now with Gravity scale maybe use custom friction to slow down upwards momentum too
-            character.rb.gravityScale = character.wallslidingGravity;
+            character.rb.gravityScale = character.MovementValues.wallslidingGravity;
         }
 
         public override void Exit()
         {
             base.Exit();
-            character.rb.gravityScale = character.normalGravity;
+            character.rb.gravityScale = character.MovementValues.normalGravity;
             InputManager.playerInputActions.Player.Jump.performed -= ChangeToWallJumping;
 
         }

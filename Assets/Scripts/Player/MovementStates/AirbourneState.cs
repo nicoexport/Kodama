@@ -23,7 +23,7 @@ namespace Player.MovementStates
             grounded = false;
             touchingWall = false;
             touchingCeiling = false;
-            airStrafeSpeed = character.airMovementSpeed;
+            airStrafeSpeed = character.MovementValues.airMoveSpeed;
         }
 
         public override void Exit()
@@ -41,12 +41,12 @@ namespace Player.MovementStates
             if (horizontalInput > 0f)
             {
                 character.hasPressedRight = true;
-                character.hasPressedRightTimer = character.horizontalInputTimer;
+                character.hasPressedRightTimer = character.MovementValues.horizontalInputTimer;
             }
             if (horizontalInput < 0f)
             {
                 character.hasPressedLeft = true;
-                character.hasPressedLeftTimer = character.horizontalInputTimer;
+                character.hasPressedLeftTimer = character.MovementValues.horizontalInputTimer;
             }
         }
 
@@ -76,10 +76,10 @@ namespace Player.MovementStates
             // Air strafing
             character.Move(horizontalInput, airStrafeSpeed);
             // fast falling
-            if (verticalInput <= -0.75f) character.rb.gravityScale = character.fastFallGravity;
+            if (verticalInput <= -0.75f) character.rb.gravityScale = character.MovementValues.fastFallGravity;
             else if (stateMachine.CurrentState != character.wallsliding)
             {
-                character.rb.gravityScale = character.normalGravity;
+                character.rb.gravityScale = character.MovementValues.normalGravity;
             }
         }
     }
