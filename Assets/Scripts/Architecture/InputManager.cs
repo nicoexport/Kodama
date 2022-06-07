@@ -9,7 +9,7 @@ namespace Architecture
     public class InputManager : MonoBehaviour
     {
         [SerializeField] private DeviceMapSo _deviceMap;
-        public static PlayerInputActions playerInputActions { get; private set; }
+        public static INPUT_PlayerInputActions playerInputActions { get; private set; }
         public static event Action<InputActionMap> OnActionMapChange;
         public static event Action<InputDevice> OnInputDeviceChanged;
         public static InputDevice CurrentInputDevice { get; private set; }
@@ -21,7 +21,7 @@ namespace Architecture
         {
             _playerInput = GetComponent<PlayerInput>();
             CurrentInputDevice = _playerInput.devices[0];
-            playerInputActions = new PlayerInputActions();
+            playerInputActions = new INPUT_PlayerInputActions();
             FillDeviceMapDict();
             print("INPUT MANAGER CURRENT INPUT DEVICE: " + CurrentInputDevice);
         }
@@ -80,6 +80,12 @@ namespace Architecture
             {
                 return null;
             }
+        }
+
+        public static float GetHorizontalMovementValue()
+        {
+            var input = playerInputActions.Player.HorizontalMovement.ReadValue<float>();
+            return input;
         }
 
     }

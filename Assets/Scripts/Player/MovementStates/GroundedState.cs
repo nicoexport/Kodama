@@ -37,7 +37,7 @@ namespace Player.MovementStates
         public override void HandleInput()
         {
             base.HandleInput();
-            horizontalInput = InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
+            horizontalInput = InputManager.GetHorizontalMovementValue();
         }
 
         public override void LogicUpdate()
@@ -54,6 +54,7 @@ namespace Player.MovementStates
         {
             base.PhysicsUpdate();
             character.Move(horizontalInput, speed);
+            Debug.Log(horizontalInput);
             grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
             // if (Mathf.Abs(character.rb.velocity.x) <= stoppingThresh && horizontalInput == 0f) character.rb.velocity = Vector2.zero;
             if (horizontalInput == 0)

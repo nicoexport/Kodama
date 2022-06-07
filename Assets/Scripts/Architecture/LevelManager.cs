@@ -59,9 +59,10 @@ namespace Architecture
             if (Context.Instance != null) Context.Instance.UnRegisterContextManager(this);
             LevelTimer.OnTimerFinished -= BroadCastFinishedTimer;
         }
-
-        private void Awake()
+        
+        protected override void Awake()
         {
+            base.Awake();
             _levelFlowManager = GetComponent<LevelFlowManager>();
             _playerManager = GetComponent<PlayerManager>();
             

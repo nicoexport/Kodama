@@ -41,7 +41,7 @@ public partial class @INPUT_PlayerInputActions : IInputActionCollection2, IDispo
                     ""type"": ""Value"",
                     ""id"": ""79cfe0c7-31e9-404b-afaf-ee5e7ae23c7a"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
@@ -53,6 +53,15 @@ public partial class @INPUT_PlayerInputActions : IInputActionCollection2, IDispo
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HorizontalMovement"",
+                    ""type"": ""Value"",
+                    ""id"": ""30108f23-df87-45d4-9301-87d078cf8000"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -147,7 +156,7 @@ public partial class @INPUT_PlayerInputActions : IInputActionCollection2, IDispo
                 {
                     ""name"": ""2D Vector"",
                     ""id"": ""9d0ad72a-790e-472e-8e0d-dc81f15dd03c"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -218,6 +227,17 @@ public partial class @INPUT_PlayerInputActions : IInputActionCollection2, IDispo
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""775f0577-8161-4104-90b2-393075a7ce27"",
+                    ""path"": ""<Gamepad>/leftStick/x"",
+                    ""interactions"": """",
+                    ""processors"": ""AxisDeadzone"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""HorizontalMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -932,6 +952,7 @@ public partial class @INPUT_PlayerInputActions : IInputActionCollection2, IDispo
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_HorizontalMovement = m_Player.FindAction("HorizontalMovement", throwIfNotFound: true);
         // PauseMenu
         m_PauseMenu = asset.FindActionMap("PauseMenu", throwIfNotFound: true);
         m_PauseMenu_Unpause = m_PauseMenu.FindAction("Unpause", throwIfNotFound: true);
@@ -1014,6 +1035,7 @@ public partial class @INPUT_PlayerInputActions : IInputActionCollection2, IDispo
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_HorizontalMovement;
     public struct PlayerActions
     {
         private @INPUT_PlayerInputActions m_Wrapper;
@@ -1021,6 +1043,7 @@ public partial class @INPUT_PlayerInputActions : IInputActionCollection2, IDispo
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @HorizontalMovement => m_Wrapper.m_Player_HorizontalMovement;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1039,6 +1062,9 @@ public partial class @INPUT_PlayerInputActions : IInputActionCollection2, IDispo
                 @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @HorizontalMovement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHorizontalMovement;
+                @HorizontalMovement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHorizontalMovement;
+                @HorizontalMovement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHorizontalMovement;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1052,6 +1078,9 @@ public partial class @INPUT_PlayerInputActions : IInputActionCollection2, IDispo
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @HorizontalMovement.started += instance.OnHorizontalMovement;
+                @HorizontalMovement.performed += instance.OnHorizontalMovement;
+                @HorizontalMovement.canceled += instance.OnHorizontalMovement;
             }
         }
     }
@@ -1266,6 +1295,7 @@ public partial class @INPUT_PlayerInputActions : IInputActionCollection2, IDispo
         void OnJump(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnHorizontalMovement(InputAction.CallbackContext context);
     }
     public interface IPauseMenuActions
     {

@@ -44,4 +44,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level/World 0/SCENE_Sky_4.unity
     guid: af606c163db00724984e166d91cdb865
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: b49facfbf6ce807469806eede1831599, type: 2}

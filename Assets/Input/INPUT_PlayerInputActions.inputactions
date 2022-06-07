@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInputActions",
+    "name": "INPUT_PlayerInputActions",
     "maps": [
         {
             "name": "Player",
@@ -19,7 +19,7 @@
                     "type": "Value",
                     "id": "79cfe0c7-31e9-404b-afaf-ee5e7ae23c7a",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "StickDeadzone",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "HorizontalMovement",
+                    "type": "Value",
+                    "id": "30108f23-df87-45d4-9301-87d078cf8000",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -125,7 +134,7 @@
                 {
                     "name": "2D Vector",
                     "id": "9d0ad72a-790e-472e-8e0d-dc81f15dd03c",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -196,6 +205,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "775f0577-8161-4104-90b2-393075a7ce27",
+                    "path": "<Gamepad>/leftStick/x",
+                    "interactions": "",
+                    "processors": "AxisDeadzone",
+                    "groups": "Gamepad",
+                    "action": "HorizontalMovement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
