@@ -70,11 +70,10 @@ namespace Player.MovementStates
                 character.rb.velocity = newVelocity;
             }
         }
-
+        
         private void ChangeToJump(InputAction.CallbackContext context)
         {
             stateMachine.ChangeState(character.jumping);
         }
-
     }
 }
