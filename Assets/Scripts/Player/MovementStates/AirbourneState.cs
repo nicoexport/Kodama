@@ -34,8 +34,8 @@ namespace Player.MovementStates
         public override void HandleInput()
         {
             base.HandleInput();
-            horizontalInput = InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
-            verticalInput = InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().y;
+            horizontalInput = InputManager.GetHorizontalMovementValue();
+            verticalInput = InputManager.GetVerticalMovementValue();
 
             // starting input timer for horizontal input
             if (horizontalInput > 0f)

@@ -9,19 +9,24 @@ namespace Architecture
     public class InputManager : MonoBehaviour
     {
         [SerializeField] private DeviceMapSo _deviceMap;
-        public static INPUT_PlayerInputActions playerInputActions { get; private set; }
+        public static PlayerInputActions playerInputActions { get; private set; }
         public static event Action<InputActionMap> OnActionMapChange;
         public static event Action<InputDevice> OnInputDeviceChanged;
         public static InputDevice CurrentInputDevice { get; private set; }
+
+       
+        static float _movementDeadZoneMin = 0.5f;
+      
+        static float _movementDeadZoneMax = 0.925f;
     
-        private static PlayerInput _playerInput;
-        private static readonly Dictionary<string, GeneralDeviceType> _deviceMapDictionary = new Dictionary<string, GeneralDeviceType>();
+        static PlayerInput _playerInput;
+        static readonly Dictionary<string, GeneralDeviceType> _deviceMapDictionary = new Dictionary<string, GeneralDeviceType>();
 
         private void Awake()
         {
             _playerInput = GetComponent<PlayerInput>();
             CurrentInputDevice = _playerInput.devices[0];
-            playerInputActions = new INPUT_PlayerInputActions();
+            playerInputActions = new PlayerInputActions();
             FillDeviceMapDict();
             print("INPUT MANAGER CURRENT INPUT DEVICE: " + CurrentInputDevice);
         }
@@ -85,8 +90,29 @@ namespace Architecture
         public static float GetHorizontalMovementValue()
         {
             var input = playerInputActions.Player.HorizontalMovement.ReadValue<float>();
+            if (Mathf.Abs(input) < _movementDeadZoneMin) 
+                return 0f;
+            if (Mathf.Abs(input) > _movementDeadZoneMax)
+            {
+                if (input < 0)
+                    return -1f;
+                else return 1f;
+            }
             return input;
         }
 
+        public static float GetVerticalMovementValue()
+        {
+            var input = playerInputActions.Player.VerticalMovement.ReadValue<float>();
+            if (Mathf.Abs(input) < _movementDeadZoneMin) 
+                return 0f;
+            if (Mathf.Abs(input) > _movementDeadZoneMax)
+            {
+                if (input < 0)
+                    return -1f;
+                else return 1f;
+            }
+            return input;
+        }
     }
 }

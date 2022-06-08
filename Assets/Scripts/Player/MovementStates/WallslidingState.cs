@@ -39,7 +39,7 @@ namespace Player.MovementStates
         public override void HandleInput()
         {
             base.HandleInput();
-            var hInput = InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x;
+            var hInput = InputManager.GetHorizontalMovementValue();
             if (Mathf.Abs(hInput) >= 0.7f)
                 horizontalInput = hInput;
         }

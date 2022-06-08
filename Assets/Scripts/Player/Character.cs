@@ -169,7 +169,7 @@ namespace Player
         private void UpdateVisuals()
         {
             var touchingWall = CheckCollisionOverlap(frontCheck.position, frontCheckRadius);
-            cAnimController.SetAnimationState(movementSm.CurrentState, InputManager.playerInputActions.Player.Movement.ReadValue<Vector2>().x, rb.velocity.x, MovementValues.maxVelocityX, touchingWall);
+            cAnimController.SetAnimationState(movementSm.CurrentState, InputManager.GetHorizontalMovementValue(), rb.velocity.x, MovementValues.maxVelocityX, touchingWall);
         }
 
         private void InitializeStates()
