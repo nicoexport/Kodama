@@ -11,6 +11,7 @@ namespace Player.MovementStates
         {
             base.Enter();
             speed = character.MovementValues.moveSpeed;
+            sprintSpeed = character.MovementValues.sprintSpeed;
             running = true;
         }
 

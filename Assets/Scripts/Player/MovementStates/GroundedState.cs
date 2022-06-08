@@ -8,11 +8,13 @@ namespace Player.MovementStates
     {
         private float horizontalInput;
         private float additionalDrag;
-
+        
         protected bool grounded;
         protected float speed;
+        protected float sprintSpeed;
         protected bool running;
-
+        protected bool sprinting;
+        
         public GroundedState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
 
@@ -38,6 +40,7 @@ namespace Player.MovementStates
         {
             base.HandleInput();
             horizontalInput = InputManager.GetHorizontalMovementValue();
+            sprinting = InputManager.playerInputActions.Player.Sprinting.IsPressed();
         }
 
         public override void LogicUpdate()
@@ -53,7 +56,7 @@ namespace Player.MovementStates
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-            character.Move(horizontalInput, speed);
+            character.Move(horizontalInput, sprinting ? sprintSpeed : speed);
             grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
             if (horizontalInput == 0)
             {

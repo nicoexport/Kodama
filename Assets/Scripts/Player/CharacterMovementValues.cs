@@ -7,7 +7,9 @@ namespace Player
     {
         [Header("Moving")]
         public float moveSpeed = 250f;
+        public float sprintSpeed = 300f;
         public float airMoveSpeed = 250f;
+        public float airSprintSpeed = 300f;
         public float maxVelocityX = 25f;
         public float groundDecelDrag = 15f;
 

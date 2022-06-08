@@ -12,6 +12,9 @@ namespace Player.MovementStates
         public bool touchingWall;
         public bool touchingCeiling;
 
+        protected float sprintSpeed;
+        protected bool sprinting;
+
         public AirbourneState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
 
@@ -24,19 +27,15 @@ namespace Player.MovementStates
             touchingWall = false;
             touchingCeiling = false;
             airStrafeSpeed = character.MovementValues.airMoveSpeed;
+            sprintSpeed = character.MovementValues.sprintSpeed;
         }
-
-        public override void Exit()
-        {
-            base.Exit();
-        }
-
+        
         public override void HandleInput()
         {
             base.HandleInput();
             horizontalInput = InputManager.GetHorizontalMovementValue();
             verticalInput = InputManager.GetVerticalMovementValue();
-
+            sprinting = InputManager.playerInputActions.Player.Sprinting.IsPressed();
             // starting input timer for horizontal input
             if (horizontalInput > 0f)
             {
@@ -74,7 +73,7 @@ namespace Player.MovementStates
             // ceiling checking
             touchingCeiling = (character.CheckCollisionOverlap(character.ceilingCheck.position, character.ceilingCheckRadius)) || (character.CheckCollisionOverlap(character.ceilingCheck1.position, character.ceilingCheckRadius));
             // Air strafing
-            character.Move(horizontalInput, airStrafeSpeed);
+            character.Move(horizontalInput, sprinting? sprintSpeed : airStrafeSpeed);
             // fast falling
             if (verticalInput <= -0.75f) character.rb.gravityScale = character.MovementValues.fastFallGravity;
             else if (stateMachine.CurrentState != character.wallsliding)
