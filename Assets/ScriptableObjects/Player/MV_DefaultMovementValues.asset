@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: MV_DefaultMovementValues
   m_EditorClassIdentifier: 
   moveSpeed: 250
+  sprintSpeed: 500
   airMoveSpeed: 250
+  airSprintSpeed: 300
   maxVelocityX: 40
   groundDecelDrag: 15
   jumpForce: 70
