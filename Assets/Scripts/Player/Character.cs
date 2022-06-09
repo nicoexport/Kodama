@@ -15,7 +15,6 @@ namespace Player
         public CharacterMovementValues MovementValues { get; private set; }
         [SerializeField]
         private CharacterRuntimeSet characterRuntimeSet;
-        
         private float jumpInputTimer;
         
         [HideInInspector]
@@ -71,6 +70,8 @@ namespace Player
         private StateMachine movementSm;
         private CharacterAnimationController cAnimController;
         public CharacterLifeHandler LifeHandler { get; private set; }
+
+        [HideInInspector] public bool wasGrounded;
 
         private void Awake()
         {
@@ -200,8 +201,17 @@ namespace Player
             if (hasPressedRightTimer > 0f) hasPressedRightTimer -= Time.fixedDeltaTime;
             if (hasPressedRightTimer <= 0f) hasPressedRight = false;
         }
-    
-        private void AddCharacterToRuntimeSet()
+
+        public void SetWasGroundedTrue()
+        {
+            wasGrounded = true;
+            StartCoroutine(Utilities.ActionAfterDelayEnumerator(MovementValues.hangTime, () =>
+            {
+                wasGrounded = false;
+            }));
+        }
+        
+        void AddCharacterToRuntimeSet()
         {
             if (characterRuntimeSet.IsEmpty())
             {
@@ -212,8 +222,7 @@ namespace Player
                 Debug.Log("Player already exists");
             }
         }
-
-
+        
         // visualizing the groundCheckRadius
         void OnDrawGizmosSelected()
         {

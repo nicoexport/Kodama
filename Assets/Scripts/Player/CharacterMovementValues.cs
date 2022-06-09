@@ -20,6 +20,7 @@ namespace Player
         public float horizontalInputTimer = 0.3f;
         public float longJumpMultiplier = 4f;
         public float longJumpTimer = 0.35f;
+        public float hangTime = 0.15f;
 
         [Header("Walljumping")]
         [Range(0f, 1f)]

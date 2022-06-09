@@ -33,6 +33,7 @@ namespace Player.MovementStates
         public override void Exit()
         {
             base.Exit();
+            character.SetWasGroundedTrue();
             InputManager.playerInputActions.Player.Jump.started -= ChangeToJump;
         }
 

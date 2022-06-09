@@ -1,5 +1,6 @@
 using Architecture;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Player.MovementStates
 {
@@ -28,6 +29,13 @@ namespace Player.MovementStates
             touchingCeiling = false;
             airStrafeSpeed = character.MovementValues.airMoveSpeed;
             sprintSpeed = character.MovementValues.sprintSpeed;
+            InputManager.playerInputActions.Player.Jump.started += ChangeToJump;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            InputManager.playerInputActions.Player.Jump.started -= ChangeToJump;
         }
         
         public override void HandleInput()
@@ -80,6 +88,13 @@ namespace Player.MovementStates
             {
                 character.rb.gravityScale = character.MovementValues.normalGravity;
             }
+        }
+
+        void ChangeToJump(InputAction.CallbackContext context)
+        {
+            if (!character.wasGrounded || stateMachine.CurrentState == character.jumping)
+                return;
+            stateMachine.ChangeState(character.jumping);
         }
     }
 }
