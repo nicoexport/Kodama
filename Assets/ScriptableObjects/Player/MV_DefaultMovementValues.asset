@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a8bf131ad3db64892f3f6664d2500c, type: 3}
   m_Name: MV_DefaultMovementValues
   m_EditorClassIdentifier: 
-  moveSpeed: 250
-  sprintSpeed: 500
-  airMoveSpeed: 250
-  airSprintSpeed: 300
+  moveSpeed: 270
+  sprintSpeed: 370
+  airMoveSpeed: 270
+  airSprintSpeed: 370
   maxVelocityX: 40
-  groundDecelDrag: 15
-  jumpForce: 70
+  groundDecelDrag: 50
+  jumpForce: 80
   jumpInputTimerMax: 0.1
   horizontalInputTimer: 0.3
   longJumpMultiplier: 5
   longJumpTimer: 0.35
   wallSlideInputThresh: 0
   horizontalWallJumpForce: 50
-  verticalWallJumpForce: 100
-  wallJumpTimer: 0.5
-  normalGravity: 11
-  fastFallGravity: 15
-  wallslidingGravity: 2
+  verticalWallJumpForce: 140
+  wallJumpTimer: 1.5
+  normalGravity: 12.1
+  fastFallGravity: 16
+  wallslidingGravity: 6

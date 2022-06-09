@@ -74,6 +74,7 @@ namespace Player.MovementStates
 
             if (keepJumping && keepJumpingTimer > 0f)
             {
+                Debug.Log(keepJumpingTimer);
                 var force = new Vector2(0f, verticalForce);
                 character.rb.AddForce(force, ForceMode2D.Force);
                 keepJumpingTimer -= Time.deltaTime;
