@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Player.MovementStates
 {
-    public class JumpingState : AirbourneState
+    public class JumpingState : AirborneState
     {
         private float keepJumpingTimer;
         private bool keepJumping;

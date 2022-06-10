@@ -1,6 +1,6 @@
 namespace Player.MovementStates
 {
-    public class FallingState : AirbourneState
+    public class FallingState : AirborneState
     {
         public FallingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {

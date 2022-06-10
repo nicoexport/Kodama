@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Player.MovementStates
 {
-    public class WalljumpingState : AirbourneState
+    public class WalljumpingState : AirborneState
     {
         private float horizontalForce;
         private float verticalForce;

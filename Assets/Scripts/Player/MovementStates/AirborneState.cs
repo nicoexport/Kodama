@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Player.MovementStates
 {
-    public class AirbourneState : State
+    public class AirborneState : State
     {
         private float horizontalInput;
         private float verticalInput;
@@ -16,7 +16,7 @@ namespace Player.MovementStates
         protected float sprintSpeed;
         protected bool sprinting;
 
-        public AirbourneState(StateMachine stateMachine, Character character) : base(stateMachine, character)
+        public AirborneState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
 
         }
