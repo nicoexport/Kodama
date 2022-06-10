@@ -123,7 +123,7 @@ namespace Player
         private void StartJumpInputTimer(InputAction.CallbackContext context)
         {
             wantjump = true;
-            jumpInputTimer = MovementValues.jumpInputTimerMax;
+            jumpInputTimer = MovementValues.jumpInputTimer;
         }
 
         // Method used for moving the character left and right

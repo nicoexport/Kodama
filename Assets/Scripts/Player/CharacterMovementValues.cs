@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -15,8 +16,8 @@ namespace Player
 
         [Header("Jumping")]
         public float jumpForce = 50f;
-        [Range(0f, 0.5f)]
-        public float jumpInputTimerMax = 0.1f;
+        [FormerlySerializedAs("jumpInputTimerMax")] [Range(0f, 0.5f)]
+        public float jumpInputTimer = 0.1f;
         public float horizontalInputTimer = 0.3f;
         public float longJumpMultiplier = 4f;
         public float longJumpTimer = 0.35f;
