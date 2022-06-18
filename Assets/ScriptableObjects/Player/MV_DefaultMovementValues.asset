@@ -27,7 +27,8 @@ MonoBehaviour:
   wallSlideInputThresh: 0
   horizontalWallJumpForce: 50
   verticalWallJumpForce: 140
-  wallJumpTimer: 1.5
+  wallJumpTimer: 0.35
+  wallLongJumpMultiplier: 1.5
   normalGravity: 12.1
   fastFallGravity: 16
   wallslidingGravity: 6

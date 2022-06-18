@@ -29,7 +29,7 @@ namespace Player
         public float horizontalWallJumpForce = 50f;
         public float verticalWallJumpForce = 90f;
         public float wallJumpTimer = 0.5f;
-
+        public float wallLongJumpMultiplier = 5f;
         [Header("Gravity")]
         public float normalGravity = 7f;
         public float fastFallGravity = 10f;
