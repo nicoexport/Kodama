@@ -6,14 +6,13 @@ namespace Player.MovementStates
 {
     public class GroundedState : State
     {
-        private float horizontalInput;
-        private float additionalDrag;
-        
-        protected bool grounded;
+        float horizontalInput;
+        float additionalDrag;
+        bool grounded;
+        bool sprinting;
         protected float speed;
         protected float sprintSpeed;
         protected bool running;
-        protected bool sprinting;
         
         public GroundedState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {

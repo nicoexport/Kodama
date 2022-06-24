@@ -9,12 +9,12 @@ namespace Player.MovementStates
         private float horizontalInput;
         private float verticalInput;
         private float airStrafeSpeed;
-        public bool grounded;
-        public bool touchingWall;
-        public bool touchingCeiling;
+        bool grounded;
+        protected bool touchingWall;
+        bool touchingCeiling;
 
-        protected float sprintSpeed;
-        protected bool sprinting;
+        float sprintSpeed;
+        bool sprinting;
 
         public AirborneState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
@@ -57,6 +57,7 @@ namespace Player.MovementStates
             }
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public override void LogicUpdate()
         {
             base.LogicUpdate();
@@ -71,12 +72,13 @@ namespace Player.MovementStates
             if (horizontalInput < 0 && character.facingRight) character.Flip();
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
             // ground checking
             grounded = character.CheckCollisionOverlap(character.groundCheck.position, character.groundCheckRadius);
-            //wallchecking
+            //wall checking
             touchingWall = character.CheckCollisionOverlap(character.frontCheck.position, character.frontCheckRadius);
             // ceiling checking
             touchingCeiling = (character.CheckCollisionOverlap(character.ceilingCheck.position, character.ceilingCheckRadius)) || (character.CheckCollisionOverlap(character.ceilingCheck1.position, character.ceilingCheckRadius));
