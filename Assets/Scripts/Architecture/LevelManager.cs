@@ -19,7 +19,6 @@ namespace Architecture
         [FormerlySerializedAs("SessionData")] 
         [SerializeField] SessionData _sessionData;
         [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
-        [SerializeField] VoidEventChannelSO _returnToWorldScreenEvent;
         
         [Header("Level Summary")]
         [SerializeField]
@@ -55,33 +54,17 @@ namespace Architecture
 
         private void Start() 
         {
-            SetLevelData();
+            SetActiveLevelData();
             StartLevel();
-        }
-
-        void SetLevelData()
-        {
-            _activeLevelData = GetLevelData();
-            if (_activeLevelData != null)
-            {
-                _activeLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
-                _sessionData.CurrentLevel = _activeLevelData;
-                _sessionData.CurrentWorld = Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, _sessionData);
-            }
         }
 
         void StartLevel()
         {
-            ResetResettables();
-            OnLevelStart?.Invoke();
-        }
-
-        void ResetResettables()
-        {
             foreach (var resettable in  _resettableRuntimeSet.GetItemList())
             {
                 resettable.ResetResettable();
-            }    
+            }   
+            OnLevelStart?.Invoke();
         }
 
         private void CompleteLevel()
@@ -91,6 +74,7 @@ namespace Architecture
                 Debug.LogWarningFormat("LEVEL EXIT: {0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
                 return;
             }
+            
             _activeLevelData.Completed = true;
             OnLevelComplete?.Invoke(_activeLevelData);
             InputManager.DisableInput();
@@ -131,6 +115,17 @@ namespace Architecture
             InputManager.playerInputActions.Disable();
             InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started -= FinishLevelAndReturnToWorldMode;
+        }
+        
+        void SetActiveLevelData()
+        {
+            _activeLevelData = GetLevelData();
+            if (_activeLevelData != null)
+            {
+                _activeLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
+                _sessionData.CurrentLevel = _activeLevelData;
+                _sessionData.CurrentWorld = Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, _sessionData);
+            }
         }
 
         private LevelData GetLevelData()
