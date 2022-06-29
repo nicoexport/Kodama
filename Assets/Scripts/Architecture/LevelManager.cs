@@ -20,9 +20,6 @@ namespace Architecture
         [SerializeField] SessionData _sessionData;
         [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
         
-        [Header("Level Summary")]
-        [SerializeField]
-        private float levelSummaryContinueDelay = 2f;
         LevelFlowHandler levelFlowHandler;
         PlayerManager _playerManager;
         LevelData _activeLevelData;
@@ -31,14 +28,14 @@ namespace Architecture
         public static event Action OnLevelStart;
         public static event Action<float, bool> OnTimerFinished;
 
-        private void OnEnable()
+        protected void OnEnable()
         {
             LevelTimer.OnTimerFinished += BroadCastFinishedTimer;
             PlayerManager.OnPlayerDied += StartLevel;
             LevelWin.OnLevelWon += CompleteLevel;
         }
 
-        private void OnDisable()
+        protected void OnDisable()
         {
             LevelTimer.OnTimerFinished -= BroadCastFinishedTimer;
             PlayerManager.OnPlayerDied -= StartLevel;
@@ -52,7 +49,7 @@ namespace Architecture
             _playerManager = GetComponent<PlayerManager>();
         }
 
-        private void Start() 
+        protected void Start() 
         {
             SetActiveLevelData();
             _playerManager.SpawnPlayer();
@@ -68,7 +65,7 @@ namespace Architecture
             OnLevelStart?.Invoke();
         }
 
-        private void CompleteLevel()
+        void CompleteLevel()
         {
             if (_activeLevelData == null)
             {
@@ -77,47 +74,30 @@ namespace Architecture
             }
             
             _activeLevelData.Completed = true;
-            OnLevelComplete?.Invoke(_activeLevelData);
             InputManager.DisableInput();
+            OnLevelComplete?.Invoke(_activeLevelData);
+            
             AudioManager.Instance.StopMusic();
-            EnableSummaryInput();
         }
 
-        private void BroadCastFinishedTimer(float timer)
+        void BroadCastFinishedTimer(float timer)
         {
             var newRecord = _activeLevelData.UpdateRecordTime(timer);
             OnTimerFinished?.Invoke(timer, newRecord);
         }
 
-        private void LoadNextLevel(InputAction.CallbackContext context)
+        public void LoadNextLevel()
         {
-            DisableSummaryInput();
+            InputManager.playerInputActions.Disable();
             levelFlowHandler.NextLevelRequest(_activeLevelData);
         }
 
-        private void FinishLevelAndReturnToWorldMode(InputAction.CallbackContext context)
+        public void FinishAndReturnToWorldMode()
         {
-            DisableSummaryInput();
+            InputManager.playerInputActions.Disable();
             levelFlowHandler.FinishLevelAndExit(_activeLevelData);
         }
 
-        private void EnableSummaryInput()
-        {
-            InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSummary);
-            InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
-            StartCoroutine(Utilities.ActionAfterDelayEnumerator(levelSummaryContinueDelay, () =>
-            {
-                InputManager.playerInputActions.LevelSummary.Return.started += FinishLevelAndReturnToWorldMode;
-            }));
-        }
-
-        private void DisableSummaryInput()
-        {
-            InputManager.playerInputActions.Disable();
-            InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
-            InputManager.playerInputActions.LevelSummary.Return.started -= FinishLevelAndReturnToWorldMode;
-        }
-        
         void SetActiveLevelData()
         {
             _activeLevelData = GetLevelData();
@@ -129,7 +109,7 @@ namespace Architecture
             }
         }
 
-        private LevelData GetLevelData()
+       LevelData GetLevelData()
         {
             var activeScenePath = SceneManager.GetActiveScene().path;
 
