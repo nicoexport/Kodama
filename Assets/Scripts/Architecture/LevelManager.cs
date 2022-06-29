@@ -12,6 +12,7 @@ using Utility;
 
 namespace Architecture
 {
+    [RequireComponent(typeof(LevelFlowHandler))]
     [RequireComponent(typeof(LevelTimer))]
     public class LevelManager : Singleton<LevelManager>
     {
@@ -19,14 +20,11 @@ namespace Architecture
         [SerializeField] SessionData _sessionData;
         [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
         [SerializeField] VoidEventChannelSO _returnToWorldScreenEvent;
-
-
-
-        [SerializeField] private AudioCue _levelMusicCue;
+        
         [Header("Level Summary")]
         [SerializeField]
         private float levelSummaryContinueDelay = 2f;
-        LevelFlowManager _levelFlowManager;
+        LevelFlowHandler levelFlowHandler;
         PlayerManager _playerManager;
         LevelData _activeLevelData;
         
@@ -51,7 +49,7 @@ namespace Architecture
         protected override void Awake()
         {
             base.Awake();
-            _levelFlowManager = GetComponent<LevelFlowManager>();
+            levelFlowHandler = GetComponent<LevelFlowHandler>();
             _playerManager = GetComponent<PlayerManager>();
         }
 
@@ -59,8 +57,6 @@ namespace Architecture
         {
             SetLevelData();
             StartLevel();
-
-            StartLevelMusic();
         }
 
         void SetLevelData()
@@ -87,14 +83,6 @@ namespace Architecture
                 resettable.ResetResettable();
             }    
         }
-        
-        private void StartLevelMusic()
-        {
-            if(!_levelMusicCue) 
-                return;
-            _levelMusicCue.Cue = _activeLevelData.LevelMusicAudioCueSo;
-            _levelMusicCue.PlayAudioCue();
-        }
 
         private void CompleteLevel()
         {
@@ -119,13 +107,13 @@ namespace Architecture
         private void LoadNextLevel(InputAction.CallbackContext context)
         {
             DisableSummaryInput();
-            _levelFlowManager.NextLevelRequest(_activeLevelData);
+            levelFlowHandler.NextLevelRequest(_activeLevelData);
         }
 
         private void FinishLevelAndReturnToWorldMode(InputAction.CallbackContext context)
         {
             DisableSummaryInput();
-            _levelFlowManager.FinishLevelAndExit(_activeLevelData);
+            levelFlowHandler.FinishLevelAndExit(_activeLevelData);
         }
 
         private void EnableSummaryInput()
@@ -159,14 +147,6 @@ namespace Architecture
             }
             Debug.LogWarningFormat("{0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
             return null;
-        }
-
-        protected void OnValidate() 
-        {
-            if (!_levelMusicCue)
-            {
-                TryGetComponent(out _levelMusicCue);
-            }
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Architecture
 {
-    public class LevelFlowManager : MonoBehaviour
+    public class LevelFlowHandler : MonoBehaviour
     {
         [SerializeField]
         private SessionData _sessionData;
