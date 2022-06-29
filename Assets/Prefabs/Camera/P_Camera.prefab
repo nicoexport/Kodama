@@ -135,8 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _goalScale: {x: 0.35, y: 0.35, z: 1}
-  _zoomSpeed: 3
-  _zoomDelta: 0.001
+  _zoomSpeed: 8
+  _tweenType: 0
 --- !u!114 &1616981830
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,17 +7,16 @@ namespace Architecture
 {
     public class LevelUnlocker : MonoBehaviour
     {
-        [SerializeField] private LevelFinishedEventChannel _levelFinishedEventChannel;
         [FormerlySerializedAs("_gameSession")] [SerializeField] private SessionData _session;
 
         private void OnEnable()
         {
-            _levelFinishedEventChannel.OnLevelFinished += HandleUnlocks;
+            LevelManager.OnLevelComplete += HandleUnlocks;
         }
 
         private void OnDisable()
         {
-            _levelFinishedEventChannel.OnLevelFinished -= HandleUnlocks;
+            LevelManager.OnLevelComplete -= HandleUnlocks;
         }
 
         private void HandleUnlocks(LevelData obj)

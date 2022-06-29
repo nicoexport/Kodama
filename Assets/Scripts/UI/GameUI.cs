@@ -1,4 +1,5 @@
 using Architecture;
+using Data;
 using GameManagement;
 using Level.Logic;
 using Player;
@@ -19,7 +20,7 @@ namespace UI
     
         private void OnEnable()
         {
-            LevelManager.OnCompleteLevel += DisableGameUI;
+            LevelManager.OnLevelComplete += DisableGameUI;
             HellCollider.OnTriggerEntered += FadeOut;
             LevelBounds.OnNearingLevelBounds += HandleNearingLevelBounds;
         }
@@ -27,7 +28,7 @@ namespace UI
 
         private void OnDisable()
         {
-            LevelManager.OnCompleteLevel -= DisableGameUI;
+            LevelManager.OnLevelComplete -= DisableGameUI;
             HellCollider.OnTriggerEntered -= FadeOut;
             LevelBounds.OnNearingLevelBounds -= HandleNearingLevelBounds;
         }
@@ -41,7 +42,7 @@ namespace UI
         }
 
         [ContextMenu("DisableGameUI")]
-        private void DisableGameUI()
+        private void DisableGameUI(LevelData levelData)
         {
             keyIconBackground.SetActive(false);
             keyIcon.SetActive(false);

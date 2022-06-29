@@ -1,5 +1,6 @@
 using System.Collections;
 using Architecture;
+using Data;
 using GameManagement;
 using Player.MovementStates;
 using UnityEngine;
@@ -88,14 +89,14 @@ namespace Player
         private void OnEnable()
         {
             AddCharacterToRuntimeSet();
-            LevelManager.OnCompleteLevel += () => { movementSm.ChangeState(winning); };
+            LevelManager.OnLevelComplete += ChangeToWinningState;
         }
 
         private void OnDisable()
         {
             //movementSm.CurrentState.Exit();
             characterRuntimeSet.RemoveFromList(this);
-            LevelManager.OnCompleteLevel -= () => { movementSm.ChangeState(winning); };
+            LevelManager.OnLevelComplete -= ChangeToWinningState;
         }
 
         public void Update()
@@ -142,6 +143,11 @@ namespace Player
             transform.Translate(Vector2.up * (groundCheckRadius + 0.1f));
             var newForce = new Vector2(0f, jumpForce * Time.deltaTime);
             rb.AddForce(newForce, ForceMode2D.Impulse);
+        }
+
+        void ChangeToWinningState(LevelData levelData)
+        {
+            movementSm.ChangeState(winning);
         }
 
         public IEnumerator DieEnumerator()

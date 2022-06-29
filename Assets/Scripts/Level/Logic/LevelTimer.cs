@@ -1,5 +1,6 @@
 using System;
 using Architecture;
+using Data;
 
 namespace Level.Logic
 {
@@ -12,13 +13,13 @@ namespace Level.Logic
         private void OnEnable()
         {
             LevelManager.OnLevelStart += RestartTimer;
-            LevelManager.OnCompleteLevel += FinishTimer;
+            LevelManager.OnLevelComplete += FinishTimer;
         }
 
         private void OnDisable()
         {
             LevelManager.OnLevelStart -= RestartTimer;
-            LevelManager.OnCompleteLevel -= FinishTimer;
+            LevelManager.OnLevelComplete -= FinishTimer;
         }
 
         public override void FixedUpdate()
@@ -28,7 +29,7 @@ namespace Level.Logic
             OnTimerChanged?.Invoke(timer);
         }
 
-        private void FinishTimer()
+        private void FinishTimer(LevelData levelData)
         {
             PauseTimer();
             OnTimerFinished?.Invoke(timer);

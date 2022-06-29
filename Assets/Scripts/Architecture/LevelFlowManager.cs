@@ -21,7 +21,6 @@ namespace Architecture
         {
             _returnToMainMenuEvent.OnEventRaised += LoadMainMenu;
             _returnToWorldScreenEvent.OnEventRaised += LoadWorldScreen;
-            PlayerManager.OnPlayerDied += RestartLevel;
         }
 
 
@@ -29,7 +28,6 @@ namespace Architecture
         {
             _returnToMainMenuEvent.OnEventRaised -= LoadMainMenu;
             _returnToWorldScreenEvent.OnEventRaised -= LoadWorldScreen;
-            PlayerManager.OnPlayerDied -= RestartLevel;
         }
 
         // Takes in a LevelDataSO. If its not the Worlds last level it loads the next level of the same world, if it is it loads the next world. 
@@ -84,11 +82,6 @@ namespace Architecture
             _sessionData.CurrentLevel = worldData.LevelDatas[0];
             _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.LevelSelectScenePath, true, true);
             Debug.Log("TO DO: Load Next World");
-        }
-
-        private void RestartLevel()
-        {
-           // _loadLevelEventChannel.RaiseEventWithScenePath(SceneManager.GetActiveScene().path, true, true);
         }
 
         public void ExitLevelEarly(LevelData currentLevel)

@@ -1,6 +1,7 @@
 using System;
 using Architecture;
 using Cinemachine;
+using Data;
 using GameManagement;
 using Level.Logic;
 using Player;
@@ -26,7 +27,7 @@ public class PlayerManager : MonoBehaviour
         PlayerLifeCycleHandler.OnCharacterDeath += HandlePlayerDeath; 
         HellCollider.OnTriggerEntered += HandleHellColliderEntered;
         LevelBounds.OnNearingLevelBounds += HandleNearingLevelBounds;
-        LevelManager.OnCompleteLevel += HandleLevelComplete;
+        LevelManager.OnLevelComplete += HandleLevelComplete;
     }
     
     private void OnDisable()
@@ -34,7 +35,7 @@ public class PlayerManager : MonoBehaviour
         PlayerLifeCycleHandler.OnCharacterDeath -= HandlePlayerDeath; 
         HellCollider.OnTriggerEntered -= HandleHellColliderEntered;
         LevelBounds.OnNearingLevelBounds -= HandleNearingLevelBounds;
-        LevelManager.OnCompleteLevel -= HandleLevelComplete;
+        LevelManager.OnLevelComplete -= HandleLevelComplete;
     }
 
     void Start()
@@ -63,7 +64,7 @@ public class PlayerManager : MonoBehaviour
         OnPlayerDied?.Invoke();
     }
 
-    private void HandleLevelComplete()
+    private void HandleLevelComplete(LevelData levelData)
     {
         var lifeHandler = _currentPlayer.GetComponent<PlayerLifeCycleHandler>();
         var rb = _currentPlayer.GetComponent<Rigidbody2D>();
