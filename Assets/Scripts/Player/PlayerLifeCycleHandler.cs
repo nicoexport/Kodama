@@ -50,7 +50,6 @@ namespace Player
             _rb.constraints = RigidbodyConstraints2D.FreezeAll;
             _rend.enabled = false;
         }
-        
 
         public override void ResetResettable()
         {
