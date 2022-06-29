@@ -38,12 +38,7 @@ public class PlayerManager : MonoBehaviour
         LevelManager.OnLevelComplete -= HandleLevelComplete;
     }
 
-    void Start()
-    {
-        SpawnPlayer();
-    }
-
-    void SpawnPlayer()
+    public void SpawnPlayer()
     {
         _currentPlayer = Instantiate(_playerPrefab, _playerSpawnRuntimeSet.GetItemAtIndex(0).position,
             Quaternion.identity);

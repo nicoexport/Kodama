@@ -55,6 +55,7 @@ namespace Architecture
         private void Start() 
         {
             SetActiveLevelData();
+            _playerManager.SpawnPlayer();
             StartLevel();
         }
 
