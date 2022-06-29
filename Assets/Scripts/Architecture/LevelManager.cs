@@ -5,7 +5,6 @@ using GameManagement;
 using Level.Logic;
 using Scriptable;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Utility;
@@ -19,11 +18,9 @@ namespace Architecture
         [FormerlySerializedAs("SessionData")] 
         [SerializeField] SessionData _sessionData;
         [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
-        
         LevelFlowHandler levelFlowHandler;
         PlayerManager _playerManager;
         LevelData _activeLevelData;
-        
         public static event Action<LevelData> OnLevelComplete;
         public static event Action OnLevelStart;
         public static event Action<float, bool> OnTimerFinished;
@@ -34,7 +31,7 @@ namespace Architecture
             PlayerManager.OnPlayerDied += StartLevel;
             LevelWin.OnLevelWon += CompleteLevel;
         }
-
+        
         protected void OnDisable()
         {
             LevelTimer.OnTimerFinished -= BroadCastFinishedTimer;
