@@ -13,7 +13,7 @@ namespace Level.Objects
         {
             if (other.CompareTag("Player"))
             {
-                var lifeHandler = other.GetComponent<CharacterLifeHandler>();
+                var lifeHandler = other.GetComponent<PlayerLifeCycleHandler>();
                 if (lifeHandler != null) lifeHandler.TakeDamage(damage);
             }
             if (destroyedOnGroundCollision && other.CompareTag("Ground"))

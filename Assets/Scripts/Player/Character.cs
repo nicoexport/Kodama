@@ -8,7 +8,7 @@ using Utility;
 
 namespace Player
 {
-    [RequireComponent(typeof(CharacterLifeHandler))]
+    [RequireComponent(typeof(PlayerLifeCycleHandler))]
     public class Character : MonoBehaviour
     {
         [field: SerializeField]
@@ -69,7 +69,7 @@ namespace Player
 
         private StateMachine movementSm;
         private CharacterAnimationController cAnimController;
-        public CharacterLifeHandler LifeHandler { get; private set; }
+        public PlayerLifeCycleHandler LifeCycleHandler { get; private set; }
 
         [HideInInspector] public bool wasGrounded;
 
@@ -77,7 +77,7 @@ namespace Player
         {
             rb = GetComponent<Rigidbody2D>();
             cAnimController = GetComponent<CharacterAnimationController>();
-            LifeHandler = GetComponent<CharacterLifeHandler>();
+            LifeCycleHandler = GetComponent<PlayerLifeCycleHandler>();
             InputManager.playerInputActions.Player.Jump.started += StartJumpInputTimer;
             AddCharacterToRuntimeSet();
             InitializeStates();

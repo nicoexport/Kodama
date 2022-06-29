@@ -100,6 +100,8 @@ MonoBehaviour:
   playerSpawnRuntimeSet: {fileID: 11400000, guid: 56d467417e7a3d541a2de4603bfeaa36, type: 2}
   cinemachineRuntimeSet: {fileID: 11400000, guid: 6d2041fbf0ceda240b3430c5307c2aad, type: 2}
   levelWinRuntimeSet: {fileID: 11400000, guid: 86e3d198c6d4e8040a19e2f3c973f002, type: 2}
+  _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
+  _levelMusicCue: {fileID: 0}
   playerPrefab: {fileID: 5291515768158270416, guid: b7647844b33485e4dbe49363315124ce, type: 3}
   levelSummaryContinueDelay: 2
   _levelFinishedEventChannel: {fileID: 11400000, guid: 24753a2c1c85778409e938de8d23f4e8, type: 2}

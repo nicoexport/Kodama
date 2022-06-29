@@ -11,13 +11,13 @@ namespace Level.Logic
 
         private void OnEnable()
         {
-            LevelManager.OnPlayerGainedControl += RestartTimer;
+            LevelManager.OnLevelStart += RestartTimer;
             LevelManager.OnCompleteLevel += FinishTimer;
         }
 
         private void OnDisable()
         {
-            LevelManager.OnPlayerGainedControl -= RestartTimer;
+            LevelManager.OnLevelStart -= RestartTimer;
             LevelManager.OnCompleteLevel -= FinishTimer;
         }
 

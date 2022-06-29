@@ -1,13 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Architecture;
 using Cinemachine;
 using GameManagement;
-using Level;
 using Level.Logic;
 using Player;
-using Unity.Mathematics;
 using UnityEngine;
 using Utility;
 
@@ -21,57 +17,55 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObjectRuntimeSet _cinemachineRuntimeSet;
     [SerializeField] private float _spawnTime = 1f;
     private GameObject _currentPlayer;
-    private CharacterLifeHandler _lifeHandler;
+    private PlayerLifeCycleHandler lifeCycleHandler;
     private bool _playerIsDead = false;
 
 
     private void OnEnable()
     {
+        PlayerLifeCycleHandler.OnCharacterDeath += HandlePlayerDeath; 
         HellCollider.OnTriggerEntered += HandleHellColliderEntered;
         LevelBounds.OnNearingLevelBounds += HandleNearingLevelBounds;
         LevelManager.OnCompleteLevel += HandleLevelComplete;
     }
-
-
+    
     private void OnDisable()
     {
-        if (_lifeHandler) _lifeHandler.OnCharacterDeath -= KillPlayer;
+        PlayerLifeCycleHandler.OnCharacterDeath -= HandlePlayerDeath; 
         HellCollider.OnTriggerEntered -= HandleHellColliderEntered;
         LevelBounds.OnNearingLevelBounds -= HandleNearingLevelBounds;
         LevelManager.OnCompleteLevel -= HandleLevelComplete;
     }
 
-    public IEnumerator SpawnPlayer()
+    void Start()
     {
-        _currentPlayer = Instantiate(_playerPrefab, _playerSpawnRuntimeSet.GetItemAtIndex(0).position, Quaternion.identity);
-        _lifeHandler = _currentPlayer.GetComponent<CharacterLifeHandler>();
-        _lifeHandler.OnCharacterDeath += KillPlayer;
-        if (_cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam))
-        {
-            Vector2 position = _currentPlayer.transform.position;
-            cmCam.transform.position = position;
-            cmCam.Follow = _currentPlayer.transform;
-        }
-        yield return new WaitForSeconds(_spawnTime);
+        SpawnPlayer();
     }
 
-    private void KillPlayer(Character character)
+    void SpawnPlayer()
     {
-        var rb = _currentPlayer.GetComponent<Rigidbody2D>();
-        if (rb) rb.constraints = RigidbodyConstraints2D.FreezePositionX;
-        var rend = _currentPlayer.GetComponent<SpriteRenderer>();
-        if (rend) rend.enabled = false;
-        //Destroy(_currentPlayer);
-        Instantiate(_playerDeathPrefab, character.transform.position, quaternion.identity);
+        _currentPlayer = Instantiate(_playerPrefab, _playerSpawnRuntimeSet.GetItemAtIndex(0).position,
+            Quaternion.identity);
+        InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
+        AttachCamToPlayer();
+    }
+
+    void AttachCamToPlayer()
+    {
+        if (!_cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) return;
+        Vector2 position = _currentPlayer.transform.position;
+        cmCam.transform.position = position;
+        cmCam.Follow = _currentPlayer.transform;
+    }
+    
+    private static void HandlePlayerDeath(Character character)
+    {
         OnPlayerDied?.Invoke();
     }
 
     private void HandleLevelComplete()
     {
-        // var pos = _currentPlayer.transform.position;
-        // Destroy(_currentPlayer);
-        // Instantiate(_playerWinPrefab, pos, quaternion.identity);
-        var lifeHandler = _currentPlayer.GetComponent<CharacterLifeHandler>();
+        var lifeHandler = _currentPlayer.GetComponent<PlayerLifeCycleHandler>();
         var rb = _currentPlayer.GetComponent<Rigidbody2D>();
         if (lifeHandler) lifeHandler.Damageable = false;
         if (rb) rb.constraints = RigidbodyConstraints2D.FreezePositionX;

@@ -88,7 +88,7 @@ namespace Architecture
 
         private void RestartLevel()
         {
-            _loadLevelEventChannel.RaiseEventWithScenePath(SceneManager.GetActiveScene().path, true, true);
+           // _loadLevelEventChannel.RaiseEventWithScenePath(SceneManager.GetActiveScene().path, true, true);
         }
 
         public void ExitLevelEarly(LevelData currentLevel)

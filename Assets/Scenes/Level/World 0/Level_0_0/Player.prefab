@@ -19396,7 +19396,7 @@ MonoBehaviour:
   characterRuntimeSet: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
   hasPressedRightTimer: 0
   hasPressedLeftTimer: 0
-  spawnDelay: 1
+  spawnDelay: 0
   wantjump: 0
   hasPressedRight: 0
   hasPressedLeft: 0
@@ -19414,6 +19414,7 @@ MonoBehaviour:
   debugStates: 0
   logVelocity: 0
   facingRight: 1
+  wasGrounded: 0
 --- !u!114 &2007363998516698221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19426,6 +19427,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ece0d2efcee2894c87a22479ac64fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
+  _playerSpawnRuntimeSet: {fileID: 11400000, guid: 56d467417e7a3d541a2de4603bfeaa36, type: 2}
   Damageable: 1
   _defaultHealth: 1
 --- !u!114 &5291515768158270442

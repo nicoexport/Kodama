@@ -29,13 +29,13 @@ namespace UI
 
         private void OnEnable()
         {
-            LevelManager.OnPlayerGainedControl += RegisterInputActions;
+            LevelManager.OnLevelStart += RegisterInputActions;
         }
 
         private void OnDisable()
         {
             UnRegisterInputActions();
-            LevelManager.OnPlayerGainedControl -= RegisterInputActions;
+            LevelManager.OnLevelStart -= RegisterInputActions;
         }
 
         public void PauseGame()

@@ -8,6 +8,7 @@ using Scriptable;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Utility;
 
 namespace Architecture
@@ -27,6 +28,8 @@ namespace Architecture
         [SerializeField]
         private GameObjectRuntimeSet levelWinRuntimeSet;
 
+        [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
+
         [SerializeField] private AudioCue _levelMusicCue;
 
         [Header("Prefabs")]
@@ -36,28 +39,26 @@ namespace Architecture
         [Header("Level Summary")]
         [SerializeField]
         private float levelSummaryContinueDelay = 2f;
-
         [SerializeField] private LevelFinishedEventChannel _levelFinishedEventChannel;
-    
         public static event Action OnCompleteLevel;
-        public static event Action OnPlayerGainedControl;
+        public static event Action OnLevelStart;
         public static event Action<float, bool> OnTimerFinished;
-
         private LevelFlowManager _levelFlowManager;
         private PlayerManager _playerManager;
-
         private LevelData _activeLevelData;
 
         private void OnEnable()
         {
             Context.Instance.RegisterContextManager(this);
             LevelTimer.OnTimerFinished += BroadCastFinishedTimer;
+            PlayerManager.OnPlayerDied += StartLevel;
         }
 
         private void OnDisable()
         {
             if (Context.Instance != null) Context.Instance.UnRegisterContextManager(this);
             LevelTimer.OnTimerFinished -= BroadCastFinishedTimer;
+            PlayerManager.OnPlayerDied -= StartLevel;
         }
         
         protected override void Awake()
@@ -75,6 +76,14 @@ namespace Architecture
 
         private void Start() 
         {
+            SetLevelData();
+            StartLevel();
+
+            StartLevelMusic();
+        }
+
+        void SetLevelData()
+        {
             _activeLevelData = GetLevelData();
             if (_activeLevelData != null)
             {
@@ -82,11 +91,22 @@ namespace Architecture
                 SessionData.CurrentLevel = _activeLevelData;
                 SessionData.CurrentWorld = Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, SessionData);
             }
-
-            StartLevelMusic();
-            StartCoroutine(SpawnPlayerEnumerator());
         }
 
+        void StartLevel()
+        {
+            ResetResettables();
+            OnLevelStart?.Invoke();
+        }
+
+        void ResetResettables()
+        {
+            foreach (var resettable in  _resettableRuntimeSet.GetItemList())
+            {
+                resettable.ResetResettable();
+            }    
+        }
+        
         private void StartLevelMusic()
         {
             if(!_levelMusicCue) 
@@ -99,14 +119,7 @@ namespace Architecture
         {
 
         }
-
-        private IEnumerator SpawnPlayerEnumerator()
-        {
-            yield return _playerManager.SpawnPlayer();
-            InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
-            OnPlayerGainedControl?.Invoke();
-        }
-
+        
         private void CompleteLevel()
         {
             if (_activeLevelData == null)
