@@ -49,7 +49,6 @@ namespace Architecture
         protected void Start() 
         {
             SetActiveLevelData();
-            _playerManager.SpawnPlayer();
             StartLevel();
         }
 

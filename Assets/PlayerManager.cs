@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
     private bool _playerIsDead = false;
 
 
-    private void OnEnable()
+    protected void OnEnable()
     {
         PlayerLifeCycleHandler.OnCharacterDeath += HandlePlayerDeath; 
         HellCollider.OnTriggerEntered += HandleHellColliderEntered;
@@ -30,7 +30,7 @@ public class PlayerManager : MonoBehaviour
         LevelManager.OnLevelComplete += HandleLevelComplete;
     }
     
-    private void OnDisable()
+    protected void OnDisable()
     {
         PlayerLifeCycleHandler.OnCharacterDeath -= HandlePlayerDeath; 
         HellCollider.OnTriggerEntered -= HandleHellColliderEntered;
@@ -38,12 +38,17 @@ public class PlayerManager : MonoBehaviour
         LevelManager.OnLevelComplete -= HandleLevelComplete;
     }
 
-    public void SpawnPlayer()
+    protected void Start()
+    {
+        SpawnPlayer();
+        AttachCamToPlayer();
+    }
+
+    void SpawnPlayer()
     {
         _currentPlayer = Instantiate(_playerPrefab, _playerSpawnRuntimeSet.GetItemAtIndex(0).position,
             Quaternion.identity);
         InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
-        AttachCamToPlayer();
     }
 
     void AttachCamToPlayer()
