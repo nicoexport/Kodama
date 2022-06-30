@@ -22,9 +22,9 @@ namespace Scriptable
             AudioConfig = audioConfig;
             Position = position;
         }
+
         public readonly AudioCueSo AudioCue;
         public readonly AudioConfigSo AudioConfig;
         public readonly Vector3 Position;
     }
 }
-

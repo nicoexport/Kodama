@@ -3,45 +3,43 @@ using Audio;
 using SaveLoad;
 using Scriptable;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UI
 {
     public class MainMenu : MonoBehaviour
     {
+        public enum MenuState
+        {
+            main,
+            settings,
+            deleteFile
+        }
 
-        [SerializeField]
-        private SessionData _sessionData;
+        [SerializeField] SessionData _sessionData;
 
-        [Space(10)]
-        public MenuState state;
-        public enum MenuState { main,settings,deleteFile }
+        [Space(10)] public MenuState state;
 
 
-        [Space(10)]
-        [Header("Canvases")]
-        [SerializeField]
-        private GameObject mainCanvas;
-        [SerializeField]
-        private GameObject settingsCanvas;
+        [Space(10)] [Header("Canvases")] [SerializeField]
+        GameObject mainCanvas;
 
-        [SerializeField] private GameObject _deleteSaveCanvas;
+        [SerializeField] GameObject settingsCanvas;
 
-        [Header("Buttons")]
-        [SerializeField]
-        private Button primaryButtonMain;
-        [SerializeField]
-        private Button primaryButtonSettings;
+        [SerializeField] GameObject _deleteSaveCanvas;
 
-        [SerializeField] private Button _primaryButtonDeleteSave;
+        [Header("Buttons")] [SerializeField] Button primaryButtonMain;
 
-        private void Awake()
+        [SerializeField] Button primaryButtonSettings;
+
+        [SerializeField] Button _primaryButtonDeleteSave;
+
+        void Awake()
         {
             InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSelectUI);
         }
-   
-        private void Start()
+
+        void Start()
         {
             SwitchMenu("main");
         }
@@ -80,7 +78,7 @@ namespace UI
                     primaryButtonSettings.Select();
                     state = MenuState.settings;
                     break;
-            
+
                 case "deleteFile":
                     mainCanvas.SetActive(false);
                     settingsCanvas.SetActive(false);
@@ -88,12 +86,12 @@ namespace UI
                     _primaryButtonDeleteSave.Select();
                     state = MenuState.deleteFile;
                     break;
-            
+
                 default:
                     return;
             }
         }
-    
+
         public void RequestResetSessionData()
         {
             print("TO DO: CLEARING SAVE DATA");

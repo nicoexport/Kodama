@@ -6,14 +6,15 @@ namespace Architecture
 {
     public class MainMenuMode : IGameMode
     {
-        public GameModeState _state { get; private set; } = GameModeState.Ended;
-        public string _activeScene { get; private set; }
-        private string _scenePath;
+        readonly string _scenePath;
 
         public MainMenuMode(string scenePath)
         {
-            this._scenePath = scenePath;
+            _scenePath = scenePath;
         }
+
+        public GameModeState _state { get; private set; } = GameModeState.Ended;
+        public string _activeScene { get; private set; }
 
         public IEnumerator OnStart()
         {
@@ -35,7 +36,6 @@ namespace Architecture
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
             Debug.Log("MAIN MENU MODE ENDED");
             _state = GameModeState.Ended;
-            yield break;
         }
 
         public void OnEditorStart()

@@ -4,23 +4,16 @@ namespace Level.Objects
 {
     public class ParentSetter : MonoBehaviour
     {
-        [SerializeField]
-        private bool onCollision;
+        [SerializeField] bool onCollision;
 
-        private void OnCollisionEnter2D(Collision2D col)
+        void OnCollisionEnter2D(Collision2D col)
         {
-            if (onCollision && col.collider.tag == "Player")
-            {
-                col.collider.transform.SetParent(transform);
-            }
+            if (onCollision && col.collider.tag == "Player") col.collider.transform.SetParent(transform);
         }
 
-        private void OnCollisionExit2D(Collision2D col)
+        void OnCollisionExit2D(Collision2D col)
         {
-            if (onCollision && col.collider.tag == "Player")
-            {
-                col.collider.transform.SetParent(null);
-            }
+            if (onCollision && col.collider.tag == "Player") col.collider.transform.SetParent(null);
         }
     }
 }

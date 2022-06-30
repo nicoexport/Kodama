@@ -6,16 +6,15 @@ namespace Player.MovementStates
 {
     public class JumpingState : AirborneState
     {
-        private float keepJumpingTimer;
-        private bool keepJumping;
+        bool keepJumping;
+        float keepJumpingTimer;
 
         public JumpingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
-
         }
 
 
-        private void Jump(float jumpForce)
+        void Jump(float jumpForce)
         {
             if (character == null) return;
             character.transform.Translate(Vector2.up * (character.groundCheckRadius + 0.1f));
@@ -23,7 +22,7 @@ namespace Player.MovementStates
             character.rb.AddForce(force, ForceMode2D.Impulse);
         }
 
-        private void StopJumping(InputAction.CallbackContext context)
+        void StopJumping(InputAction.CallbackContext context)
         {
             keepJumping = false;
         }
@@ -62,8 +61,8 @@ namespace Player.MovementStates
             // makes the character keep jumping if the jump button is held
             if (keepJumping && keepJumpingTimer > 0f)
             {
-
-                var force = new Vector2(0f, character.MovementValues.jumpForce * character.MovementValues.longJumpMultiplier);
+                var force = new Vector2(0f,
+                    character.MovementValues.jumpForce * character.MovementValues.longJumpMultiplier);
                 character.rb.AddForce(force, ForceMode2D.Force);
 
                 keepJumpingTimer -= Time.deltaTime;

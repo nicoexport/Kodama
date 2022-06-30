@@ -5,32 +5,27 @@ namespace Level
 {
     public class PlayerSpawn : MonoBehaviour
     {
-        [SerializeField]
-        TransformRuntimeSet playerSpawnRuntimeSet;
+        [SerializeField] TransformRuntimeSet playerSpawnRuntimeSet;
 
-        private SpriteRenderer _renderer;
+        SpriteRenderer _renderer;
 
-        private void Awake()
+        void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
             _renderer.enabled = false;
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
             if (playerSpawnRuntimeSet.IsEmpty())
-            {
-                playerSpawnRuntimeSet.AddToList(this.transform);
-            }
+                playerSpawnRuntimeSet.AddToList(transform);
             else
-            {
                 Debug.Log("multiple spawns exist");
-            }
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
-            playerSpawnRuntimeSet.RemoveFromList(this.transform);
+            playerSpawnRuntimeSet.RemoveFromList(transform);
         }
     }
 }

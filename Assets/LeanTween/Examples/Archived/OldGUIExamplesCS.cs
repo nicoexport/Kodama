@@ -6,15 +6,15 @@ public class OldGUIExamplesCS : MonoBehaviour {
 	public Texture2D grumpy;
 	public Texture2D beauty;
 
-	private float w;
-	private float h;
+	float w;
+	float h;
 
-	private LTRect buttonRect1;
-	private LTRect buttonRect2;
-	private LTRect buttonRect3;
-	private LTRect buttonRect4;
-	private LTRect grumpyRect;
-	private LTRect beautyTileRect;
+	LTRect buttonRect1;
+	LTRect buttonRect2;
+	LTRect buttonRect3;
+	LTRect buttonRect4;
+	LTRect grumpyRect;
+	LTRect beautyTileRect;
 
 
 	// Use this for initialization

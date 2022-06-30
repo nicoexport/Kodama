@@ -6,11 +6,6 @@ namespace Player
     [RequireComponent(typeof(Animator))]
     public class CharacterAnimationController : MonoBehaviour
     {
-        private string currentAnimState;
-        public Animator animator { get; private set; }
-
-        public event Action<string, string> OnAnimationStateChange;
-
         public const string idle = "IDLE";
         public const string running = "RUNNING";
         public const string falling = "FALLING";
@@ -22,17 +17,22 @@ namespace Player
         public const string spawning = "SPAWNING";
         public const string winning = "WINNING";
         public const string dying = "DYING";
+        string currentAnimState;
+        public Animator animator { get; private set; }
 
-        private void Awake()
+        void Awake()
         {
             animator = GetComponent<Animator>();
         }
 
-        public void SetAnimationState(State state, float horizontalInput, float xVelocity, float maxVelocityX, bool touchingWall)
+        public event Action<string, string> OnAnimationStateChange;
+
+        public void SetAnimationState(State state, float horizontalInput, float xVelocity, float maxVelocityX,
+            bool touchingWall)
         {
             //print("Trying to set animation state");
-            string newAnimState = idle;
-            
+            var newAnimState = idle;
+
             switch (state.ToString())
             {
                 case "Player.MovementStates.StandingState":
@@ -40,12 +40,16 @@ namespace Player
                     break;
 
                 case "Player.MovementStates.RunningState":
-                    if (touchingWall) newAnimState = walkingAgainstWall;
+                    if (touchingWall)
+                    {
+                        newAnimState = walkingAgainstWall;
+                    }
                     else
                     {
                         newAnimState = running;
                         animator.SetFloat("runSpeed", Mathf.Abs(xVelocity) / maxVelocityX);
                     }
+
                     break;
 
                 case "Player.MovementStates.FallingState":

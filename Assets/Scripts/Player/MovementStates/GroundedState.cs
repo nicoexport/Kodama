@@ -6,17 +6,16 @@ namespace Player.MovementStates
 {
     public class GroundedState : State
     {
-        float horizontalInput;
         float additionalDrag;
         bool grounded;
-        bool sprinting;
-        protected float speed;
-        protected float sprintSpeed;
+        float horizontalInput;
         protected bool running;
-        
+        protected float speed;
+        bool sprinting;
+        protected float sprintSpeed;
+
         public GroundedState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
-
         }
 
         public override void Enter()
@@ -63,18 +62,14 @@ namespace Player.MovementStates
                 Vector2 newVelocity;
                 var velocity = character.rb.velocity;
                 if (character.rb.velocity.x < 0)
-                {
                     newVelocity = new Vector2(velocity.x + Time.deltaTime * additionalDrag, velocity.y);
-                }
                 else
-                {
                     newVelocity = new Vector2(velocity.x - Time.deltaTime * additionalDrag, velocity.y);
-                }
                 character.rb.velocity = newVelocity;
             }
         }
-        
-        private void ChangeToJump(InputAction.CallbackContext context)
+
+        void ChangeToJump(InputAction.CallbackContext context)
         {
             stateMachine.ChangeState(character.jumping);
         }

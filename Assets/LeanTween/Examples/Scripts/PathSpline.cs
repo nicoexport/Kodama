@@ -7,8 +7,8 @@ public class ExampleSpline : MonoBehaviour {
 	public Transform[] trans;
 
 	LTSpline spline;
-	private GameObject ltLogo;
-	private GameObject ltLogo2;
+	GameObject ltLogo;
+	GameObject ltLogo2;
 
 	void Start () {
 		spline = new LTSpline( new Vector3[] {trans[0].position, trans[1].position, trans[2].position, trans[3].position, trans[4].position} );
@@ -20,8 +20,8 @@ public class ExampleSpline : MonoBehaviour {
 		LTDescr zoomInPath_LT = LeanTween.moveSpline(ltLogo2, new Vector3[]{Vector3.zero, Vector3.zero, new Vector3(1,1,1), new Vector3(2,1,1), new Vector3(2,1,1)}, 1.5f);
 		zoomInPath_LT.setUseEstimatedTime(true);
 	}
-	
-	private float iter;
+
+	float iter;
 	void Update () {
 		// Iterating over path
 		ltLogo.transform.position = spline.point( iter /*(Time.time*1000)%1000 * 1.0 / 1000.0 */);

@@ -17,10 +17,10 @@ public class PathSplinePerformance : MonoBehaviour {
 	public float carSpeed = 30f;
 	public float tracerSpeed = 2f;
 
-	private LTSpline track;
-	private int trackIter = 1;
-	private float carAdd;
-	private float trackPosition; // ratio 0,1 of the avatars position on the track
+	LTSpline track;
+	int trackIter = 1;
+	float carAdd;
+	float trackPosition; // ratio 0,1 of the avatars position on the track
 
 	void Start () {
 		Application.targetFrameRate = 240;

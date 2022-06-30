@@ -4,7 +4,6 @@ namespace Player.MovementStates
     {
         public SpawningState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
-
         }
     }
 }

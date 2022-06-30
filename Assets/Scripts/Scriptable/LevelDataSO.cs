@@ -6,8 +6,8 @@ namespace Scriptable
     [CreateAssetMenu(menuName = "Game Data/Level Data")]
     public class LevelDataSO : ScriptableObject
     {
-        [FormerlySerializedAs("_scenePath")] 
-        public string ScenePath;
+        [FormerlySerializedAs("_scenePath")] public string ScenePath;
+
         public string LevelName;
         public Sprite LevelImage;
         public AudioCueSo LevelMusicAudioCueSo;

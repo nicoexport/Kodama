@@ -5,8 +5,7 @@ namespace Pickups
 {
     public class Key : PickupObject
     {
-        [SerializeField]
-        private int keyAmount = 1;
+        [SerializeField] int keyAmount = 1;
 
         public override void PickUp(Collider2D col)
         {

@@ -11,15 +11,15 @@ using Utility;
 public class PlayerManager : MonoBehaviour
 {
     public static event Action OnPlayerDied;
-    [SerializeField] private GameObject _playerPrefab;
-    [SerializeField] private GameObject _playerDeathPrefab;
-    [SerializeField] private GameObject _playerWinPrefab;
-    [SerializeField] private TransformRuntimeSet _playerSpawnRuntimeSet;
-    [SerializeField] private GameObjectRuntimeSet _cinemachineRuntimeSet;
-    [SerializeField] private float _spawnTime = 1f;
-    private GameObject _currentPlayer;
-    private PlayerLifeCycleHandler lifeCycleHandler;
-    private bool _playerIsDead = false;
+    [SerializeField] GameObject _playerPrefab;
+    [SerializeField] GameObject _playerDeathPrefab;
+    [SerializeField] GameObject _playerWinPrefab;
+    [SerializeField] TransformRuntimeSet _playerSpawnRuntimeSet;
+    [SerializeField] GameObjectRuntimeSet _cinemachineRuntimeSet;
+    [SerializeField] float _spawnTime = 1f;
+    GameObject _currentPlayer;
+    PlayerLifeCycleHandler lifeCycleHandler;
+    bool _playerIsDead = false;
 
 
     protected void OnEnable()
@@ -58,26 +58,26 @@ public class PlayerManager : MonoBehaviour
         cmCam.transform.position = position;
         cmCam.Follow = _currentPlayer.transform;
     }
-    
-    private static void HandlePlayerDeath(Character character)
+
+    static void HandlePlayerDeath(Character character)
     {
         OnPlayerDied?.Invoke();
     }
 
-    private void HandleLevelComplete(LevelData levelData)
+    void HandleLevelComplete(LevelData levelData)
     {
         var lifeHandler = _currentPlayer.GetComponent<PlayerLifeCycleHandler>();
         var rb = _currentPlayer.GetComponent<Rigidbody2D>();
         if (lifeHandler) lifeHandler.Damageable = false;
         if (rb) rb.constraints = RigidbodyConstraints2D.FreezePositionX;
     }
-    
-    private void HandleHellColliderEntered(float timeToKill)
+
+    void HandleHellColliderEntered(float timeToKill)
     {
         StartCoroutine(Utilities.ActionAfterDelayEnumerator(timeToKill, () => { OnPlayerDied?.Invoke(); }));
     }
-    
-    private void HandleNearingLevelBounds(float value)
+
+    void HandleNearingLevelBounds(float value)
     {
         if(value < 1f) return;
         if (_playerIsDead) return;

@@ -20,11 +20,11 @@ public class Following : MonoBehaviour {
     public Transform dude4Title;
     public Transform dude5Title;
 
-    private Color dude1ColorVelocity;
+    Color dude1ColorVelocity;
 
-    private Vector3 velocityPos;
+    Vector3 velocityPos;
 
-    private void Start()
+    void Start()
     {
         followArrow.gameObject.LeanDelayedCall(3f, moveArrow).setOnStart(moveArrow).setRepeat(-1);
 
@@ -62,14 +62,14 @@ public class Following : MonoBehaviour {
         LeanTween.rotateAround(Camera.main.gameObject, Vector3.left, 360f, 300f).setPoint(localPos).setRepeat(-1);
     }
 
-    private float fromY;
-    private float velocityY;
-    private Vector3 fromVec3;
-    private Vector3 velocityVec3;
-    private Color fromColor;
-    private Color velocityColor;
+    float fromY;
+    float velocityY;
+    Vector3 fromVec3;
+    Vector3 velocityVec3;
+    Color fromColor;
+    Color velocityColor;
 
-    private void Update()
+    void Update()
     {
         // Use the smooth methods to follow variables in which ever manner you wish!
         fromY = LeanSmooth.spring(fromY, followArrow.localPosition.y, ref velocityY, 1.1f);
@@ -78,7 +78,7 @@ public class Following : MonoBehaviour {
         Debug.Log("Smoothed y:" + fromY + " vec3:" + fromVec3 + " color:" + fromColor);
     }
 
-	private void moveArrow()
+    void moveArrow()
     {
         LeanTween.moveLocalY(followArrow.gameObject, Random.Range(-100f, 100f), 0f);
 

@@ -18,8 +18,12 @@ namespace Editor
 
             EditorGUI.BeginChangeCheck();
 
-            var newMainMenuScene = EditorGUILayout.ObjectField("Main Menu Scene", oldMainMenuScene, typeof(SceneAsset), false) as SceneAsset;
-            var newWorldScreenScene = EditorGUILayout.ObjectField("Worlds Screen Scene", oldWorldsScreenScene, typeof(SceneAsset), false) as SceneAsset;
+            var newMainMenuScene =
+                EditorGUILayout.ObjectField("Main Menu Scene", oldMainMenuScene, typeof(SceneAsset), false) as
+                    SceneAsset;
+            var newWorldScreenScene =
+                EditorGUILayout.ObjectField("Worlds Screen Scene", oldWorldsScreenScene, typeof(SceneAsset), false) as
+                    SceneAsset;
 
             if (EditorGUI.EndChangeCheck())
             {
@@ -33,6 +37,7 @@ namespace Editor
                 scenePathProperty.stringValue = newPath;
                 EditorUtility.SetDirty(manager);
             }
+
             serializedObject.ApplyModifiedProperties();
         }
     }

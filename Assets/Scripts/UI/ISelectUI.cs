@@ -1,15 +1,13 @@
 using System.Collections;
 using Scriptable;
-using UnityEngine;
 
 namespace UI
 {
     public interface ISelectUI
     {
+        SelectUIState _state { get; }
         IEnumerator OnStart(SessionData sessionData);
         IEnumerator OnEnd();
-
-        SelectUIState _state { get; }
     }
 
     public enum SelectUIState

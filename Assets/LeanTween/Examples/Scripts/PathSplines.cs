@@ -7,7 +7,7 @@ public class PathSplines : MonoBehaviour {
 	public Transform[] trans;
 	
 	LTSpline cr;
-	private GameObject avatar1;
+	GameObject avatar1;
 
 	void OnEnable(){
 		// create the path
@@ -24,8 +24,8 @@ public class PathSplines : MonoBehaviour {
 			LeanTween.moveSpline( avatar1, next, 6.5f); // move it back to the start without an LTSpline
 		}).setEase(LeanTweenType.easeOutQuad);
 	}
-	
-	private float iter;
+
+	float iter;
 	void Update () {
 		// Or Update Manually
 		// cr.place( avatar1.transform, iter );

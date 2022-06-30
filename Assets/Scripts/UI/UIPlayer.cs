@@ -4,15 +4,15 @@ namespace UI
 {
     public class UIPlayer : MonoBehaviour, IUICharacter
     {
-        private Animator _animator;
-        private static readonly int IsMoving = Animator.StringToHash("isMoving");
-        private bool _facingRight = true;
+        static readonly int IsMoving = Animator.StringToHash("isMoving");
+        Animator _animator;
+        bool _facingRight = true;
 
-        private void Awake()
+        void Awake()
         {
             _animator = GetComponent<Animator>();
         }
-    
+
         public void StartMoving(Transform goal)
         {
             _animator.SetBool(IsMoving, true);
@@ -25,10 +25,10 @@ namespace UI
         public void StopMoving()
         {
             _animator.SetBool(IsMoving, false);
-            if(!_facingRight) Flip();
+            if (!_facingRight) Flip();
         }
 
-        private void Flip()
+        void Flip()
         {
             _facingRight = !_facingRight;
             transform.Rotate(0f, 180f, 0f);

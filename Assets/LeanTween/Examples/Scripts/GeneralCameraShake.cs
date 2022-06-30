@@ -4,10 +4,9 @@ using System.Collections;
 using DentedPixel;
 
 public class GeneralCameraShake : MonoBehaviour {
-
-	private GameObject avatarBig;
-	private float jumpIter = 9.5f;
-	private AudioClip boomAudioClip;
+	GameObject avatarBig;
+	float jumpIter = 9.5f;
+	AudioClip boomAudioClip;
 
 	// Use this for initialization
 	void Start () {

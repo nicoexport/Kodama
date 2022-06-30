@@ -1,5 +1,3 @@
-using System;
-using Audio;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -8,67 +6,68 @@ namespace Scriptable
     [CreateAssetMenu(fileName = "new Audio Config", menuName = "Audio/AudioConfig", order = 0)]
     public class AudioConfigSo : ScriptableObject
     {
-        public AudioMixerGroup OutputAudioMixerGroup = null;
-        [SerializeField] private PriorityLevel _priorityLevel = PriorityLevel.Standard;
+        public AudioMixerGroup OutputAudioMixerGroup;
+        [SerializeField] PriorityLevel _priorityLevel = PriorityLevel.Standard;
 
-        [HideInInspector]
-        public int Priority
-        {
-            get { return (int)_priorityLevel; }
-            set { _priorityLevel = (PriorityLevel) value; }
-        }
+        [Header("Sound properties")] public bool Mute;
 
-        [Header("Sound properties")] 
-        public bool Mute = false;
         [Range(0f, 1f)] public float Volume = 1f;
         [Range(-3f, 3f)] public float Pitch = 1f;
-        [Range(-1f, 1f)] public float PanStereo = 0f;
+        [Range(-1f, 1f)] public float PanStereo;
         [Range(0f, 1.1f)] public float ReverbZoneMix = 1f;
 
-        [Header("Spatial settings")] 
-        [Range(0f, 1f)] public float SpatialBlend = 0f;
+        [Header("Spatial settings")] [Range(0f, 1f)]
+        public float SpatialBlend;
+
         [Range(0f, 5f)] public float DopplerLevel = 1f;
-        [Range(0f, 360f)] public float Spread = 0f;
+        [Range(0f, 360f)] public float Spread;
         public AudioRolloffMode RolloffMode = AudioRolloffMode.Logarithmic;
         [Range(0.1f, 5f)] public float MinDistance = 0.1f;
         [Range(5f, 100f)] public float MaxDistance = 50f;
 
-        [Header("Ignores")] 
-        public bool BypassEffects = false;
-        public bool BypassListenerEffects = false;
-        public bool BypassReverbZones = false;
-        public bool IgnoreListenerVolume = false;
-        public bool IgnoreListenerPause = false;
-        
-        private enum PriorityLevel
+        [Header("Ignores")] public bool BypassEffects;
+
+        public bool BypassListenerEffects;
+        public bool BypassReverbZones;
+        public bool IgnoreListenerVolume;
+        public bool IgnoreListenerPause;
+
+        [HideInInspector]
+        public int Priority
+        {
+            get => (int) _priorityLevel;
+            set => _priorityLevel = (PriorityLevel) value;
+        }
+
+        public void ApplyConfigToAudioSource(AudioSource audioSource)
+        {
+            audioSource.outputAudioMixerGroup = OutputAudioMixerGroup;
+            audioSource.mute = Mute;
+            audioSource.bypassEffects = BypassEffects;
+            audioSource.bypassListenerEffects = BypassListenerEffects;
+            audioSource.bypassReverbZones = BypassReverbZones;
+            audioSource.priority = Priority;
+            audioSource.volume = Volume;
+            audioSource.pitch = Pitch;
+            audioSource.panStereo = PanStereo;
+            audioSource.spatialBlend = SpatialBlend;
+            audioSource.reverbZoneMix = ReverbZoneMix;
+            audioSource.dopplerLevel = DopplerLevel;
+            audioSource.spread = Spread;
+            audioSource.rolloffMode = RolloffMode;
+            audioSource.minDistance = MinDistance;
+            audioSource.maxDistance = MaxDistance;
+            audioSource.ignoreListenerVolume = IgnoreListenerVolume;
+            audioSource.ignoreListenerPause = IgnoreListenerPause;
+        }
+
+        enum PriorityLevel
         {
             Highest = 0,
             High = 64,
             Standard = 128,
-            Low = 194, 
+            Low = 194,
             Lowest = 256
-        }
-        
-        public void ApplyConfigToAudioSource(AudioSource audioSource)
-        {
-            audioSource.outputAudioMixerGroup = this.OutputAudioMixerGroup;
-            audioSource.mute = this.Mute;
-            audioSource.bypassEffects = this.BypassEffects;
-            audioSource.bypassListenerEffects = this.BypassListenerEffects;
-            audioSource.bypassReverbZones = this.BypassReverbZones;
-            audioSource.priority = this.Priority;
-            audioSource.volume = this.Volume;
-            audioSource.pitch = this.Pitch;
-            audioSource.panStereo = this.PanStereo;
-            audioSource.spatialBlend = this.SpatialBlend;
-            audioSource.reverbZoneMix = this.ReverbZoneMix;
-            audioSource.dopplerLevel = this.DopplerLevel;
-            audioSource.spread = this.Spread;
-            audioSource.rolloffMode = this.RolloffMode;
-            audioSource.minDistance = this.MinDistance;
-            audioSource.maxDistance = this.MaxDistance;
-            audioSource.ignoreListenerVolume = this.IgnoreListenerVolume;
-            audioSource.ignoreListenerPause = this.IgnoreListenerPause;
         }
     }
 }

@@ -4,17 +4,16 @@ namespace GameManagement
 {
     public class AddTransformToRuntimeSet : MonoBehaviour
     {
-        [SerializeField]
-        private TransformRuntimeSet transformRuntimeSet;
+        [SerializeField] TransformRuntimeSet transformRuntimeSet;
 
-        private void OnEnable()
+        void OnEnable()
         {
-            transformRuntimeSet.AddToList(this.transform);
+            transformRuntimeSet.AddToList(transform);
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
-            transformRuntimeSet.RemoveFromList(this.transform);
+            transformRuntimeSet.RemoveFromList(transform);
         }
     }
 }

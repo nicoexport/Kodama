@@ -1,24 +1,22 @@
 using Architecture;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Player.MovementStates
 {
     public class AirborneState : State
     {
-        private float horizontalInput;
-        private float verticalInput;
-        private float airStrafeSpeed;
+        float airStrafeSpeed;
         bool grounded;
-        protected bool touchingWall;
-        bool touchingCeiling;
+        float horizontalInput;
+        bool sprinting;
 
         float sprintSpeed;
-        bool sprinting;
+        bool touchingCeiling;
+        protected bool touchingWall;
+        float verticalInput;
 
         public AirborneState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
-
         }
 
         public override void Enter()
@@ -37,7 +35,7 @@ namespace Player.MovementStates
             base.Exit();
             InputManager.playerInputActions.Player.Jump.started -= ChangeToJump;
         }
-        
+
         public override void HandleInput()
         {
             base.HandleInput();
@@ -50,23 +48,22 @@ namespace Player.MovementStates
                 character.hasPressedRight = true;
                 character.hasPressedRightTimer = character.MovementValues.horizontalInputTimer;
             }
+
             if (horizontalInput < 0f)
             {
                 character.hasPressedLeft = true;
                 character.hasPressedLeftTimer = character.MovementValues.horizontalInputTimer;
             }
-        }
-
-        // ReSharper disable Unity.PerformanceAnalysis
+        } // ReSharper disable Unity.PerformanceAnalysis
         public override void LogicUpdate()
         {
             base.LogicUpdate();
             if (grounded) stateMachine.ChangeState(character.standing);
             else if (touchingCeiling) stateMachine.ChangeState(character.falling);
             else if (touchingWall)
-            {
-                if ((character.facingRight && character.hasPressedRight) || (!character.facingRight && character.hasPressedLeft)) stateMachine.ChangeState(character.wallsliding);
-            }
+                if ((character.facingRight && character.hasPressedRight) ||
+                    (!character.facingRight && character.hasPressedLeft))
+                    stateMachine.ChangeState(character.wallsliding);
 
             if (horizontalInput > 0 && !character.facingRight) character.Flip();
             if (horizontalInput < 0 && character.facingRight) character.Flip();
@@ -81,15 +78,15 @@ namespace Player.MovementStates
             //wall checking
             touchingWall = character.CheckCollisionOverlap(character.frontCheck.position, character.frontCheckRadius);
             // ceiling checking
-            touchingCeiling = (character.CheckCollisionOverlap(character.ceilingCheck.position, character.ceilingCheckRadius)) || (character.CheckCollisionOverlap(character.ceilingCheck1.position, character.ceilingCheckRadius));
+            touchingCeiling =
+                character.CheckCollisionOverlap(character.ceilingCheck.position, character.ceilingCheckRadius) ||
+                character.CheckCollisionOverlap(character.ceilingCheck1.position, character.ceilingCheckRadius);
             // Air strafing
-            character.Move(horizontalInput, sprinting? sprintSpeed : airStrafeSpeed);
+            character.Move(horizontalInput, sprinting ? sprintSpeed : airStrafeSpeed);
             // fast falling
             if (verticalInput <= -0.75f) character.rb.gravityScale = character.MovementValues.fastFallGravity;
             else if (stateMachine.CurrentState != character.wallsliding)
-            {
                 character.rb.gravityScale = character.MovementValues.normalGravity;
-            }
         }
 
         void ChangeToJump(InputAction.CallbackContext context)

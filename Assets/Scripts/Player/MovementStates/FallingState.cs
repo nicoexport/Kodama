@@ -4,7 +4,6 @@ namespace Player.MovementStates
     {
         public FallingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
-
         }
 
         public override void Enter()
@@ -33,4 +32,3 @@ namespace Player.MovementStates
         }
     }
 }
-

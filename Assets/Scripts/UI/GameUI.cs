@@ -9,16 +9,15 @@ namespace UI
 {
     public class GameUI : MonoBehaviour
     {
-        [SerializeField]
-        private CharacterRuntimeSet characterRuntimeSet;
-        [SerializeField]
-        private GameObject keyIcon;
-        [SerializeField]
-        private GameObject keyIconBackground;
-        [SerializeField]
-        private GameObject levelTimerUI;
-    
-        private void OnEnable()
+        [SerializeField] CharacterRuntimeSet characterRuntimeSet;
+
+        [SerializeField] GameObject keyIcon;
+
+        [SerializeField] GameObject keyIconBackground;
+
+        [SerializeField] GameObject levelTimerUI;
+
+        void OnEnable()
         {
             LevelManager.OnLevelComplete += DisableGameUI;
             HellCollider.OnTriggerEntered += FadeOut;
@@ -26,7 +25,7 @@ namespace UI
         }
 
 
-        private void OnDisable()
+        void OnDisable()
         {
             LevelManager.OnLevelComplete -= DisableGameUI;
             HellCollider.OnTriggerEntered -= FadeOut;
@@ -42,7 +41,7 @@ namespace UI
         }
 
         [ContextMenu("DisableGameUI")]
-        private void DisableGameUI(LevelData levelData)
+        void DisableGameUI(LevelData levelData)
         {
             keyIconBackground.SetActive(false);
             keyIcon.SetActive(false);
@@ -50,30 +49,24 @@ namespace UI
         }
 
         [ContextMenu("EnableGameUI")]
-        private void EnableGameUI()
+        void EnableGameUI()
         {
             keyIconBackground.SetActive(true);
             levelTimerUI.SetActive(true);
             SetKeyIcon();
         }
-    
-        private void FadeOut(float f)
+
+        void FadeOut(float f)
         {
             print("FADEOUT");
             var canvasGroups = GetComponentsInChildren<CanvasGroup>();
-            foreach (var group in canvasGroups)
-            {
-                LeanTween.alphaCanvas(group, 0f, 2f);
-            }
+            foreach (var group in canvasGroups) LeanTween.alphaCanvas(group, 0f, 2f);
         }
-    
-        private void HandleNearingLevelBounds(float value)
+
+        void HandleNearingLevelBounds(float value)
         {
             var canvasGroups = GetComponentsInChildren<CanvasGroup>();
-            foreach (var group in canvasGroups)
-            {
-                group.alpha = 1 - value;
-            }
+            foreach (var group in canvasGroups) group.alpha = 1 - value;
         }
     }
 }

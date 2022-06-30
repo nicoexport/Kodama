@@ -4,7 +4,6 @@ namespace Player.MovementStates
     {
         public RunningState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
-
         }
 
         public override void Enter()
@@ -37,6 +36,5 @@ namespace Player.MovementStates
         {
             base.PhysicsUpdate();
         }
-
     }
 }

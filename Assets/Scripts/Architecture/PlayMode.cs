@@ -7,14 +7,15 @@ namespace Architecture
 {
     public class PlayMode : IGameMode
     {
-        public GameModeState _state { get; private set; } = GameModeState.Ended;
-        public string _activeScene { get; private set; }
-        private string _scenePath;
+        readonly string _scenePath;
 
         public PlayMode(string scenePath)
         {
-            this._scenePath = scenePath;
+            _scenePath = scenePath;
         }
+
+        public GameModeState _state { get; private set; } = GameModeState.Ended;
+        public string _activeScene { get; private set; }
 
         public IEnumerator OnStart()
         {

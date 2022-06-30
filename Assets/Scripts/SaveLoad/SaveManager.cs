@@ -10,22 +10,23 @@ namespace SaveLoad
 {
     public class SaveManager : Singleton<SaveManager>
     {
-        [SerializeField] private GameDataSO _gameData;
-        [FormerlySerializedAs("_saveDataSo")] 
-        [SerializeField] private SessionData _sessionData;
-        
+        [SerializeField] GameDataSO _gameData;
+
+        [FormerlySerializedAs("_saveDataSo")] [SerializeField]
+        SessionData _sessionData;
+
         public void OnSave()
         {
             var saveData = ConvertSessionData(_sessionData);
-            if(SerializationManger.Save("test", saveData))
+            if (SerializationManger.Save("test", saveData))
                 print("SAVED THE GAME");
         }
 
         public void OnLoad()
         {
             ReadGameData(_gameData, _sessionData);
-            
-            var saveData = (SaveData)SerializationManger.Load(Application.persistentDataPath + "/saves/test.save");
+
+            var saveData = (SaveData) SerializationManger.Load(Application.persistentDataPath + "/saves/test.save");
             if (saveData == null)
             {
                 print("NO SAVE DATA FOUND: STARTING WITH NEW FILE");
@@ -34,9 +35,10 @@ namespace SaveLoad
 
             if (saveData.Version != _sessionData.Version)
             {
-                print("SAVE DATA VERSION MISMATCH: STARTING WITH NEW FILE"); 
+                print("SAVE DATA VERSION MISMATCH: STARTING WITH NEW FILE");
                 return;
             }
+
             ReadSaveDataIntoSessionData(saveData, _sessionData);
             print("SAVE FILE LOADED");
             print(_sessionData.CurrentWorld.WorldName + " " + _sessionData.CurrentLevel.LevelName);
@@ -48,7 +50,7 @@ namespace SaveLoad
             File.Delete(path);
         }
 
-        private SaveData ConvertSessionData(SessionData sessionData)
+        SaveData ConvertSessionData(SessionData sessionData)
         {
             var currentWorldSaveData = ConvertWorldData(sessionData.CurrentWorld);
             var currentLevelSaveData = ConvertLevelData(sessionData.CurrentLevel);
@@ -58,17 +60,17 @@ namespace SaveLoad
                 CurrentWorld = currentWorldSaveData,
                 CurrentLevel = currentLevelSaveData
             };
-            foreach (WorldData worldData in sessionData.WorldDatas)
+            foreach (var worldData in sessionData.WorldDatas)
             {
                 var worldSaveData = ConvertWorldData(worldData);
                 saveData.WorldSaveDatas.Add(worldSaveData);
             }
-            
+
             print(saveData.CurrentWorld.WorldName + " " + saveData.CurrentLevel.LevelName);
             return saveData;
         }
-        
-        private WorldSaveData ConvertWorldData(WorldData worldData)
+
+        WorldSaveData ConvertWorldData(WorldData worldData)
         {
             var worldSaveData = new WorldSaveData
             {
@@ -77,16 +79,16 @@ namespace SaveLoad
                 Visited = worldData.Visited,
                 Completed = worldData.Completed
             };
-            foreach (LevelData levelData in worldData.LevelDatas)
+            foreach (var levelData in worldData.LevelDatas)
             {
                 var levelSaveData = ConvertLevelData(levelData);
-                worldSaveData.LevelSaveDatas.Add(levelSaveData);     
+                worldSaveData.LevelSaveDatas.Add(levelSaveData);
             }
 
             return worldSaveData;
         }
-        
-        private LevelSaveData ConvertLevelData(LevelData levelData)
+
+        LevelSaveData ConvertLevelData(LevelData levelData)
         {
             var levelSaveData = new LevelSaveData
             {
@@ -98,8 +100,8 @@ namespace SaveLoad
             };
             return levelSaveData;
         }
-        
-        private void ReadGameData(GameDataSO gameDataSO, SessionData sessionData)
+
+        void ReadGameData(GameDataSO gameDataSO, SessionData sessionData)
         {
             sessionData.Version = gameDataSO.Version;
             sessionData.MainMenuScenePath = gameDataSO.MainMenuScenePath;
@@ -107,15 +109,16 @@ namespace SaveLoad
 
             // reading World and level datas
             sessionData.WorldDatas.Clear();
-            foreach (WorldDataSO worldSO in gameDataSO.WorldDatas)
+            foreach (var worldSO in gameDataSO.WorldDatas)
             {
                 var worldData = new WorldData(worldSO);
 
-                foreach (LevelDataSO levelDataSO in worldSO.LevelDatas)
+                foreach (var levelDataSO in worldSO.LevelDatas)
                 {
                     var levelData = new LevelData(levelDataSO);
                     worldData.LevelDatas.Add(levelData);
                 }
+
                 sessionData.WorldDatas.Add(worldData);
             }
 
@@ -124,16 +127,16 @@ namespace SaveLoad
             sessionData.CurrentWorld.Unlocked = true;
             sessionData.FreshSave = true;
         }
-        
-        private void ReadSaveDataIntoSessionData(SaveData saveData, SessionData sessionData)
+
+        void ReadSaveDataIntoSessionData(SaveData saveData, SessionData sessionData)
         {
             sessionData.FreshSave = false;
-            string currentLevelName = saveData.CurrentLevel.LevelName;
-            string currentWorldName = saveData.CurrentWorld.WorldName;
+            var currentLevelName = saveData.CurrentLevel.LevelName;
+            var currentWorldName = saveData.CurrentWorld.WorldName;
             for (var i = 0; i < sessionData.WorldDatas.Count; i++)
             {
-                WorldData worldData = sessionData.WorldDatas[i];
-                WorldSaveData worldSaveData = saveData.WorldSaveDatas[i];
+                var worldData = sessionData.WorldDatas[i];
+                var worldSaveData = saveData.WorldSaveDatas[i];
 
                 worldData.Unlocked = worldSaveData.Unlocked;
                 worldData.Visited = worldSaveData.Visited;
@@ -143,8 +146,8 @@ namespace SaveLoad
 
                 for (var j = 0; j < worldData.LevelDatas.Count; j++)
                 {
-                    LevelData levelData = worldData.LevelDatas[j];
-                    LevelSaveData levelSaveData = worldSaveData.LevelSaveDatas[j];
+                    var levelData = worldData.LevelDatas[j];
+                    var levelSaveData = worldSaveData.LevelSaveDatas[j];
 
                     levelData.Unlocked = levelSaveData.Unlocked;
                     levelData.Visited = levelSaveData.Visited;

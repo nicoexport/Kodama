@@ -5,7 +5,12 @@ namespace Level.Logic
     public abstract class Timer : MonoBehaviour
     {
         protected bool count;
-        protected float timer = 0.0f;
+        protected float timer;
+
+        public virtual void FixedUpdate()
+        {
+            if (count) CountUpTimer();
+        }
 
         public virtual void StartTimer()
         {
@@ -26,14 +31,6 @@ namespace Level.Logic
         public virtual void CountUpTimer()
         {
             timer += Time.deltaTime;
-        }
-
-        public virtual void FixedUpdate()
-        {
-            if (count)
-            {
-                CountUpTimer();
-            }
         }
     }
 }

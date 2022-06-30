@@ -6,25 +6,24 @@ namespace Level.Objects
 {
     public class ObjectVanisher : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject obj;
-        [SerializeField]
-        private bool playOnAwake = false;
-        [SerializeField]
-        private bool reappear;
-        [SerializeField]
-        private bool cycle = false;
-        [SerializeField]
-        protected float disappearDelay;
-        [SerializeField]
-        private float reappearDelay;
-        [SerializeField]
-        private UnityEvent vanishEvent;
-        [SerializeField]
-        private UnityEvent vanishedEvent;
-        [SerializeField]
-        private UnityEvent reappearEvent;
-    
+        [SerializeField] GameObject obj;
+
+        [SerializeField] bool playOnAwake;
+
+        [SerializeField] bool reappear;
+
+        [SerializeField] bool cycle;
+
+        [SerializeField] protected float disappearDelay;
+
+        [SerializeField] float reappearDelay;
+
+        [SerializeField] UnityEvent vanishEvent;
+
+        [SerializeField] UnityEvent vanishedEvent;
+
+        [SerializeField] UnityEvent reappearEvent;
+
         protected virtual void Awake()
         {
             if (playOnAwake) VanishObject();
@@ -42,10 +41,7 @@ namespace Level.Objects
             yield return new WaitForSeconds(disappearDelay);
             obj.SetActive(false);
             vanishedEvent.Invoke();
-            if (reappear)
-            {
-                yield return ReappearEnumerator();
-            }
+            if (reappear) yield return ReappearEnumerator();
         }
 
         protected virtual IEnumerator ReappearEnumerator()

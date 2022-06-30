@@ -7,7 +7,6 @@ namespace Editor
     [CustomEditor(typeof(LevelObject), true)]
     public class LevelObjectEditor : UnityEditor.Editor
     {
-
         public override void OnInspectorGUI()
         {
             var level = target as LevelObject;
@@ -19,7 +18,8 @@ namespace Editor
             level.levelIndex = EditorGUILayout.IntField("Level Index", level.levelIndex);
             level.worldIndex = EditorGUILayout.IntField("World Index", level.worldIndex);
             level.RecordTime = EditorGUILayout.FloatField("Record Time", level.RecordTime);
-            level.levelImage = (Sprite)EditorGUILayout.ObjectField("levelImage", level.levelImage, typeof(Sprite), false);
+            level.levelImage =
+                (Sprite) EditorGUILayout.ObjectField("levelImage", level.levelImage, typeof(Sprite), false);
 
             EditorGUI.BeginChangeCheck();
             var newScene = EditorGUILayout.ObjectField("scene", oldScene, typeof(SceneAsset), false) as SceneAsset;
@@ -30,6 +30,7 @@ namespace Editor
                 var scenePathProperty = serializedObject.FindProperty("ScenePath");
                 scenePathProperty.stringValue = newPath;
             }
+
             serializedObject.ApplyModifiedProperties();
             EditorUtility.SetDirty(level);
         }

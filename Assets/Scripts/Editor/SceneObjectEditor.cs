@@ -6,7 +6,6 @@ namespace Editor
     [CustomEditor(typeof(SceneObject), true)]
     public class SceneObjectEditor : UnityEditor.Editor
     {
-
         public override void OnInspectorGUI()
         {
             var currentScene = target as SceneObject;
@@ -24,6 +23,7 @@ namespace Editor
                 var scenePathProperty = serializedObject.FindProperty("ScenePath");
                 scenePathProperty.stringValue = newPath;
             }
+
             serializedObject.ApplyModifiedProperties();
             EditorUtility.SetDirty(currentScene);
         }

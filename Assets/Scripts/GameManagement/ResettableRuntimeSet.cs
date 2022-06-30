@@ -6,6 +6,5 @@ namespace GameManagement
     [CreateAssetMenu(menuName = "RuntimeSets/Resettable")]
     public class ResettableRuntimeSet : RuntimeSet<Resettable>
     {
-        
     }
 }

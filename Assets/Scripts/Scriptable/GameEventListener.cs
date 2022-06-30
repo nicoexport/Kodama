@@ -3,19 +3,23 @@ using UnityEngine.Events;
 
 namespace Scriptable
 {
-    public class GameEventListener: MonoBehaviour {
+    public class GameEventListener : MonoBehaviour
+    {
         public GameEvent Event;
         public UnityEvent Response;
 
-        void OnEnable() {
+        void OnEnable()
+        {
             Event.RegisterListener(this);
         }
 
-        void OnDisable() {
+        void OnDisable()
+        {
             Event.UnregisterListener(this);
         }
 
-        public void OnEventRaised() {
+        public void OnEventRaised()
+        {
             Response.Invoke();
         }
     }

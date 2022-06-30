@@ -9,7 +9,7 @@ public class PathBezier : MonoBehaviour {
 	public Transform[] trans;
 	
 	LTBezierPath cr;
-	private GameObject avatar1;
+	GameObject avatar1;
 
 	void OnEnable(){
 		// create the path
@@ -24,8 +24,8 @@ public class PathBezier : MonoBehaviour {
 		Debug.Log("length of path 1:"+cr.length);
 		Debug.Log("length of path 2:"+descr.optional.path.length);
 	}
-	
-	private float iter;
+
+	float iter;
 	void Update () {
 		// Or Update Manually
 		//cr.place2d( sprite1.transform, iter );

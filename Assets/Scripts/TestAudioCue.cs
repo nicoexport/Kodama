@@ -1,4 +1,3 @@
-using System;
 using Audio;
 using UnityEngine;
 
@@ -6,17 +5,17 @@ namespace DefaultNamespace
 {
     public class TestAudioCue : MonoBehaviour
     {
-        private AudioCue _audioCue;
+        AudioCue _audioCue;
 
-        private void Awake()
+        void Awake()
         {
             _audioCue = GetComponent<AudioCue>();
         }
 
         [ContextMenu("Test Audio")]
-        private void TestAudio()
+        void TestAudio()
         {
-             _audioCue.PlayAudioCue();
+            _audioCue.PlayAudioCue();
         }
     }
 }

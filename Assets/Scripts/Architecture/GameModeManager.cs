@@ -10,26 +10,25 @@ namespace Architecture
 {
     public class GameModeManager : Singleton<GameModeManager>
     {
+        [SerializeField] TransitionEventChannelSO _transitionEventChannel;
 
-        [SerializeField]
-        private TransitionEventChannelSO _transitionEventChannel;
-        [SerializeField]
-        private GameDataSO _gameData;
+        [SerializeField] GameDataSO _gameData;
+
         [FormerlySerializedAs("_sessionData")] [SerializeField]
-        private SessionData _sessionData;
+        SessionData _sessionData;
 
 
         [HideInInspector] public string MainMenuScenePath; //{ get; private set; }
         [HideInInspector] public string WorldsScenePath; //{ get; private set; }
 
+
+        IGameMode _currentMode;
+        readonly int _initialSceneIndex = 0;
+        bool _isSwitching;
+
         public MainMenuMode mainMenuMode { get; private set; }
         public PlayMode playMode { get; private set; }
         public string _levelToLoad { get; private set; }
-
-
-        private IGameMode _currentMode;
-        private bool _isSwitching = false;
-        private int _initialSceneIndex = 0;
 
         protected override void Awake()
         {
@@ -63,7 +62,7 @@ namespace Architecture
                     break;
                 // loaded from level scene
                 default:
-                    _sessionData.FreshSave = false; 
+                    _sessionData.FreshSave = false;
                     _currentMode = playMode;
                     _currentMode.OnEditorStart();
                     SceneManager.LoadScene(_initialSceneIndex, LoadSceneMode.Additive);
@@ -84,7 +83,7 @@ namespace Architecture
         {
         }
 
-        private IEnumerator SwitchMode(IGameMode mode)
+        IEnumerator SwitchMode(IGameMode mode)
         {
             Debug.Log("Trying to Switch mode to " + mode);
             yield return new WaitUntil(() => !_isSwitching);

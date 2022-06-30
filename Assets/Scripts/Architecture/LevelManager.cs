@@ -15,30 +15,14 @@ namespace Architecture
     [RequireComponent(typeof(LevelTimer))]
     public class LevelManager : Singleton<LevelManager>
     {
-        [FormerlySerializedAs("SessionData")] 
-        [SerializeField] SessionData _sessionData;
-        [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
-        LevelFlowHandler levelFlowHandler;
-        PlayerManager _playerManager;
-        LevelData _activeLevelData;
-        public static event Action<LevelData> OnLevelComplete;
-        public static event Action OnLevelStart;
-        public static event Action<float, bool> OnTimerFinished;
+        [FormerlySerializedAs("SessionData")] [SerializeField]
+        SessionData _sessionData;
 
-        protected void OnEnable()
-        {
-            LevelTimer.OnTimerFinished += BroadCastFinishedTimer;
-            PlayerManager.OnPlayerDied += StartLevel;
-            LevelWin.OnLevelWon += CompleteLevel;
-        }
-        
-        protected void OnDisable()
-        {
-            LevelTimer.OnTimerFinished -= BroadCastFinishedTimer;
-            PlayerManager.OnPlayerDied -= StartLevel;
-            LevelWin.OnLevelWon -= CompleteLevel;
-        }
-        
+        [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
+        LevelData _activeLevelData;
+        PlayerManager _playerManager;
+        LevelFlowHandler levelFlowHandler;
+
         protected override void Awake()
         {
             base.Awake();
@@ -46,18 +30,33 @@ namespace Architecture
             _playerManager = GetComponent<PlayerManager>();
         }
 
-        protected void Start() 
+        protected void Start()
         {
             SetActiveLevelData();
             StartLevel();
         }
 
+        protected void OnEnable()
+        {
+            LevelTimer.OnTimerFinished += BroadCastFinishedTimer;
+            PlayerManager.OnPlayerDied += StartLevel;
+            LevelWin.OnLevelWon += CompleteLevel;
+        }
+
+        protected void OnDisable()
+        {
+            LevelTimer.OnTimerFinished -= BroadCastFinishedTimer;
+            PlayerManager.OnPlayerDied -= StartLevel;
+            LevelWin.OnLevelWon -= CompleteLevel;
+        }
+
+        public static event Action<LevelData> OnLevelComplete;
+        public static event Action OnLevelStart;
+        public static event Action<float, bool> OnTimerFinished;
+
         void StartLevel()
         {
-            foreach (var resettable in  _resettableRuntimeSet.GetItemList())
-            {
-                resettable.ResetResettable();
-            }   
+            foreach (var resettable in _resettableRuntimeSet.GetItemList()) resettable.ResetResettable();
             OnLevelStart?.Invoke();
         }
 
@@ -68,11 +67,11 @@ namespace Architecture
                 Debug.LogWarningFormat("LEVEL EXIT: {0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
                 return;
             }
-            
+
             _activeLevelData.Completed = true;
             InputManager.DisableInput();
             OnLevelComplete?.Invoke(_activeLevelData);
-            
+
             AudioManager.Instance.StopMusic();
         }
 
@@ -101,22 +100,19 @@ namespace Architecture
             {
                 _activeLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
                 _sessionData.CurrentLevel = _activeLevelData;
-                _sessionData.CurrentWorld = Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, _sessionData);
+                _sessionData.CurrentWorld =
+                    Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, _sessionData);
             }
         }
 
-       LevelData GetLevelData()
+        LevelData GetLevelData()
         {
             var activeScenePath = SceneManager.GetActiveScene().path;
 
-            foreach (WorldData worldData in _sessionData.WorldDatas)
-            {
-                foreach (LevelData levelData in worldData.LevelDatas)
-                {
-                    if (levelData.ScenePath == activeScenePath)
-                        return levelData;
-                }
-            }
+            foreach (var worldData in _sessionData.WorldDatas)
+            foreach (var levelData in worldData.LevelDatas)
+                if (levelData.ScenePath == activeScenePath)
+                    return levelData;
             Debug.LogWarningFormat("{0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
             return null;
         }

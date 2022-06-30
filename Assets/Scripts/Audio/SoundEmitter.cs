@@ -8,20 +8,19 @@ namespace Audio
     [RequireComponent(typeof(AudioSource))]
     public class SoundEmitter : MonoBehaviour
     {
-        private AudioSource _audioSource;
-        
-        public event Action<SoundEmitter> OnSoundFinishedPlaying;
+        AudioSource _audioSource;
 
-        private void Awake()
+        void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
             _audioSource.playOnAwake = false;
-            
         }
+
+        public event Action<SoundEmitter> OnSoundFinishedPlaying;
 
         public void PlayAudioClip(AudioClip audioClip, AudioConfigSo config, bool hasToLoop, Vector3 position = default)
         {
-            _audioSource.clip = audioClip; 
+            _audioSource.clip = audioClip;
             config.ApplyConfigToAudioSource(_audioSource);
             _audioSource.transform.position = position;
             _audioSource.loop = hasToLoop;
@@ -40,17 +39,18 @@ namespace Audio
         {
             _audioSource.Pause();
         }
-        
+
         public void Stop()
         {
             _audioSource.Stop();
         }
-        
+
         public bool IsLooping()
         {
             return _audioSource.loop;
         }
-        private IEnumerator FinishedPlayingEnumerator(float clipLength)
+
+        IEnumerator FinishedPlayingEnumerator(float clipLength)
         {
             yield return new WaitForSeconds(clipLength);
             OnSoundFinishedPlaying?.Invoke(this);

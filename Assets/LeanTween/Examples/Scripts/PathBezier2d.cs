@@ -9,7 +9,7 @@ public class PathBezier2d : MonoBehaviour {
 	public GameObject dude1;
 	public GameObject dude2;
 
-	private LTBezierPath visualizePath;
+	LTBezierPath visualizePath;
 
 	void Start () {
 		// move 
