@@ -9,7 +9,7 @@ public class PathSpline2d : MonoBehaviour {
 	public GameObject dude1;
 	public GameObject dude2;
 
-	private LTSpline visualizePath;
+	LTSpline visualizePath;
 
 	void Start () {
 		Vector3[] path = new Vector3[] {

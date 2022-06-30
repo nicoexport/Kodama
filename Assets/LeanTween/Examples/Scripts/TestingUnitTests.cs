@@ -17,20 +17,20 @@ namespace DentedPixel.LTExamples
         public GameObject cubeAlpha2;
 
 
-        private bool eventGameObjectWasCalled = false, eventGeneralWasCalled = false;
-        private int lt1Id;
-        private LTDescr lt2;
-        private LTDescr lt3;
-        private LTDescr lt4;
-        private LTDescr[] groupTweens;
-        private GameObject[] groupGOs;
-        private int groupTweensCnt;
-        private int rotateRepeat;
-        private int rotateRepeatAngle;
-        private GameObject boxNoCollider;
-        private float timeElapsedNormalTimeScale;
-        private float timeElapsedIgnoreTimeScale;
-        private bool pauseTweenDidFinish = false;
+        bool eventGameObjectWasCalled = false, eventGeneralWasCalled = false;
+        int lt1Id;
+        LTDescr lt2;
+        LTDescr lt3;
+        LTDescr lt4;
+        LTDescr[] groupTweens;
+        GameObject[] groupGOs;
+        int groupTweensCnt;
+        int rotateRepeat;
+        int rotateRepeatAngle;
+        GameObject boxNoCollider;
+        float timeElapsedNormalTimeScale;
+        float timeElapsedIgnoreTimeScale;
+        bool pauseTweenDidFinish = false;
 
         void Awake()
         {
@@ -275,7 +275,7 @@ namespace DentedPixel.LTExamples
             StartCoroutine(timeBasedTesting());
         }
 
-        private GameObject cubeNamed(string name)
+        GameObject cubeNamed(string name)
         {
             GameObject cube = Instantiate(boxNoCollider) as GameObject;
             cube.name = name;

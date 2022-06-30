@@ -4,11 +4,10 @@ namespace Player.MovementStates
 {
     public class WinningState : State
     {
-        private bool grounded;
+        bool grounded;
 
         public WinningState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
-
         }
 
         public override void Enter()

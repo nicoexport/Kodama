@@ -6,15 +6,14 @@ namespace Player.MovementStates
 {
     public class WallslidingState : State
     {
-        private bool grounded;
-        private bool touchingWall;
-        private float horizontalInput;
-        private float speed;
+        bool grounded;
+        float horizontalInput;
+        float speed;
+        bool touchingWall;
 
 
         public WallslidingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
-
         }
 
         public override void Enter()
@@ -33,7 +32,6 @@ namespace Player.MovementStates
             base.Exit();
             character.rb.gravityScale = character.MovementValues.normalGravity;
             InputManager.playerInputActions.Player.Jump.performed -= ChangeToWallJumping;
-
         }
 
         public override void HandleInput()
@@ -60,7 +58,7 @@ namespace Player.MovementStates
             character.Move(horizontalInput, speed);
         }
 
-        private void ChangeToWallJumping(InputAction.CallbackContext context)
+        void ChangeToWallJumping(InputAction.CallbackContext context)
         {
             if (touchingWall) stateMachine.ChangeState(character.wallJumping);
         }

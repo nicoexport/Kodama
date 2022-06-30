@@ -1,17 +1,18 @@
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Architecture
 {
     public static class App
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void InitializeApp()
+        static void InitializeApp()
         {
-            var app = UnityEngine.Object.Instantiate(Resources.Load("P_App")) as GameObject;
+            var app = Object.Instantiate(Resources.Load("P_App")) as GameObject;
             if (app == null) throw new ApplicationException();
 
-            UnityEngine.Object.DontDestroyOnLoad(app);
+            Object.DontDestroyOnLoad(app);
         }
     }
 }

@@ -7,7 +7,7 @@ public class TestingPunch : MonoBehaviour {
     public AnimationCurve exportCurve;
     public float overShootValue = 1f;
 
-    private LTDescr descr;
+    LTDescr descr;
 	
 	void Start () {
 	   //LeanTween.rotateAround(gameObject, gameObject.transform.rotation.eulerAngles, 360f, 5f).setDelay(1f).setEase(LeanTweenType.easeOutBounce);

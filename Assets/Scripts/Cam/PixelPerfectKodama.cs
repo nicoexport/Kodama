@@ -4,6 +4,5 @@ namespace Cam
 {
     public class PixelPerfectKodama : PixelPerfectCamera
     {
-
     }
 }

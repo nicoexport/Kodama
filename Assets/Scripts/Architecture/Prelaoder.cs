@@ -5,14 +5,11 @@ namespace Architecture
 {
     public class Prelaoder : MonoBehaviour
     {
-        [SerializeField]
-        private int mainMenuIndex = 1;
+        [SerializeField] int mainMenuIndex = 1;
 
-        private void Start()
+        void Start()
         {
             SceneManager.LoadScene(mainMenuIndex);
         }
     }
 }
-
-

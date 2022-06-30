@@ -1,46 +1,43 @@
 using System;
 using Architecture;
 using Scriptable;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
 {
     public class InputButtonSwitcher : MonoBehaviour
     {
-        [SerializeField] private Image _targetImage;
-        [SerializeField] private Sprite _keyboardSprite;
-        [SerializeField] private Sprite _dualShockSprite;
-        [SerializeField] private Sprite _xboxSprite;
-        [SerializeField] private Sprite _nintendoSprite;
-        
-        private void Awake()
+        [SerializeField] Image _targetImage;
+        [SerializeField] Sprite _keyboardSprite;
+        [SerializeField] Sprite _dualShockSprite;
+        [SerializeField] Sprite _xboxSprite;
+        [SerializeField] Sprite _nintendoSprite;
+
+        void Awake()
         {
-           OnInputDeviceChange(InputManager.CurrentInputDevice);
+            OnInputDeviceChange(InputManager.CurrentInputDevice);
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
             InputManager.OnInputDeviceChanged += OnInputDeviceChange;
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             InputManager.OnInputDeviceChanged -= OnInputDeviceChange;
         }
-        
 
-        private void OnInputDeviceChange(InputDevice inputDevice)
+
+        void OnInputDeviceChange(InputDevice inputDevice)
         {
             var type = InputManager.GetGeneralDeviceTypeByName(inputDevice.name);
             UpdateButtonImage(type);
         }
 
-        private void UpdateButtonImage(GeneralDeviceType? type)
+        void UpdateButtonImage(GeneralDeviceType? type)
         {
             switch (type)
             {

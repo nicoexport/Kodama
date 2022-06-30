@@ -6,21 +6,21 @@ namespace Level_Selection
 {
     public class LevelSelectWorldPanelUI : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _worldName;
-        [SerializeField] private TextMeshProUGUI _completionText;
+        [SerializeField] TextMeshProUGUI _worldName;
+        [SerializeField] TextMeshProUGUI _completionText;
 
 
-        private void OnEnable()
+        void OnEnable()
         {
             LevelSelect.OnLevelSelectStarted += UpdatePanel;
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             LevelSelect.OnLevelSelectStarted -= UpdatePanel;
         }
 
-        private void UpdatePanel(WorldData worldData)
+        void UpdatePanel(WorldData worldData)
         {
             _worldName.text = worldData.WorldName;
         }

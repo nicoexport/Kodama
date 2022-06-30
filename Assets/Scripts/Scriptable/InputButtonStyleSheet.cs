@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Scriptable
 {
@@ -10,10 +10,9 @@ namespace Scriptable
         public InputButtonStyle Playstation;
         public InputButtonStyle Xbox;
         public InputButtonStyle Nintendo;
-
     }
 
-    [System.Serializable]
+    [Serializable]
     public class InputButtonStyle
     {
         public Sprite Up;

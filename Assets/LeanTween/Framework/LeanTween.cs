@@ -245,29 +245,29 @@ public class LeanTween : MonoBehaviour {
 
     public static bool throwErrors = true;
     public static float tau = Mathf.PI*2.0f; 
-    public static float PI_DIV2 = Mathf.PI / 2.0f; 
+    public static float PI_DIV2 = Mathf.PI / 2.0f;
 
-    private static LTSeq[] sequences;
+    static LTSeq[] sequences;
 
-    private static LTDescr[] tweens;
-    private static int[] tweensFinished;
-    private static int[] tweensFinishedIds;
-    private static LTDescr tween;
-    private static int tweenMaxSearch = -1;
-    private static int maxTweens = 400;
-    private static int maxSequences = 400;
-    private static int frameRendered= -1;
-    private static GameObject _tweenEmpty;
+    static LTDescr[] tweens;
+    static int[] tweensFinished;
+    static int[] tweensFinishedIds;
+    static LTDescr tween;
+    static int tweenMaxSearch = -1;
+    static int maxTweens = 400;
+    static int maxSequences = 400;
+    static int frameRendered= -1;
+    static GameObject _tweenEmpty;
     public static float dtEstimated = -1f;
     public static float dtManual;
     #if UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_5
     private static float previousRealTime;
     #endif
     public static float dtActual;
-    private static uint global_counter = 0;
-    private static int i;
-    private static int j;
-    private static int finishedCnt;
+    static uint global_counter = 0;
+    static int i;
+    static int j;
+    static int finishedCnt;
     public static AnimationCurve punch = new AnimationCurve( new Keyframe(0.0f, 0.0f ), new Keyframe(0.112586f, 0.9976035f ), new Keyframe(0.3120486f, -0.1720615f ), new Keyframe(0.4316337f, 0.07030682f ), new Keyframe(0.5524869f, -0.03141804f ), new Keyframe(0.6549395f, 0.003909959f ), new Keyframe(0.770987f, -0.009817753f ), new Keyframe(0.8838775f, 0.001939224f ), new Keyframe(1.0f, 0.0f ) );
     public static AnimationCurve shake = new AnimationCurve( new Keyframe(0f, 0f), new Keyframe(0.25f, 1f), new Keyframe(0.75f, -1f), new Keyframe(1f, 0f) ) ;
 
@@ -369,17 +369,17 @@ public class LeanTween : MonoBehaviour {
     }
 
     #if UNITY_5_4_OR_NEWER
-    private static void onLevelWasLoaded54( UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode ){ internalOnLevelWasLoaded( scene.buildIndex ); }
+    static void onLevelWasLoaded54( UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode ){ internalOnLevelWasLoaded( scene.buildIndex ); }
     #else
     public void OnLevelWasLoaded( int lvl ){ internalOnLevelWasLoaded( lvl ); }
     #endif
 
-    private static void internalOnLevelWasLoaded( int lvl ){
+    static void internalOnLevelWasLoaded( int lvl ){
         // Debug.Log("reseting gui");
         LTGUI.reset();
     }
 
-    private static int maxTweenReached;
+    static int maxTweenReached;
 
     public static void update() {
         if(frameRendered != Time.frameCount){ // make sure update is only called once per frame
@@ -1003,7 +1003,7 @@ public class LeanTween : MonoBehaviour {
     public static int startSearch = 0;
     public static LTDescr d;
 
-    private static LTDescr pushNewTween( GameObject gameObject, Vector3 to, float time, LTDescr tween ){
+    static LTDescr pushNewTween( GameObject gameObject, Vector3 to, float time, LTDescr tween ){
         init(maxTweens);
         if(gameObject==null || tween==null)
             return null;
@@ -2729,12 +2729,12 @@ public class LeanTween : MonoBehaviour {
 
     // LeanTween Listening/Dispatch
 
-    private static System.Action<LTEvent>[] eventListeners;
-    private static GameObject[] goListeners;
-    private static int eventsMaxSearch = 0;
+    static System.Action<LTEvent>[] eventListeners;
+    static GameObject[] goListeners;
+    static int eventsMaxSearch = 0;
     public static int EVENTS_MAX = 10;
     public static int LISTENERS_MAX = 10;
-    private static int INIT_LISTENERS_MAX = LISTENERS_MAX;
+    static int INIT_LISTENERS_MAX = LISTENERS_MAX;
 
     public static void addListener( int eventId, System.Action<LTEvent> callback ){
         addListener(tweenEmpty, eventId, callback);
@@ -2882,12 +2882,12 @@ public class LTUtility {
 public class LTBezier {
     public float length;
 
-    private Vector3 a;
-    private Vector3 aa;
-    private Vector3 bb;
-    private Vector3 cc;
-    private float len;
-    private float[] arcLengths;
+    Vector3 a;
+    Vector3 aa;
+    Vector3 bb;
+    Vector3 cc;
+    float len;
+    float[] arcLengths;
 
     public LTBezier(Vector3 a, Vector3 b, Vector3 c, Vector3 d, float precision){
         this.a = a;
@@ -2911,7 +2911,7 @@ public class LTBezier {
         this.length = clen;
     }
 
-    private float map(float u) {
+    float map(float u) {
         float targetLength = u * this.arcLengths[(int)this.len];
         int low = 0;
         int high = (int)this.len;
@@ -2932,7 +2932,7 @@ public class LTBezier {
         return (index + (targetLength - arcLengths[index]) / (arcLengths[index + 1] - arcLengths[index])) / this.len;
     }
 
-    private Vector3 bezierPoint(float t){
+    Vector3 bezierPoint(float t){
         return ((aa* t + (bb))* t + cc)* t + a;
     }
 
@@ -2959,9 +2959,9 @@ public class LTBezierPath {
     public bool orientToPath;
     public bool orientToPath2d;
 
-    private LTBezier[] beziers;
-    private float[] lengthRatio;
-    private int currentBezier=0,previousBezier=0;
+    LTBezier[] beziers;
+    float[] lengthRatio;
+    int currentBezier=0,previousBezier=0;
 
     public LTBezierPath(){ }
     public LTBezierPath( Vector3[] pts_ ){
@@ -3181,8 +3181,8 @@ public class LTSpline {
     public int ptsAdjLength;
     public bool orientToPath;
     public bool orientToPath2d;
-    private int numSections;
-    private int currPt;
+    int numSections;
+    int currPt;
 
     public LTSpline( Vector3[] pts ){
         init( pts, true);
@@ -3193,7 +3193,7 @@ public class LTSpline {
         init(pts, constantSpeed);
     }
 
-    private void init( Vector3[] pts, bool constantSpeed){
+    void init( Vector3[] pts, bool constantSpeed){
         if(pts.Length<4){
             LeanTween.logError( "LeanTween - When passing values for a spline path, you must pass four or more values!" );
             return;
@@ -3645,7 +3645,7 @@ public class LTRect : System.Object{
 
     public Texture texture;
 
-    private int _id = -1;
+    int _id = -1;
     [HideInInspector]
     public int counter;
 
@@ -3853,15 +3853,15 @@ public class LTGUI {
     public static int RECTS_PER_LEVEL = 10;
     public static int BUTTONS_MAX = 24;
 
-    private static LTRect[] levels;
-    private static int[] levelDepths;
-    private static Rect[] buttons;
-    private static int[] buttonLevels;
-    private static int[] buttonLastFrame;
-    private static LTRect r;
-    private static Color color = Color.white;
-    private static bool isGUIEnabled = false;
-    private static int global_counter = 0;
+    static LTRect[] levels;
+    static int[] levelDepths;
+    static Rect[] buttons;
+    static int[] buttonLevels;
+    static int[] buttonLastFrame;
+    static LTRect r;
+    static Color color = Color.white;
+    static bool isGUIEnabled = false;
+    static int global_counter = 0;
 
     public enum Element_Type{
         Texture,

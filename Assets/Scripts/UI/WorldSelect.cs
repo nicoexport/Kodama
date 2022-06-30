@@ -12,34 +12,41 @@ namespace UI
 {
     public class WorldSelect : MonoBehaviour, ISelectUI
     {
-        [SerializeField] private GameObject _ui;
-        [SerializeField] private GameObject _socketsParent;
-        [SerializeField] private GameObject _socketPrefab;
-        [SerializeField] private GameObject _uIPlayerObject;
-        [SerializeField] private float _playerMoveTimeInSeconds = 0.5f;
-        [SerializeField] private VoidEventChannelSO _returnToMainMenuChannel;
-        public SelectUIState _state { get; private set; }
+        [SerializeField] GameObject _ui;
+        [SerializeField] GameObject _socketsParent;
+        [SerializeField] GameObject _socketPrefab;
+        [SerializeField] GameObject _uIPlayerObject;
+        [SerializeField] float _playerMoveTimeInSeconds = 0.5f;
+        [SerializeField] VoidEventChannelSO _returnToMainMenuChannel;
 
-        private EventSystem  _eventSystem;
-        private IUICharacter _uiPlayer;
+        EventSystem _eventSystem;
+        IUICharacter _uiPlayer;
 
-        private void Awake()
+        void Awake()
         {
             _eventSystem = FindObjectOfType<EventSystem>();
             _uiPlayer = _uIPlayerObject.GetComponent<IUICharacter>();
             _ui.SetActive(false);
         }
 
-        private void OnEnable()
+        public IEnumerator Reset(SessionData sessionData)
+        {
+            yield return ClearSockets();
+            yield return OnStart(sessionData);
+        }
+
+        void OnEnable()
         {
             WorldSelectSocket.OnButtonSelectedAction += MoveUIPlayer;
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             WorldSelectSocket.OnButtonSelectedAction -= MoveUIPlayer;
             InputManager.playerInputActions.LevelSelectUI.Exit.started -= HandleExit;
         }
+
+        public SelectUIState _state { get; private set; }
 
         public IEnumerator OnStart(SessionData sessionData)
         {
@@ -47,7 +54,7 @@ namespace UI
             _ui.SetActive(true);
             yield return SetupUI(sessionData);
             _uIPlayerObject.transform.position = _eventSystem.currentSelectedGameObject.transform.position;
-            MoveUIPlayer(sessionData.CurrentWorld,_eventSystem.currentSelectedGameObject.transform);
+            MoveUIPlayer(sessionData.CurrentWorld, _eventSystem.currentSelectedGameObject.transform);
             InputManager.playerInputActions.LevelSelectUI.Exit.started += HandleExit;
             _state = SelectUIState.Started;
         }
@@ -62,32 +69,29 @@ namespace UI
         }
 
 
-        private IEnumerator SetupUI(SessionData sessionData)
+        IEnumerator SetupUI(SessionData sessionData)
         {
             yield return SetupSockets(sessionData);
         }
-    
-        private IEnumerator SetupSockets(SessionData sessionData)
-        {
 
+        IEnumerator SetupSockets(SessionData sessionData)
+        {
             for (var index = 0; index < sessionData.WorldDatas.Count; index++)
             {
                 var worldData = sessionData.WorldDatas[index];
-                var socketGameObject = Instantiate(_socketPrefab, _socketsParent.transform.position, quaternion.identity,
+                var socketGameObject = Instantiate(_socketPrefab, _socketsParent.transform.position,
+                    quaternion.identity,
                     _socketsParent.transform);
                 var socket = socketGameObject.GetComponent<WorldSelectSocket>();
-                socket.SetupSocket(worldData, index >= sessionData.WorldDatas.Count  - 1, index);
+                socket.SetupSocket(worldData, index >= sessionData.WorldDatas.Count - 1, index);
 
-                if (worldData == sessionData.CurrentWorld)
-                {
-                    _eventSystem.SetSelectedGameObject(socket.Button.gameObject);
-                }
+                if (worldData == sessionData.CurrentWorld) _eventSystem.SetSelectedGameObject(socket.Button.gameObject);
             }
-        
+
             yield break;
         }
-    
-        private void MoveUIPlayer(WorldData worldData, Transform transform1)
+
+        void MoveUIPlayer(WorldData worldData, Transform transform1)
         {
             if (_state != SelectUIState.Started) return;
             LeanTween.cancel(_uIPlayerObject);
@@ -100,21 +104,15 @@ namespace UI
                     _uiPlayer.StopMoving();
                 });
         }
-    
 
-        private IEnumerator ClearSockets()
+
+        IEnumerator ClearSockets()
         {
             _socketsParent.transform.DeleteChildren();
             yield break;
         }
 
-        public IEnumerator Reset(SessionData sessionData)
-        {
-            yield return ClearSockets();
-            yield return OnStart(sessionData);
-        }
-
-        private void HandleExit(InputAction.CallbackContext obj)
+        void HandleExit(InputAction.CallbackContext obj)
         {
             _eventSystem.enabled = false;
             GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);

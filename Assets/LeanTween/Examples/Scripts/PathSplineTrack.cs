@@ -12,9 +12,9 @@ public class PathSplineTrack : MonoBehaviour {
 
 	public Transform[] trackOnePoints;
 
-	private LTSpline track;
-	private int trackIter = 1;
-	private float trackPosition; // ratio 0,1 of the avatars position on the track
+	LTSpline track;
+	int trackIter = 1;
+	float trackPosition; // ratio 0,1 of the avatars position on the track
 
 	void Start () {
 		// Make the track from the provided transforms

@@ -15,34 +15,39 @@ namespace Architecture
     [SuppressMessage("ReSharper", "CheckNamespace")]
     public class LevelSelectManager : MonoBehaviour
     {
-        public static event Action<ISelectUI> OnSelectUISwitched;
-    
-        [FormerlySerializedAs("_saveData")] [SerializeField] private SessionData _sessionData;
-        [SerializeField] private WorldDataSO _defaultWorld;
-        [FormerlySerializedAs("loadEvenChannel")] [SerializeField] private LoadLevelEventChannelSO _loadEvenChannel;
-        [SerializeField] private TransitionEventChannelSO _transitionEventChannel;
-        [SerializeField] private float _transitionDurationInSeconds;
+        [FormerlySerializedAs("_saveData")] [SerializeField]
+        SessionData _sessionData;
 
-        [SerializeField] private LevelSelect _levelSelect;
-        [SerializeField] private WorldSelect _worldSelect;
+        [SerializeField] WorldDataSO _defaultWorld;
 
-        private WorldData _selectedWorld;
-        private LevelData _selectedLevel;
-        private EventSystem _eventSystem;
+        [FormerlySerializedAs("loadEvenChannel")] [SerializeField]
+        LoadLevelEventChannelSO _loadEvenChannel;
 
-        private bool _isSwitching;
-        private WaitForSeconds _waitForTransition;
-        private ISelectUI _currentUI;
-    
-        private void Awake()
+        [SerializeField] TransitionEventChannelSO _transitionEventChannel;
+        [SerializeField] float _transitionDurationInSeconds;
+
+        [SerializeField] LevelSelect _levelSelect;
+        [SerializeField] WorldSelect _worldSelect;
+        ISelectUI _currentUI;
+        EventSystem _eventSystem;
+
+        bool _isSwitching;
+        LevelData _selectedLevel;
+
+        WorldData _selectedWorld;
+        WaitForSeconds _waitForTransition;
+
+        void Awake()
         {
             _waitForTransition = new WaitForSeconds(_transitionDurationInSeconds);
             _eventSystem = FindObjectOfType<EventSystem>();
-        
+
             _selectedWorld = _sessionData.CurrentWorld;
-            _selectedLevel = _selectedWorld.LevelDatas.Contains(_sessionData.CurrentLevel) ? _sessionData.CurrentLevel : _selectedWorld.LevelDatas[0];
+            _selectedLevel = _selectedWorld.LevelDatas.Contains(_sessionData.CurrentLevel)
+                ? _sessionData.CurrentLevel
+                : _selectedWorld.LevelDatas[0];
             _selectedWorld ??= Utilities.GetWorldDataFromWorldDataSO(_defaultWorld, _sessionData);
-            if (_sessionData.FreshSave == true)
+            if (_sessionData.FreshSave)
             {
                 _sessionData.FreshSave = false;
                 SwitchUI(_worldSelect);
@@ -53,35 +58,37 @@ namespace Architecture
             }
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
             LevelSelectSocket.OnButtonClickedAction += LoadLevel;
             WorldSelectSocket.OnButtonClickedAction += OpenWorld;
             _levelSelect.OnReturnToWorldSelect += HandleReturnToWorldSelectRequest;
         }
-    
-        private void OnDisable()
+
+        void OnDisable()
         {
             LevelSelectSocket.OnButtonClickedAction -= LoadLevel;
             WorldSelectSocket.OnButtonClickedAction -= OpenWorld;
             _levelSelect.OnReturnToWorldSelect -= HandleReturnToWorldSelectRequest;
         }
 
-        private void SwitchUI(ISelectUI selectUI)
+        public static event Action<ISelectUI> OnSelectUISwitched;
+
+        void SwitchUI(ISelectUI selectUI)
         {
             StartCoroutine(SwitchUIEnumerator(selectUI));
         }
 
-        private IEnumerator SwitchUIEnumerator(ISelectUI selectUI)
+        IEnumerator SwitchUIEnumerator(ISelectUI selectUI)
         {
             yield return new WaitUntil(() => !_isSwitching);
             if (_currentUI == selectUI) yield break;
-        
+
             _isSwitching = true;
             DisablePlayerInput();
             _transitionEventChannel.RaiseEvent(TransitionType.FadeOut, 0f);
-        
-        
+
+
             if (_currentUI != null)
             {
                 _transitionEventChannel.RaiseEvent(TransitionType.FadeOut, _transitionDurationInSeconds);
@@ -96,18 +103,18 @@ namespace Architecture
             _transitionEventChannel.RaiseEvent(TransitionType.FadeIn, _transitionDurationInSeconds);
             yield return _waitForTransition;
             EnablePlayerInput();
-        
+
             _isSwitching = false;
         }
 
-        private void LoadLevel(LevelData obj)
+        void LoadLevel(LevelData obj)
         {
             _eventSystem.enabled = false;
             InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
-            _loadEvenChannel.RaiseEventWithScenePath(obj.ScenePath,true, true);
+            _loadEvenChannel.RaiseEventWithScenePath(obj.ScenePath, true, true);
         }
 
-        private void OpenWorld(WorldData worldData)
+        void OpenWorld(WorldData worldData)
         {
             if (!ReferenceEquals(_currentUI, _worldSelect)) return;
             _sessionData.CurrentWorld = worldData;
@@ -115,65 +122,60 @@ namespace Architecture
 
             SwitchUI(_levelSelect);
         }
-    
-        private void HandleReturnToWorldSelectRequest()
+
+        void HandleReturnToWorldSelectRequest()
         {
             SwitchUI(_worldSelect);
         }
 
-        private void EnablePlayerInput()
+        void EnablePlayerInput()
         {
             _eventSystem.enabled = true;
             InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSelectUI);
             print("Player Input enabled");
         }
 
-        private void DisablePlayerInput()
+        void DisablePlayerInput()
         {
             _eventSystem.enabled = false;
             InputManager.playerInputActions.Disable();
             print("Player Input disabled");
         }
-    
+
         #region ContextMenu
-    
+
         [ContextMenu("UnlockLevels")]
-        private void TestUnlockLevelsOfCurrentWorld()
+        void TestUnlockLevelsOfCurrentWorld()
         {
             if ((LevelSelect) _currentUI != _levelSelect) return;
-            foreach (var level in _sessionData.CurrentWorld.LevelDatas)
-            {
-                level.Unlocked = true;
-            }
+            foreach (var level in _sessionData.CurrentWorld.LevelDatas) level.Unlocked = true;
 
             StartCoroutine(_levelSelect.OnStart(_sessionData));
         }
-    
+
         [ContextMenu("UnlockWorlds")]
-        private void TestUnlockWorlds()
+        void TestUnlockWorlds()
         {
             if ((WorldSelect) _currentUI != _worldSelect) return;
 
-            foreach (var worldData in _sessionData.WorldDatas)
-            {
-                worldData.Unlocked = true;
-            }
+            foreach (var worldData in _sessionData.WorldDatas) worldData.Unlocked = true;
 
             StartCoroutine(_worldSelect.Reset(_sessionData));
         }
-    
+
 
         [ContextMenu("SwitchToWorldSelect")]
-        private void TestSwitchToWorldSelect()
+        void TestSwitchToWorldSelect()
         {
             SwitchUI(_worldSelect);
         }
 
         [ContextMenu("SwitchToLevelSelect")]
-        private void TestSwitchToLevelSelect()
+        void TestSwitchToLevelSelect()
         {
             SwitchUI(_levelSelect);
         }
+
         #endregion
     }
 

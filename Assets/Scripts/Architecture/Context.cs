@@ -6,7 +6,7 @@ namespace Architecture
 {
     public class Context : Singleton<Context>
     {
-        private List<IContextManager> contextManagers = new List<IContextManager>();
+        readonly List<IContextManager> contextManagers = new();
 
         public void RegisterContextManager(IContextManager manager)
         {
@@ -20,13 +20,11 @@ namespace Architecture
 
         public void OnGameModeStarted()
         {
-            for (int i = contextManagers.Count - 1; i >= 0; i--) contextManagers[i].OnGameModeStarted();
+            for (var i = contextManagers.Count - 1; i >= 0; i--) contextManagers[i].OnGameModeStarted();
         }
 
         public void RequestLevelLoad(LevelObject levelObject)
         {
-
         }
-
     }
 }

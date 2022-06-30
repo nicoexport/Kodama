@@ -8,18 +8,17 @@ namespace Architecture
 {
     public class WorldsScreenManager : Singleton<WorldsScreenManager>
     {
-        [SerializeField]
-        private SessionData _sessionData;
-        [SerializeField]
-        private LoadLevelEventChannelSO _loadLevelEventChannel;
+        [SerializeField] SessionData _sessionData;
+
+        [SerializeField] LoadLevelEventChannelSO _loadLevelEventChannel;
 
 
-        [Header("Temporary")]
-        [SerializeField] TextMeshProUGUI worldDisplay;
+        [Header("Temporary")] [SerializeField] TextMeshProUGUI worldDisplay;
+
         [SerializeField] TextMeshProUGUI recordDisplay;
+        LevelData _currentLevel;
 
-        private WorldData _currentWorld;
-        private LevelData _currentLevel;
+        WorldData _currentWorld;
 
         protected override void Awake()
         {
@@ -43,17 +42,18 @@ namespace Architecture
         }
 
 
-        private void UpdateWorldDisplay()
+        void UpdateWorldDisplay()
         {
             worldDisplay.text = _currentWorld.WorldName + ": " + _currentLevel.LevelName;
-            recordDisplay.text = _currentLevel.RecordTime == Mathf.Infinity ? "NO RECORD" : _currentLevel.RecordTime.ToString();
+            recordDisplay.text = _currentLevel.RecordTime == Mathf.Infinity
+                ? "NO RECORD"
+                : _currentLevel.RecordTime.ToString();
         }
 
         [ContextMenu("ReturnToMainMenu")]
-        private void ReturnToMainMenu()
+        void ReturnToMainMenu()
         {
             GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);
         }
-
     }
 }

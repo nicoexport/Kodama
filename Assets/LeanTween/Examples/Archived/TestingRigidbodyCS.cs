@@ -3,8 +3,7 @@ using System.Collections;
 using DentedPixel;
 
 public class TestingRigidbodyCS : MonoBehaviour {
-
-	private GameObject ball1;
+	GameObject ball1;
 	// Use this for initialization
 	void Start () {
 		ball1 = GameObject.Find("Sphere1");

@@ -6,178 +6,121 @@ using GameManagement;
 using Level.Logic;
 using Scriptable;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Utility;
 
 namespace Architecture
 {
+    [RequireComponent(typeof(LevelFlowHandler))]
     [RequireComponent(typeof(LevelTimer))]
-    public class LevelManager : Singleton<LevelManager>, IContextManager
+    public class LevelManager : Singleton<LevelManager>
     {
-        [field: SerializeField]
-        public SessionData SessionData { get; private set; }
+        [FormerlySerializedAs("SessionData")] 
+        [SerializeField] SessionData _sessionData;
+        [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
+        [SerializeField] float _levelResetDelay = 1f;
+        LevelData _activeLevelData;
+        LevelFlowHandler levelFlowHandler;
+        IEnumerator _restartLevelEnumerator;
 
-        [Space(10)]
-        [Header("Runtime Sets")]
-        [SerializeField]
-        private TransformRuntimeSet playerSpawnRuntimeSet;
-        [SerializeField]
-        private GameObjectRuntimeSet cinemachineRuntimeSet;
-        [SerializeField]
-        private GameObjectRuntimeSet levelWinRuntimeSet;
-
-        [SerializeField] private AudioCue _levelMusicCue;
-
-        [Header("Prefabs")]
-        [SerializeField]
-        private GameObject playerPrefab;
-
-        [Header("Level Summary")]
-        [SerializeField]
-        private float levelSummaryContinueDelay = 2f;
-
-        [SerializeField] private LevelFinishedEventChannel _levelFinishedEventChannel;
-    
-        public static event Action OnCompleteLevel;
-        public static event Action OnPlayerGainedControl;
+        public static event Action<LevelData> OnLevelComplete;
+        public static event Action OnLevelStart;
         public static event Action<float, bool> OnTimerFinished;
-
-        private LevelFlowManager _levelFlowManager;
-        private PlayerManager _playerManager;
-
-        private LevelData _activeLevelData;
-
-        private void OnEnable()
-        {
-            Context.Instance.RegisterContextManager(this);
-            LevelTimer.OnTimerFinished += BroadCastFinishedTimer;
-        }
-
-        private void OnDisable()
-        {
-            if (Context.Instance != null) Context.Instance.UnRegisterContextManager(this);
-            LevelTimer.OnTimerFinished -= BroadCastFinishedTimer;
-        }
         
         protected override void Awake()
         {
+            _restartLevelEnumerator = Utilities.ActionAfterDelayEnumerator(_levelResetDelay, StartLevel);
             base.Awake();
-            _levelFlowManager = GetComponent<LevelFlowManager>();
-            _playerManager = GetComponent<PlayerManager>();
-            
-            foreach (var obj in levelWinRuntimeSet.GetItemList())
-            {
-                var win = obj.GetComponent<LevelWin>();
-                win.OnLevelWon += CompleteLevel;
-            }
+            levelFlowHandler = GetComponent<LevelFlowHandler>();
         }
 
-        private void Start() 
+        protected void Start()
         {
-            _activeLevelData = GetLevelData();
-            if (_activeLevelData != null)
-            {
-                _activeLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
-                SessionData.CurrentLevel = _activeLevelData;
-                SessionData.CurrentWorld = Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, SessionData);
-            }
-
-            StartLevelMusic();
-            StartCoroutine(SpawnPlayerEnumerator());
+            SetActiveLevelData();
+            StartLevel();
         }
 
-        private void StartLevelMusic()
+        protected void OnEnable()
         {
-            if(!_levelMusicCue) 
-                return;
-            _levelMusicCue.Cue = _activeLevelData.LevelMusicAudioCueSo;
-            _levelMusicCue.PlayAudioCue();
+            LevelTimer.OnTimerFinished += BroadCastFinishedTimer;
+            PlayerManager.OnPlayerDied += RestartLevel;
+            LevelWin.OnLevelWon += CompleteLevel;
         }
 
-        public void OnGameModeStarted()
+        protected void OnDisable()
         {
-
+            LevelTimer.OnTimerFinished -= BroadCastFinishedTimer;
+            PlayerManager.OnPlayerDied -= RestartLevel;
+            LevelWin.OnLevelWon -= CompleteLevel;
         }
-
-        private IEnumerator SpawnPlayerEnumerator()
+        
+        void StartLevel()
         {
-            yield return _playerManager.SpawnPlayer();
-            InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
-            OnPlayerGainedControl?.Invoke();
+            foreach (var resettable in _resettableRuntimeSet.GetItemList()) resettable.OnLevelReset();
+            OnLevelStart?.Invoke();
         }
 
-        private void CompleteLevel()
+        void RestartLevel()
+        {
+            StartCoroutine(_restartLevelEnumerator);
+        }
+
+        void CompleteLevel()
         {
             if (_activeLevelData == null)
             {
                 Debug.LogWarningFormat("LEVEL EXIT: {0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
                 return;
             }
+
             _activeLevelData.Completed = true;
-            OnCompleteLevel?.Invoke();
-            _levelFinishedEventChannel.RaiseEvent(_activeLevelData);
             InputManager.DisableInput();
+            OnLevelComplete?.Invoke(_activeLevelData);
+
             AudioManager.Instance.StopMusic();
-            StartCoroutine(Utilities.ActionAfterDelayEnumerator(levelSummaryContinueDelay, EnableSummaryInput));
-            // Save Level Completion
-            // Save Record
         }
 
-        private void BroadCastFinishedTimer(float timer)
+        void BroadCastFinishedTimer(float timer)
         {
             var newRecord = _activeLevelData.UpdateRecordTime(timer);
             OnTimerFinished?.Invoke(timer, newRecord);
         }
 
-        private void LoadNextLevel(InputAction.CallbackContext context)
+        public void LoadNextLevel()
         {
-            DisableSummaryInput();
-            _levelFlowManager.NextLevelRequest(_activeLevelData);
-        }
-
-        private void FinishLevelAndReturnToWorldMode(InputAction.CallbackContext context)
-        {
-            DisableSummaryInput();
-            _levelFlowManager.FinishLevelAndExit(_activeLevelData);
-        }
-
-        private void EnableSummaryInput()
-        {
-            InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSummary);
-            InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
-            InputManager.playerInputActions.LevelSummary.Return.started += FinishLevelAndReturnToWorldMode;
-        }
-
-        private void DisableSummaryInput()
-        {
-            InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
-            InputManager.playerInputActions.LevelSummary.Return.started -= FinishLevelAndReturnToWorldMode;
             InputManager.playerInputActions.Disable();
+            levelFlowHandler.NextLevelRequest(_activeLevelData);
         }
 
-        private LevelData GetLevelData()
+        public void FinishAndReturnToWorldMode()
+        {
+            InputManager.playerInputActions.Disable();
+            levelFlowHandler.FinishLevelAndExit(_activeLevelData);
+        }
+
+        void SetActiveLevelData()
+        {
+            _activeLevelData = GetLevelData();
+            if (_activeLevelData != null)
+            {
+                _activeLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
+                _sessionData.CurrentLevel = _activeLevelData;
+                _sessionData.CurrentWorld =
+                    Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, _sessionData);
+            }
+        }
+
+        LevelData GetLevelData()
         {
             var activeScenePath = SceneManager.GetActiveScene().path;
 
-            foreach (WorldData worldData in SessionData.WorldDatas)
-            {
-                foreach (LevelData levelData in worldData.LevelDatas)
-                {
-                    if (levelData.ScenePath == activeScenePath)
-                        return levelData;
-                }
-            }
+            foreach (var worldData in _sessionData.WorldDatas)
+            foreach (var levelData in worldData.LevelDatas)
+                if (levelData.ScenePath == activeScenePath)
+                    return levelData;
             Debug.LogWarningFormat("{0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
             return null;
-        }
-
-        protected void OnValidate() 
-        {
-            if (!_levelMusicCue)
-            {
-                TryGetComponent(out _levelMusicCue);
-            }
         }
     }
 }

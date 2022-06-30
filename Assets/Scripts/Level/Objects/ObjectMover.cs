@@ -5,36 +5,38 @@ namespace Level.Objects
 {
     public class ObjectMover : MonoBehaviour
     {
-        [SerializeField]
-        private Transform[] wayPoints;
-        private int currentWayPointIndex = 0;
-        [SerializeField]
-        private float speed = 10f;
-        [SerializeField]
-        private float pauseTime = 0f;
+        [SerializeField] Transform[] wayPoints;
 
-        private bool move;
+        [SerializeField] float speed = 10f;
 
-        private void Start()
+        [SerializeField] float pauseTime;
+
+        int currentWayPointIndex;
+
+        bool move;
+
+        void Start()
         {
             currentWayPointIndex = 0;
             move = true;
         }
 
-        private void FixedUpdate()
+        void FixedUpdate()
         {
             MoveObject();
         }
 
-        private void MoveObject()
+        void MoveObject()
         {
             if (!move) return;
-            transform.position = Vector2.MoveTowards(transform.position, wayPoints[currentWayPointIndex].position, speed / 100f);
+            transform.position =
+                Vector2.MoveTowards(transform.position, wayPoints[currentWayPointIndex].position, speed / 100f);
             if (Vector2.Distance(transform.position, wayPoints[currentWayPointIndex].position) <= 0.1f)
             {
                 currentWayPointIndex += 1;
                 if (pauseTime != 0f) StartCoroutine(PauseMove(pauseTime));
             }
+
             if (currentWayPointIndex >= wayPoints.Length) currentWayPointIndex = 0;
         }
 

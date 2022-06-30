@@ -1,5 +1,6 @@
 using System.Collections;
 using Architecture;
+using Data;
 using GameManagement;
 using Player.MovementStates;
 using UnityEngine;
@@ -8,94 +9,77 @@ using Utility;
 
 namespace Player
 {
-    [RequireComponent(typeof(CharacterLifeHandler))]
+    [RequireComponent(typeof(PlayerLifeCycleHandler))]
     public class Character : MonoBehaviour
     {
-        [field: SerializeField]
-        public CharacterMovementValues MovementValues { get; private set; }
-        [SerializeField]
-        private CharacterRuntimeSet characterRuntimeSet;
-        private float jumpInputTimer;
-        
-        [HideInInspector]
-        public float hasPressedRightTimer;
-        [HideInInspector]
-        public float hasPressedLeftTimer;
+        [SerializeField] CharacterRuntimeSet characterRuntimeSet;
+
+        [HideInInspector] public float hasPressedRightTimer;
+
+        [HideInInspector] public float hasPressedLeftTimer;
 
 
         public float spawnDelay = 1f;
 
-        [HideInInspector]
-        public bool wantjump;
-        [HideInInspector]
-        public bool hasPressedRight;
-        [HideInInspector]
-        public bool hasPressedLeft;
+        [HideInInspector] public bool wantjump;
 
-        [Header("Collision Checks")]
-        public float groundCheckRadius;
+        [HideInInspector] public bool hasPressedRight;
+
+        [HideInInspector] public bool hasPressedLeft;
+
+        [Header("Collision Checks")] public float groundCheckRadius;
+
         public float ceilingCheckRadius;
         public float frontCheckRadius = 0.23f;
-        [SerializeField]
-        private LayerMask whatIsGround;
 
-        [Header("Refrences")]
-        public Transform groundCheck;
+        [SerializeField] LayerMask whatIsGround;
+
+        [Header("Refrences")] public Transform groundCheck;
+
         public Transform frontCheck;
         public Transform ceilingCheck;
         public Transform ceilingCheck1;
         public Rigidbody2D rb;
 
-        [Header("Debugging")]
-        [SerializeField]
-        public bool debugStates;
-        [SerializeField]
-        private bool logVelocity;
+        [Header("Debugging")] [SerializeField] public bool debugStates;
+
+        [SerializeField] bool logVelocity;
 
 
-        [HideInInspector]
-        public bool facingRight = true;
-
-        public StandingState standing;
-        public RunningState running;
-        public JumpingState jumping;
-        public FallingState falling;
-        public WallslidingState wallsliding;
-        public WalljumpingState wallJumping;
-        public SpawningState spawning;
-        public WinningState winning;
-        public DyingState dying;
-
-
-        private StateMachine movementSm;
-        private CharacterAnimationController cAnimController;
-        public CharacterLifeHandler LifeHandler { get; private set; }
+        [HideInInspector] public bool facingRight = true;
 
         [HideInInspector] public bool wasGrounded;
+        CharacterAnimationController cAnimController;
+        public DyingState dying;
+        public FallingState falling;
+        public JumpingState jumping;
+        float jumpInputTimer;
 
-        private void Awake()
+
+        StateMachine movementSm;
+        public RunningState running;
+        public SpawningState spawning;
+
+        public StandingState standing;
+        public WalljumpingState wallJumping;
+        public WallslidingState wallsliding;
+        public WinningState winning;
+
+        [field: SerializeField] public CharacterMovementValues MovementValues { get; private set; }
+
+        public PlayerLifeCycleHandler LifeCycleHandler { get; private set; }
+
+        void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             cAnimController = GetComponent<CharacterAnimationController>();
-            LifeHandler = GetComponent<CharacterLifeHandler>();
+            LifeCycleHandler = GetComponent<PlayerLifeCycleHandler>();
             InputManager.playerInputActions.Player.Jump.started += StartJumpInputTimer;
             AddCharacterToRuntimeSet();
             InitializeStates();
             InitializeStateMachine(spawning);
-            StartCoroutine(Utilities.ActionAfterDelayEnumerator(spawnDelay, () => { movementSm.ChangeState(standing); }));
-        }
-
-        private void OnEnable()
-        {
-            AddCharacterToRuntimeSet();
-            LevelManager.OnCompleteLevel += () => { movementSm.ChangeState(winning); };
-        }
-
-        private void OnDisable()
-        {
-            //movementSm.CurrentState.Exit();
-            characterRuntimeSet.RemoveFromList(this);
-            LevelManager.OnCompleteLevel -= () => { movementSm.ChangeState(winning); };
+            StartCoroutine(
+                Utilities.ActionAfterDelayEnumerator(spawnDelay, () => { movementSm.ChangeState(standing); }));
         }
 
         public void Update()
@@ -113,6 +97,30 @@ namespace Player
             CountDownInputTimer();
         }
 
+        void OnEnable()
+        {
+            AddCharacterToRuntimeSet();
+            LevelManager.OnLevelComplete += ChangeToWinningState;
+        }
+
+        void OnDisable()
+        {
+            //movementSm.CurrentState.Exit();
+            characterRuntimeSet.RemoveFromList(this);
+            LevelManager.OnLevelComplete -= ChangeToWinningState;
+        }
+
+        // visualizing the groundCheckRadius
+        void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(frontCheck.position, frontCheckRadius);
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(ceilingCheck.position, ceilingCheckRadius);
+            Gizmos.DrawWireSphere(ceilingCheck1.position, ceilingCheckRadius);
+        }
+
         // Method for flipping character
         public void Flip()
         {
@@ -120,7 +128,7 @@ namespace Player
             transform.Rotate(0f, 180f, 0f);
         }
 
-        private void StartJumpInputTimer(InputAction.CallbackContext context)
+        void StartJumpInputTimer(InputAction.CallbackContext context)
         {
             wantjump = true;
             jumpInputTimer = MovementValues.jumpInputTimer;
@@ -132,8 +140,10 @@ namespace Player
             // rb.velocity = new Vector2(horizontalMove * speed * Time.deltaTime * 10f, rb.velocity.y);
             var newForce = new Vector2(horizontalMove * Time.deltaTime * speed, 0f);
             rb.AddForce(newForce, ForceMode2D.Impulse);
-            if (rb.velocity.x > MovementValues.maxVelocityX) rb.velocity = new Vector2(MovementValues.maxVelocityX, rb.velocity.y);
-            else if (rb.velocity.x < -MovementValues.maxVelocityX) rb.velocity = new Vector2(-MovementValues.maxVelocityX, rb.velocity.y);
+            if (rb.velocity.x > MovementValues.maxVelocityX)
+                rb.velocity = new Vector2(MovementValues.maxVelocityX, rb.velocity.y);
+            else if (rb.velocity.x < -MovementValues.maxVelocityX)
+                rb.velocity = new Vector2(-MovementValues.maxVelocityX, rb.velocity.y);
             if (logVelocity) Debug.Log("Velocity x: " + rb.velocity.x + " y: " + rb.velocity.y);
         }
 
@@ -144,6 +154,11 @@ namespace Player
             rb.AddForce(newForce, ForceMode2D.Impulse);
         }
 
+        void ChangeToWinningState(LevelData levelData)
+        {
+            movementSm.ChangeState(winning);
+        }
+
         public IEnumerator DieEnumerator()
         {
             movementSm.ChangeState(dying);
@@ -151,7 +166,7 @@ namespace Player
             var waitForAnim = new WaitForSeconds(cAnimController.animator.GetCurrentAnimatorClipInfo(0).Length);
             yield return waitForAnim;
         }
-    
+
         public void ResetMoveParams()
         {
             rb.gravityScale = MovementValues.normalGravity;
@@ -161,19 +176,21 @@ namespace Player
         {
             return movementSm.CurrentState;
         }
+
         // Method checking for a collision with ground returning a boolean
         public bool CheckCollisionOverlap(Vector3 point, float radius)
         {
             return Physics2D.OverlapCircle(point, radius, whatIsGround);
         }
 
-        private void UpdateVisuals()
+        void UpdateVisuals()
         {
             var touchingWall = CheckCollisionOverlap(frontCheck.position, frontCheckRadius);
-            cAnimController.SetAnimationState(movementSm.CurrentState, InputManager.GetHorizontalMovementValue(), rb.velocity.x, MovementValues.maxVelocityX, touchingWall);
+            cAnimController.SetAnimationState(movementSm.CurrentState, InputManager.GetHorizontalMovementValue(),
+                rb.velocity.x, MovementValues.maxVelocityX, touchingWall);
         }
 
-        private void InitializeStates()
+        void InitializeStates()
         {
             movementSm = new StateMachine();
             standing = new StandingState(movementSm, this);
@@ -187,12 +204,12 @@ namespace Player
             dying = new DyingState(movementSm, this);
         }
 
-        private void InitializeStateMachine(State state)
+        void InitializeStateMachine(State state)
         {
             movementSm.Initialize(state);
         }
 
-        private void CountDownInputTimer()
+        void CountDownInputTimer()
         {
             if (jumpInputTimer > 0f) jumpInputTimer -= Time.fixedDeltaTime;
             if (jumpInputTimer <= 0f) wantjump = false;
@@ -205,33 +222,16 @@ namespace Player
         public void SetWasGroundedTrue()
         {
             wasGrounded = true;
-            StartCoroutine(Utilities.ActionAfterDelayEnumerator(MovementValues.hangTime, () =>
-            {
-                wasGrounded = false;
-            }));
+            StartCoroutine(
+                Utilities.ActionAfterDelayEnumerator(MovementValues.hangTime, () => { wasGrounded = false; }));
         }
-        
+
         void AddCharacterToRuntimeSet()
         {
             if (characterRuntimeSet.IsEmpty())
-            {
                 characterRuntimeSet.AddToList(this);
-            }
             else
-            {
                 Debug.Log("Player already exists");
-            }
-        }
-        
-        // visualizing the groundCheckRadius
-        void OnDrawGizmosSelected()
-        {
-            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(frontCheck.position, frontCheckRadius);
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawWireSphere(ceilingCheck.position, ceilingCheckRadius);
-            Gizmos.DrawWireSphere(ceilingCheck1.position, ceilingCheckRadius);
         }
     }
 }

@@ -1,22 +1,21 @@
-using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 namespace SaveLoad
 {
-    public class SerializationManger 
+    public class SerializationManger
     {
         public static bool Save(string saveName, object saveData)
         {
-            BinaryFormatter formatter = GetBinaryFormatter();
+            var formatter = GetBinaryFormatter();
 
-            if (!Directory.Exists(Application.persistentDataPath + "/saves")) 
+            if (!Directory.Exists(Application.persistentDataPath + "/saves"))
                 Directory.CreateDirectory(Application.persistentDataPath + "/saves");
 
-            string path = Application.persistentDataPath + "/saves/" + saveName + ".save";
+            var path = Application.persistentDataPath + "/saves/" + saveName + ".save";
 
-            FileStream file = File.Create(path);
+            var file = File.Create(path);
             formatter.Serialize(file, saveData);
             file.Close();
 
@@ -28,16 +27,16 @@ namespace SaveLoad
             if (!File.Exists(path))
                 return null;
 
-            BinaryFormatter formatter = GetBinaryFormatter();
-            FileStream file = File.Open(path, FileMode.Open);
-       
+            var formatter = GetBinaryFormatter();
+            var file = File.Open(path, FileMode.Open);
+
             try
             {
-                object save = formatter.Deserialize(file);
+                var save = formatter.Deserialize(file);
                 file.Close();
                 return save;
             }
-            catch 
+            catch
             {
                 Debug.LogErrorFormat("Failed to load file at {0}", path);
                 file.Close();
@@ -45,11 +44,11 @@ namespace SaveLoad
             }
         }
 
-        
-        private static BinaryFormatter GetBinaryFormatter()
+
+        static BinaryFormatter GetBinaryFormatter()
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            
+            var formatter = new BinaryFormatter();
+
             return formatter;
         }
     }

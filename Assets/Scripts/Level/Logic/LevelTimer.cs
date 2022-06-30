@@ -1,26 +1,11 @@
 using System;
 using Architecture;
+using Data;
 
 namespace Level.Logic
 {
     public class LevelTimer : Timer
     {
-
-        public static event Action<float> OnTimerChanged;
-        public static event Action<float> OnTimerFinished;
-
-        private void OnEnable()
-        {
-            LevelManager.OnPlayerGainedControl += RestartTimer;
-            LevelManager.OnCompleteLevel += FinishTimer;
-        }
-
-        private void OnDisable()
-        {
-            LevelManager.OnPlayerGainedControl -= RestartTimer;
-            LevelManager.OnCompleteLevel -= FinishTimer;
-        }
-
         public override void FixedUpdate()
         {
             if (!count) return;
@@ -28,17 +13,31 @@ namespace Level.Logic
             OnTimerChanged?.Invoke(timer);
         }
 
-        private void FinishTimer()
+        void OnEnable()
+        {
+            LevelManager.OnLevelStart += RestartTimer;
+            LevelManager.OnLevelComplete += FinishTimer;
+        }
+
+        void OnDisable()
+        {
+            LevelManager.OnLevelStart -= RestartTimer;
+            LevelManager.OnLevelComplete -= FinishTimer;
+        }
+
+        public static event Action<float> OnTimerChanged;
+        public static event Action<float> OnTimerFinished;
+
+        void FinishTimer(LevelData levelData)
         {
             PauseTimer();
             OnTimerFinished?.Invoke(timer);
         }
 
-        private void RestartTimer()
+        void RestartTimer()
         {
             StopTimer();
             StartTimer();
         }
-
     }
 }

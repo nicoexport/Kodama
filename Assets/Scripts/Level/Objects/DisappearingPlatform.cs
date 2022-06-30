@@ -5,10 +5,10 @@ namespace Level.Objects
 {
     public class DisappearingPlatform : ObjectVanisher
     {
-        [SerializeField] private SpriteRenderer _renderer;
-        [SerializeField] private Color _fadeColor;
-        [SerializeField] private Color _fadeColor2;
-        private Color _defaultColor;
+        [SerializeField] SpriteRenderer _renderer;
+        [SerializeField] Color _fadeColor;
+        [SerializeField] Color _fadeColor2;
+        Color _defaultColor;
 
         protected override void Awake()
         {

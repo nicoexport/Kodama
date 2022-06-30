@@ -5,18 +5,17 @@ namespace Level.Objects
 {
     public class PlayerCollisionEvent : MonoBehaviour
     {
-        [SerializeField]
-        private UnityEvent collisionEnterEvent;
-        [SerializeField]
-        private UnityEvent collisionExitEvent;
+        [SerializeField] UnityEvent collisionEnterEvent;
 
-        private void OnCollisionEnter2D(Collision2D col)
+        [SerializeField] UnityEvent collisionExitEvent;
+
+        void OnCollisionEnter2D(Collision2D col)
         {
             if (col.collider.tag != "Player") return;
             collisionEnterEvent.Invoke();
         }
 
-        private void OnCollisionExit2D(Collision2D col)
+        void OnCollisionExit2D(Collision2D col)
         {
             if (col.collider.tag != "Player") return;
             collisionExitEvent.Invoke();

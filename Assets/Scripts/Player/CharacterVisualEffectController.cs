@@ -6,34 +6,31 @@ namespace Player
 {
     public class CharacterVisualEffectController : MonoBehaviour
     {
-        [SerializeField] private VisualEffect _walkingDust;
-        [SerializeField] private VisualEffect _wallDust;
+        [SerializeField] VisualEffect _walkingDust;
+        [SerializeField] VisualEffect _wallDust;
 
-        [SerializeField] private List<VisualEffect> _allEffects;
+        [SerializeField] List<VisualEffect> _allEffects;
 
-        private CharacterAnimationController _animController;
+        CharacterAnimationController _animController;
 
-        private void Awake()
+        void Awake()
         {
             _animController = GetComponent<CharacterAnimationController>();
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
             _animController.OnAnimationStateChange += HandleAnimationStateChange;
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             _animController.OnAnimationStateChange -= HandleAnimationStateChange;
         }
 
-        private void HandleAnimationStateChange(string currentAnimState, string newAnimState)
+        void HandleAnimationStateChange(string currentAnimState, string newAnimState)
         {
-            foreach (VisualEffect effect in _allEffects)
-            {
-                effect.Stop();
-            }
+            foreach (var effect in _allEffects) effect.Stop();
 
             switch (newAnimState)
             {

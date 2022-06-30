@@ -1,4 +1,5 @@
 using Architecture;
+using Data;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,28 +8,24 @@ namespace Cam
     public class LevelCamera : MonoBehaviour
     {
         [FormerlySerializedAs("goalScale")] [SerializeField]
-        private Vector3 _goalScale;
-        [FormerlySerializedAs("zoomSpeed")] [SerializeField]
-        private float _zoomSpeed = 1f;
+        Vector3 _goalScale;
 
-        [SerializeField] private LeanTweenType _tweenType;
-    
-        private void OnEnable()
+        [SerializeField] float _zoomSpeed = 0.2f;
+        [SerializeField] LeanTweenType _tweenType = LeanTweenType.notUsed;
+
+        protected void OnEnable()
         {
-            LevelManager.OnCompleteLevel += TweenZoom;
+            LevelManager.OnLevelComplete += TweenZoom;
         }
 
-
-        private void OnDisable()
+        protected void OnDisable()
         {
-            LevelManager.OnCompleteLevel -= TweenZoom;
+            LevelManager.OnLevelComplete -= TweenZoom;
         }
-    
 
-        private void TweenZoom()
+        void TweenZoom(LevelData levelData)
         {
-            LeanTween.scale(this.gameObject, _goalScale, _zoomSpeed).setEase(_tweenType);
+            LeanTween.scale(gameObject, _goalScale, _zoomSpeed).setEase(_tweenType);
         }
-    
     }
 }

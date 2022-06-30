@@ -31,13 +31,13 @@ public class LTSeq {
 
 	public float timeScale;
 
-	private int debugIter;
+	int debugIter;
 
 	public uint counter;
 
 	public bool toggle = false;
 
-	private uint _id;
+	uint _id;
 
 	public int id{
 		get{ 
@@ -68,7 +68,7 @@ public class LTSeq {
 		this.current = this;
 	}
 
-	private LTSeq addOn(){
+	LTSeq addOn(){
 		this.current.toggle = true;
 		LTSeq lastCurrent = this.current;
 		this.current = LeanTween.sequence(true);
@@ -80,7 +80,7 @@ public class LTSeq {
 		return current;
 	}
 
-	private float addPreviousDelays(){
+	float addPreviousDelays(){
 //		Debug.Log("delay:"+delay+" count:"+this.current.count+" this.current.totalDelay:"+this.current.totalDelay);
 
 		LTSeq prev = this.current.previous;
@@ -199,7 +199,7 @@ public class LTSeq {
 		return addOn();
 	}
 
-	private void setScaleRecursive( LTSeq seq, float timeScale, int count ){
+	void setScaleRecursive( LTSeq seq, float timeScale, int count ){
 		if (count > 0) {
 			this.timeScale = timeScale;
 

@@ -5,7 +5,7 @@ namespace GameManagement
 {
     public abstract class RuntimeSet<T> : ScriptableObject
     {
-        private List<T> _items = new List<T>();
+        readonly List<T> _items = new();
 
         public void Initialize()
         {
@@ -38,7 +38,7 @@ namespace GameManagement
         public bool IsEmpty()
         {
             if (_items.Count <= 0) return true;
-            else { return false; }
+            return false;
         }
     }
 }

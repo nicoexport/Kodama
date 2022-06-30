@@ -5,17 +5,16 @@ using World_Level;
 
 public class LevelButton : MonoBehaviour
 {
-    [SerializeField]
-    private LevelObject levelObject;
+    [SerializeField] LevelObject levelObject;
 
-    private Image image;
+    Image image;
 
-    private void Awake()
+    void Awake()
     {
         image = GetComponent<Image>();
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         if (!image) return;
         image.sprite = levelObject.levelImage;

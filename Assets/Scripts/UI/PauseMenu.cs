@@ -9,33 +9,32 @@ namespace UI
 {
     public class PauseMenu : MonoBehaviour
     {
-        [SerializeField]
-        private Canvas canvas;
-        [SerializeField]
-        private Button primaryButton;
-        [SerializeField]
-        private VoidEventChannelSO _returnToWorldEvent;
-        [SerializeField]
-        private VoidEventChannelSO _returnToMainMenuEvent;
+        [SerializeField] Canvas canvas;
+
+        [SerializeField] Button primaryButton;
+
+        [SerializeField] VoidEventChannelSO _returnToWorldEvent;
+
+        [SerializeField] VoidEventChannelSO _returnToMainMenuEvent;
 
 
-        private bool paused = false;
+        bool paused;
 
-        private void Start()
+        void Start()
         {
             canvas.gameObject.SetActive(false);
             paused = false;
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
-            LevelManager.OnPlayerGainedControl += RegisterInputActions;
+            LevelManager.OnLevelStart += RegisterInputActions;
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             UnRegisterInputActions();
-            LevelManager.OnPlayerGainedControl -= RegisterInputActions;
+            LevelManager.OnLevelStart -= RegisterInputActions;
         }
 
         public void PauseGame()
@@ -49,7 +48,7 @@ namespace UI
             paused = true;
         }
 
-        private void InputActionPauseGame(InputAction.CallbackContext context)
+        void InputActionPauseGame(InputAction.CallbackContext context)
         {
             if (canvas == null) return;
             PauseGame();
@@ -64,9 +63,9 @@ namespace UI
             canvas.gameObject.SetActive(false);
             paused = false;
         }
-    
 
-        private void InputActionResumeGame(InputAction.CallbackContext context)
+
+        void InputActionResumeGame(InputAction.CallbackContext context)
         {
             if (canvas == null) return;
             ResumeGame();
@@ -76,7 +75,6 @@ namespace UI
         {
 #if UNITY_EDITOR
             ResumeGame();
-            return;
 #else
         UnRegisterInputActions();
         ResumeGame();
@@ -98,22 +96,21 @@ namespace UI
             _returnToWorldEvent.RaiseEvent();
         }
 
-        private void RegisterInputActions()
+        void RegisterInputActions()
         {
             InputManager.playerInputActions.Player.Pause.started += InputActionPauseGame;
             InputManager.playerInputActions.PauseMenu.Unpause.started += InputActionResumeGame;
         }
 
-        private void UnRegisterInputActions()
+        void UnRegisterInputActions()
         {
             InputManager.playerInputActions.Player.Pause.started -= InputActionPauseGame;
             InputManager.playerInputActions.PauseMenu.Unpause.started -= InputActionResumeGame;
         }
 
-        private void DisableInput()
+        void DisableInput()
         {
             InputManager.playerInputActions.Disable();
         }
-
     }
 }

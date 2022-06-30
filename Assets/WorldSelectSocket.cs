@@ -8,15 +8,15 @@ using UnityEngine.UI;
 
 public class WorldSelectSocket : MonoBehaviour
 {
-    [SerializeField] private GameObject _buttonObject;
-    [SerializeField] private GameObject _pathObject;
+    [SerializeField] GameObject _buttonObject;
+    [SerializeField] GameObject _pathObject;
     public static event Action<WorldData, Transform> OnButtonSelectedAction;
     public static event Action<WorldData> OnButtonClickedAction;
     public Button Button { get; private set; }
 
     public WorldData WorldData { get; private set; }
 
-    private void Awake()
+    void Awake()
     {
         Button = _buttonObject.GetComponent<Button>();
     } 
@@ -28,7 +28,7 @@ public class WorldSelectSocket : MonoBehaviour
         SetUpButton(worldData, lastSocket, index);
     }
 
-    private void SetUpButton(WorldData worldData, bool lastSocket, int index)
+    void SetUpButton(WorldData worldData, bool lastSocket, int index)
     {
         var image = _buttonObject.GetComponent<Image>();
         image.sprite = worldData.Style.MenuButtonIconSprite;

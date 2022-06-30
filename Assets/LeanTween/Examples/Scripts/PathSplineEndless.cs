@@ -9,21 +9,21 @@ public class PathSplineEndless : MonoBehaviour {
 	public GameObject carInternal;
 
 	public GameObject[] cubes;
-	private int cubesIter;
+	int cubesIter;
 	public GameObject[] trees;
-	private int treesIter;
+	int treesIter;
 
 	public float randomIterWidth = 0.1f;
 
-	private LTSpline track;
-	private List<Vector3> trackPts = new List<Vector3>();
-	private int zIter = 0;
-	private float carIter = 0f;
-	private float carAdd;
-	private int trackMaxItems = 15;
-	private int trackIter = 1;
-	private float pushTrackAhead = 0f;
-	private float randomIter = 0f;
+	LTSpline track;
+	List<Vector3> trackPts = new List<Vector3>();
+	int zIter = 0;
+	float carIter = 0f;
+	float carAdd;
+	int trackMaxItems = 15;
+	int trackIter = 1;
+	float pushTrackAhead = 0f;
+	float randomIter = 0f;
 
 	void Start () {
 

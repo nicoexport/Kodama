@@ -13,13 +13,14 @@ public class TestingZLegacy : MonoBehaviour {
 	public Transform pt5;
 	
 	public delegate void NextFunc();
-	private int exampleIter = 0;
-	private string[] exampleFunctions = new string[] { /**/"updateValue3Example", "loopTestClamp", "loopTestPingPong", "moveOnACurveExample", "customTweenExample", "moveExample", "rotateExample", "scaleExample", "updateValueExample", "delayedCallExample", "alphaExample", "moveLocalExample", "rotateAroundExample", "colorExample" };
+
+	int exampleIter = 0;
+	string[] exampleFunctions = new string[] { /**/"updateValue3Example", "loopTestClamp", "loopTestPingPong", "moveOnACurveExample", "customTweenExample", "moveExample", "rotateExample", "scaleExample", "updateValueExample", "delayedCallExample", "alphaExample", "moveLocalExample", "rotateAroundExample", "colorExample" };
 	public bool useEstimatedTime = true;
-	private GameObject ltLogo;
-	private TimingType timingType = TimingType.SteadyNormalTime;
-	private int descrTimeScaleChangeId;
-	private Vector3 origin;
+	GameObject ltLogo;
+	TimingType timingType = TimingType.SteadyNormalTime;
+	int descrTimeScaleChangeId;
+	Vector3 origin;
 
 	public enum TimingType{
 		SteadyNormalTime,

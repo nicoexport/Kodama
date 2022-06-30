@@ -4,29 +4,29 @@ namespace Player
 {
     public class CharacterParticleController : MonoBehaviour
     {
-        [SerializeField] private ParticleSystem _walkingDust;
-        [SerializeField] private ParticleSystem _wallDust;
-        [SerializeField] private ParticleSystem _landDust;
-        [SerializeField] private ParticleSystem _leafGlimmer;
+        [SerializeField] ParticleSystem _walkingDust;
+        [SerializeField] ParticleSystem _wallDust;
+        [SerializeField] ParticleSystem _landDust;
+        [SerializeField] ParticleSystem _leafGlimmer;
 
-        private CharacterAnimationController _animController;
+        CharacterAnimationController _animController;
 
-        private void Awake()
+        void Awake()
         {
             _animController = GetComponent<CharacterAnimationController>();
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
             _animController.OnAnimationStateChange += HandleAnimationStateChange;
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             _animController.OnAnimationStateChange -= HandleAnimationStateChange;
         }
 
-        private void HandleAnimationStateChange(string currentAnimState, string newAnimState)
+        void HandleAnimationStateChange(string currentAnimState, string newAnimState)
         {
             _leafGlimmer.Stop();
 
@@ -60,7 +60,7 @@ namespace Player
 
                 case CharacterAnimationController.spawning:
                     break;
-            
+
                 case CharacterAnimationController.winning:
                     break;
             }
@@ -73,6 +73,7 @@ namespace Player
                         _landDust.Stop();
                         _landDust.Play();
                     }
+
                     break;
 
                 case CharacterAnimationController.running:

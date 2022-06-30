@@ -4,8 +4,7 @@ namespace Player
 {
     public class CharacterInventory : MonoBehaviour
     {
-        [SerializeField]
-        private int keys = 0;
+        [SerializeField] int keys;
 
         public void AddKeys(int amount)
         {

@@ -7,36 +7,35 @@ namespace Architecture
 {
     public class SceneLoader : MonoBehaviour
     {
-        [SerializeField]
-        private LoadLevelEventChannelSO _loadEventChannel;
-        [SerializeField]
-        private TransitionEventChannelSO _transitionEventChannel = default;
+        [SerializeField] LoadLevelEventChannelSO _loadEventChannel;
+
+        [SerializeField] TransitionEventChannelSO _transitionEventChannel;
 
 
-        private void OnEnable()
+        void OnEnable()
         {
             _loadEventChannel.OnLoadingLevelDataRequested += HandleLevelDataLoadingRequest;
             _loadEventChannel.OnLoadingScenePathRequested += HandleScenePathLoadingRequested;
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             _loadEventChannel.OnLoadingLevelDataRequested -= HandleLevelDataLoadingRequest;
             _loadEventChannel.OnLoadingScenePathRequested -= HandleScenePathLoadingRequested;
         }
 
-        private void HandleLevelDataLoadingRequest(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
+        void HandleLevelDataLoadingRequest(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
         {
             StartCoroutine(LoadScenes(levelToLoad.ScenePath, unloadActiveScene, showScreenfade));
         }
 
-        private void HandleScenePathLoadingRequested(string sceneToLoad, bool unloadActiveScene, bool showScreenfade)
+        void HandleScenePathLoadingRequested(string sceneToLoad, bool unloadActiveScene, bool showScreenfade)
         {
             StartCoroutine(LoadScenes(sceneToLoad, unloadActiveScene, showScreenfade));
         }
 
 
-        private IEnumerator LoadScenes(string scenePath, bool unloadActiveScene, bool showScreenfade)
+        IEnumerator LoadScenes(string scenePath, bool unloadActiveScene, bool showScreenfade)
         {
             if (showScreenfade)
             {
@@ -50,8 +49,8 @@ namespace Architecture
 
             yield return SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
             SceneManager.SetActiveScene(SceneManager.GetSceneByPath(scenePath));
-        
-        
+
+
             if (!showScreenfade) yield break;
             _transitionEventChannel.RaiseEvent(TransitionType.FadeIn, 1f);
             //yield return new WaitForSeconds(1f);

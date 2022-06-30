@@ -1,28 +1,30 @@
+using System;
 using Scriptable;
 using UnityEngine;
 
 namespace Data
 {
-    [System.Serializable]
+    [Serializable]
     public class LevelData
     {
-        public readonly string ScenePath;
-        public readonly string LevelName;
-        private Sprite LevelImage;
-        public readonly AudioCueSo LevelMusicAudioCueSo;
-        public bool Unlocked { get; set; } = false;
         public bool Visited;
         public bool Completed;
         public float RecordTime = Mathf.Infinity;
-    
+        public readonly AudioCueSo LevelMusicAudioCueSo;
+        public readonly string LevelName;
+        public readonly string ScenePath;
+        Sprite LevelImage;
+
 
         public LevelData(LevelDataSO levelDataSO)
         {
-            this.ScenePath = levelDataSO.ScenePath;
-            this.LevelName = levelDataSO.LevelName;
-            this.LevelImage = levelDataSO.LevelImage;
-            this.LevelMusicAudioCueSo = levelDataSO.LevelMusicAudioCueSo;
+            ScenePath = levelDataSO.ScenePath;
+            LevelName = levelDataSO.LevelName;
+            LevelImage = levelDataSO.LevelImage;
+            LevelMusicAudioCueSo = levelDataSO.LevelMusicAudioCueSo;
         }
+
+        public bool Unlocked { get; set; } = false;
 
         public bool UpdateRecordTime(float time)
         {

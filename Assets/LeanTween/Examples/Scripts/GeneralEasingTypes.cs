@@ -8,7 +8,7 @@ public class GeneralEasingTypes : MonoBehaviour {
 	public float lineDrawScale = 10f;
 	public AnimationCurve animationCurve;
 
-	private string[] easeTypes = new string[]{
+	string[] easeTypes = new string[]{
 		"EaseLinear","EaseAnimationCurve","EaseSpring",
 		"EaseInQuad","EaseOutQuad","EaseInOutQuad",
 		"EaseInCubic","EaseOutCubic","EaseInOutCubic",
@@ -28,7 +28,7 @@ public class GeneralEasingTypes : MonoBehaviour {
 		demoEaseTypes();
 	}
 
-	private void demoEaseTypes(){
+	void demoEaseTypes(){
 		for(int i = 0; i < easeTypes.Length; i++){
 			string easeName = easeTypes[i];
 			Transform obj1 = GameObject.Find(easeName).transform.Find("Line");
@@ -62,7 +62,7 @@ public class GeneralEasingTypes : MonoBehaviour {
 		LeanTween.delayedCall(gameObject, 10.1f, demoEaseTypes);
 	}
 
-	private void resetLines(){
+	void resetLines(){
 		for(int i = 0; i < easeTypes.Length; i++){
 			Transform obj1 = GameObject.Find(easeTypes[i]).transform.Find("Line");
 			obj1.localPosition = new Vector3(0f,0f,0f);

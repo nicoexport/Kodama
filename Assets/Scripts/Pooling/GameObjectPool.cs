@@ -8,72 +8,79 @@ namespace Pooling
 {
     public class GameObjectPool : IDisposable
     {
-        private readonly IObjectPool<GameObject> _pool;
-        private readonly Transform _parent;
-        private readonly GameObject _prefab;
+        readonly Transform _parent;
+        readonly IObjectPool<GameObject> _pool;
+        readonly GameObject _prefab;
         public readonly int capacity;
-        public event Action<GameObject> onInstantiate;
+
         public GameObjectPool(Transform parent, GameObject prefab, int capacity)
         {
             Assert.IsTrue(parent);
-            this._prefab = prefab;
-            this._parent = parent;
+            _prefab = prefab;
+            _parent = parent;
             this.capacity = capacity;
             _pool = new LinkedPool<GameObject>(
-                createFunc: InstantiateInstance,
-                actionOnGet: EnableInstance,
-                actionOnRelease: DisableInstance,
-                actionOnDestroy: DestroyInstance,
-                collectionCheck: false,
-                maxSize: capacity
+                InstantiateInstance,
+                EnableInstance,
+                DisableInstance,
+                DestroyInstance,
+                false,
+                capacity
             );
         }
-        
+
         public GameObjectPool(Transform parent, int capacity)
         {
             Assert.IsTrue(parent);
-            this._parent = parent;
+            _parent = parent;
             this.capacity = capacity;
             _pool = new LinkedPool<GameObject>(
-                createFunc: CreateInstance,
-                actionOnGet: EnableInstance,
-                actionOnRelease: DisableInstance,
-                actionOnDestroy: DestroyInstance,
-                collectionCheck: false,
-                maxSize: capacity
+                CreateInstance,
+                EnableInstance,
+                DisableInstance,
+                DestroyInstance,
+                false,
+                capacity
             );
         }
-        
-        private void DestroyInstance(GameObject obj)
+
+        public void Dispose()
+        {
+            _pool.Clear();
+        }
+
+        public event Action<GameObject> onInstantiate;
+
+        void DestroyInstance(GameObject obj)
         {
             Object.Destroy(obj);
         }
 
-        private void DisableInstance(GameObject obj)
+        void DisableInstance(GameObject obj)
         {
             obj.SetActive(false);
         }
 
-        private void EnableInstance(GameObject obj)
+        void EnableInstance(GameObject obj)
         {
             obj.SetActive(true);
         }
 
-        private GameObject InstantiateInstance()
+        GameObject InstantiateInstance()
         {
             var obj = Object.Instantiate(_prefab, _parent);
             onInstantiate?.Invoke(obj);
             return obj;
         }
 
-        private GameObject CreateInstance()
+        GameObject CreateInstance()
         {
             var obj = new GameObject();
             obj.transform.parent = _parent;
             onInstantiate?.Invoke(obj);
             return obj;
         }
-        
+
         public GameObject Request()
         {
             return _pool.Get();
@@ -82,11 +89,6 @@ namespace Pooling
         public void Return(GameObject obj)
         {
             _pool.Release(obj);
-        }
-
-        public void Dispose()
-        {
-            _pool.Clear();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Level.Logic
 {
     public class LevelWin : MonoBehaviour
     {
-        public event Action OnLevelWon;
+        public static event Action OnLevelWon;
 
         public void WinLevel()
         {

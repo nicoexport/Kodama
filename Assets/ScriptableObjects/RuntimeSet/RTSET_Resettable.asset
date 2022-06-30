@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ae9463e7be56054b9482460660c0ac1, type: 3}
-  m_Name: RTSET_PlayerRuntimeSet
+  m_Script: {fileID: 11500000, guid: a314c25b48d04fc3b627220b25e3e6f6, type: 3}
+  m_Name: RTSET_Resettable
   m_EditorClassIdentifier: 
