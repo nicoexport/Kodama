@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Audio;
 using Data;
 using GameManagement;
@@ -15,19 +16,23 @@ namespace Architecture
     [RequireComponent(typeof(LevelTimer))]
     public class LevelManager : Singleton<LevelManager>
     {
-        [FormerlySerializedAs("SessionData")] [SerializeField]
-        SessionData _sessionData;
-
+        [FormerlySerializedAs("SessionData")] 
+        [SerializeField] SessionData _sessionData;
         [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
+        [SerializeField] float _levelResetDelay = 1f;
         LevelData _activeLevelData;
-        PlayerManager _playerManager;
         LevelFlowHandler levelFlowHandler;
+        IEnumerator _restartLevelEnumerator;
 
+        public static event Action<LevelData> OnLevelComplete;
+        public static event Action OnLevelStart;
+        public static event Action<float, bool> OnTimerFinished;
+        
         protected override void Awake()
         {
+            _restartLevelEnumerator = Utilities.ActionAfterDelayEnumerator(_levelResetDelay, StartLevel);
             base.Awake();
             levelFlowHandler = GetComponent<LevelFlowHandler>();
-            _playerManager = GetComponent<PlayerManager>();
         }
 
         protected void Start()
@@ -39,25 +44,26 @@ namespace Architecture
         protected void OnEnable()
         {
             LevelTimer.OnTimerFinished += BroadCastFinishedTimer;
-            PlayerManager.OnPlayerDied += StartLevel;
+            PlayerManager.OnPlayerDied += RestartLevel;
             LevelWin.OnLevelWon += CompleteLevel;
         }
 
         protected void OnDisable()
         {
             LevelTimer.OnTimerFinished -= BroadCastFinishedTimer;
-            PlayerManager.OnPlayerDied -= StartLevel;
+            PlayerManager.OnPlayerDied -= RestartLevel;
             LevelWin.OnLevelWon -= CompleteLevel;
         }
-
-        public static event Action<LevelData> OnLevelComplete;
-        public static event Action OnLevelStart;
-        public static event Action<float, bool> OnTimerFinished;
-
+        
         void StartLevel()
         {
-            foreach (var resettable in _resettableRuntimeSet.GetItemList()) resettable.ResetResettable();
+            foreach (var resettable in _resettableRuntimeSet.GetItemList()) resettable.OnLevelReset();
             OnLevelStart?.Invoke();
+        }
+
+        void RestartLevel()
+        {
+            StartCoroutine(_restartLevelEnumerator);
         }
 
         void CompleteLevel()

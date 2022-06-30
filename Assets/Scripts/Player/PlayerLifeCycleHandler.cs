@@ -54,7 +54,7 @@ namespace Player
             _rend.enabled = false;
         }
 
-        public override void ResetResettable()
+        public override void OnLevelReset()
         {
             transform.position = _playerSpawnRuntimeSet.GetItemAtIndex(0).position;
             Damageable = true;

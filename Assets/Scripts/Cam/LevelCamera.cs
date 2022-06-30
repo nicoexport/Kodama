@@ -13,12 +13,12 @@ namespace Cam
         [SerializeField] float _zoomSpeed = 0.2f;
         [SerializeField] LeanTweenType _tweenType = LeanTweenType.notUsed;
 
-        void OnEnable()
+        protected void OnEnable()
         {
             LevelManager.OnLevelComplete += TweenZoom;
         }
 
-        void OnDisable()
+        protected void OnDisable()
         {
             LevelManager.OnLevelComplete -= TweenZoom;
         }

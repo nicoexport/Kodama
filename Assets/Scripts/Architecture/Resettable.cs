@@ -7,16 +7,16 @@ namespace Architecture
     {
         [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
 
-        protected void OnEnable()
+        protected virtual void OnEnable()
         {
             _resettableRuntimeSet.AddToList(this);
         }
 
-        protected void OnDisable()
+        protected virtual void OnDisable()
         {
             _resettableRuntimeSet.RemoveFromList(this);
         }
 
-        public abstract void ResetResettable();
+        public abstract void OnLevelReset();
     }
 }

@@ -12,8 +12,6 @@ public class PlayerManager : MonoBehaviour
 {
     public static event Action OnPlayerDied;
     [SerializeField] GameObject _playerPrefab;
-    [SerializeField] GameObject _playerDeathPrefab;
-    [SerializeField] GameObject _playerWinPrefab;
     [SerializeField] TransformRuntimeSet _playerSpawnRuntimeSet;
     [SerializeField] GameObjectRuntimeSet _cinemachineRuntimeSet;
     [SerializeField] float _spawnTime = 1f;
