@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Data;
 using Scriptable;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,9 +9,8 @@ namespace Architecture
 {
     public class InputManager : MonoBehaviour
     {
-        static readonly float _movementDeadZoneMin = 0.5f;
-
-        static readonly float _movementDeadZoneMax = 0.925f;
+        const float movementDeadZoneMin = 0.5f;
+        const float movementDeadZoneMax = 0.925f;
 
         static PlayerInput _playerInput;
         static readonly Dictionary<string, GeneralDeviceType> _deviceMapDictionary = new();
@@ -30,11 +30,13 @@ namespace Architecture
         void OnEnable()
         {
             _playerInput.onActionTriggered += OnActionTriggered;
+            LevelManager.OnLevelComplete += DisableInput;
         }
 
         void OnDisable()
         {
             _playerInput.onActionTriggered -= OnActionTriggered;
+            LevelManager.OnLevelComplete -= DisableInput;
         }
 
         public static event Action<InputActionMap> OnActionMapChange;
@@ -68,7 +70,7 @@ namespace Architecture
             OnActionMapChange?.Invoke(actionMap);
         }
 
-        public static void DisableInput()
+        public static void DisableInput(LevelData levelData)
         {
             playerInputActions.Disable();
         }
@@ -84,30 +86,28 @@ namespace Architecture
         public static float GetHorizontalMovementValue()
         {
             var input = playerInputActions.Player.HorizontalMovement.ReadValue<float>();
-            if (Mathf.Abs(input) < _movementDeadZoneMin)
+            if (Mathf.Abs(input) < movementDeadZoneMin)
                 return 0f;
-            if (Mathf.Abs(input) > _movementDeadZoneMax)
+            if (Mathf.Abs(input) > movementDeadZoneMax)
             {
                 if (input < 0)
                     return -1f;
                 return 1f;
             }
-
             return input;
         }
 
         public static float GetVerticalMovementValue()
         {
             var input = playerInputActions.Player.VerticalMovement.ReadValue<float>();
-            if (Mathf.Abs(input) < _movementDeadZoneMin)
+            if (Mathf.Abs(input) < movementDeadZoneMin)
                 return 0f;
-            if (Mathf.Abs(input) > _movementDeadZoneMax)
+            if (Mathf.Abs(input) > movementDeadZoneMax)
             {
                 if (input < 0)
                     return -1f;
                 return 1f;
             }
-
             return input;
         }
     }

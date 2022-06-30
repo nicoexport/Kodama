@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using Audio;
 using Data;
 using GameManagement;
@@ -22,25 +21,11 @@ namespace Architecture
         [SerializeField] float _levelResetDelay = 1f;
         LevelData _activeLevelData;
         LevelFlowHandler levelFlowHandler;
-        IEnumerator _restartLevelEnumerator;
 
         public static event Action<LevelData> OnLevelComplete;
         public static event Action OnLevelStart;
         public static event Action<float, bool> OnTimerFinished;
         
-        protected override void Awake()
-        {
-            _restartLevelEnumerator = Utilities.ActionAfterDelayEnumerator(_levelResetDelay, StartLevel);
-            base.Awake();
-            levelFlowHandler = GetComponent<LevelFlowHandler>();
-        }
-
-        protected void Start()
-        {
-            SetActiveLevelData();
-            StartLevel();
-        }
-
         protected void OnEnable()
         {
             LevelTimer.OnTimerFinished += BroadCastFinishedTimer;
@@ -55,30 +40,36 @@ namespace Architecture
             LevelWin.OnLevelWon -= CompleteLevel;
         }
         
+        protected override void Awake()
+        {
+            base.Awake();
+            levelFlowHandler = GetComponent<LevelFlowHandler>();
+        }
+
+        protected void Start()
+        {
+            SetActiveLevelData();
+            StartLevel();
+        }
+        
         void StartLevel()
         {
             foreach (var resettable in _resettableRuntimeSet.GetItemList()) resettable.OnLevelReset();
             OnLevelStart?.Invoke();
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         void RestartLevel()
         {
-            StartCoroutine(_restartLevelEnumerator);
+            StartCoroutine(Utilities.ActionAfterDelayEnumerator(_levelResetDelay, StartLevel));
         }
 
         void CompleteLevel()
         {
-            if (_activeLevelData == null)
-            {
-                Debug.LogWarningFormat("LEVEL EXIT: {0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
-                return;
-            }
-
-            _activeLevelData.Completed = true;
-            InputManager.DisableInput();
-            OnLevelComplete?.Invoke(_activeLevelData);
-
-            AudioManager.Instance.StopMusic();
+           if(!CheckLevelData()) return;
+           _activeLevelData.Completed = true;
+           OnLevelComplete?.Invoke(_activeLevelData);
+           AudioManager.Instance.StopMusic();
         }
 
         void BroadCastFinishedTimer(float timer)
@@ -121,6 +112,13 @@ namespace Architecture
                     return levelData;
             Debug.LogWarningFormat("{0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
             return null;
+        }
+
+        bool CheckLevelData()
+        {
+            if (_activeLevelData != null) return true;
+            Debug.LogWarningFormat("LEVEL EXIT: {0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
+            return false;
         }
     }
 }
