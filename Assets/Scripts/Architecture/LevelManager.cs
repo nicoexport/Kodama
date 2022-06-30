@@ -19,25 +19,20 @@ namespace Architecture
         [SerializeField] SessionData _sessionData;
         [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
         [SerializeField] float _levelResetDelay = 1f;
-        LevelData _activeLevelData;
+        public LevelData ActiveLevelData { get; private set; }
         LevelFlowHandler levelFlowHandler;
 
-        public static event Action<LevelData> OnLevelComplete;
         public static event Action OnLevelStart;
-        public static event Action<float, bool> OnTimerFinished;
-        
+        public static event Action<LevelData> OnLevelComplete;
+
         protected void OnEnable()
         {
-            LevelTimer.OnTimerFinished += BroadCastFinishedTimer;
             PlayerManager.OnPlayerDied += RestartLevel;
-            LevelWin.OnLevelWon += CompleteLevel;
         }
 
         protected void OnDisable()
         {
-            LevelTimer.OnTimerFinished -= BroadCastFinishedTimer;
             PlayerManager.OnPlayerDied -= RestartLevel;
-            LevelWin.OnLevelWon -= CompleteLevel;
         }
         
         protected override void Awake()
@@ -54,7 +49,11 @@ namespace Architecture
         
         void StartLevel()
         {
-            foreach (var resettable in _resettableRuntimeSet.GetItemList()) resettable.OnLevelReset();
+            foreach (var resettable in _resettableRuntimeSet.GetItemList())
+            {
+                print(resettable.name);
+                resettable.OnLevelReset();
+            }
             OnLevelStart?.Invoke();
         }
 
@@ -64,41 +63,34 @@ namespace Architecture
             StartCoroutine(Utilities.ActionAfterDelayEnumerator(_levelResetDelay, StartLevel));
         }
 
-        void CompleteLevel()
+        public void CompleteLevel()
         {
            if(!CheckLevelData()) return;
-           _activeLevelData.Completed = true;
-           OnLevelComplete?.Invoke(_activeLevelData);
-           AudioManager.Instance.StopMusic();
-        }
-
-        void BroadCastFinishedTimer(float timer)
-        {
-            var newRecord = _activeLevelData.UpdateRecordTime(timer);
-            OnTimerFinished?.Invoke(timer, newRecord);
+           ActiveLevelData.Completed = true;
+           OnLevelComplete?.Invoke(ActiveLevelData);
         }
 
         public void LoadNextLevel()
         {
             InputManager.playerInputActions.Disable();
-            levelFlowHandler.NextLevelRequest(_activeLevelData);
+            levelFlowHandler.NextLevelRequest(ActiveLevelData);
         }
 
         public void FinishAndReturnToWorldMode()
         {
             InputManager.playerInputActions.Disable();
-            levelFlowHandler.FinishLevelAndExit(_activeLevelData);
+            levelFlowHandler.FinishLevelAndExit(ActiveLevelData);
         }
 
         void SetActiveLevelData()
         {
-            _activeLevelData = GetLevelData();
-            if (_activeLevelData != null)
+            ActiveLevelData = GetLevelData();
+            if (ActiveLevelData != null)
             {
-                _activeLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
-                _sessionData.CurrentLevel = _activeLevelData;
+                ActiveLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
+                _sessionData.CurrentLevel = ActiveLevelData;
                 _sessionData.CurrentWorld =
-                    Utilities.GameSessionGetWorldDataFromLevelData(_activeLevelData, _sessionData);
+                    Utilities.GameSessionGetWorldDataFromLevelData(ActiveLevelData, _sessionData);
             }
         }
 
@@ -116,7 +108,7 @@ namespace Architecture
 
         bool CheckLevelData()
         {
-            if (_activeLevelData != null) return true;
+            if (ActiveLevelData != null) return true;
             Debug.LogWarningFormat("LEVEL EXIT: {0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
             return false;
         }

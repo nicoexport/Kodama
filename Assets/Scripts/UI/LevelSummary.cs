@@ -1,6 +1,8 @@
 using System;
 using Architecture;
+using Audio;
 using Data;
+using Level.Logic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -29,7 +31,7 @@ namespace UI
 
         void OnEnable()
         {
-            LevelManager.OnTimerFinished += DisplayLevelFinishedTimer;
+            LevelTimer.OnTimerFinished += DisplayLevelFinishedTimer;
             LevelManager.OnLevelComplete += EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started += ReturnToWordSelect;
@@ -42,7 +44,7 @@ namespace UI
 
         void OnDisable()
         {
-            LevelManager.OnTimerFinished -= DisplayLevelFinishedTimer;
+            LevelTimer.OnTimerFinished -= DisplayLevelFinishedTimer;
             LevelManager.OnLevelComplete -= EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWordSelect;
@@ -50,6 +52,7 @@ namespace UI
 
         void EnableSummary(LevelData levelData)
         {
+            AudioManager.Instance.StopMusic();
             InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSummary);
 
             StartCoroutine(Utilities.ActionAfterDelayEnumerator(2f, () =>

@@ -1,11 +1,14 @@
 using System;
 using Architecture;
 using Data;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Level.Logic
 {
     public class LevelTimer : Timer
     {
+        public static event Action<float, bool> OnTimerFinished;
         public override void FixedUpdate()
         {
             if (!count) return;
@@ -13,31 +16,36 @@ namespace Level.Logic
             OnTimerChanged?.Invoke(timer);
         }
 
-        void OnEnable()
+        protected override void OnEnable()
         {
-            LevelManager.OnLevelStart += RestartTimer;
+            base.OnEnable();
             LevelManager.OnLevelComplete += FinishTimer;
         }
 
-        void OnDisable()
+        protected override void OnDisable()
         {
-            LevelManager.OnLevelStart -= RestartTimer;
+            base.OnDisable();
             LevelManager.OnLevelComplete -= FinishTimer;
         }
 
         public static event Action<float> OnTimerChanged;
-        public static event Action<float> OnTimerFinished;
 
         void FinishTimer(LevelData levelData)
         {
             PauseTimer();
-            OnTimerFinished?.Invoke(timer);
+            var newRecord = LevelManager.Instance.ActiveLevelData.UpdateRecordTime(timer);
+            OnTimerFinished?.Invoke(timer, newRecord);
         }
 
         void RestartTimer()
         {
             StopTimer();
             StartTimer();
+        }
+        
+        public override void OnLevelReset()
+        {
+            RestartTimer();
         }
     }
 }
