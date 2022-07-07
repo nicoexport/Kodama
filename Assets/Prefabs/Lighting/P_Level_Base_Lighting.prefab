@@ -266,7 +266,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6729220968647432051}
   - component: {fileID: 6729220968647432048}
-  - component: {fileID: 6729220968647432049}
   m_Layer: 0
   m_Name: Playerlight
   m_TagString: Untagged
@@ -367,23 +366,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &6729220968647432049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6729220968647432050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da519fbb76d741288e80306eb6c67b79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterRuntime: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
-  _innerRadius: 80
-  _innerMargin: 1
-  _outerRadius: 100
-  _playerLight: {fileID: 6729220968647432048}
 --- !u!1 &6729220968826678466
 GameObject:
   m_ObjectHideFlags: 0
