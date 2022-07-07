@@ -14,7 +14,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObject _playerPrefab;
     [SerializeField] TransformRuntimeSet _playerSpawnRuntimeSet;
     [SerializeField] GameObjectRuntimeSet _cinemachineRuntimeSet;
-    [SerializeField] float _spawnTime = 1f;
     GameObject _currentPlayer;
     PlayerLifeCycleHandler lifeCycleHandler;
     bool _playerIsDead = false;

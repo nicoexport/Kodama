@@ -15,6 +15,9 @@ namespace Architecture
     [RequireComponent(typeof(LevelTimer))]
     public class LevelManager : Singleton<LevelManager>
     {
+        public static event Action OnLevelStart;
+        public static event Action<LevelData> OnLevelComplete;
+        
         [FormerlySerializedAs("SessionData")] 
         [SerializeField] SessionData _sessionData;
         [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
@@ -22,8 +25,6 @@ namespace Architecture
         public LevelData ActiveLevelData { get; private set; }
         LevelFlowHandler levelFlowHandler;
 
-        public static event Action OnLevelStart;
-        public static event Action<LevelData> OnLevelComplete;
 
         protected void OnEnable()
         {
@@ -51,7 +52,6 @@ namespace Architecture
         {
             foreach (var resettable in _resettableRuntimeSet.GetItemList())
             {
-                print(resettable.name);
                 resettable.OnLevelReset();
             }
             OnLevelStart?.Invoke();

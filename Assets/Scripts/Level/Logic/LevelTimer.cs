@@ -20,12 +20,14 @@ namespace Level.Logic
         {
             base.OnEnable();
             LevelManager.OnLevelComplete += FinishTimer;
+            PlayerManager.OnPlayerDied += StopTimer;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
             LevelManager.OnLevelComplete -= FinishTimer;
+            PlayerManager.OnPlayerDied -= StopTimer;
         }
 
         public static event Action<float> OnTimerChanged;
