@@ -1,8 +1,9 @@
+using Architecture;
 using UnityEngine;
 
 namespace Level.Logic
 {
-    public abstract class Timer : MonoBehaviour
+    public abstract class Timer : Resettable
     {
         protected bool count;
         protected float timer;

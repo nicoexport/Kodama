@@ -1,6 +1,8 @@
 using System;
 using Architecture;
+using Audio;
 using Data;
+using Level.Logic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -25,15 +27,15 @@ namespace UI
 
         [Range(0.1f, 2f)] [SerializeField] float _recordWaveLength;
 
-        bool canReturn;
+        bool _canReturn;
 
         void OnEnable()
         {
-            LevelManager.OnTimerFinished += DisplayLevelFinishedTimer;
+            LevelTimer.OnTimerFinished += DisplayLevelFinishedTimer;
             LevelManager.OnLevelComplete += EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started += ReturnToWordSelect;
-            canReturn = false;
+            _canReturn = false;
             summaryButtons.SetActive(false);
             _timerText.gameObject.SetActive(false);
             _recordText.gameObject.SetActive(false);
@@ -42,7 +44,7 @@ namespace UI
 
         void OnDisable()
         {
-            LevelManager.OnTimerFinished -= DisplayLevelFinishedTimer;
+            LevelTimer.OnTimerFinished -= DisplayLevelFinishedTimer;
             LevelManager.OnLevelComplete -= EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWordSelect;
@@ -50,11 +52,12 @@ namespace UI
 
         void EnableSummary(LevelData levelData)
         {
+            AudioManager.Instance.StopMusic();
             InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSummary);
 
             StartCoroutine(Utilities.ActionAfterDelayEnumerator(2f, () =>
             {
-                canReturn = true;
+                _canReturn = true;
                 ToggleButtons(InputManager.playerInputActions.LevelSummary);
             }));
         }
@@ -99,7 +102,7 @@ namespace UI
 
         void ReturnToWordSelect(InputAction.CallbackContext obj)
         {
-            if (!canReturn)
+            if (!_canReturn)
                 return;
             LevelManager.Instance.FinishAndReturnToWorldMode();
         }
