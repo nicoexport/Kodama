@@ -16,22 +16,16 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObjectRuntimeSet _cinemachineRuntimeSet;
     GameObject _currentPlayer;
     PlayerLifeCycleHandler lifeCycleHandler;
-    bool _playerIsDead = false;
-
 
     protected void OnEnable()
     {
-        PlayerLifeCycleHandler.OnCharacterDeath += HandlePlayerDeath; 
-        HellCollider.OnTriggerEntered += HandleHellColliderEntered;
-        LevelBounds.OnNearingLevelBounds += HandleNearingLevelBounds;
+        PlayerLifeCycleHandler.OnCharacterDeath += HandlePlayerDeath;
         LevelManager.OnLevelComplete += HandleLevelComplete;
     }
     
     protected void OnDisable()
     {
-        PlayerLifeCycleHandler.OnCharacterDeath -= HandlePlayerDeath; 
-        HellCollider.OnTriggerEntered -= HandleHellColliderEntered;
-        LevelBounds.OnNearingLevelBounds -= HandleNearingLevelBounds;
+        PlayerLifeCycleHandler.OnCharacterDeath -= HandlePlayerDeath;
         LevelManager.OnLevelComplete -= HandleLevelComplete;
     }
 
@@ -67,18 +61,5 @@ public class PlayerManager : MonoBehaviour
         var rb = _currentPlayer.GetComponent<Rigidbody2D>();
         if (lifeHandler) lifeHandler.Damageable = false;
         if (rb) rb.constraints = RigidbodyConstraints2D.FreezePositionX;
-    }
-
-    void HandleHellColliderEntered(float timeToKill)
-    {
-        StartCoroutine(Utilities.ActionAfterDelayEnumerator(timeToKill, () => { OnPlayerDied?.Invoke(); }));
-    }
-
-    void HandleNearingLevelBounds(float value)
-    {
-        if(value < 1f) return;
-        if (_playerIsDead) return;
-        OnPlayerDied?.Invoke();
-        _playerIsDead = true;
     }
 }

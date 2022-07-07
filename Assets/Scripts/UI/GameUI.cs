@@ -21,7 +21,6 @@ namespace UI
         {
             LevelManager.OnLevelComplete += DisableGameUI;
             HellCollider.OnTriggerEntered += FadeOut;
-            LevelBounds.OnNearingLevelBounds += HandleNearingLevelBounds;
         }
 
 
@@ -29,7 +28,6 @@ namespace UI
         {
             LevelManager.OnLevelComplete -= DisableGameUI;
             HellCollider.OnTriggerEntered -= FadeOut;
-            LevelBounds.OnNearingLevelBounds -= HandleNearingLevelBounds;
         }
 
         public void SetKeyIcon()
@@ -61,12 +59,6 @@ namespace UI
             print("FADEOUT");
             var canvasGroups = GetComponentsInChildren<CanvasGroup>();
             foreach (var group in canvasGroups) LeanTween.alphaCanvas(group, 0f, 2f);
-        }
-
-        void HandleNearingLevelBounds(float value)
-        {
-            var canvasGroups = GetComponentsInChildren<CanvasGroup>();
-            foreach (var group in canvasGroups) group.alpha = 1 - value;
         }
     }
 }

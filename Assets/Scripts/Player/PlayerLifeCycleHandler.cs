@@ -42,7 +42,7 @@ namespace Player
             if (_health <= 0) Die();
         }
 
-        void Die()
+        public void Die()
         {
             KillPlayer();
             OnCharacterDeath?.Invoke(_character);
