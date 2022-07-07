@@ -27,7 +27,7 @@ namespace UI
 
         [Range(0.1f, 2f)] [SerializeField] float _recordWaveLength;
 
-        bool canReturn;
+        bool _canReturn;
 
         void OnEnable()
         {
@@ -35,7 +35,7 @@ namespace UI
             LevelManager.OnLevelComplete += EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started += ReturnToWordSelect;
-            canReturn = false;
+            _canReturn = false;
             summaryButtons.SetActive(false);
             _timerText.gameObject.SetActive(false);
             _recordText.gameObject.SetActive(false);
@@ -57,7 +57,7 @@ namespace UI
 
             StartCoroutine(Utilities.ActionAfterDelayEnumerator(2f, () =>
             {
-                canReturn = true;
+                _canReturn = true;
                 ToggleButtons(InputManager.playerInputActions.LevelSummary);
             }));
         }
@@ -102,7 +102,7 @@ namespace UI
 
         void ReturnToWordSelect(InputAction.CallbackContext obj)
         {
-            if (!canReturn)
+            if (!_canReturn)
                 return;
             LevelManager.Instance.FinishAndReturnToWorldMode();
         }
