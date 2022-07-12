@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3cac5b1f7c6e6e438ff914d46f2d1c4, type: 3}
-  m_Name: Sky 2
+  m_Script: {fileID: 11500000, guid: b64bcd08b1288e745b9acadb999510ea, type: 3}
+  m_Name: WDATA_Workshop
   m_EditorClassIdentifier: 
-  ScenePath: Assets/Scenes/Level/World 0/SCENE_Sky_2.unity
-  LevelName: Sky 2
-  LevelImage: {fileID: 0}
-  Visited: 0
-  Completed: 0
-  RecordTime: Infinity
+  WorldName: Workshop
+  LevelDatas:
+  - {fileID: 11400000, guid: 43be47d63a267194594ff202441e732e, type: 2}
+  WorldStyleSo: {fileID: 11400000, guid: ca651e1f8f0035948a02d8ef0ad9602b, type: 2}
