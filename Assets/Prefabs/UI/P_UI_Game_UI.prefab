@@ -177,7 +177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8584030211181971273, guid: 75d15683b95cfaa4683eb8950dbac536, type: 3}
       propertyPath: m_Name
-      value: GameUI
+      value: P_HUD_Level
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75d15683b95cfaa4683eb8950dbac536, type: 3}
