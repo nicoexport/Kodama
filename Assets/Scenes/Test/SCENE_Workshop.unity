@@ -128,6 +128,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4160299568545667728, guid: 1729ae6027b364a4b973cf1c3fbac45d, type: 3}
@@ -187,17 +188,23 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 1729ae6027b364a4b973cf1c3fbac45d, type: 3}
 --- !u!1001 &600204654
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 544820478708125636, guid: f0bee3f910771944d9608f19f2bceaf0, type: 3}
       propertyPath: m_Follow
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 544820478708125636, guid: f0bee3f910771944d9608f19f2bceaf0, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 544820478708125637, guid: f0bee3f910771944d9608f19f2bceaf0, type: 3}
       propertyPath: m_RootOrder
@@ -248,6 +255,7 @@ PrefabInstance:
       value: P_CM_Virtual_Camera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f0bee3f910771944d9608f19f2bceaf0, type: 3}
 --- !u!1 &1524627218
 GameObject:
@@ -10584,6 +10592,7 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+  m_UseDelaunayMesh: 0
 --- !u!66 &1524627223
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -10668,6 +10677,7 @@ CompositeCollider2D:
       - {x: -4.999971, y: 0}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
 --- !u!50 &1524627224
 Rigidbody2D:
   serializedVersion: 4
@@ -10726,6 +10736,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5750504162892390248, guid: ada36c1a4d91cd54ab0500bbceaadcd1, type: 3}
@@ -10789,6 +10800,7 @@ PrefabInstance:
       value: P_Level_Base
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: ada36c1a4d91cd54ab0500bbceaadcd1, type: 3}
 --- !u!1 &1662379143
 GameObject:
@@ -10840,8 +10852,25 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1616981830, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_CropFrame
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616981830, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_FilterMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616981830, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_RefResolutionX
+      value: 640
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616981830, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_RefResolutionY
+      value: 360
+      objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726019, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_Name
       value: P_Camera
@@ -10852,7 +10881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: orthographic size
-      value: 16.875
+      value: 11.25
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_BackGroundColor.b
@@ -10865,6 +10894,22 @@ PrefabInstance:
     - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_BackGroundColor.r
       value: 0.3679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726031, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_RootOrder
@@ -10911,4 +10956,5 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
