@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5490571499008634584}
   - component: {fileID: 1707713905108621758}
   - component: {fileID: 7853782542850126645}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Leaf Glimmer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4825,7 +4825,7 @@ GameObject:
   - component: {fileID: 8440203644771781271}
   - component: {fileID: 2183832743663370722}
   - component: {fileID: 3366002122133489323}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Land Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9697,7 +9697,7 @@ GameObject:
   - component: {fileID: 6217042752042090723}
   - component: {fileID: 3395105730472172888}
   - component: {fileID: 1441073862972839503}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Walking Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14511,7 +14511,7 @@ GameObject:
   - component: {fileID: 3166601839159326346}
   - component: {fileID: 8826198863448206414}
   - component: {fileID: 6898504762914050067}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19323,7 +19323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5291515767805282391}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Frontcheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19364,7 +19364,7 @@ GameObject:
   - component: {fileID: 8557098433793650875}
   - component: {fileID: 869141998114004738}
   - component: {fileID: 1951054943509211791}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: P_Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -19624,7 +19624,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5291515768323021124}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ceilingcheck (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19655,7 +19655,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5291515768411393619}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Groundcheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19686,7 +19686,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5291515769295254171}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ceilingcheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19717,7 +19717,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1285703851080457484}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CollisionChecks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19752,7 +19752,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7618160186190782526}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

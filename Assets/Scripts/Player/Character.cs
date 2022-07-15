@@ -140,10 +140,10 @@ namespace Player
             // rb.velocity = new Vector2(horizontalMove * speed * Time.deltaTime * 10f, rb.velocity.y);
             var newForce = new Vector2(horizontalMove * Time.deltaTime * speed, 0f);
             rb.AddForce(newForce, ForceMode2D.Impulse);
-            if (rb.velocity.x > MovementValues.maxVelocityX)
+            /*if (rb.velocity.x > MovementValues.maxVelocityX)
                 rb.velocity = new Vector2(MovementValues.maxVelocityX, rb.velocity.y);
             else if (rb.velocity.x < -MovementValues.maxVelocityX)
-                rb.velocity = new Vector2(-MovementValues.maxVelocityX, rb.velocity.y);
+                rb.velocity = new Vector2(-MovementValues.maxVelocityX, rb.velocity.y);*/
             if (logVelocity) Debug.Log("Velocity x: " + rb.velocity.x + " y: " + rb.velocity.y);
         }
 
