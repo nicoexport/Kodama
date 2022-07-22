@@ -8,6 +8,9 @@ namespace Level
         [SerializeField] float _intensity;
         [SerializeField] float _range = 1f; 
         [SerializeField] LayerMask _whatToAttract;
+        [SerializeField] GravityForceType _forceType;
+        [SerializeField] ForceMode2D _forceMode;
+        [SerializeField] bool _inverse;
         Transform _transform;
         
         protected void FixedUpdate()
@@ -20,8 +23,33 @@ namespace Level
                 var position = _transform.position;
                 var distance = Vector2.Distance(hitPosition, position);
                 if (distance < 0.1f) return;
-                var force = (position - hitPosition).normalized / Mathf.InverseLerp(0, _range, distance) * _intensity;
-                hit.rigidbody.AddForce(force, ForceMode2D.Impulse);
+
+                Vector2 force;
+                switch (_forceType)
+                {
+                    case GravityForceType.InvLerp:
+                        force = (position - hitPosition).normalized / Mathf.InverseLerp(0, _range, distance) * _intensity;
+                        break;
+                    case GravityForceType.InvLerpSqr:
+                        force = (position - hitPosition).normalized / Mathf.Pow(Mathf.InverseLerp(0, _range, distance), 2) * 
+                        _intensity;
+                        break;
+                    case GravityForceType.Dist:
+                        force = (position - hitPosition).normalized / distance * _intensity;
+                        break;
+                    case GravityForceType.DistSqr:
+                        force = (position - hitPosition).normalized / Mathf.Pow(distance, 2) * _intensity;
+                        break;
+                    default:
+                        force = (position - hitPosition).normalized / distance * _intensity;
+                        throw new ArgumentOutOfRangeException();
+                }
+                if(_inverse)
+                    hit.rigidbody.AddForce(-force, _forceMode);
+                else
+                {
+                    hit.rigidbody.AddForce(force, _forceMode);
+                }
             }
         }
 
@@ -35,5 +63,13 @@ namespace Level
         {
             Gizmos.DrawWireSphere(_transform.position, _range);
         }
+    }
+
+    public enum GravityForceType
+    {
+        InvLerp,
+        InvLerpSqr,
+        Dist,
+        DistSqr
     }
 }
