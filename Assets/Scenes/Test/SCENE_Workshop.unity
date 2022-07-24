@@ -11725,6 +11725,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1616981830, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_GridSnapping
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616981830, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_RefResolutionX
       value: 960
       objectReference: {fileID: 0}
@@ -11758,18 +11762,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0
+      value: 0.125
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0
+      value: 0.125
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 1
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726030, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_UpdateMethod
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726030, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_BlendUpdateMethod
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726031, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
