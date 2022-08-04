@@ -146,25 +146,11 @@ namespace Player
                 rb.velocity = new Vector2(-MovementValues.maxVelocityX, rb.velocity.y);*/
             if (logVelocity) Debug.Log("Velocity x: " + rb.velocity.x + " y: " + rb.velocity.y);
         }
-
-        public void Jump(float jumpForce)
-        {
-            transform.Translate(Vector2.up * (groundCheckRadius + 0.1f));
-            var newForce = new Vector2(0f, jumpForce * Time.deltaTime);
-            rb.AddForce(newForce, ForceMode2D.Impulse);
-        }
+        
 
         void ChangeToWinningState(LevelData levelData)
         {
             movementSm.ChangeState(winning);
-        }
-
-        public IEnumerator DieEnumerator()
-        {
-            movementSm.ChangeState(dying);
-            UpdateVisuals();
-            var waitForAnim = new WaitForSeconds(cAnimController.animator.GetCurrentAnimatorClipInfo(0).Length);
-            yield return waitForAnim;
         }
 
         public void ResetMoveParams()
@@ -186,8 +172,7 @@ namespace Player
         void UpdateVisuals()
         {
             var touchingWall = CheckCollisionOverlap(frontCheck.position, frontCheckRadius);
-            cAnimController.SetAnimationState(movementSm.CurrentState, InputManager.GetHorizontalMovementValue(),
-                rb.velocity.x, MovementValues.maxVelocityX, touchingWall);
+            cAnimController.SetAnimationState(movementSm.CurrentState, InputManager.GetHorizontalMovementValue(), rb.velocity.x, MovementValues.maxVelocityX, touchingWall);
         }
 
         void InitializeStates()

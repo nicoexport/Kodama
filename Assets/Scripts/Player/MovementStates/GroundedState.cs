@@ -61,10 +61,14 @@ namespace Player.MovementStates
             {
                 Vector2 newVelocity;
                 var velocity = character.rb.velocity;
-                if (character.rb.velocity.x < 0)
+                if (velocity.x < -0.5f)
                     newVelocity = new Vector2(velocity.x + Time.deltaTime * additionalDrag, velocity.y);
-                else
+                else if (velocity.x > 0.5f)
                     newVelocity = new Vector2(velocity.x - Time.deltaTime * additionalDrag, velocity.y);
+                else
+                {
+                    newVelocity = new Vector2(0f, velocity.y);
+                }
                 character.rb.velocity = newVelocity;
             }
         }
