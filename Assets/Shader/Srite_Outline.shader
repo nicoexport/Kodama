@@ -1,4 +1,4 @@
-Shader "Unlit/Srite_Outline"
+tShader "Unlit/Srite_Outline"
 {
     Properties
     {
