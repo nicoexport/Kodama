@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 6926420452335726031}
   - component: {fileID: 6926420452335726028}
   - component: {fileID: 6926420452335726029}
-  - component: {fileID: 6926420452335726030}
-  - component: {fileID: 4955864362391266245}
   - component: {fileID: 1616981830}
   - component: {fileID: 1616981831}
   m_Layer: 0
@@ -35,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &6926420452335726028
 Camera:
@@ -56,15 +54,15 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: -0.22083335
-    y: -0.03333333
+    x: 0
+    y: 0
     width: 1
     height: 1
-  near clip plane: 0
+  near clip plane: 0.001
   far clip plane: 220
   field of view: 60
   orthographic: 1
-  orthographic size: 16.875
+  orthographic size: 11.25
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -88,55 +86,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6926420452335726019}
   m_Enabled: 1
---- !u!114 &6926420452335726030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6926420452335726019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 0
-  m_BlendUpdateMethod: 1
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
-    m_CustomCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &4955864362391266245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6926420452335726019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4aa141d99096c840a8e08d5cddfc5b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _goalScale: {x: 0.35, y: 0.35, z: 1}
-  _zoomSpeed: 8
-  _tweenType: 0
 --- !u!114 &1616981830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,11 +100,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
   m_AssetsPPU: 16
-  m_RefResolutionX: 960
-  m_RefResolutionY: 540
-  m_CropFrame: 3
+  m_RefResolutionX: 640
+  m_RefResolutionY: 360
+  m_CropFrame: 4
   m_GridSnapping: 0
-  m_FilterMode: 0
+  m_FilterMode: 1
   m_UpscaleRT: 0
   m_PixelSnapping: 0
   m_CropFrameX: 0
