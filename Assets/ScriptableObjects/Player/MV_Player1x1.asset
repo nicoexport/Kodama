@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a8bf131ad3db64892f3f6664d2500c, type: 3}
   m_Name: MV_Player1x1
   m_EditorClassIdentifier: 
-  moveSpeed: 170
-  sprintSpeed: 220
-  airMoveSpeed: 170
-  airSprintSpeed: 220
+  moveSpeed: 100
+  sprintSpeed: 160
+  airMoveSpeed: 100
+  airSprintSpeed: 160
   maxVelocityX: 30
   groundDecelDrag: 50
   jumpForce: 70
@@ -25,10 +25,10 @@ MonoBehaviour:
   longJumpTimer: 0.3
   hangTime: 0.15
   wallSlideInputThresh: 0
-  horizontalWallJumpForce: 50
-  verticalWallJumpForce: 140
-  wallJumpTimer: 0.35
-  wallLongJumpMultiplier: 1.5
+  horizontalWallJumpForce: 37
+  verticalWallJumpForce: 110
+  wallJumpTimer: 0.4
+  wallLongJumpMultiplier: 2
   normalGravity: 12.1
   fastFallGravity: 16
-  wallslidingGravity: 6
+  wallslidingGravity: 4
