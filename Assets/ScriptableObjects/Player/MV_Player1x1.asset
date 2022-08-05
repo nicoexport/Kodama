@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a8bf131ad3db64892f3f6664d2500c, type: 3}
   m_Name: MV_Player1x1
   m_EditorClassIdentifier: 
-  moveSpeed: 100
+  moveSpeed: 130
   sprintSpeed: 160
-  airMoveSpeed: 100
+  airMoveSpeed: 140
   airSprintSpeed: 160
   maxVelocityX: 30
   groundDecelDrag: 50
