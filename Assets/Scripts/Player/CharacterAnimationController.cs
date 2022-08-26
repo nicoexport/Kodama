@@ -17,7 +17,8 @@ namespace Player
         public const string spawning = "SPAWNING";
         public const string winning = "WINNING";
         public const string dying = "DYING";
-        string currentAnimState;
+        public const string landing = "LANDING";
+        private string _currentAnimState;
         public Animator animator { get; private set; }
 
         void Awake()
@@ -32,14 +33,23 @@ namespace Player
         {
             //print("Trying to set animation state");
             var newAnimState = idle;
-
+            var currentAnimatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
             switch (state.ToString())
             {
                 case "Player.MovementStates.StandingState":
-                    newAnimState = idle;
+                   
+                    if (currentAnimatorStateInfo.IsName(falling) || currentAnimatorStateInfo.IsName(landing))
+                        newAnimState = landing;
+                    else
+                        newAnimState = idle;
                     break;
 
                 case "Player.MovementStates.RunningState":
+                    if (currentAnimatorStateInfo.IsName(falling) || currentAnimatorStateInfo.IsName(landing))
+                    {
+                        newAnimState = landing;
+                        break;
+                    }
                     if (touchingWall)
                     {
                         newAnimState = walkingAgainstWall;
@@ -86,11 +96,11 @@ namespace Player
                     break;
             }
 
-            if (newAnimState == currentAnimState) return;
+            if (newAnimState == _currentAnimState) return;
             animator.Play(newAnimState, 0);
             print(newAnimState);
-            OnAnimationStateChange?.Invoke(currentAnimState, newAnimState);
-            currentAnimState = newAnimState;
+            OnAnimationStateChange?.Invoke(_currentAnimState, newAnimState);
+            _currentAnimState = newAnimState;
         }
     }
 }
