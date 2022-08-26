@@ -9,6 +9,7 @@ namespace Player
         public const string idle = "IDLE";
         public const string running = "RUNNING";
         public const string falling = "FALLING";
+        public const string fallingTransition = "FALLINGTRANSITION";
         public const string jumping = "JUMPING";
         public const string doubleJumping = "DOUBLEJUMPING";
         public const string wallSliding = "WALLSLIDING";
@@ -63,7 +64,7 @@ namespace Player
                     break;
 
                 case "Player.MovementStates.FallingState":
-                    newAnimState = falling;
+                    newAnimState = fallingTransition;
                     break;
 
                 case "Player.MovementStates.JumpingState":

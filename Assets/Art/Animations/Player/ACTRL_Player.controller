@@ -86,7 +86,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FALLING
+  m_Name: FALLINGTRANSITION
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -277,7 +277,7 @@ AnimatorStateMachine:
     m_Position: {x: 30, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2035395862742801810}
-    m_Position: {x: 30, y: 350, z: 0}
+    m_Position: {x: -200, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3743456822313084}
     m_Position: {x: 30, y: 400, z: 0}
@@ -292,7 +292,7 @@ AnimatorStateMachine:
     m_Position: {x: 30, y: 550, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3658765968335106099}
-    m_Position: {x: 300, y: 350, z: 0}
+    m_Position: {x: 30, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7994331402678303354}
     m_Position: {x: 30, y: 300, z: 0}
@@ -325,7 +325,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FALLING_LOOP
+  m_Name: FALLING
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
