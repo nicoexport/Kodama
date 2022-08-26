@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a81afa22953640a2b28b51445812eb3e, type: 3}
-  m_Name: AUSO_Button_Select
+  m_Name: AUCUE_Jump
   m_EditorClassIdentifier: 
   Looping: 0
   _audioClipGroup:
-  - Mode: 2
+  - Mode: 0
     Clips:
-    - {fileID: 8300000, guid: 8ec1e91ff4aab6f4fa43369eadbf3939, type: 3}
+    - {fileID: 8300000, guid: fa1ad8a9c8e26aa4dbd2e4a4b122d4f0, type: 3}

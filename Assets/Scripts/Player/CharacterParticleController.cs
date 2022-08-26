@@ -67,8 +67,12 @@ namespace Player
 
             switch (newAnimState)
             {
+                case CharacterAnimationController.landing:
+                    _landDust.Stop();
+                    _landDust.Play();
+                    break;
                 case CharacterAnimationController.idle:
-                    if (currentAnimState == CharacterAnimationController.falling)
+                    if (currentAnimState is CharacterAnimationController.falling or CharacterAnimationController.fallingTransition)
                     {
                         _landDust.Stop();
                         _landDust.Play();

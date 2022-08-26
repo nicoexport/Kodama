@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Architecture;
 using Data;
@@ -12,6 +13,7 @@ namespace Player
     [RequireComponent(typeof(PlayerLifeCycleHandler))]
     public class Character : MonoBehaviour
     {
+        public event Action<State> onStateChanged;
         [SerializeField] CharacterRuntimeSet characterRuntimeSet;
 
         [HideInInspector] public float hasPressedRightTimer;
@@ -192,6 +194,12 @@ namespace Player
         void InitializeStateMachine(State state)
         {
             movementSm.Initialize(state);
+            movementSm.OnStateChanged += InvokeStateChange;
+        }
+
+        private void InvokeStateChange(State obj)
+        {
+            onStateChanged?.Invoke(obj);
         }
 
         void CountDownInputTimer()

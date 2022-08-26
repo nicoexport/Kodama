@@ -12,7 +12,8 @@ namespace Scriptable
         [Header("Sound properties")] public bool Mute;
 
         [Range(0f, 1f)] public float Volume = 1f;
-        [Range(-3f, 3f)] public float Pitch = 1f;
+        [Range(-3f, 3f)] public float PitchMin = 1f;
+        [Range(-3f, 3f)] public float PitchMax = 1f;
         [Range(-1f, 1f)] public float PanStereo;
         [Range(0f, 1.1f)] public float ReverbZoneMix = 1f;
 
@@ -48,7 +49,8 @@ namespace Scriptable
             audioSource.bypassReverbZones = BypassReverbZones;
             audioSource.priority = Priority;
             audioSource.volume = Volume;
-            audioSource.pitch = Pitch;
+            var pitch = Random.Range(PitchMin, PitchMax);
+            audioSource.pitch = pitch;
             audioSource.panStereo = PanStereo;
             audioSource.spatialBlend = SpatialBlend;
             audioSource.reverbZoneMix = ReverbZoneMix;

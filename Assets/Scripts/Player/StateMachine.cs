@@ -1,7 +1,10 @@
+using System;
+
 namespace Player
 {
     public class StateMachine
     {
+        public event Action<State> OnStateChanged;
         public State CurrentState { get; private set; }
         public State PreviousState { get; private set; }
 
@@ -10,6 +13,7 @@ namespace Player
         {
             CurrentState = startingState;
             startingState.Enter();
+            OnStateChanged?.Invoke(CurrentState);
         }
 
         // Method used to change to a new state calling the Enter() and Exit() methods respectively
@@ -19,6 +23,7 @@ namespace Player
             PreviousState = CurrentState;
             CurrentState = newState;
             newState.Enter();
+            OnStateChanged?.Invoke(CurrentState);
         }
     }
 }
