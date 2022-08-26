@@ -20,6 +20,8 @@ namespace Player
         public const string dying = "DYING";
         public const string landing = "LANDING";
         private string _currentAnimState;
+        private static readonly int RunSpeed = Animator.StringToHash("runSpeed");
+        public float Speed { get; private set; }
         public Animator animator { get; private set; }
 
         void Awake()
@@ -27,7 +29,7 @@ namespace Player
             animator = GetComponent<Animator>();
         }
 
-        public event Action<string, string> OnAnimationStateChange;
+        public event Action<string, string, float> OnAnimationStateChange;
 
         public void SetAnimationState(State state, float horizontalInput, float xVelocity, float maxVelocityX,
             bool touchingWall)
@@ -35,6 +37,7 @@ namespace Player
             //print("Trying to set animation state");
             var newAnimState = idle;
             var currentAnimatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            Speed = Mathf.Abs(xVelocity / maxVelocityX);
             switch (state.ToString())
             {
                 case "Player.MovementStates.StandingState":
@@ -58,7 +61,7 @@ namespace Player
                     else
                     {
                         newAnimState = running;
-                        animator.SetFloat("runSpeed", Mathf.Abs(xVelocity) / maxVelocityX);
+                        animator.SetFloat(RunSpeed, Speed);
                     }
 
                     break;
@@ -100,7 +103,7 @@ namespace Player
             if (newAnimState == _currentAnimState) return;
             animator.Play(newAnimState, 0);
             print(newAnimState);
-            OnAnimationStateChange?.Invoke(_currentAnimState, newAnimState);
+            OnAnimationStateChange?.Invoke(_currentAnimState, newAnimState, Speed);
             _currentAnimState = newAnimState;
         }
     }

@@ -3,6 +3,7 @@ using Audio;
 using Player.MovementStates;
 using Scriptable;
 using UnityEngine;
+using Utility;
 
 namespace Player
 {
@@ -12,10 +13,15 @@ namespace Player
       [Header("Audio Cues")] 
       [SerializeField] private AudioCue _jump;
       [SerializeField] private AudioCue _land;
-         
+      [SerializeField] private AudioCue _step;
+      [Range(0f, 3f)] [SerializeField] private float _stepDelay = 1f;
+      [SerializeField] private AnimationCurve _stepSpeedCurve;
       private AudioCue _audioCue;
       private Character _character;
       private CharacterAnimationController _animationController;
+      private bool _running = false;
+      private float _speed = 1f;
+      private bool _canStep = true;
 
       protected void Awake()
       {
@@ -23,9 +29,27 @@ namespace Player
          _animationController.OnAnimationStateChange += HandleStateChange;
       }
 
-      private void HandleStateChange(string currentState, string newState)
+      protected void Update()
       {
-         
+         _speed = _animationController.Speed;
+      }
+
+      protected void FixedUpdate()
+      {
+         if (_running && _canStep)
+         {
+            _canStep = false;
+            _step.PlayAudioCue();
+            StartCoroutine(Utilities.ActionAfterDelayEnumerator(_stepSpeedCurve.Evaluate(_speed), () => { _canStep = 
+            true; }));
+         }
+                                          
+                                       
+      }
+
+      private void HandleStateChange(string currentState, string newState, float speed)
+      {
+         _running = false;
          switch (newState)
          {
             case CharacterAnimationController.idle:
@@ -43,6 +67,7 @@ namespace Player
                _land.PlayAudioCue();
                break;
             case CharacterAnimationController.running:
+               _running = true;
                break;
             case CharacterAnimationController.spawning:
                break;

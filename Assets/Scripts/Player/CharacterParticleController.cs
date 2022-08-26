@@ -26,7 +26,7 @@ namespace Player
             _animController.OnAnimationStateChange -= HandleAnimationStateChange;
         }
 
-        void HandleAnimationStateChange(string currentAnimState, string newAnimState)
+        void HandleAnimationStateChange(string currentAnimState, string newAnimState, float speed)
         {
             _leafGlimmer.Stop();
 
