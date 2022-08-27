@@ -81,7 +81,8 @@ namespace UI
             {
                 levelFinishedTimerUI.SetActive(true);
                 _timerText.gameObject.SetActive(true);
-                _timerText.text = TimeSpan.FromSeconds(timer).ToString("mm\\:ss\\:ff");
+                var span = TimeSpan.FromSeconds(timer);
+                _timerText.text = span.ToString("mm") + " : " + span.ToString("ss") + " : " + span.ToString("ff");
                 if (newRecord) StartCoroutine(Utilities.ActionAfterDelayEnumerator(0.5f, DisplayRecordsText));
             }));
         }
