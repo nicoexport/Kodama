@@ -1,9 +1,6 @@
-using System;
 using Audio;
-using Player.MovementStates;
-using Scriptable;
 using UnityEngine;
-using Utility;
+
 
 namespace Player
 {
@@ -14,7 +11,6 @@ namespace Player
       [SerializeField] private AudioCue _jump;
       [SerializeField] private AudioCue _land;
       [SerializeField] private AudioCue _step;
-      [Range(0f, 3f)] [SerializeField] private float _stepDelay = 1f;
       [SerializeField] private AnimationCurve _stepSpeedCurve;
       private AudioCue _audioCue;
       private Character _character;
@@ -23,10 +19,24 @@ namespace Player
       private float _speed = 1f;
       private bool _canStep = true;
 
+      [Range(0f, 1f)]
+      [SerializeField]
+      private float _stepTimer = 0.5f;
+      private float _stepTimerCurrent;
+
       protected void Awake()
       {
          _animationController = GetComponent<CharacterAnimationController>();
+      }
+
+      protected void OnEnable()
+      {
          _animationController.OnAnimationStateChange += HandleStateChange;
+      }
+
+      protected void OnDisable()
+      {
+         _animationController.OnAnimationStateChange -= HandleStateChange;
       }
 
       protected void Update()
@@ -38,13 +48,18 @@ namespace Player
       {
          if (_running && _canStep)
          {
-            _canStep = false;
             _step.PlayAudioCue();
-            StartCoroutine(Utilities.ActionAfterDelayEnumerator(_stepSpeedCurve.Evaluate(_speed), () => { _canStep = 
-            true; }));
+            _canStep = false;
+            _stepTimerCurrent = _stepTimer;
          }
-                                          
-                                       
+         if (!_canStep)
+         {
+            if (_stepTimerCurrent <= 0f)
+            {
+               _canStep = true;
+            }
+            _stepTimerCurrent -= Time.deltaTime * _stepSpeedCurve.Evaluate(_speed);
+         }
       }
 
       private void HandleStateChange(string currentState, string newState, float speed)
@@ -68,6 +83,7 @@ namespace Player
                break;
             case CharacterAnimationController.running:
                _running = true;
+               _canStep = true;
                break;
             case CharacterAnimationController.spawning:
                break;
