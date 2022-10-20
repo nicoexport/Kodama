@@ -1,33 +1,34 @@
-using System;
 using Architecture;
 using Cinemachine;
 using Data;
 using GameManagement;
 using Player;
+using Scriptable;
 using UnityEngine;
 
 public class PlayerManager : Resettable
 {
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private GameObjectRuntimeSet _cinemachineRuntimeSet;
+    [SerializeField] private VoidEventChannelSO _onPlayerDeathEventChannel;
     
     private GameObject _currentPlayer;
     private PlayerHealth _health;
-    private Character _character;
     private Rigidbody2D _rb;
-    private SpriteRenderer _renderer;
     private RigidbodyConstraints2D _constraints;
 
     protected override void OnEnable()
     {
         base.OnEnable();
         LevelManager.OnLevelComplete += HandleLevelComplete;
+        _onPlayerDeathEventChannel.OnEventRaised += HandlePlayerDeath;
     }
-    
+
     protected override void OnDisable()
     {
         base.OnDisable();
         LevelManager.OnLevelComplete -= HandleLevelComplete;
+        _onPlayerDeathEventChannel.OnEventRaised -= HandlePlayerDeath;
     }
 
     public override void OnLevelReset()
@@ -51,6 +52,14 @@ public class PlayerManager : Resettable
             _health.Reset();
             _rb.constraints = _constraints;
         }
+
+        var map = InputManager.playerInputActions.Player;
+        InputManager.ToggleActionMap(map);
+    }
+
+    private void HandlePlayerDeath()
+    {
+        Destroy(_currentPlayer);
     }
 
     private void AttachCamToPlayer()
@@ -73,9 +82,7 @@ public class PlayerManager : Resettable
     private void CacheComponents(GameObject player)
     {
         _health = player.GetComponent<PlayerHealth>();
-        _character = player.GetComponent<Character>();
         _rb = player.GetComponent<Rigidbody2D>();
-        _renderer = player.GetComponent<SpriteRenderer>();
         _constraints = _rb.constraints;
     }
 }

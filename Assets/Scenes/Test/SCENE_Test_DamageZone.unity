@@ -343,9 +343,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 380aa1e06c74694489159a7f279288d3, type: 2}
     - target: {fileID: 4160299568624261354, guid: 1729ae6027b364a4b973cf1c3fbac45d, type: 3}
+      propertyPath: _levelResetDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160299568624261354, guid: 1729ae6027b364a4b973cf1c3fbac45d, type: 3}
       propertyPath: _resettableRuntimeSet
       value: 
       objectReference: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
+    - target: {fileID: 4160299568624261354, guid: 1729ae6027b364a4b973cf1c3fbac45d, type: 3}
+      propertyPath: _onPlayerDeathEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: a6b6b32045b929348a692a025d6e6c39, type: 2}
     m_RemovedComponents:
     - {fileID: 4870655467824861202, guid: 1729ae6027b364a4b973cf1c3fbac45d, type: 3}
     m_AddedGameObjects: []
@@ -28185,6 +28193,7 @@ MonoBehaviour:
   _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
   _playerPrefab: {fileID: 5291515768158270416, guid: 0d56037141600ba448d3eb98bd5d8e52, type: 3}
   _cinemachineRuntimeSet: {fileID: 11400000, guid: 6d2041fbf0ceda240b3430c5307c2aad, type: 2}
+  _onPlayerDeathEventChannel: {fileID: 11400000, guid: a6b6b32045b929348a692a025d6e6c39, type: 2}
 --- !u!1 &1662379143
 GameObject:
   m_ObjectHideFlags: 0

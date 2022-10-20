@@ -19581,36 +19581,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultHealth: 1
-  OnTakeDamage:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8690055496340281002}
-        m_TargetAssemblyTypeName: Audio.AudioCue, Assembly-CSharp
-        m_MethodName: PlayAudioCue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDie:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8909978702736375095}
-        m_TargetAssemblyTypeName: Audio.AudioCue, Assembly-CSharp
-        m_MethodName: PlayAudioCue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  onPlayerHurtChannel: {fileID: 11400000, guid: 79713eff44d32be4889ae721837de03c, type: 2}
+  onPlayerDeathEventChannel: {fileID: 11400000, guid: a6b6b32045b929348a692a025d6e6c39, type: 2}
   Damageable: 1
 --- !u!114 &5291515768158270442
 MonoBehaviour:
@@ -19729,9 +19701,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c619ab5edcc4f8d883e10a0b2990496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onPlayerHurtChannel: {fileID: 11400000, guid: 79713eff44d32be4889ae721837de03c, type: 2}
+  _onPlayerDeathEventChannel: {fileID: 11400000, guid: a6b6b32045b929348a692a025d6e6c39, type: 2}
   _jump: {fileID: 4720570299327236063}
   _land: {fileID: 7550766466787145437}
   _step: {fileID: 6997359587794471364}
+  _hurt: {fileID: 8690055496340281002}
+  _death: {fileID: 8909978702736375095}
   _stepSpeedCurve:
     serializedVersion: 2
     m_Curve:

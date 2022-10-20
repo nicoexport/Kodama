@@ -20,6 +20,7 @@ namespace Architecture
         [SerializeField] private SessionData _sessionData;
         [SerializeField] private ResettableRuntimeSet _resettableRuntimeSet;
         [SerializeField] private float _levelResetDelay = 1f;
+        [SerializeField] private VoidEventChannelSO _onPlayerDeathEventChannel;
         
         public LevelData ActiveLevelData { get; private set; }
         private LevelFlowHandler levelFlowHandler;
@@ -34,6 +35,16 @@ namespace Architecture
         {
             SetActiveLevelData();
             StartLevel();
+        }
+
+        protected void OnEnable()
+        {
+            _onPlayerDeathEventChannel.OnEventRaised += RestartLevel;
+        }
+
+        protected void OnDisable()
+        {
+            _onPlayerDeathEventChannel.OnEventRaised -= RestartLevel;
         }
 
         private void StartLevel()
@@ -89,7 +100,7 @@ namespace Architecture
             }
         }
 
-        private void SetActiveLevelData()
+        private void SetActiveLevelData() 
         {
             ActiveLevelData = GetLevelData();
             if (ActiveLevelData != null)

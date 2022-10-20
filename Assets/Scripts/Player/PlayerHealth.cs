@@ -1,14 +1,13 @@
-using Architecture;
+using Scriptable;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Player
 {
     public class PlayerHealth : MonoBehaviour
     {
         [SerializeField] private int _defaultHealth = 1;
-        [SerializeField] private UnityEvent OnTakeDamage;
-        [SerializeField] private UnityEvent OnDie;
+        [SerializeField] private VoidEventChannelSO onPlayerHurtChannel;
+        [SerializeField] private VoidEventChannelSO onPlayerDeathEventChannel;
 
         public bool Damageable = true;
         private int _health;
@@ -29,15 +28,13 @@ namespace Player
             }
             else
             {
-                OnTakeDamage?.Invoke();
+                onPlayerHurtChannel.RaiseEvent();
             }
         }
 
         public void Die()
         {
-            OnDie.Invoke();
-            Destroy(gameObject);
-            LevelManager.Instance.RestartLevel();
+            onPlayerDeathEventChannel.RaiseEvent();
         }
 
         public void Reset()

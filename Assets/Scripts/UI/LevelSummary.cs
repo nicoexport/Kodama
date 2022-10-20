@@ -99,8 +99,10 @@ namespace UI
                 .setLoopPingPong();
         }
 
-        private static void LoadNextLevel(InputAction.CallbackContext obj)
+        private void LoadNextLevel(InputAction.CallbackContext obj)
         {
+            if (!_canReturn)
+                return;
             LevelManager.Instance.LoadNextLevel();
         }
 

@@ -1,4 +1,5 @@
 using Audio;
+using Scriptable;
 using UnityEngine;
 
 
@@ -6,11 +7,16 @@ namespace Player
 {
    public class CharacterAudioController : MonoBehaviour
    {
+      [Header("Channels")] 
+      [SerializeField] private VoidEventChannelSO _onPlayerHurtChannel;
+      [SerializeField] private VoidEventChannelSO _onPlayerDeathEventChannel;
       
       [Header("Audio Cues")] 
       [SerializeField] private AudioCue _jump;
       [SerializeField] private AudioCue _land;
       [SerializeField] private AudioCue _step;
+      [SerializeField] private AudioCue _hurt;
+      [SerializeField] private AudioCue _death;
       [SerializeField] private AnimationCurve _stepSpeedCurve;
       private AudioCue _audioCue;
       private Character _character;
@@ -32,11 +38,15 @@ namespace Player
       protected void OnEnable()
       {
          _animationController.OnAnimationStateChange += HandleStateChange;
+         _onPlayerDeathEventChannel.OnEventRaised += PlayDeathAudio;
+         _onPlayerHurtChannel.OnEventRaised += PlayHurtAudio;
       }
 
       protected void OnDisable()
       {
          _animationController.OnAnimationStateChange -= HandleStateChange;
+         _onPlayerDeathEventChannel.OnEventRaised -= PlayDeathAudio;
+         _onPlayerHurtChannel.OnEventRaised -= PlayHurtAudio;
       }
 
       protected void Update()
@@ -102,6 +112,16 @@ namespace Player
             case CharacterAnimationController.walkingAgainstWall:
                break;
          }
+      }
+
+      private void PlayDeathAudio()
+      {
+         _death.PlayAudioCue();
+      }
+
+      private void PlayHurtAudio()
+      {
+         _hurt.PlayAudioCue();
       }
    }
 }
