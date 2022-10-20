@@ -2,6 +2,7 @@ using System;
 using Architecture;
 using GameManagement;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace Player
@@ -10,6 +11,9 @@ namespace Player
     {
         [SerializeField] private TransformRuntimeSet _playerSpawnRuntimeSet;
         [SerializeField] private int _defaultHealth = 1;
+        [SerializeField] private UnityEvent OnTakeDamage;
+        [SerializeField] private UnityEvent OnDie;
+        
         public bool Damageable = true;
         private Character _character;
         private Rigidbody2D _rb;
@@ -28,20 +32,28 @@ namespace Player
             _health = _defaultHealth;
         }
 
-        public static event Action<Character> OnCharacterDeath;
+        public static event Action<Character> OnCharacterDeathAction;
 
         public void TakeDamage(int amount)
         {
             if (!Damageable) return;
             if (_health <= 0) return;
             _health -= amount;
-            if (_health <= 0) Die();
+            if (_health <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                OnTakeDamage?.Invoke();
+            }
         }
 
         public void Die()
         {
             KillPlayer();
-            OnCharacterDeath?.Invoke(_character);
+            OnDie.Invoke();
+            OnCharacterDeathAction?.Invoke(_character);
         }
 
         private void KillPlayer()

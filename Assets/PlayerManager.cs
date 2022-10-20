@@ -19,13 +19,13 @@ public class PlayerManager : MonoBehaviour
 
     protected void OnEnable()
     {
-        PlayerLifeCycleHandler.OnCharacterDeath += HandlePlayerDeath;
+        PlayerLifeCycleHandler.OnCharacterDeathAction += HandlePlayerDeathAction;
         LevelManager.OnLevelComplete += HandleLevelComplete;
     }
     
     protected void OnDisable()
     {
-        PlayerLifeCycleHandler.OnCharacterDeath -= HandlePlayerDeath;
+        PlayerLifeCycleHandler.OnCharacterDeathAction -= HandlePlayerDeathAction;
         LevelManager.OnLevelComplete -= HandleLevelComplete;
     }
 
@@ -50,7 +50,7 @@ public class PlayerManager : MonoBehaviour
         cmCam.Follow = _currentPlayer.transform;
     }
 
-    private static void HandlePlayerDeath(Character character)
+    private static void HandlePlayerDeathAction(Character character)
     {
         OnPlayerDied?.Invoke();
     }
