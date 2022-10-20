@@ -8,10 +8,10 @@ namespace Cam
     public class LevelCamera : MonoBehaviour
     {
         [FormerlySerializedAs("goalScale")] [SerializeField]
-        Vector3 _goalScale;
+        private Vector3 _goalScale;
 
-        [SerializeField] float _zoomSpeed = 0.2f;
-        [SerializeField] LeanTweenType _tweenType = LeanTweenType.notUsed;
+        [SerializeField] private float _zoomSpeed = 0.2f;
+        [SerializeField] private LeanTweenType _tweenType = LeanTweenType.notUsed;
 
         protected void OnEnable()
         {
@@ -23,7 +23,7 @@ namespace Cam
             LevelManager.OnLevelComplete -= TweenZoom;
         }
 
-        void TweenZoom(LevelData levelData)
+        private void TweenZoom(LevelData levelData)
         {
             LeanTween.scale(gameObject, _goalScale, _zoomSpeed).setEase(_tweenType);
         }

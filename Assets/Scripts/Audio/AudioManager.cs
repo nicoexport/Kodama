@@ -9,12 +9,12 @@ namespace Audio
 {
     public class AudioManager : Singleton<AudioManager>
     {
-        [SerializeField] AudioCueChannelSo _sfxChannel;
-        [SerializeField] AudioCueChannelSo _musicChannel;
-        [SerializeField] GameObject _soundEmitterPrefab;
-        [SerializeField] float _musicFadeDuration = 1f;
-        SoundEmitter _currentMusicTrack;
-        GameObjectPool _soundEmitterPool;
+        [SerializeField] private AudioCueChannelSo _sfxChannel;
+        [SerializeField] private AudioCueChannelSo _musicChannel;
+        [SerializeField] private GameObject _soundEmitterPrefab;
+        [SerializeField] private float _musicFadeDuration = 1f;
+        private SoundEmitter _currentMusicTrack;
+        private GameObjectPool _soundEmitterPool;
 
         protected override void Awake()
         {
@@ -22,19 +22,19 @@ namespace Audio
             _soundEmitterPool = new GameObjectPool(transform, _soundEmitterPrefab, 12);
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             _sfxChannel.OnAudioCueRequested += PlayAudioCue;
             _musicChannel.OnAudioCueRequested += PlayMusic;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             _sfxChannel.OnAudioCueRequested -= PlayAudioCue;
             _musicChannel.OnAudioCueRequested -= PlayMusic;
         }
 
-        void PlayAudioCue(AudioCueRequestData audioCueRequestData)
+        private void PlayAudioCue(AudioCueRequestData audioCueRequestData)
         {
             var clipsToPlay = audioCueRequestData.AudioCue.GetClips();
             var numberOfClips = clipsToPlay.Length;
@@ -52,7 +52,7 @@ namespace Audio
             }
         }
 
-        void PlayMusic(AudioCueRequestData audioCueRequestData)
+        private void PlayMusic(AudioCueRequestData audioCueRequestData)
         {
             var clipsToPlay = audioCueRequestData.AudioCue.GetClips();
             var numberOfClips = clipsToPlay.Length;
@@ -75,12 +75,12 @@ namespace Audio
             }
         }
 
-        void FadeOut(SoundEmitter soundEmitter, float durationInSeconds, Action<GameObject> fadeOutFinished = default)
+        private void FadeOut(SoundEmitter soundEmitter, float durationInSeconds, Action<GameObject> fadeOutFinished = default)
         {
             StartCoroutine(FadeOutEnumerator(soundEmitter, durationInSeconds, fadeOutFinished));
         }
 
-        IEnumerator FadeOutEnumerator(SoundEmitter soundEmitter, float durationInSeconds,
+        private IEnumerator FadeOutEnumerator(SoundEmitter soundEmitter, float durationInSeconds,
             Action<GameObject> fadeOutFinished)
         {
             for (var volume = soundEmitter.GetVolume(); volume > 0; volume -= Time.deltaTime / durationInSeconds)
@@ -92,13 +92,13 @@ namespace Audio
             fadeOutFinished?.Invoke(soundEmitter.gameObject);
         }
 
-        void FadeIn(SoundEmitter soundEmitter, float volume, float durationInSeconds,
+        private void FadeIn(SoundEmitter soundEmitter, float volume, float durationInSeconds,
             Action<GameObject> fadeInFinished = default)
         {
             StartCoroutine(FadeInEnumerator(soundEmitter, volume, durationInSeconds, fadeInFinished));
         }
 
-        IEnumerator FadeInEnumerator(SoundEmitter soundEmitter, float volume, float durationInSeconds,
+        private IEnumerator FadeInEnumerator(SoundEmitter soundEmitter, float volume, float durationInSeconds,
             Action<GameObject> fadeInFinished)
         {
             for (float vol = 0; vol < volume; vol += Time.deltaTime / durationInSeconds)
@@ -128,7 +128,7 @@ namespace Audio
             FadeOut(_currentMusicTrack, 0.5f, o => { _soundEmitterPool.Return(o); });
         }
 
-        void OnSoundEmitterFinishedPlaying(SoundEmitter soundEmitter)
+        private void OnSoundEmitterFinishedPlaying(SoundEmitter soundEmitter)
         {
             soundEmitter.OnSoundFinishedPlaying -= OnSoundEmitterFinishedPlaying;
             soundEmitter.Stop();

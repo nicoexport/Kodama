@@ -4,7 +4,7 @@ namespace Player.MovementStates
 {
     public class WinningState : State
     {
-        bool grounded;
+        private bool grounded;
 
         public WinningState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {

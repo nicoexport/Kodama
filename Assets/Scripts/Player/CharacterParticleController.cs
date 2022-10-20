@@ -4,29 +4,29 @@ namespace Player
 {
     public class CharacterParticleController : MonoBehaviour
     {
-        [SerializeField] ParticleSystem _walkingDust;
-        [SerializeField] ParticleSystem _wallDust;
-        [SerializeField] ParticleSystem _landDust;
-        [SerializeField] ParticleSystem _leafGlimmer;
+        [SerializeField] private ParticleSystem _walkingDust;
+        [SerializeField] private ParticleSystem _wallDust;
+        [SerializeField] private ParticleSystem _landDust;
+        [SerializeField] private ParticleSystem _leafGlimmer;
 
-        CharacterAnimationController _animController;
+        private CharacterAnimationController _animController;
 
-        void Awake()
+        private void Awake()
         {
             _animController = GetComponent<CharacterAnimationController>();
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             _animController.OnAnimationStateChange += HandleAnimationStateChange;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             _animController.OnAnimationStateChange -= HandleAnimationStateChange;
         }
 
-        void HandleAnimationStateChange(string currentAnimState, string newAnimState, float speed)
+        private void HandleAnimationStateChange(string currentAnimState, string newAnimState, float speed)
         {
             _leafGlimmer.Stop();
 

@@ -7,35 +7,35 @@ namespace Architecture
 {
     public class SceneLoader : MonoBehaviour
     {
-        [SerializeField] LoadLevelEventChannelSO _loadEventChannel;
+        [SerializeField] private LoadLevelEventChannelSO _loadEventChannel;
 
-        [SerializeField] TransitionEventChannelSO _transitionEventChannel;
+        [SerializeField] private TransitionEventChannelSO _transitionEventChannel;
 
 
-        void OnEnable()
+        private void OnEnable()
         {
             _loadEventChannel.OnLoadingLevelDataRequested += HandleLevelDataLoadingRequest;
             _loadEventChannel.OnLoadingScenePathRequested += HandleScenePathLoadingRequested;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             _loadEventChannel.OnLoadingLevelDataRequested -= HandleLevelDataLoadingRequest;
             _loadEventChannel.OnLoadingScenePathRequested -= HandleScenePathLoadingRequested;
         }
 
-        void HandleLevelDataLoadingRequest(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
+        private void HandleLevelDataLoadingRequest(LevelDataSO levelToLoad, bool unloadActiveScene, bool showScreenfade)
         {
             StartCoroutine(LoadScenes(levelToLoad.ScenePath, unloadActiveScene, showScreenfade));
         }
 
-        void HandleScenePathLoadingRequested(string sceneToLoad, bool unloadActiveScene, bool showScreenfade)
+        private void HandleScenePathLoadingRequested(string sceneToLoad, bool unloadActiveScene, bool showScreenfade)
         {
             StartCoroutine(LoadScenes(sceneToLoad, unloadActiveScene, showScreenfade));
         }
 
 
-        IEnumerator LoadScenes(string scenePath, bool unloadActiveScene, bool showScreenfade)
+        private IEnumerator LoadScenes(string scenePath, bool unloadActiveScene, bool showScreenfade)
         {
             if (showScreenfade)
             {

@@ -6,16 +6,16 @@ namespace Player.MovementStates
 {
     public class WalljumpingState : AirborneState
     {
-        float horizontalForce;
-        bool keepJumping;
-        float keepJumpingTimer;
-        float verticalForce;
+        private float horizontalForce;
+        private bool keepJumping;
+        private float keepJumpingTimer;
+        private float verticalForce;
 
         public WalljumpingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
         }
 
-        void WallJump(float horizontalForce, float verticalForce)
+        private void WallJump(float horizontalForce, float verticalForce)
         {
             character.transform.Translate(Vector2.left * (character.frontCheckRadius + 0.1f));
             if (character.facingRight)
@@ -32,7 +32,7 @@ namespace Player.MovementStates
             }
         }
 
-        void StopJumping(InputAction.CallbackContext context)
+        private void StopJumping(InputAction.CallbackContext context)
         {
             keepJumping = false;
         }
@@ -73,7 +73,6 @@ namespace Player.MovementStates
 
             if (keepJumping && keepJumpingTimer > 0f)
             {
-                Debug.Log(keepJumpingTimer);
                 var force = new Vector2(0f, verticalForce * character.MovementValues.wallLongJumpMultiplier);
                 character.rb.AddForce(force, ForceMode2D.Force);
                 keepJumpingTimer -= Time.deltaTime;

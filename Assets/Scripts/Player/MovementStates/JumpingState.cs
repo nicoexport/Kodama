@@ -6,15 +6,15 @@ namespace Player.MovementStates
 {
     public class JumpingState : AirborneState
     {
-        bool keepJumping;
-        float keepJumpingTimer;
+        private bool keepJumping;
+        private float keepJumpingTimer;
 
         public JumpingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
         }
 
 
-        void Jump(float jumpForce)
+        private void Jump(float jumpForce)
         {
             if (character == null) return;
             character.transform.Translate(Vector2.up * (character.groundCheckRadius + 0.1f));
@@ -22,7 +22,7 @@ namespace Player.MovementStates
             character.rb.AddForce(force, ForceMode2D.Impulse);
         }
 
-        void StopJumping(InputAction.CallbackContext context)
+        private void StopJumping(InputAction.CallbackContext context)
         {
             keepJumping = false;
         }

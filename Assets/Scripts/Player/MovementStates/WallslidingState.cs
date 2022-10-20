@@ -6,10 +6,10 @@ namespace Player.MovementStates
 {
     public class WallslidingState : State
     {
-        bool grounded;
-        float horizontalInput;
-        float speed;
-        bool touchingWall;
+        private bool grounded;
+        private float horizontalInput;
+        private float speed;
+        private bool touchingWall;
 
 
         public WallslidingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
@@ -58,7 +58,7 @@ namespace Player.MovementStates
             character.Move(horizontalInput, speed);
         }
 
-        void ChangeToWallJumping(InputAction.CallbackContext context)
+        private void ChangeToWallJumping(InputAction.CallbackContext context)
         {
             if (touchingWall) stateMachine.ChangeState(character.wallJumping);
         }

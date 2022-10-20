@@ -8,9 +8,9 @@ namespace Audio
     [RequireComponent(typeof(AudioSource))]
     public class SoundEmitter : MonoBehaviour
     {
-        AudioSource _audioSource;
+        private AudioSource _audioSource;
 
-        void Awake()
+        private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
             _audioSource.playOnAwake = false;
@@ -50,7 +50,7 @@ namespace Audio
             return _audioSource.loop;
         }
 
-        IEnumerator FinishedPlayingEnumerator(float clipLength)
+        private IEnumerator FinishedPlayingEnumerator(float clipLength)
         {
             yield return new WaitForSeconds(clipLength);
             OnSoundFinishedPlaying?.Invoke(this);

@@ -9,29 +9,29 @@ namespace UI
 {
     public class PauseMenu : MonoBehaviour
     {
-        [SerializeField] Canvas canvas;
+        [SerializeField] private Canvas canvas;
 
-        [SerializeField] Button primaryButton;
+        [SerializeField] private Button primaryButton;
 
-        [SerializeField] VoidEventChannelSO _returnToWorldEvent;
+        [SerializeField] private VoidEventChannelSO _returnToWorldEvent;
 
-        [SerializeField] VoidEventChannelSO _returnToMainMenuEvent;
+        [SerializeField] private VoidEventChannelSO _returnToMainMenuEvent;
 
 
-        bool paused;
+        private bool paused;
 
-        void Start()
+        private void Start()
         {
             canvas.gameObject.SetActive(false);
             paused = false;
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             LevelManager.OnLevelStart += RegisterInputActions;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             UnRegisterInputActions();
             LevelManager.OnLevelStart -= RegisterInputActions;
@@ -48,7 +48,7 @@ namespace UI
             paused = true;
         }
 
-        void InputActionPauseGame(InputAction.CallbackContext context)
+        private void InputActionPauseGame(InputAction.CallbackContext context)
         {
             if (canvas == null) return;
             PauseGame();
@@ -65,7 +65,7 @@ namespace UI
         }
 
 
-        void InputActionResumeGame(InputAction.CallbackContext context)
+        private void InputActionResumeGame(InputAction.CallbackContext context)
         {
             if (canvas == null) return;
             ResumeGame();
@@ -96,19 +96,19 @@ namespace UI
             _returnToWorldEvent.RaiseEvent();
         }
 
-        void RegisterInputActions()
+        private void RegisterInputActions()
         {
             InputManager.playerInputActions.Player.Pause.started += InputActionPauseGame;
             InputManager.playerInputActions.PauseMenu.Unpause.started += InputActionResumeGame;
         }
 
-        void UnRegisterInputActions()
+        private void UnRegisterInputActions()
         {
             InputManager.playerInputActions.Player.Pause.started -= InputActionPauseGame;
             InputManager.playerInputActions.PauseMenu.Unpause.started -= InputActionResumeGame;
         }
 
-        void DisableInput()
+        private void DisableInput()
         {
             InputManager.playerInputActions.Disable();
         }

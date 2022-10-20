@@ -6,7 +6,7 @@ namespace Architecture
 {
     public class MainMenuMode : IGameMode
     {
-        readonly string _scenePath;
+        private readonly string _scenePath;
 
         public MainMenuMode(string scenePath)
         {

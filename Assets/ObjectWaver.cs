@@ -5,26 +5,26 @@ using UnityEngine;
 
 public class ObjectWaver : MonoBehaviour
 {
-   [SerializeField] bool _playOnAwake;
-   [SerializeField] float _speed;
-   [SerializeField] LeanTweenType _tweenType;
-   [SerializeField] Vector2 _targetOffset;
-   Vector2 _target;
+   [SerializeField] private bool _playOnAwake;
+   [SerializeField] private float _speed;
+   [SerializeField] private LeanTweenType _tweenType;
+   [SerializeField] private Vector2 _targetOffset;
+   private Vector2 _target;
 
 
-   void Awake()
+   private void Awake()
    {
       _target = (Vector2) transform.position + _targetOffset;
       if (_playOnAwake)
          Wave();
    }
 
-   void Wave()
+   private void Wave()
    {
       LeanTween.move(gameObject, _target, _speed).setEase(_tweenType).setLoopPingPong();
    }
 
-   void OnDrawGizmosSelected()
+   private void OnDrawGizmosSelected()
    {
       Gizmos.color = Color.blue;
       var position = transform.position;

@@ -10,21 +10,21 @@ namespace Architecture
 {
     public class GameModeManager : Singleton<GameModeManager>
     {
-        [SerializeField] TransitionEventChannelSO _transitionEventChannel;
+        [SerializeField] private TransitionEventChannelSO _transitionEventChannel;
 
-        [SerializeField] GameDataSO _gameData;
+        [SerializeField] private GameDataSO _gameData;
 
         [FormerlySerializedAs("_sessionData")] [SerializeField]
-        SessionData _sessionData;
+        private SessionData _sessionData;
 
 
         [HideInInspector] public string MainMenuScenePath; //{ get; private set; }
         [HideInInspector] public string WorldsScenePath; //{ get; private set; }
 
 
-        IGameMode _currentMode;
-        readonly int _initialSceneIndex = 0;
-        bool _isSwitching;
+        private IGameMode _currentMode;
+        private readonly int _initialSceneIndex = 0;
+        private bool _isSwitching;
 
         public MainMenuMode mainMenuMode { get; private set; }
         public PlayMode playMode { get; private set; }
@@ -83,7 +83,7 @@ namespace Architecture
         {
         }
 
-        IEnumerator SwitchMode(IGameMode mode)
+        private IEnumerator SwitchMode(IGameMode mode)
         {
             Debug.Log("Trying to Switch mode to " + mode);
             yield return new WaitUntil(() => !_isSwitching);

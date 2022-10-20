@@ -9,16 +9,16 @@ namespace Architecture
 {
     public class InputManager : MonoBehaviour
     {
-        const float movementDeadZoneMin = 0.5f;
-        const float movementDeadZoneMax = 0.925f;
+        private const float movementDeadZoneMin = 0.5f;
+        private const float movementDeadZoneMax = 0.925f;
 
-        static PlayerInput _playerInput;
-        static readonly Dictionary<string, GeneralDeviceType> _deviceMapDictionary = new();
-        [SerializeField] DeviceMapSo _deviceMap;
+        private static PlayerInput _playerInput;
+        private static readonly Dictionary<string, GeneralDeviceType> _deviceMapDictionary = new();
+        [SerializeField] private DeviceMapSo _deviceMap;
         public static PlayerInputActions playerInputActions { get; private set; }
         public static InputDevice CurrentInputDevice { get; private set; }
 
-        void Awake()
+        private void Awake()
         {
             _playerInput = GetComponent<PlayerInput>();
             CurrentInputDevice = _playerInput.devices[0];
@@ -27,13 +27,13 @@ namespace Architecture
             print("INPUT MANAGER CURRENT INPUT DEVICE: " + CurrentInputDevice);
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             _playerInput.onActionTriggered += OnActionTriggered;
             LevelManager.OnLevelComplete += DisableInput;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             _playerInput.onActionTriggered -= OnActionTriggered;
             LevelManager.OnLevelComplete -= DisableInput;
@@ -42,7 +42,7 @@ namespace Architecture
         public static event Action<InputActionMap> OnActionMapChange;
         public static event Action<InputDevice> OnInputDeviceChanged;
 
-        void OnActionTriggered(InputAction.CallbackContext obj)
+        private void OnActionTriggered(InputAction.CallbackContext obj)
         {
             var nextInputDevice = _playerInput.devices[0];
             if (nextInputDevice == CurrentInputDevice) return;
@@ -50,7 +50,7 @@ namespace Architecture
             OnInputDeviceChanged?.Invoke(CurrentInputDevice);
         }
 
-        void FillDeviceMapDict()
+        private void FillDeviceMapDict()
         {
             if (_deviceMap.DeviceNames.Count != _deviceMap.DeviceTypes.Count)
                 Debug.LogErrorFormat("InputManager: DeviceMapSo not valid. Try having same list sizes");

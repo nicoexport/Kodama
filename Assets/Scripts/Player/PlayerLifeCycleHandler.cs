@@ -8,20 +8,16 @@ namespace Player
 {
     public class PlayerLifeCycleHandler : Resettable
     {
-        [SerializeField] TransformRuntimeSet _playerSpawnRuntimeSet;
+        [SerializeField] private TransformRuntimeSet _playerSpawnRuntimeSet;
+        [SerializeField] private int _defaultHealth = 1;
         public bool Damageable = true;
+        private Character _character;
+        private Rigidbody2D _rb;
+        private RigidbodyConstraints2D _rbConstraints2D;
+        private SpriteRenderer _rend;
+        private int _health;
 
-        [FormerlySerializedAs("defaultHealth")] [SerializeField]
-        int _defaultHealth = 1;
-
-        Character _character;
-
-        int _health;
-        Rigidbody2D _rb;
-        RigidbodyConstraints2D _rbConstraints2D;
-        SpriteRenderer _rend;
-
-        void Awake()
+        private void Awake()
         {
             _character = GetComponent<Character>();
             _rend = GetComponent<SpriteRenderer>();
@@ -48,7 +44,7 @@ namespace Player
             OnCharacterDeath?.Invoke(_character);
         }
 
-        void KillPlayer()
+        private void KillPlayer()
         {
             _rb.constraints = RigidbodyConstraints2D.FreezeAll;
             _rend.enabled = false;

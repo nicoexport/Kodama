@@ -5,15 +5,15 @@ namespace DefaultNamespace
 {
     public class TestAudioCue : MonoBehaviour
     {
-        AudioCue _audioCue;
+        private AudioCue _audioCue;
 
-        void Awake()
+        private void Awake()
         {
             _audioCue = GetComponent<AudioCue>();
         }
 
         [ContextMenu("Test Audio")]
-        void TestAudio()
+        private void TestAudio()
         {
             _audioCue.PlayAudioCue();
         }

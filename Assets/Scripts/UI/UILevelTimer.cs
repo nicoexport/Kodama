@@ -7,26 +7,26 @@ namespace UI
 {
     public class UILevelTimer : MonoBehaviour
     {
-        TextMeshProUGUI textMeshPro;
+        private TextMeshProUGUI textMeshPro;
 
-        void Start()
+        private void Start()
         {
             textMeshPro = GetComponentInChildren<TextMeshProUGUI>();
             var span = TimeSpan.FromSeconds(0f);
             textMeshPro.text = span.ToString("mm") + " : " + span.ToString("ss") + " : " + span.ToString("ff");
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             LevelTimer.OnTimerChanged += UpdateTimer;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             LevelTimer.OnTimerChanged -= UpdateTimer;
         }
 
-        void UpdateTimer(float timer)
+        private void UpdateTimer(float timer)
         {
             // textMeshPro.text = TimeSpan.FromSeconds(timer).ToString("mm\\:ss\\:ff");
 

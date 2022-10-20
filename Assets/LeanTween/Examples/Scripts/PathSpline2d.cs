@@ -9,9 +9,9 @@ public class PathSpline2d : MonoBehaviour {
 	public GameObject dude1;
 	public GameObject dude2;
 
-	LTSpline visualizePath;
+	private LTSpline visualizePath;
 
-	void Start () {
+	private void Start () {
 		Vector3[] path = new Vector3[] {
 			cubes[0].position,
 			cubes[1].position,
@@ -28,7 +28,7 @@ public class PathSpline2d : MonoBehaviour {
 		LeanTween.moveSplineLocal(dude2, path, 10f).setOrientToPath2d(true).setSpeed(2f);
 	}
 
-	void OnDrawGizmos(){
+	private void OnDrawGizmos(){
 		Gizmos.color = Color.red;
 		if(visualizePath!=null)
 			visualizePath.gizmoDraw();

@@ -6,7 +6,7 @@ namespace Level.Logic
 {
     public class LevelReset : MonoBehaviour
     {
-        void Update()
+        private void Update()
         {
             if (Keyboard.current.lKey.wasPressedThisFrame) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

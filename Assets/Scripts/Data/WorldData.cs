@@ -13,7 +13,7 @@ namespace Data
         public WorldStyleSo Style;
 
         public List<LevelData> LevelDatas = new();
-        bool _unlocked;
+        private bool _unlocked;
 
         public WorldData(WorldDataSO worldDataSo)
         {

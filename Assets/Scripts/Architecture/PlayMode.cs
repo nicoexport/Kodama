@@ -7,7 +7,7 @@ namespace Architecture
 {
     public class PlayMode : IGameMode
     {
-        readonly string _scenePath;
+        private readonly string _scenePath;
 
         public PlayMode(string scenePath)
         {

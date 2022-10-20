@@ -5,9 +5,9 @@ namespace Architecture
 {
     public class Prelaoder : MonoBehaviour
     {
-        [SerializeField] int mainMenuIndex = 1;
+        [SerializeField] private int mainMenuIndex = 1;
 
-        void Start()
+        private void Start()
         {
             SceneManager.LoadScene(mainMenuIndex);
         }

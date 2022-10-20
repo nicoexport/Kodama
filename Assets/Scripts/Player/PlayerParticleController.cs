@@ -5,6 +5,6 @@ namespace Player
 {
     public class PlayerParticleController : MonoBehaviour
     {
-        [SerializeField] VisualEffect _walkingDust;
+        [SerializeField] private VisualEffect _walkingDust;
     }
 }

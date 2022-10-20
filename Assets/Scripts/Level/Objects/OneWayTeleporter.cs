@@ -4,10 +4,10 @@ namespace Level.Objects
 {
     public class OneWayTeleporter : MonoBehaviour
     {
-        [SerializeField] Transform exit;
+        [SerializeField] private Transform exit;
 
 
-        void OnTriggerEnter2D(Collider2D entity)
+        private void OnTriggerEnter2D(Collider2D entity)
         {
             if (entity.tag != "Player") return;
             Debug.Log("Player entered");

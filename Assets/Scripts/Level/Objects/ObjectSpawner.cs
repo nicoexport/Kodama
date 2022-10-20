@@ -5,29 +5,29 @@ namespace Level.Objects
 {
     public class ObjectSpawner : MonoBehaviour
     {
-        [SerializeField] GameObject objectPrefab;
+        [SerializeField] private GameObject objectPrefab;
 
-        [SerializeField] Transform spawnPos;
+        [SerializeField] private Transform spawnPos;
 
-        [SerializeField] float spawnInterval;
+        [SerializeField] private float spawnInterval;
 
-        [SerializeField] bool usesTrigger;
+        [SerializeField] private bool usesTrigger;
 
-        [SerializeField] bool oneTime;
+        [SerializeField] private bool oneTime;
 
-        bool canSpawn = true;
+        private bool canSpawn = true;
 
 
-        bool oneTimeTriggered;
-        bool spawning;
+        private bool oneTimeTriggered;
+        private bool spawning;
 
-        void Start()
+        private void Start()
         {
             canSpawn = true;
             if (!usesTrigger) spawning = true;
         }
 
-        void Update()
+        private void Update()
         {
             if (spawning) SpawnObject();
         }

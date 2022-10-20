@@ -7,7 +7,7 @@ namespace Architecture
     public static class App
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static void InitializeApp()
+        private static void InitializeApp()
         {
             var app = Object.Instantiate(Resources.Load("P_App")) as GameObject;
             if (app == null) throw new ApplicationException();

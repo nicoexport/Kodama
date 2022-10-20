@@ -49,7 +49,7 @@ public class LTDescr
 	public float time;
 	public float speed;
 	public float lastVal;
-	uint _id;
+	private uint _id;
 	public int loopCount;
 	public uint counter = uint.MaxValue;
 	public float direction;
@@ -66,7 +66,7 @@ public class LTDescr
 	internal Vector3 diff;
 	internal Vector3 diffDiv2;
 	public TweenAction type;
-	LeanTweenType easeType;
+	private LeanTweenType easeType;
 	public LeanTweenType loopType;
 
 	public bool hasUpdateCallback;
@@ -209,7 +209,7 @@ public class LTDescr
 		return this;
 	}
 
-	void initFromInternal(){ this.fromInternal.x = 0; }
+	private void initFromInternal(){ this.fromInternal.x = 0; }
 
     public LTDescr setOffset( Vector3 offset ){
         this.toInternal = offset;
@@ -691,7 +691,7 @@ public class LTDescr
 		return this;
 	}
 
-	void initCanvasRotateAround(){
+	private void initCanvasRotateAround(){
 		this.lastVal = 0.0f;
 		this.fromInternal.x = 0.0f;
 		this._optional.origRotation = this.rectTransform.rotation;
@@ -770,7 +770,7 @@ public class LTDescr
 	}
 	#endif
 
-	void callback(){ newVect = easeMethod(); val = newVect.x; }
+	private void callback(){ newVect = easeMethod(); val = newVect.x; }
 
 	public LTDescr setCallback(){
 		this.type = TweenAction.CALLBACK;
@@ -903,7 +903,7 @@ public class LTDescr
         return this;
     }
 
-    void init(){
+    private void init(){
 		this.hasInitiliazed = true;
 
 		usesNormalDt = !(useEstimatedTime || useManualTime || useFrames); // only set this to true if it uses non of the other timing modes
@@ -931,7 +931,7 @@ public class LTDescr
 		}
 	}
 
-    void initSpeed(){
+    private void initSpeed(){
 		if(this.type==TweenAction.MOVE_CURVED || this.type==TweenAction.MOVE_CURVED_LOCAL){
 			this.time = this._optional.path.distance / this.speed;
 		}else if(this.type==TweenAction.MOVE_SPLINE || this.type==TweenAction.MOVE_SPLINE_LOCAL){
@@ -1040,7 +1040,7 @@ public class LTDescr
 		return this;
 	}
 
-	static void alphaRecursive( Transform transform, float val, bool useRecursion = true){
+	private static void alphaRecursive( Transform transform, float val, bool useRecursion = true){
 		Renderer renderer = transform.gameObject.GetComponent<Renderer>();
 		if(renderer!=null){
 			foreach(Material mat in renderer.materials){
@@ -1059,7 +1059,7 @@ public class LTDescr
 		}
 	}
 
-	static void colorRecursive( Transform transform, Color toColor, bool useRecursion = true ){
+	private static void colorRecursive( Transform transform, Color toColor, bool useRecursion = true ){
 		Renderer ren = transform.gameObject.GetComponent<Renderer>();
 		if(ren!=null){
 			foreach(Material mat in ren.materials){
@@ -1075,7 +1075,7 @@ public class LTDescr
 
 	#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_0_1 && !UNITY_4_1 && !UNITY_4_2 && !UNITY_4_3 && !UNITY_4_5
 
-	static void alphaRecursive( RectTransform rectTransform, float val, int recursiveLevel = 0){
+	private static void alphaRecursive( RectTransform rectTransform, float val, int recursiveLevel = 0){
 		if(rectTransform.childCount>0){
 			foreach (RectTransform child in rectTransform) {
 				UnityEngine.UI.MaskableGraphic uiImage = child.GetComponent<UnityEngine.UI.Image>();
@@ -1093,7 +1093,7 @@ public class LTDescr
 		}
 	}
 
-	static void alphaRecursiveSprite( Transform transform, float val ){
+	private static void alphaRecursiveSprite( Transform transform, float val ){
 		if(transform.childCount>0){
 			foreach (Transform child in transform) {
 				SpriteRenderer ren = child.GetComponent<SpriteRenderer>();
@@ -1104,7 +1104,7 @@ public class LTDescr
 		}
 	}
 
-	static void colorRecursiveSprite( Transform transform, Color toColor ){
+	private static void colorRecursiveSprite( Transform transform, Color toColor ){
 		if(transform.childCount>0){
 			foreach (Transform child in transform) {
 				SpriteRenderer ren = transform.gameObject.GetComponent<SpriteRenderer>();
@@ -1115,7 +1115,7 @@ public class LTDescr
 		}
 	}
 
-	static void colorRecursive( RectTransform rectTransform, Color toColor ){
+	private static void colorRecursive( RectTransform rectTransform, Color toColor ){
 
 		if(rectTransform.childCount>0){
 			foreach (RectTransform child in rectTransform) {
@@ -1132,7 +1132,7 @@ public class LTDescr
 		}
 	}
 
-	static void textAlphaChildrenRecursive( Transform trans, float val, bool useRecursion = true ){
+	private static void textAlphaChildrenRecursive( Transform trans, float val, bool useRecursion = true ){
 		
 		if(useRecursion && trans.childCount>0){
 			foreach (Transform child in trans) {
@@ -1147,7 +1147,7 @@ public class LTDescr
 		}
 	}
 
-	static void textAlphaRecursive( Transform trans, float val, bool useRecursion = true ){
+	private static void textAlphaRecursive( Transform trans, float val, bool useRecursion = true ){
 		UnityEngine.UI.Text uiText = trans.GetComponent<UnityEngine.UI.Text>();
 		if(uiText!=null){
 			Color c = uiText.color;
@@ -1161,7 +1161,7 @@ public class LTDescr
 		}
 	}
 
-	static void textColorRecursive(Transform trans, Color toColor ){
+	private static void textColorRecursive(Transform trans, Color toColor ){
 		if(trans.childCount>0){
 			foreach (Transform child in trans) {
 				UnityEngine.UI.Text uiText = child.GetComponent<UnityEngine.UI.Text>();
@@ -1174,7 +1174,7 @@ public class LTDescr
 	}
 	#endif
 
-	static Color tweenColor( LTDescr tween, float val ){
+	private static Color tweenColor( LTDescr tween, float val ){
 		Vector3 diff3 = tween._optional.point - tween._optional.axis;
 		float diffAlpha = tween.to.y - tween.from.y;
 		return new Color(tween._optional.axis.x + diff3.x*val, tween._optional.axis.y + diff3.y*val, tween._optional.axis.z + diff3.z*val, tween.from.y + diffAlpha*val);
@@ -1394,7 +1394,7 @@ public class LTDescr
 
 	public LTDescr setEaseShake(){ this._optional.animationCurve = LeanTween.shake; this.toInternal.x = this.from.x + this.to.x; this.easeMethod = this.tweenOnCurve; return this; }
 
-	Vector3 tweenOnCurve(){
+	private Vector3 tweenOnCurve(){
 		return	new Vector3(this.from.x + (this.diff.x) * this._optional.animationCurve.Evaluate(ratioPassed),
 			this.from.y + (this.diff.y) * this._optional.animationCurve.Evaluate(ratioPassed),
 			this.from.z + (this.diff.z) * this._optional.animationCurve.Evaluate(ratioPassed) );
@@ -1402,7 +1402,7 @@ public class LTDescr
 
 	// Vector3 Ease Methods
 
-	Vector3 easeInOutQuad(){
+	private Vector3 easeInOutQuad(){
 		val = this.ratioPassed * 2f;
 
 		if (val < 1f) {
@@ -1413,40 +1413,40 @@ public class LTDescr
 		return new Vector3( this.diffDiv2.x * val + this.from.x, this.diffDiv2.y * val + this.from.y, this.diffDiv2.z * val + this.from.z);
 	}
 
-	Vector3 easeInQuad(){
+	private Vector3 easeInQuad(){
 		val = ratioPassed * ratioPassed;
 		return new Vector3(this.diff.x * val + this.from.x, this.diff.y * val + this.from.y, this.diff.z * val + this.from.z);
 	}
 
-	Vector3 easeOutQuad(){
+	private Vector3 easeOutQuad(){
 		val = this.ratioPassed;
 		val = -val * (val - 2f);
 		return (this.diff * val + this.from);
 	}
 
-	Vector3 easeLinear(){
+	private Vector3 easeLinear(){
 		val = this.ratioPassed;
 		return new Vector3(this.from.x+this.diff.x*val, this.from.y+this.diff.y*val, this.from.z+this.diff.z*val);
 	}
 
-	Vector3 easeSpring(){
+	private Vector3 easeSpring(){
 		val = Mathf.Clamp01(this.ratioPassed);
 		val = (Mathf.Sin(val * Mathf.PI * (0.2f + 2.5f * val * val * val)) * Mathf.Pow(1f - val, 2.2f ) + val) * (1f + (1.2f * (1f - val) ));
 		return this.from + this.diff * val;
 	}
 
-	Vector3 easeInCubic(){
+	private Vector3 easeInCubic(){
 		val = this.ratioPassed * this.ratioPassed * this.ratioPassed;
 		return new Vector3(this.diff.x * val + this.from.x, this.diff.y * val + this.from.y, this.diff.z * val + this.from.z);
 	}
 
-	Vector3 easeOutCubic(){
+	private Vector3 easeOutCubic(){
 		val = this.ratioPassed - 1f;
 		val = (val * val * val + 1);
 		return new Vector3( this.diff.x * val + this.from.x, this.diff.y * val + this.from.y, this.diff.z * val + this.from.z) ;
 	}
 
-	Vector3 easeInOutCubic(){
+	private Vector3 easeInOutCubic(){
 		val = this.ratioPassed * 2f;
 		if (val < 1f) {
 			val = val * val * val;
@@ -1457,18 +1457,18 @@ public class LTDescr
 		return new Vector3(this.diffDiv2.x * val + this.from.x, this.diffDiv2.y * val + this.from.y,this.diffDiv2.z * val + this.from.z);
 	}
 
-	Vector3 easeInQuart(){
+	private Vector3 easeInQuart(){
 		val = this.ratioPassed * this.ratioPassed * this.ratioPassed * this.ratioPassed;
 		return diff * val + this.from;
 	}
 
-	Vector3 easeOutQuart(){
+	private Vector3 easeOutQuart(){
 		val = this.ratioPassed - 1f;
 		val = -(val * val * val * val - 1);
 		return new Vector3(this.diff.x * val + this.from.x, this.diff.y * val + this.from.y,this.diff.z * val + this.from.z);
 	}
 
-	Vector3 easeInOutQuart(){
+	private Vector3 easeInOutQuart(){
 		val = this.ratioPassed * 2f;
 		if (val < 1f) {
 			val = val * val * val * val;
@@ -1479,19 +1479,19 @@ public class LTDescr
 		return -this.diffDiv2 * (val * val * val * val - 2f) + this.from;
 	}
 
-	Vector3 easeInQuint(){
+	private Vector3 easeInQuint(){
 		val = this.ratioPassed;
 		val = val * val * val * val * val;
 		return new Vector3(this.diff.x * val + this.from.x, this.diff.y * val + this.from.y, this.diff.z * val + this.from.z);
 	}
 
-	Vector3 easeOutQuint(){
+	private Vector3 easeOutQuint(){
 		val = this.ratioPassed - 1f;
 		val = (val * val * val * val * val + 1f);
 		return new Vector3(this.diff.x * val + this.from.x, this.diff.y * val + this.from.y, this.diff.z * val + this.from.z);
 	}
 
-	Vector3 easeInOutQuint(){
+	private Vector3 easeInOutQuint(){
 		val = this.ratioPassed * 2f;
 		if (val < 1f){
 			val = val * val * val * val * val;
@@ -1502,51 +1502,51 @@ public class LTDescr
 		return new Vector3(this.diffDiv2.x * val + this.from.x, this.diffDiv2.y * val + this.from.y, this.diffDiv2.z * val + this.from.z);
 	}
 
-	Vector3 easeInSine(){
+	private Vector3 easeInSine(){
 		val = - Mathf.Cos(this.ratioPassed * LeanTween.PI_DIV2);
 		return new Vector3(this.diff.x * val + this.diff.x + this.from.x, this.diff.y * val + this.diff.y + this.from.y, this.diff.z * val + this.diff.z + this.from.z);
 	}
 
-	Vector3 easeOutSine(){
+	private Vector3 easeOutSine(){
 		val = Mathf.Sin(this.ratioPassed * LeanTween.PI_DIV2);
 		return new Vector3(this.diff.x * val + this.from.x, this.diff.y * val + this.from.y,this.diff.z * val + this.from.z);
 	}
 
-	Vector3 easeInOutSine(){
+	private Vector3 easeInOutSine(){
 		val = -(Mathf.Cos(Mathf.PI * this.ratioPassed) - 1f);
 		return new Vector3(this.diffDiv2.x * val + this.from.x, this.diffDiv2.y * val + this.from.y, this.diffDiv2.z * val + this.from.z);
 	}
 
-	Vector3 easeInExpo(){
+	private Vector3 easeInExpo(){
 		val = Mathf.Pow(2f, 10f * (this.ratioPassed - 1f));
 		return new Vector3(this.diff.x * val + this.from.x, this.diff.y * val + this.from.y, this.diff.z * val + this.from.z);
 	}
 
-	Vector3 easeOutExpo(){
+	private Vector3 easeOutExpo(){
 		val = (-Mathf.Pow(2f, -10f * this.ratioPassed) + 1f);
 		return new Vector3(this.diff.x * val + this.from.x, this.diff.y * val + this.from.y, this.diff.z * val + this.from.z);
 	}
 
-	Vector3 easeInOutExpo(){
+	private Vector3 easeInOutExpo(){
 		val = this.ratioPassed * 2f;
 		if (val < 1) return this.diffDiv2 * Mathf.Pow(2, 10 * (val - 1)) + this.from;
 		val--;
 		return this.diffDiv2 * (-Mathf.Pow(2, -10 * val) + 2) + this.from;
 	}
 
-	Vector3 easeInCirc(){
+	private Vector3 easeInCirc(){
 		val = -(Mathf.Sqrt(1f - this.ratioPassed * this.ratioPassed) - 1f);
 		return new Vector3(this.diff.x * val + this.from.x, this.diff.y * val + this.from.y, this.diff.z * val + this.from.z);
 	}
 
-	Vector3 easeOutCirc(){
+	private Vector3 easeOutCirc(){
 		val = this.ratioPassed - 1f;
 		val = Mathf.Sqrt(1f - val * val);
 
 		return new Vector3(this.diff.x * val + this.from.x, this.diff.y * val + this.from.y, this.diff.z * val + this.from.z);
 	}
 
-	Vector3 easeInOutCirc(){
+	private Vector3 easeInOutCirc(){
 		val = this.ratioPassed * 2f;
 		if (val < 1f){
 			val = -(Mathf.Sqrt(1f - val * val) - 1f);
@@ -1557,7 +1557,7 @@ public class LTDescr
 		return new Vector3(this.diffDiv2.x * val + this.from.x, this.diffDiv2.y * val + this.from.y, this.diffDiv2.z * val + this.from.z);
 	}
 
-	Vector3 easeInBounce(){
+	private Vector3 easeInBounce(){
 		val = this.ratioPassed;
 		val = 1f - val;
 		return new Vector3(this.diff.x - LeanTween.easeOutBounce(0, this.diff.x, val) + this.from.x, 
@@ -1565,7 +1565,7 @@ public class LTDescr
 			this.diff.z - LeanTween.easeOutBounce(0, this.diff.z, val) + this.from.z);
 	}
 
-	Vector3 easeOutBounce ()
+	private Vector3 easeOutBounce ()
 	{
 		val = ratioPassed;
 		float valM, valN; // bounce values
@@ -1587,7 +1587,7 @@ public class LTDescr
 		return this.diff * val + this.from;
 	}
 
-	Vector3 easeInOutBounce(){
+	private Vector3 easeInOutBounce(){
 		val = this.ratioPassed * 2f;
 		if (val < 1f){
 			return new Vector3(LeanTween.easeInBounce(0, this.diff.x, val) * 0.5f + this.from.x, 
@@ -1601,21 +1601,21 @@ public class LTDescr
 		}
 	}
 
-	Vector3 easeInBack(){
+	private Vector3 easeInBack(){
 		val = this.ratioPassed;
 		val /= 1;
 		float s = 1.70158f * this.overshoot;
 		return this.diff * (val) * val * ((s + 1) * val - s) + this.from;
 	}
 
-	Vector3 easeOutBack(){
+	private Vector3 easeOutBack(){
 		float s = 1.70158f * this.overshoot;
 		val = (this.ratioPassed / 1) - 1;
 		val = ((val) * val * ((s + 1) * val + s) + 1);
 		return this.diff * val + this.from;
 	}
 
-	Vector3 easeInOutBack(){
+	private Vector3 easeInOutBack(){
 		float s = 1.70158f * this.overshoot;
 		val = this.ratioPassed * 2f;
 		if ((val) < 1){
@@ -1628,19 +1628,19 @@ public class LTDescr
 		return this.diffDiv2 * val + this.from;
 	}
 
-	Vector3 easeInElastic(){
+	private Vector3 easeInElastic(){
 		return new Vector3(LeanTween.easeInElastic(this.from.x,this.to.x,this.ratioPassed,this.overshoot,this.period),
 			LeanTween.easeInElastic(this.from.y,this.to.y,this.ratioPassed,this.overshoot,this.period),
 			LeanTween.easeInElastic(this.from.z,this.to.z,this.ratioPassed,this.overshoot,this.period));
 	}
 
-	Vector3 easeOutElastic(){
+	private Vector3 easeOutElastic(){
 		return new Vector3(LeanTween.easeOutElastic(this.from.x,this.to.x,this.ratioPassed,this.overshoot,this.period),
 			LeanTween.easeOutElastic(this.from.y,this.to.y,this.ratioPassed,this.overshoot,this.period),
 			LeanTween.easeOutElastic(this.from.z,this.to.z,this.ratioPassed,this.overshoot,this.period));
 	}
 
-	Vector3 easeInOutElastic()
+	private Vector3 easeInOutElastic()
 	{
 		return new Vector3(LeanTween.easeInOutElastic(this.from.x,this.to.x,this.ratioPassed,this.overshoot,this.period),
 			LeanTween.easeInOutElastic(this.from.y,this.to.y,this.ratioPassed,this.overshoot,this.period),

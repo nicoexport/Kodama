@@ -8,7 +8,7 @@ namespace Scriptable
     public class AudioCueSo : ScriptableObject
     {
         public bool Looping;
-        [SerializeField] AudioClipGroup[] _audioClipGroup;
+        [SerializeField] private AudioClipGroup[] _audioClipGroup;
 
         public AudioClip[] GetClips()
         {
@@ -33,9 +33,9 @@ namespace Scriptable
 
         public SequenceMode Mode;
         public AudioClip[] Clips;
-        int _lastClip;
+        private int _lastClip;
 
-        int _nextClip;
+        private int _nextClip;
 
         public AudioClip GetNextClip()
         {

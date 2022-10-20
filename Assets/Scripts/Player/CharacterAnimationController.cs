@@ -24,7 +24,7 @@ namespace Player
         public float Speed { get; private set; }
         public Animator animator { get; private set; }
 
-        void Awake()
+        private void Awake()
         {
             animator = GetComponent<Animator>();
         }
@@ -102,7 +102,6 @@ namespace Player
 
             if (newAnimState == _currentAnimState) return;
             animator.Play(newAnimState, 0);
-            print(newAnimState);
             OnAnimationStateChange?.Invoke(_currentAnimState, newAnimState, Speed);
             _currentAnimState = newAnimState;
         }

@@ -5,13 +5,13 @@ namespace Level
 {
     public class GravitationField : MonoBehaviour
     {
-        [SerializeField] float _intensity;
-        [SerializeField] float _range = 1f; 
-        [SerializeField] LayerMask _whatToAttract;
-        [SerializeField] GravityForceType _forceType;
-        [SerializeField] ForceMode2D _forceMode;
-        [SerializeField] bool _inverse;
-        Transform _transform;
+        [SerializeField] private float _intensity;
+        [SerializeField] private float _range = 1f; 
+        [SerializeField] private LayerMask _whatToAttract;
+        [SerializeField] private GravityForceType _forceType;
+        [SerializeField] private ForceMode2D _forceMode;
+        [SerializeField] private bool _inverse;
+        private Transform _transform;
         
         protected void FixedUpdate()
         {
@@ -53,13 +53,13 @@ namespace Level
             }
         }
 
-        void OnValidate()
+        private void OnValidate()
         {
             if (!_transform)
                 _transform = transform;
         }
 
-        void OnDrawGizmosSelected()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireSphere(_transform.position, _range);
         }

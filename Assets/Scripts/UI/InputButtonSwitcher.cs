@@ -9,35 +9,35 @@ namespace UI
 {
     public class InputButtonSwitcher : MonoBehaviour
     {
-        [SerializeField] Image _targetImage;
-        [SerializeField] Sprite _keyboardSprite;
-        [SerializeField] Sprite _dualShockSprite;
-        [SerializeField] Sprite _xboxSprite;
-        [SerializeField] Sprite _nintendoSprite;
+        [SerializeField] private Image _targetImage;
+        [SerializeField] private Sprite _keyboardSprite;
+        [SerializeField] private Sprite _dualShockSprite;
+        [SerializeField] private Sprite _xboxSprite;
+        [SerializeField] private Sprite _nintendoSprite;
 
-        void Awake()
+        private void Awake()
         {
             OnInputDeviceChange(InputManager.CurrentInputDevice);
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             InputManager.OnInputDeviceChanged += OnInputDeviceChange;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             InputManager.OnInputDeviceChanged -= OnInputDeviceChange;
         }
 
 
-        void OnInputDeviceChange(InputDevice inputDevice)
+        private void OnInputDeviceChange(InputDevice inputDevice)
         {
             var type = InputManager.GetGeneralDeviceTypeByName(inputDevice.name);
             UpdateButtonImage(type);
         }
 
-        void UpdateButtonImage(GeneralDeviceType? type)
+        private void UpdateButtonImage(GeneralDeviceType? type)
         {
             switch (type)
             {

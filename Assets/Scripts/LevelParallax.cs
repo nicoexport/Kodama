@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LevelParallax : Parallax
 {
-    [SerializeField] CharacterRuntimeSet _characterRuntimeSet;
+    [SerializeField] private CharacterRuntimeSet _characterRuntimeSet;
 
     protected override void FixedUpdate()
     {

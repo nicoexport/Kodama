@@ -7,10 +7,10 @@ namespace Audio
     [Serializable]
     public class AudioCue : MonoBehaviour
     {
-        [SerializeField] bool _playOnStart;
-        [SerializeField] AudioCueSo _audioCue;
-        [SerializeField] AudioConfigSo _audioConfig;
-        [SerializeField] AudioCueChannelSo _audioCueChannel;
+        [SerializeField] private bool _playOnStart;
+        [SerializeField] private AudioCueSo _audioCue;
+        [SerializeField] private AudioConfigSo _audioConfig;
+        [SerializeField] private AudioCueChannelSo _audioCueChannel;
 
         public AudioCueSo Cue
         {
@@ -18,13 +18,13 @@ namespace Audio
             set => _audioCue = value;
         }
 
-        void Start()
+        private void Start()
         {
             if (_playOnStart)
                 RequestAudio(transform.position);
         }
 
-        void RequestAudio(Vector3 position)
+        private void RequestAudio(Vector3 position)
         {
             var data = new AudioCueRequestData(_audioCue, _audioConfig, position);
             _audioCueChannel.RequestAudio(data);

@@ -8,12 +8,12 @@ namespace Scriptable
         public GameEvent Event;
         public UnityEvent Response;
 
-        void OnEnable()
+        private void OnEnable()
         {
             Event.RegisterListener(this);
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             Event.UnregisterListener(this);
         }

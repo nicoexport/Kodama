@@ -6,7 +6,7 @@ namespace Scriptable
     [CreateAssetMenu(menuName = "ScriptableObjects/GameEvent")]
     public class GameEvent : ScriptableObject
     {
-        readonly List<GameEventListener> listeners = new();
+        private readonly List<GameEventListener> listeners = new();
 
         public void Raise()
         {

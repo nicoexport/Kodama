@@ -5,28 +5,28 @@ namespace Level.Objects
 {
     public class ObjectMover : MonoBehaviour
     {
-        [SerializeField] Transform[] wayPoints;
+        [SerializeField] private Transform[] wayPoints;
 
-        [SerializeField] float speed = 10f;
+        [SerializeField] private float speed = 10f;
 
-        [SerializeField] float pauseTime;
+        [SerializeField] private float pauseTime;
 
-        int currentWayPointIndex;
+        private int currentWayPointIndex;
 
-        bool move;
+        private bool move;
 
-        void Start()
+        private void Start()
         {
             currentWayPointIndex = 0;
             move = true;
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             MoveObject();
         }
 
-        void MoveObject()
+        private void MoveObject()
         {
             if (!move) return;
             transform.position =

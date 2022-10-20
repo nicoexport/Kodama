@@ -8,19 +8,19 @@ namespace Architecture
     public class LevelUnlocker : MonoBehaviour
     {
         [FormerlySerializedAs("_gameSession")] [SerializeField]
-        SessionData _session;
+        private SessionData _session;
 
-        void OnEnable()
+        private void OnEnable()
         {
             LevelManager.OnLevelComplete += HandleUnlocks;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             LevelManager.OnLevelComplete -= HandleUnlocks;
         }
 
-        void HandleUnlocks(LevelData obj)
+        private void HandleUnlocks(LevelData obj)
         {
             for (var i = 0; i < _session.WorldDatas.Count; i++)
             for (var j = 0; j < _session.WorldDatas[i].LevelDatas.Count; j++)

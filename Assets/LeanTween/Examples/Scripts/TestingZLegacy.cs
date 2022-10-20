@@ -14,13 +14,13 @@ public class TestingZLegacy : MonoBehaviour {
 	
 	public delegate void NextFunc();
 
-	int exampleIter = 0;
-	string[] exampleFunctions = new string[] { /**/"updateValue3Example", "loopTestClamp", "loopTestPingPong", "moveOnACurveExample", "customTweenExample", "moveExample", "rotateExample", "scaleExample", "updateValueExample", "delayedCallExample", "alphaExample", "moveLocalExample", "rotateAroundExample", "colorExample" };
+	private int exampleIter = 0;
+	private string[] exampleFunctions = new string[] { /**/"updateValue3Example", "loopTestClamp", "loopTestPingPong", "moveOnACurveExample", "customTweenExample", "moveExample", "rotateExample", "scaleExample", "updateValueExample", "delayedCallExample", "alphaExample", "moveLocalExample", "rotateAroundExample", "colorExample" };
 	public bool useEstimatedTime = true;
-	GameObject ltLogo;
-	TimingType timingType = TimingType.SteadyNormalTime;
-	int descrTimeScaleChangeId;
-	Vector3 origin;
+	private GameObject ltLogo;
+	private TimingType timingType = TimingType.SteadyNormalTime;
+	private int descrTimeScaleChangeId;
+	private Vector3 origin;
 
 	public enum TimingType{
 		SteadyNormalTime,
@@ -30,11 +30,11 @@ public class TestingZLegacy : MonoBehaviour {
 		Length
 	}
 
-	void Awake(){
+	private void Awake(){
 		// LeanTween.init(3200); // This line is optional. Here you can specify the maximum number of tweens you will use (the default is 400).  This must be called before any use of LeanTween is made for it to be effective.
 	}
 
-	void Start () {
+	private void Start () {
 		ltLogo = GameObject.Find("LeanTweenLogo");
 		LeanTween.delayedCall(1f, cycleThroughExamples);
 		origin = ltLogo.transform.position;
@@ -42,21 +42,21 @@ public class TestingZLegacy : MonoBehaviour {
 //		alphaExample();
 	}
 
-	void pauseNow(){
+	private void pauseNow(){
 		Time.timeScale = 0f;
 		Debug.Log("pausing");
 	}
 
-	void OnGUI(){
+	private void OnGUI(){
 		string label = useEstimatedTime ? "useEstimatedTime" : "timeScale:"+Time.timeScale;
 		GUI.Label(new Rect(0.03f*Screen.width,0.03f*Screen.height,0.5f*Screen.width,0.3f*Screen.height), label);
 	}
-	
-	void endlessCallback(){
+
+	private void endlessCallback(){
 		Debug.Log("endless");
 	}
 
-	void cycleThroughExamples(){
+	private void cycleThroughExamples(){
 		if(exampleIter==0){
 			int iter = (int)timingType + 1;
 			if(iter>(int)TimingType.Length)

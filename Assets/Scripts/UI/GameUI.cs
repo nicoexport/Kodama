@@ -9,22 +9,22 @@ namespace UI
 {
     public class GameUI : MonoBehaviour
     {
-        [SerializeField] CharacterRuntimeSet characterRuntimeSet;
+        [SerializeField] private CharacterRuntimeSet characterRuntimeSet;
 
-        [SerializeField] GameObject keyIcon;
+        [SerializeField] private GameObject keyIcon;
 
-        [SerializeField] GameObject keyIconBackground;
+        [SerializeField] private GameObject keyIconBackground;
 
-        [SerializeField] GameObject levelTimerUI;
+        [SerializeField] private GameObject levelTimerUI;
 
-        void OnEnable()
+        private void OnEnable()
         {
             LevelManager.OnLevelComplete += DisableGameUI;
             HellCollider.OnTriggerEntered += FadeOut;
         }
 
 
-        void OnDisable()
+        private void OnDisable()
         {
             LevelManager.OnLevelComplete -= DisableGameUI;
             HellCollider.OnTriggerEntered -= FadeOut;
@@ -39,7 +39,7 @@ namespace UI
         }
 
         [ContextMenu("DisableGameUI")]
-        void DisableGameUI(LevelData levelData)
+        private void DisableGameUI(LevelData levelData)
         {
             keyIconBackground.SetActive(false);
             keyIcon.SetActive(false);
@@ -47,14 +47,14 @@ namespace UI
         }
 
         [ContextMenu("EnableGameUI")]
-        void EnableGameUI()
+        private void EnableGameUI()
         {
             keyIconBackground.SetActive(true);
             levelTimerUI.SetActive(true);
             SetKeyIcon();
         }
 
-        void FadeOut(float f)
+        private void FadeOut(float f)
         {
             print("FADEOUT");
             var canvasGroups = GetComponentsInChildren<CanvasGroup>();

@@ -16,28 +16,28 @@ namespace Architecture
     public class LevelSelectManager : MonoBehaviour
     {
         [FormerlySerializedAs("_saveData")] [SerializeField]
-        SessionData _sessionData;
+        private SessionData _sessionData;
 
-        [SerializeField] WorldDataSO _defaultWorld;
+        [SerializeField] private WorldDataSO _defaultWorld;
 
         [FormerlySerializedAs("loadEvenChannel")] [SerializeField]
-        LoadLevelEventChannelSO _loadEvenChannel;
+        private LoadLevelEventChannelSO _loadEvenChannel;
 
-        [SerializeField] TransitionEventChannelSO _transitionEventChannel;
-        [SerializeField] float _transitionDurationInSeconds;
+        [SerializeField] private TransitionEventChannelSO _transitionEventChannel;
+        [SerializeField] private float _transitionDurationInSeconds;
 
-        [SerializeField] LevelSelect _levelSelect;
-        [SerializeField] WorldSelect _worldSelect;
-        ISelectUI _currentUI;
-        EventSystem _eventSystem;
+        [SerializeField] private LevelSelect _levelSelect;
+        [SerializeField] private WorldSelect _worldSelect;
+        private ISelectUI _currentUI;
+        private EventSystem _eventSystem;
 
-        bool _isSwitching;
-        LevelData _selectedLevel;
+        private bool _isSwitching;
+        private LevelData _selectedLevel;
 
-        WorldData _selectedWorld;
-        WaitForSeconds _waitForTransition;
+        private WorldData _selectedWorld;
+        private WaitForSeconds _waitForTransition;
 
-        void Awake()
+        private void Awake()
         {
             _waitForTransition = new WaitForSeconds(_transitionDurationInSeconds);
             _eventSystem = FindObjectOfType<EventSystem>();
@@ -58,14 +58,14 @@ namespace Architecture
             }
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             LevelSelectSocket.OnButtonClickedAction += LoadLevel;
             WorldSelectSocket.OnButtonClickedAction += OpenWorld;
             _levelSelect.OnReturnToWorldSelect += HandleReturnToWorldSelectRequest;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             LevelSelectSocket.OnButtonClickedAction -= LoadLevel;
             WorldSelectSocket.OnButtonClickedAction -= OpenWorld;
@@ -74,12 +74,12 @@ namespace Architecture
 
         public static event Action<ISelectUI> OnSelectUISwitched;
 
-        void SwitchUI(ISelectUI selectUI)
+        private void SwitchUI(ISelectUI selectUI)
         {
             StartCoroutine(SwitchUIEnumerator(selectUI));
         }
 
-        IEnumerator SwitchUIEnumerator(ISelectUI selectUI)
+        private IEnumerator SwitchUIEnumerator(ISelectUI selectUI)
         {
             yield return new WaitUntil(() => !_isSwitching);
             if (_currentUI == selectUI) yield break;
@@ -107,14 +107,14 @@ namespace Architecture
             _isSwitching = false;
         }
 
-        void LoadLevel(LevelData obj)
+        private void LoadLevel(LevelData obj)
         {
             _eventSystem.enabled = false;
             InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
             _loadEvenChannel.RaiseEventWithScenePath(obj.ScenePath, true, true);
         }
 
-        void OpenWorld(WorldData worldData)
+        private void OpenWorld(WorldData worldData)
         {
             if (!ReferenceEquals(_currentUI, _worldSelect)) return;
             _sessionData.CurrentWorld = worldData;
@@ -123,19 +123,19 @@ namespace Architecture
             SwitchUI(_levelSelect);
         }
 
-        void HandleReturnToWorldSelectRequest()
+        private void HandleReturnToWorldSelectRequest()
         {
             SwitchUI(_worldSelect);
         }
 
-        void EnablePlayerInput()
+        private void EnablePlayerInput()
         {
             _eventSystem.enabled = true;
             InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSelectUI);
             print("Player Input enabled");
         }
 
-        void DisablePlayerInput()
+        private void DisablePlayerInput()
         {
             _eventSystem.enabled = false;
             InputManager.playerInputActions.Disable();
@@ -145,7 +145,7 @@ namespace Architecture
         #region ContextMenu
 
         [ContextMenu("UnlockLevels")]
-        void TestUnlockLevelsOfCurrentWorld()
+        private void TestUnlockLevelsOfCurrentWorld()
         {
             if ((LevelSelect) _currentUI != _levelSelect) return;
             foreach (var level in _sessionData.CurrentWorld.LevelDatas) level.Unlocked = true;
@@ -154,7 +154,7 @@ namespace Architecture
         }
 
         [ContextMenu("UnlockWorlds")]
-        void TestUnlockWorlds()
+        private void TestUnlockWorlds()
         {
             if ((WorldSelect) _currentUI != _worldSelect) return;
 
@@ -165,13 +165,13 @@ namespace Architecture
 
 
         [ContextMenu("SwitchToWorldSelect")]
-        void TestSwitchToWorldSelect()
+        private void TestSwitchToWorldSelect()
         {
             SwitchUI(_worldSelect);
         }
 
         [ContextMenu("SwitchToLevelSelect")]
-        void TestSwitchToLevelSelect()
+        private void TestSwitchToLevelSelect()
         {
             SwitchUI(_levelSelect);
         }

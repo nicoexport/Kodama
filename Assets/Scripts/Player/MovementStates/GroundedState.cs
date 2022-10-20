@@ -6,12 +6,12 @@ namespace Player.MovementStates
 {
     public class GroundedState : State
     {
-        float additionalDrag;
-        bool grounded;
-        float horizontalInput;
+        private float additionalDrag;
+        private bool grounded;
+        private float horizontalInput;
         protected bool running;
         protected float speed;
-        bool sprinting;
+        private bool sprinting;
         protected float sprintSpeed;
 
         public GroundedState(StateMachine stateMachine, Character character) : base(stateMachine, character)
@@ -73,7 +73,7 @@ namespace Player.MovementStates
             }
         }
 
-        void ChangeToJump(InputAction.CallbackContext context)
+        private void ChangeToJump(InputAction.CallbackContext context)
         {
             stateMachine.ChangeState(character.jumping);
         }

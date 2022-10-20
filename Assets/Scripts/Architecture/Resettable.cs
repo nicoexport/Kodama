@@ -5,7 +5,7 @@ namespace Architecture
 {
     public abstract class Resettable : MonoBehaviour
     {
-        [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
+        [SerializeField] private ResettableRuntimeSet _resettableRuntimeSet;
 
         protected virtual void OnEnable()
         {

@@ -45,7 +45,7 @@ namespace SaveLoad
         }
 
 
-        static BinaryFormatter GetBinaryFormatter()
+        private static BinaryFormatter GetBinaryFormatter()
         {
             var formatter = new BinaryFormatter();
 

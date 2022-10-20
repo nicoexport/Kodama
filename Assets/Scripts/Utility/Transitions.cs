@@ -10,27 +10,27 @@ namespace Utility
     /// </summary>
     public class Transitions : MonoBehaviour
     {
-        [SerializeField] Image _transitionImage;
+        [SerializeField] private Image _transitionImage;
 
-        [SerializeField] TransitionEventChannelSO _transitionEventChannel;
+        [SerializeField] private TransitionEventChannelSO _transitionEventChannel;
 
-        void Awake()
+        private void Awake()
         {
             //_transitionImage = GetComponentInChildren<Image>();
             _transitionImage.gameObject.SetActive(false);
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             _transitionEventChannel.OnTransitionRequested += HandleTransitionRequest;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             _transitionEventChannel.OnTransitionRequested -= HandleTransitionRequest;
         }
 
-        void HandleTransitionRequest(TransitionType transitionType, float duration)
+        private void HandleTransitionRequest(TransitionType transitionType, float duration)
         {
             switch (transitionType)
             {
@@ -43,7 +43,7 @@ namespace Utility
             }
         }
 
-        IEnumerator FadeIn(float duration)
+        private IEnumerator FadeIn(float duration)
         {
             for (float alpha = 1; alpha > 0; alpha -= Time.deltaTime / duration)
             {
@@ -55,7 +55,7 @@ namespace Utility
             _transitionImage.gameObject.SetActive(false);
         }
 
-        IEnumerator FadeOut(float duration)
+        private IEnumerator FadeOut(float duration)
         {
             _transitionImage.gameObject.SetActive(true);
             for (float alpha = 0; alpha < 1; alpha += Time.deltaTime / duration)

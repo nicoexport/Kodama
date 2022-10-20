@@ -11,11 +11,11 @@ using Utility;
 public class PlayerManager : MonoBehaviour
 {
     public static event Action OnPlayerDied;
-    [SerializeField] GameObject _playerPrefab;
-    [SerializeField] TransformRuntimeSet _playerSpawnRuntimeSet;
-    [SerializeField] GameObjectRuntimeSet _cinemachineRuntimeSet;
-    GameObject _currentPlayer;
-    PlayerLifeCycleHandler lifeCycleHandler;
+    [SerializeField] private GameObject _playerPrefab;
+    [SerializeField] private TransformRuntimeSet _playerSpawnRuntimeSet;
+    [SerializeField] private GameObjectRuntimeSet _cinemachineRuntimeSet;
+    private GameObject _currentPlayer;
+    private PlayerLifeCycleHandler lifeCycleHandler;
 
     protected void OnEnable()
     {
@@ -35,14 +35,14 @@ public class PlayerManager : MonoBehaviour
         AttachCamToPlayer();
     }
 
-    void SpawnPlayer()
+    private void SpawnPlayer()
     {
         _currentPlayer = Instantiate(_playerPrefab, _playerSpawnRuntimeSet.GetItemAtIndex(0).position,
             Quaternion.identity);
         InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
     }
 
-    void AttachCamToPlayer()
+    private void AttachCamToPlayer()
     {
         if (!_cinemachineRuntimeSet.GetItemAtIndex(0).TryGetComponent(out CinemachineVirtualCamera cmCam)) return;
         Vector2 position = _currentPlayer.transform.position;
@@ -50,12 +50,12 @@ public class PlayerManager : MonoBehaviour
         cmCam.Follow = _currentPlayer.transform;
     }
 
-    static void HandlePlayerDeath(Character character)
+    private static void HandlePlayerDeath(Character character)
     {
         OnPlayerDied?.Invoke();
     }
 
-    void HandleLevelComplete(LevelData levelData)
+    private void HandleLevelComplete(LevelData levelData)
     {
         var lifeHandler = _currentPlayer.GetComponent<PlayerLifeCycleHandler>();
         var rb = _currentPlayer.GetComponent<Rigidbody2D>();

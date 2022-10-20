@@ -6,23 +6,23 @@ namespace Architecture
 {
     public class LevelFlowHandler : MonoBehaviour
     {
-        [SerializeField] SessionData _sessionData;
+        [SerializeField] private SessionData _sessionData;
 
-        [SerializeField] LoadLevelEventChannelSO _loadLevelEventChannel;
+        [SerializeField] private LoadLevelEventChannelSO _loadLevelEventChannel;
 
-        [SerializeField] VoidEventChannelSO _returnToWorldScreenEvent;
+        [SerializeField] private VoidEventChannelSO _returnToWorldScreenEvent;
 
-        [SerializeField] VoidEventChannelSO _returnToMainMenuEvent;
+        [SerializeField] private VoidEventChannelSO _returnToMainMenuEvent;
 
 
-        void OnEnable()
+        private void OnEnable()
         {
             _returnToMainMenuEvent.OnEventRaised += LoadMainMenu;
             _returnToWorldScreenEvent.OnEventRaised += LoadWorldScreen;
         }
 
 
-        void OnDisable()
+        private void OnDisable()
         {
             _returnToMainMenuEvent.OnEventRaised -= LoadMainMenu;
             _returnToWorldScreenEvent.OnEventRaised -= LoadWorldScreen;
@@ -61,13 +61,13 @@ namespace Architecture
                 }
         }
 
-        void LoadNextLevel(LevelData levelData)
+        private void LoadNextLevel(LevelData levelData)
         {
             _sessionData.CurrentLevel = levelData;
             _loadLevelEventChannel.RaiseEventWithScenePath(levelData.ScenePath, true, true);
         }
 
-        void LoadNextWorld(WorldData worldData)
+        private void LoadNextWorld(WorldData worldData)
         {
             _sessionData.CurrentWorld = worldData;
             _sessionData.CurrentLevel = worldData.LevelDatas[0];
@@ -89,17 +89,17 @@ namespace Architecture
             _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.LevelSelectScenePath, true, true);
         }
 
-        void LoadWorldScreen()
+        private void LoadWorldScreen()
         {
             _loadLevelEventChannel.RaiseEventWithScenePath(_sessionData.LevelSelectScenePath, true, true);
         }
 
-        void LoadMainMenu()
+        private void LoadMainMenu()
         {
             GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);
         }
 
-        void LoadCredits()
+        private void LoadCredits()
         {
             Debug.Log("TO DO: Load Credits");
             LoadMainMenu();

@@ -13,23 +13,23 @@ namespace UI
 {
     public class LevelSummary : MonoBehaviour
     {
-        [SerializeField] GameObject summaryButtons;
+        [SerializeField] private GameObject summaryButtons;
 
-        [SerializeField] GameObject levelFinishedTimerUI;
+        [SerializeField] private GameObject levelFinishedTimerUI;
 
-        [SerializeField] float timerRevealDelay = 1f;
+        [SerializeField] private float timerRevealDelay = 1f;
 
         [FormerlySerializedAs("tmPro")] [SerializeField]
-        TextMeshProUGUI _timerText;
+        private TextMeshProUGUI _timerText;
 
-        [SerializeField] TextMeshProUGUI _recordText;
-        [SerializeField] float _recordScale;
+        [SerializeField] private TextMeshProUGUI _recordText;
+        [SerializeField] private float _recordScale;
 
-        [Range(0.1f, 2f)] [SerializeField] float _recordWaveLength;
+        [Range(0.1f, 2f)] [SerializeField] private float _recordWaveLength;
 
-        bool _canReturn;
+        private bool _canReturn;
 
-        void OnEnable()
+        private void OnEnable()
         {
             LevelTimer.OnTimerFinished += DisplayLevelFinishedTimer;
             LevelManager.OnLevelComplete += EnableSummary;
@@ -42,7 +42,7 @@ namespace UI
             levelFinishedTimerUI.SetActive(false);
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             LevelTimer.OnTimerFinished -= DisplayLevelFinishedTimer;
             LevelManager.OnLevelComplete -= EnableSummary;
@@ -50,7 +50,7 @@ namespace UI
             InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWordSelect;
         }
 
-        void EnableSummary(LevelData levelData)
+        private void EnableSummary(LevelData levelData)
         {
             AudioManager.Instance.StopMusic();
             InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSummary);
@@ -62,7 +62,7 @@ namespace UI
             }));
         }
 
-        void ToggleButtons(InputActionMap actionMap)
+        private void ToggleButtons(InputActionMap actionMap)
         {
             InputActionMap summaryActionMap = InputManager.playerInputActions.LevelSummary;
             if (actionMap == summaryActionMap)
@@ -71,7 +71,7 @@ namespace UI
                 summaryButtons.SetActive(false);
         }
 
-        void DisplayLevelFinishedTimer(float timer, bool newRecord)
+        private void DisplayLevelFinishedTimer(float timer, bool newRecord)
         {
             Debug.Log(timer);
             // Set Level Summary Timer Text
@@ -87,7 +87,7 @@ namespace UI
             }));
         }
 
-        void DisplayRecordsText()
+        private void DisplayRecordsText()
         {
             _recordText.gameObject.SetActive(true);
             var rectTransform = _recordText.GetComponent<RectTransform>();
@@ -95,13 +95,13 @@ namespace UI
                 .setLoopPingPong();
         }
 
-        static void LoadNextLevel(InputAction.CallbackContext obj)
+        private static void LoadNextLevel(InputAction.CallbackContext obj)
         {
             InputManager.playerInputActions.Disable();
             LevelManager.Instance.LoadNextLevel();
         }
 
-        void ReturnToWordSelect(InputAction.CallbackContext obj)
+        private void ReturnToWordSelect(InputAction.CallbackContext obj)
         {
             if (!_canReturn)
                 return;

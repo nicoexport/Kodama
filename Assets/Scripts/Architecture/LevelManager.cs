@@ -18,11 +18,12 @@ namespace Architecture
         public static event Action<LevelData> OnLevelComplete;
         
         [FormerlySerializedAs("SessionData")] 
-        [SerializeField] SessionData _sessionData;
-        [SerializeField] ResettableRuntimeSet _resettableRuntimeSet;
-        [SerializeField] float _levelResetDelay = 1f;
+        [SerializeField]
+        private SessionData _sessionData;
+        [SerializeField] private ResettableRuntimeSet _resettableRuntimeSet;
+        [SerializeField] private float _levelResetDelay = 1f;
         public LevelData ActiveLevelData { get; private set; }
-        LevelFlowHandler levelFlowHandler;
+        private LevelFlowHandler levelFlowHandler;
 
 
         protected void OnEnable()
@@ -46,8 +47,8 @@ namespace Architecture
             SetActiveLevelData();
             StartLevel();
         }
-        
-        void StartLevel()
+
+        private void StartLevel()
         {
             foreach (var resettable in _resettableRuntimeSet.GetItemList())
             {
@@ -57,7 +58,7 @@ namespace Architecture
         }
 
         // ReSharper disable Unity.PerformanceAnalysis
-        void RestartLevel()
+        private void RestartLevel()
         {
             StartCoroutine(Utilities.ActionAfterDelayEnumerator(_levelResetDelay, StartLevel));
         }
@@ -81,7 +82,7 @@ namespace Architecture
             levelFlowHandler.FinishLevelAndExit(ActiveLevelData);
         }
 
-        void SetActiveLevelData()
+        private void SetActiveLevelData()
         {
             ActiveLevelData = GetLevelData();
             if (ActiveLevelData != null)
@@ -93,7 +94,7 @@ namespace Architecture
             }
         }
 
-        LevelData GetLevelData()
+        private LevelData GetLevelData()
         {
             var activeScenePath = SceneManager.GetActiveScene().path;
 
@@ -105,7 +106,7 @@ namespace Architecture
             return null;
         }
 
-        bool CheckLevelData()
+        private bool CheckLevelData()
         {
             if (ActiveLevelData != null) return true;
             Debug.LogWarningFormat("LEVEL EXIT: {0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);

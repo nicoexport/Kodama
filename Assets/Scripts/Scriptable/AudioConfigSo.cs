@@ -7,7 +7,7 @@ namespace Scriptable
     public class AudioConfigSo : ScriptableObject
     {
         public AudioMixerGroup OutputAudioMixerGroup;
-        [SerializeField] PriorityLevel _priorityLevel = PriorityLevel.Standard;
+        [SerializeField] private PriorityLevel _priorityLevel = PriorityLevel.Standard;
 
         [Header("Sound properties")] public bool Mute;
 
@@ -63,7 +63,7 @@ namespace Scriptable
             audioSource.ignoreListenerPause = IgnoreListenerPause;
         }
 
-        enum PriorityLevel
+        private enum PriorityLevel
         {
             Highest = 0,
             High = 64,

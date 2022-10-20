@@ -7,29 +7,29 @@ namespace UI
 {
     public class LevelSelectInstructionButton : MonoBehaviour
     {
-        [SerializeField] string _worldSelectText;
-        [SerializeField] string _levelSelectText;
-        string _defaultText;
+        [SerializeField] private string _worldSelectText;
+        [SerializeField] private string _levelSelectText;
+        private string _defaultText;
 
-        TextMeshProUGUI _text;
+        private TextMeshProUGUI _text;
 
-        void Awake()
+        private void Awake()
         {
             _text = GetComponentInChildren<TextMeshProUGUI>();
             _defaultText = _text.text;
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             LevelSelectManager.OnSelectUISwitched += ChangeButtonText;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             LevelSelectManager.OnSelectUISwitched -= ChangeButtonText;
         }
 
-        void ChangeButtonText(ISelectUI selectUI)
+        private void ChangeButtonText(ISelectUI selectUI)
         {
             switch (selectUI)
             {

@@ -6,7 +6,7 @@ namespace Architecture
 {
     public class Context : Singleton<Context>
     {
-        readonly List<IContextManager> contextManagers = new();
+        private readonly List<IContextManager> contextManagers = new();
 
         public void RegisterContextManager(IContextManager manager)
         {

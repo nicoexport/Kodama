@@ -10,10 +10,10 @@ namespace SaveLoad
 {
     public class SaveManager : Singleton<SaveManager>
     {
-        [SerializeField] GameDataSO _gameData;
+        [SerializeField] private GameDataSO _gameData;
 
         [FormerlySerializedAs("_saveDataSo")] [SerializeField]
-        SessionData _sessionData;
+        private SessionData _sessionData;
 
         public void OnSave()
         {
@@ -50,7 +50,7 @@ namespace SaveLoad
             File.Delete(path);
         }
 
-        SaveData ConvertSessionData(SessionData sessionData)
+        private SaveData ConvertSessionData(SessionData sessionData)
         {
             var currentWorldSaveData = ConvertWorldData(sessionData.CurrentWorld);
             var currentLevelSaveData = ConvertLevelData(sessionData.CurrentLevel);
@@ -70,7 +70,7 @@ namespace SaveLoad
             return saveData;
         }
 
-        WorldSaveData ConvertWorldData(WorldData worldData)
+        private WorldSaveData ConvertWorldData(WorldData worldData)
         {
             var worldSaveData = new WorldSaveData
             {
@@ -88,7 +88,7 @@ namespace SaveLoad
             return worldSaveData;
         }
 
-        LevelSaveData ConvertLevelData(LevelData levelData)
+        private LevelSaveData ConvertLevelData(LevelData levelData)
         {
             var levelSaveData = new LevelSaveData
             {
@@ -101,7 +101,7 @@ namespace SaveLoad
             return levelSaveData;
         }
 
-        void ReadGameData(GameDataSO gameDataSO, SessionData sessionData)
+        private void ReadGameData(GameDataSO gameDataSO, SessionData sessionData)
         {
             sessionData.Version = gameDataSO.Version;
             sessionData.MainMenuScenePath = gameDataSO.MainMenuScenePath;
@@ -128,7 +128,7 @@ namespace SaveLoad
             sessionData.FreshSave = true;
         }
 
-        void ReadSaveDataIntoSessionData(SaveData saveData, SessionData sessionData)
+        private void ReadSaveDataIntoSessionData(SaveData saveData, SessionData sessionData)
         {
             sessionData.FreshSave = false;
             var currentLevelName = saveData.CurrentLevel.LevelName;

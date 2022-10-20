@@ -7,10 +7,10 @@ namespace Level_Selection
 {
     public class LevelSelectButton : MonoBehaviour
     {
-        TextMeshProUGUI _buttonText;
-        LevelData _levelData;
+        private TextMeshProUGUI _buttonText;
+        private LevelData _levelData;
 
-        void Awake()
+        private void Awake()
         {
             _buttonText = GetComponentInChildren<TextMeshProUGUI>();
         }

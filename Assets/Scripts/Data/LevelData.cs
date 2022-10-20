@@ -13,7 +13,7 @@ namespace Data
         public readonly AudioCueSo LevelMusicAudioCueSo;
         public readonly string LevelName;
         public readonly string ScenePath;
-        Sprite LevelImage;
+        private Sprite LevelImage;
 
 
         public LevelData(LevelDataSO levelDataSO)

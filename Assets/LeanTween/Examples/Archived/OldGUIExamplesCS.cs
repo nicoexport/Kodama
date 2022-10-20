@@ -6,19 +6,19 @@ public class OldGUIExamplesCS : MonoBehaviour {
 	public Texture2D grumpy;
 	public Texture2D beauty;
 
-	float w;
-	float h;
+	private float w;
+	private float h;
 
-	LTRect buttonRect1;
-	LTRect buttonRect2;
-	LTRect buttonRect3;
-	LTRect buttonRect4;
-	LTRect grumpyRect;
-	LTRect beautyTileRect;
+	private LTRect buttonRect1;
+	private LTRect buttonRect2;
+	private LTRect buttonRect3;
+	private LTRect buttonRect4;
+	private LTRect grumpyRect;
+	private LTRect beautyTileRect;
 
 
 	// Use this for initialization
-	void Start () {
+	private void Start () {
 		w = Screen.width;
 		h = Screen.height;
 		buttonRect1 = new LTRect(0.10f*w, 0.8f*h, 0.2f*w, 0.14f*h );
@@ -37,7 +37,7 @@ public class OldGUIExamplesCS : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void OnGUI () {
+	private void OnGUI () {
 		GUI.DrawTexture( grumpyRect.rect, grumpy);
 
 		Rect staticRect = new Rect(0.0f*w, 0.0f*h, 0.2f*w, 0.14f*h);

@@ -7,7 +7,7 @@ namespace Level.Logic
 {
    public class LevelConfiner : MonoBehaviour
    {
-      [SerializeField] GameObjectRuntimeSet _cinemachineRuntimeSet;
+      [SerializeField] private GameObjectRuntimeSet _cinemachineRuntimeSet;
 
       protected void Start()
       {
@@ -22,7 +22,7 @@ namespace Level.Logic
          lifeCycleHandler.Die();
       }
 
-      void SetCamCollider()
+      private void SetCamCollider()
       {
          var cmCam = _cinemachineRuntimeSet.GetItemAtIndex(0);
          if (cmCam == null)

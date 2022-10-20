@@ -6,20 +6,20 @@ namespace UI
 {
     public class WorldSelectWorldPanelUI : MonoBehaviour
     {
-        [SerializeField] TextMeshProUGUI _worldName;
-        [SerializeField] TextMeshProUGUI _completionText;
+        [SerializeField] private TextMeshProUGUI _worldName;
+        [SerializeField] private TextMeshProUGUI _completionText;
 
-        void OnEnable()
+        private void OnEnable()
         {
             WorldSelectSocket.OnButtonSelectedAction += UpdatePanel;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             WorldSelectSocket.OnButtonSelectedAction -= UpdatePanel;
         }
 
-        void UpdatePanel(WorldData worldData, Transform transform1)
+        private void UpdatePanel(WorldData worldData, Transform transform1)
         {
             _worldName.text = worldData.WorldName;
         }

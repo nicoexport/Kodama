@@ -8,14 +8,14 @@ namespace Level_Selection
 {
     public class LevelSelectSocket : MonoBehaviour
     {
-        [SerializeField] GameObject buttonObject;
-        [SerializeField] GameObject pathObject;
+        [SerializeField] private GameObject buttonObject;
+        [SerializeField] private GameObject pathObject;
 
-        LevelData _levelData;
+        private LevelData _levelData;
 
         public Button Button { get; private set; }
 
-        void Awake()
+        private void Awake()
         {
             Button = buttonObject.GetComponent<Button>();
         }
@@ -31,7 +31,7 @@ namespace Level_Selection
             SetUpButton(worldData, index);
         }
 
-        void SetUpButton(WorldData worldData, int index)
+        private void SetUpButton(WorldData worldData, int index)
         {
             var buttonTextObject = buttonObject.GetComponentInChildren<TextMeshProUGUI>();
             buttonTextObject.text = index.ToString();

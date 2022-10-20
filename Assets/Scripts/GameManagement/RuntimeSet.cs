@@ -5,7 +5,7 @@ namespace GameManagement
 {
     public abstract class RuntimeSet<T> : ScriptableObject
     {
-        readonly List<T> _items = new();
+        private readonly List<T> _items = new();
 
         public void Initialize()
         {

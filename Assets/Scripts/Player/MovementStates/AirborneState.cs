@@ -5,15 +5,15 @@ namespace Player.MovementStates
 {
     public class AirborneState : State
     {
-        float airStrafeSpeed;
-        bool grounded;
-        float horizontalInput;
-        bool sprinting;
+        private float airStrafeSpeed;
+        private bool grounded;
+        private float horizontalInput;
+        private bool sprinting;
 
-        float sprintSpeed;
-        bool touchingCeiling;
+        private float sprintSpeed;
+        private bool touchingCeiling;
         protected bool touchingWall;
-        float verticalInput;
+        private float verticalInput;
 
         public AirborneState(StateMachine stateMachine, Character character) : base(stateMachine, character)
         {
@@ -89,7 +89,7 @@ namespace Player.MovementStates
                 character.rb.gravityScale = character.MovementValues.normalGravity;
         }
 
-        void ChangeToJump(InputAction.CallbackContext context)
+        private void ChangeToJump(InputAction.CallbackContext context)
         {
             if (!character.wasGrounded || stateMachine.CurrentState == character.jumping)
                 return;

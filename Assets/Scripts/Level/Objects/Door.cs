@@ -6,13 +6,13 @@ namespace Level.Objects
 {
     public class Door : MonoBehaviour
     {
-        [SerializeField] GameObject door;
+        [SerializeField] private GameObject door;
 
-        [SerializeField] int neededKeys = 1;
+        [SerializeField] private int neededKeys = 1;
 
         public UnityEvent onKeysUsed;
 
-        void OnTriggerEnter2D(Collider2D col)
+        private void OnTriggerEnter2D(Collider2D col)
         {
             if (col.tag != "Player") return;
             var inv = col.GetComponent<CharacterInventory>();

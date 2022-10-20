@@ -4,14 +4,14 @@ namespace GameManagement
 {
     public class AddGameObjectToRuntimeSet : MonoBehaviour
     {
-        [SerializeField] GameObjectRuntimeSet gameObjectRuntimeSet;
+        [SerializeField] private GameObjectRuntimeSet gameObjectRuntimeSet;
 
-        void OnEnable()
+        private void OnEnable()
         {
             gameObjectRuntimeSet.AddToList(gameObject);
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             gameObjectRuntimeSet.RemoveFromList(gameObject);
         }

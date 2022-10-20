@@ -14,7 +14,7 @@ namespace Player
     public class Character : MonoBehaviour
     {
         public event Action<State> onStateChanged;
-        [SerializeField] CharacterRuntimeSet characterRuntimeSet;
+        [SerializeField] private CharacterRuntimeSet characterRuntimeSet;
 
         [HideInInspector] public float hasPressedRightTimer;
 
@@ -34,7 +34,7 @@ namespace Player
         public float ceilingCheckRadius;
         public float frontCheckRadius = 0.23f;
 
-        [SerializeField] LayerMask whatIsGround;
+        [SerializeField] private LayerMask whatIsGround;
 
         [Header("Refrences")] public Transform groundCheck;
 
@@ -45,20 +45,20 @@ namespace Player
 
         [Header("Debugging")] [SerializeField] public bool debugStates;
 
-        [SerializeField] bool logVelocity;
+        [SerializeField] private bool logVelocity;
 
 
         [HideInInspector] public bool facingRight = true;
 
         [HideInInspector] public bool wasGrounded;
-        CharacterAnimationController cAnimController;
+        private CharacterAnimationController cAnimController;
         public DyingState dying;
         public FallingState falling;
         public JumpingState jumping;
-        float jumpInputTimer;
+        private float jumpInputTimer;
 
 
-        StateMachine movementSm;
+        private StateMachine movementSm;
         public RunningState running;
         public SpawningState spawning;
 
@@ -71,7 +71,7 @@ namespace Player
 
         public PlayerLifeCycleHandler LifeCycleHandler { get; private set; }
 
-        void Awake()
+        private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             cAnimController = GetComponent<CharacterAnimationController>();
@@ -99,13 +99,13 @@ namespace Player
             CountDownInputTimer();
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             AddCharacterToRuntimeSet();
             LevelManager.OnLevelComplete += ChangeToWinningState;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             //movementSm.CurrentState.Exit();
             characterRuntimeSet.RemoveFromList(this);
@@ -113,7 +113,7 @@ namespace Player
         }
 
         // visualizing the groundCheckRadius
-        void OnDrawGizmosSelected()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
             Gizmos.color = Color.green;
@@ -130,7 +130,7 @@ namespace Player
             transform.Rotate(0f, 180f, 0f);
         }
 
-        void StartJumpInputTimer(InputAction.CallbackContext context)
+        private void StartJumpInputTimer(InputAction.CallbackContext context)
         {
             wantjump = true;
             jumpInputTimer = MovementValues.jumpInputTimer;
@@ -148,9 +148,9 @@ namespace Player
                 rb.velocity = new Vector2(-MovementValues.maxVelocityX, rb.velocity.y);*/
             if (logVelocity) Debug.Log("Velocity x: " + rb.velocity.x + " y: " + rb.velocity.y);
         }
-        
 
-        void ChangeToWinningState(LevelData levelData)
+
+        private void ChangeToWinningState(LevelData levelData)
         {
             movementSm.ChangeState(winning);
         }
@@ -171,13 +171,13 @@ namespace Player
             return Physics2D.OverlapCircle(point, radius, whatIsGround);
         }
 
-        void UpdateVisuals()
+        private void UpdateVisuals()
         {
             var touchingWall = CheckCollisionOverlap(frontCheck.position, frontCheckRadius);
             cAnimController.SetAnimationState(movementSm.CurrentState, InputManager.GetHorizontalMovementValue(), rb.velocity.x, MovementValues.maxVelocityX, touchingWall);
         }
 
-        void InitializeStates()
+        private void InitializeStates()
         {
             movementSm = new StateMachine();
             standing = new StandingState(movementSm, this);
@@ -191,7 +191,7 @@ namespace Player
             dying = new DyingState(movementSm, this);
         }
 
-        void InitializeStateMachine(State state)
+        private void InitializeStateMachine(State state)
         {
             movementSm.Initialize(state);
             movementSm.OnStateChanged += InvokeStateChange;
@@ -202,7 +202,7 @@ namespace Player
             onStateChanged?.Invoke(obj);
         }
 
-        void CountDownInputTimer()
+        private void CountDownInputTimer()
         {
             if (jumpInputTimer > 0f) jumpInputTimer -= Time.fixedDeltaTime;
             if (jumpInputTimer <= 0f) wantjump = false;
@@ -219,7 +219,7 @@ namespace Player
                 Utilities.ActionAfterDelayEnumerator(MovementValues.hangTime, () => { wasGrounded = false; }));
         }
 
-        void AddCharacterToRuntimeSet()
+        private void AddCharacterToRuntimeSet()
         {
             if (characterRuntimeSet.IsEmpty())
                 characterRuntimeSet.AddToList(this);

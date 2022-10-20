@@ -17,7 +17,7 @@ public class Parallax : MonoBehaviour
     protected Transform CameraTransform;
 
 
-    void Awake()
+    private void Awake()
     {
         _transform = transform;
         _camera = Camera.main;

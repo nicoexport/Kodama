@@ -16,30 +16,30 @@ namespace UI
             deleteFile
         }
 
-        [SerializeField] SessionData _sessionData;
+        [SerializeField] private SessionData _sessionData;
 
         [Space(10)] public MenuState state;
 
 
         [Space(10)] [Header("Canvases")] [SerializeField]
-        GameObject mainCanvas;
+        private GameObject mainCanvas;
 
-        [SerializeField] GameObject settingsCanvas;
+        [SerializeField] private GameObject settingsCanvas;
 
-        [SerializeField] GameObject _deleteSaveCanvas;
+        [SerializeField] private GameObject _deleteSaveCanvas;
 
-        [Header("Buttons")] [SerializeField] Button primaryButtonMain;
+        [Header("Buttons")] [SerializeField] private Button primaryButtonMain;
 
-        [SerializeField] Button primaryButtonSettings;
+        [SerializeField] private Button primaryButtonSettings;
 
-        [SerializeField] Button _primaryButtonDeleteSave;
+        [SerializeField] private Button _primaryButtonDeleteSave;
 
-        void Awake()
+        private void Awake()
         {
             InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSelectUI);
         }
 
-        void Start()
+        private void Start()
         {
             SwitchMenu("main");
         }

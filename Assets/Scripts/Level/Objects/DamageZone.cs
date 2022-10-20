@@ -7,17 +7,20 @@ namespace Level.Objects
     {
         public int damage = 1;
 
-        [SerializeField] bool destroyedOnGroundCollision;
-
-        void OnTriggerEnter2D(Collider2D other)
+        protected void OnTriggerEnter2D(Collider2D col) 
         {
-            if (other.CompareTag("Player"))
-            {
-                var lifeHandler = other.GetComponent<PlayerLifeCycleHandler>();
-                if (lifeHandler != null) lifeHandler.TakeDamage(damage);
-            }
+            OnEnter(col);
+        }
 
-            if (destroyedOnGroundCollision && other.CompareTag("Ground")) Destroy(gameObject, 0.1f);
+        protected void OnEnter(Collider2D col)
+        {
+            if (col.CompareTag("Player")) 
+            {
+                if (col.TryGetComponent(out PlayerLifeCycleHandler lifeHandler))
+                {
+                    lifeHandler.TakeDamage(damage);
+                }
+            }
         }
     }
 }

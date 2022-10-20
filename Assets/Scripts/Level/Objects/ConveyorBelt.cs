@@ -5,20 +5,20 @@ namespace Level.Objects
 {
     public class ConveyorBelt : MonoBehaviour
     {
-        [SerializeField] Transform point1;
+        [SerializeField] private Transform point1;
 
-        [SerializeField] Transform point2;
+        [SerializeField] private Transform point2;
 
-        [SerializeField] float force;
+        [SerializeField] private float force;
 
-        [SerializeField] bool vertical;
+        [SerializeField] private bool vertical;
 
-        [SerializeField] bool down;
+        [SerializeField] private bool down;
 
-        [SerializeField] bool reverse;
+        [SerializeField] private bool reverse;
 
 
-        void OnCollisionEnter2D(Collision2D col)
+        private void OnCollisionEnter2D(Collision2D col)
         {
             if (col.collider.tag != "Player") return;
             if (vertical && down)
@@ -33,7 +33,7 @@ namespace Level.Objects
             }
         }
 
-        void OnCollisionStay2D(Collision2D col)
+        private void OnCollisionStay2D(Collision2D col)
         {
             if (vertical && col.collider.tag == "Player")
             {

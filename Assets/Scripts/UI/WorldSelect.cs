@@ -12,17 +12,17 @@ namespace UI
 {
     public class WorldSelect : MonoBehaviour, ISelectUI
     {
-        [SerializeField] GameObject _ui;
-        [SerializeField] GameObject _socketsParent;
-        [SerializeField] GameObject _socketPrefab;
-        [SerializeField] GameObject _uIPlayerObject;
-        [SerializeField] float _playerMoveTimeInSeconds = 0.5f;
-        [SerializeField] VoidEventChannelSO _returnToMainMenuChannel;
+        [SerializeField] private GameObject _ui;
+        [SerializeField] private GameObject _socketsParent;
+        [SerializeField] private GameObject _socketPrefab;
+        [SerializeField] private GameObject _uIPlayerObject;
+        [SerializeField] private float _playerMoveTimeInSeconds = 0.5f;
+        [SerializeField] private VoidEventChannelSO _returnToMainMenuChannel;
 
-        EventSystem _eventSystem;
-        IUICharacter _uiPlayer;
+        private EventSystem _eventSystem;
+        private IUICharacter _uiPlayer;
 
-        void Awake()
+        private void Awake()
         {
             _eventSystem = FindObjectOfType<EventSystem>();
             _uiPlayer = _uIPlayerObject.GetComponent<IUICharacter>();
@@ -35,12 +35,12 @@ namespace UI
             yield return OnStart(sessionData);
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             WorldSelectSocket.OnButtonSelectedAction += MoveUIPlayer;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             WorldSelectSocket.OnButtonSelectedAction -= MoveUIPlayer;
             InputManager.playerInputActions.LevelSelectUI.Exit.started -= HandleExit;
@@ -69,12 +69,12 @@ namespace UI
         }
 
 
-        IEnumerator SetupUI(SessionData sessionData)
+        private IEnumerator SetupUI(SessionData sessionData)
         {
             yield return SetupSockets(sessionData);
         }
 
-        IEnumerator SetupSockets(SessionData sessionData)
+        private IEnumerator SetupSockets(SessionData sessionData)
         {
             for (var index = 0; index < sessionData.WorldDatas.Count; index++)
             {
@@ -91,7 +91,7 @@ namespace UI
             yield break;
         }
 
-        void MoveUIPlayer(WorldData worldData, Transform transform1)
+        private void MoveUIPlayer(WorldData worldData, Transform transform1)
         {
             if (_state != SelectUIState.Started) return;
             LeanTween.cancel(_uIPlayerObject);
@@ -106,13 +106,13 @@ namespace UI
         }
 
 
-        IEnumerator ClearSockets()
+        private IEnumerator ClearSockets()
         {
             _socketsParent.transform.DeleteChildren();
             yield break;
         }
 
-        void HandleExit(InputAction.CallbackContext obj)
+        private void HandleExit(InputAction.CallbackContext obj)
         {
             _eventSystem.enabled = false;
             GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);

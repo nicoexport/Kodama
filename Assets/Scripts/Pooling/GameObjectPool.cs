@@ -8,9 +8,9 @@ namespace Pooling
 {
     public class GameObjectPool : IDisposable
     {
-        readonly Transform _parent;
-        readonly IObjectPool<GameObject> _pool;
-        readonly GameObject _prefab;
+        private readonly Transform _parent;
+        private readonly IObjectPool<GameObject> _pool;
+        private readonly GameObject _prefab;
         public readonly int capacity;
 
         public GameObjectPool(Transform parent, GameObject prefab, int capacity)
@@ -51,29 +51,29 @@ namespace Pooling
 
         public event Action<GameObject> onInstantiate;
 
-        void DestroyInstance(GameObject obj)
+        private void DestroyInstance(GameObject obj)
         {
             Object.Destroy(obj);
         }
 
-        void DisableInstance(GameObject obj)
+        private void DisableInstance(GameObject obj)
         {
             obj.SetActive(false);
         }
 
-        void EnableInstance(GameObject obj)
+        private void EnableInstance(GameObject obj)
         {
             obj.SetActive(true);
         }
 
-        GameObject InstantiateInstance()
+        private GameObject InstantiateInstance()
         {
             var obj = Object.Instantiate(_prefab, _parent);
             onInstantiate?.Invoke(obj);
             return obj;
         }
 
-        GameObject CreateInstance()
+        private GameObject CreateInstance()
         {
             var obj = new GameObject();
             obj.transform.parent = _parent;

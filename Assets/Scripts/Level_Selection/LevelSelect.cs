@@ -16,29 +16,29 @@ namespace Level_Selection
     public class LevelSelect : MonoBehaviour, ISelectUI
     {
         [FormerlySerializedAs("sockets")] [SerializeField]
-        List<LevelSelectSocket> _sockets = new();
+        private List<LevelSelectSocket> _sockets = new();
 
-        [SerializeField] GameObject _uIPlayerObject;
-        [SerializeField] float _playerMoveTimeInSeconds = 0.5f;
-        [SerializeField] GameObject _ui;
+        [SerializeField] private GameObject _uIPlayerObject;
+        [SerializeField] private float _playerMoveTimeInSeconds = 0.5f;
+        [SerializeField] private GameObject _ui;
 
-        EventSystem _eventSystem;
-        IUICharacter _uiPlayer;
+        private EventSystem _eventSystem;
+        private IUICharacter _uiPlayer;
 
-        void Awake()
+        private void Awake()
         {
             _eventSystem = FindObjectOfType<EventSystem>();
             _uiPlayer = _uIPlayerObject.GetComponent<IUICharacter>();
             _ui.SetActive(false);
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             LevelSelectSocket.OnButtonSelectedAction += MoveUIPlayer;
         }
 
 
-        void OnDisable()
+        private void OnDisable()
         {
             LevelSelectSocket.OnButtonSelectedAction -= MoveUIPlayer;
             InputManager.playerInputActions.LevelSelectUI.Exit.started -= ReturnToWorldSelect;
@@ -68,7 +68,7 @@ namespace Level_Selection
         public static event Action<WorldData> OnLevelSelectStarted;
         public event Action OnReturnToWorldSelect;
 
-        IEnumerator SetupSockets(WorldData worldData, LevelData currentLevelData)
+        private IEnumerator SetupSockets(WorldData worldData, LevelData currentLevelData)
         {
             foreach (var socket in _sockets) socket.gameObject.SetActive(false);
 
@@ -90,18 +90,18 @@ namespace Level_Selection
             }
         }
 
-        void SetActiveButton(Button button)
+        private void SetActiveButton(Button button)
         {
             _eventSystem.SetSelectedGameObject(button.gameObject);
         }
 
-        void ReturnToWorldSelect(InputAction.CallbackContext obj)
+        private void ReturnToWorldSelect(InputAction.CallbackContext obj)
         {
             OnReturnToWorldSelect?.Invoke();
         }
 
 
-        void MoveUIPlayer(LevelData levelData, Transform transform1)
+        private void MoveUIPlayer(LevelData levelData, Transform transform1)
         {
             if (_state != SelectUIState.Started) return;
             LeanTween.cancel(_uIPlayerObject);

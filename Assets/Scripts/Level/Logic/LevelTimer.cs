@@ -32,14 +32,14 @@ namespace Level.Logic
 
         public static event Action<float> OnTimerChanged;
 
-        void FinishTimer(LevelData levelData)
+        private void FinishTimer(LevelData levelData)
         {
             PauseTimer();
             var newRecord = LevelManager.Instance.ActiveLevelData.UpdateRecordTime(timer);
             OnTimerFinished?.Invoke(timer, newRecord);
         }
 
-        void RestartTimer()
+        private void RestartTimer()
         {
             StopTimer();
             StartTimer();
