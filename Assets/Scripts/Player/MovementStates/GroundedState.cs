@@ -77,5 +77,6 @@ namespace Player.MovementStates
         {
             stateMachine.ChangeState(character.jumping);
         }
+        
     }
 }

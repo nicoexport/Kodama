@@ -17,7 +17,7 @@ namespace Level.Objects
         {
             if (col.CompareTag("Player")) 
             {
-                if (col.TryGetComponent(out PlayerLifeCycleHandler lifeHandler))
+                if (col.TryGetComponent(out PlayerHealth lifeHandler))
                 {
                     lifeHandler.TakeDamage(damage);
                 }

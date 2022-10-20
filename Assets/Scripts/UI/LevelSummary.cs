@@ -11,12 +11,10 @@ using Utility;
 
 namespace UI
 {
-    public class LevelSummary : MonoBehaviour
+    public class LevelSummary : Resettable
     {
         [SerializeField] private GameObject summaryButtons;
-
         [SerializeField] private GameObject levelFinishedTimerUI;
-
         [SerializeField] private float timerRevealDelay = 1f;
 
         [FormerlySerializedAs("tmPro")] [SerializeField]
@@ -29,25 +27,31 @@ namespace UI
 
         private bool _canReturn;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             LevelTimer.OnTimerFinished += DisplayLevelFinishedTimer;
             LevelManager.OnLevelComplete += EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started += ReturnToWordSelect;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnEnable();
+            LevelTimer.OnTimerFinished -= DisplayLevelFinishedTimer;
+            LevelManager.OnLevelComplete -= EnableSummary;
+            InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
+            InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWordSelect;
+        }
+
+        public override void OnLevelReset()
+        {
             _canReturn = false;
             summaryButtons.SetActive(false);
             _timerText.gameObject.SetActive(false);
             _recordText.gameObject.SetActive(false);
             levelFinishedTimerUI.SetActive(false);
-        }
-
-        private void OnDisable()
-        {
-            LevelTimer.OnTimerFinished -= DisplayLevelFinishedTimer;
-            LevelManager.OnLevelComplete -= EnableSummary;
-            InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
-            InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWordSelect;
         }
 
         private void EnableSummary(LevelData levelData)
@@ -97,7 +101,6 @@ namespace UI
 
         private static void LoadNextLevel(InputAction.CallbackContext obj)
         {
-            InputManager.playerInputActions.Disable();
             LevelManager.Instance.LoadNextLevel();
         }
 

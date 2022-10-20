@@ -30,13 +30,11 @@ namespace Architecture
         private void OnEnable()
         {
             _playerInput.onActionTriggered += OnActionTriggered;
-            LevelManager.OnLevelComplete += DisableInput;
         }
 
         private void OnDisable()
         {
             _playerInput.onActionTriggered -= OnActionTriggered;
-            LevelManager.OnLevelComplete -= DisableInput;
         }
 
         public static event Action<InputActionMap> OnActionMapChange;
@@ -64,13 +62,13 @@ namespace Architecture
 
         public static void ToggleActionMap(InputActionMap actionMap)
         {
-            if (actionMap.enabled) return;
+            if (actionMap.enabled)return;
             playerInputActions.Disable();
             actionMap.Enable();
             OnActionMapChange?.Invoke(actionMap);
         }
 
-        public static void DisableInput(LevelData levelData)
+        public static void DisableInput()
         {
             playerInputActions.Disable();
         }

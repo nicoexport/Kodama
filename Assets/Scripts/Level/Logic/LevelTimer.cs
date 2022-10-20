@@ -20,14 +20,14 @@ namespace Level.Logic
         {
             base.OnEnable();
             LevelManager.OnLevelComplete += FinishTimer;
-            PlayerManager.OnPlayerDied += StopTimer;
+            // PlayerManager.OnPlayerDied += StopTimer;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
             LevelManager.OnLevelComplete -= FinishTimer;
-            PlayerManager.OnPlayerDied -= StopTimer;
+            // PlayerManager.OnPlayerDied -= StopTimer;
         }
 
         public static event Action<float> OnTimerChanged;
@@ -35,7 +35,11 @@ namespace Level.Logic
         private void FinishTimer(LevelData levelData)
         {
             PauseTimer();
-            var newRecord = LevelManager.Instance.ActiveLevelData.UpdateRecordTime(timer);
+            bool newRecord = false;
+            if (LevelManager.Instance.CheckLevelData())
+            {
+               newRecord = LevelManager.Instance.ActiveLevelData.UpdateRecordTime(timer);
+            }
             OnTimerFinished?.Invoke(timer, newRecord);
         }
 

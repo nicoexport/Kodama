@@ -3,43 +3,54 @@ using Architecture;
 using Cinemachine;
 using Data;
 using GameManagement;
-using Level.Logic;
 using Player;
 using UnityEngine;
-using Utility;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : Resettable
 {
-    public static event Action OnPlayerDied;
     [SerializeField] private GameObject _playerPrefab;
-    [SerializeField] private TransformRuntimeSet _playerSpawnRuntimeSet;
     [SerializeField] private GameObjectRuntimeSet _cinemachineRuntimeSet;
+    
     private GameObject _currentPlayer;
-    private PlayerLifeCycleHandler lifeCycleHandler;
+    private PlayerHealth _health;
+    private Character _character;
+    private Rigidbody2D _rb;
+    private SpriteRenderer _renderer;
+    private RigidbodyConstraints2D _constraints;
 
-    protected void OnEnable()
+    protected override void OnEnable()
     {
-        PlayerLifeCycleHandler.OnCharacterDeathAction += HandlePlayerDeathAction;
+        base.OnEnable();
         LevelManager.OnLevelComplete += HandleLevelComplete;
     }
     
-    protected void OnDisable()
+    protected override void OnDisable()
     {
-        PlayerLifeCycleHandler.OnCharacterDeathAction -= HandlePlayerDeathAction;
+        base.OnDisable();
         LevelManager.OnLevelComplete -= HandleLevelComplete;
     }
 
-    protected void Start()
+    public override void OnLevelReset()
     {
-        SpawnPlayer();
+        RespawnPlayer();
         AttachCamToPlayer();
     }
 
-    private void SpawnPlayer()
+    private void RespawnPlayer()
     {
-        _currentPlayer = Instantiate(_playerPrefab, _playerSpawnRuntimeSet.GetItemAtIndex(0).position,
+        if (_currentPlayer == null)
+        {
+            _currentPlayer = Instantiate(_playerPrefab, transform.position,
             Quaternion.identity);
-        InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
+            CacheComponents(_currentPlayer);
+            _health.Reset();
+        }
+        else
+        {
+            _currentPlayer.transform.position = transform.position;
+            _health.Reset();
+            _rb.constraints = _constraints;
+        }
     }
 
     private void AttachCamToPlayer()
@@ -49,17 +60,22 @@ public class PlayerManager : MonoBehaviour
         cmCam.transform.position = position;
         cmCam.Follow = _currentPlayer.transform;
     }
-
-    private static void HandlePlayerDeathAction(Character character)
-    {
-        OnPlayerDied?.Invoke();
-    }
+    
 
     private void HandleLevelComplete(LevelData levelData)
     {
-        var lifeHandler = _currentPlayer.GetComponent<PlayerLifeCycleHandler>();
+        var lifeHandler = _currentPlayer.GetComponent<PlayerHealth>();
         var rb = _currentPlayer.GetComponent<Rigidbody2D>();
         if (lifeHandler) lifeHandler.Damageable = false;
         if (rb) rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+    }
+
+    private void CacheComponents(GameObject player)
+    {
+        _health = player.GetComponent<PlayerHealth>();
+        _character = player.GetComponent<Character>();
+        _rb = player.GetComponent<Rigidbody2D>();
+        _renderer = player.GetComponent<SpriteRenderer>();
+        _constraints = _rb.constraints;
     }
 }

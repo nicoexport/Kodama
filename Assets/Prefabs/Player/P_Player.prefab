@@ -19563,7 +19563,7 @@ MonoBehaviour:
   ceilingCheck: {fileID: 5291515769295254171}
   ceilingCheck1: {fileID: 5291515768323021124}
   rb: {fileID: 5291515768158270423}
-  debugStates: 0
+  debugStates: 1
   logVelocity: 0
   facingRight: 1
   wasGrounded: 0
@@ -19580,9 +19580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ece0d2efcee2894c87a22479ac64fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
-  _playerSpawnRuntimeSet: {fileID: 11400000, guid: 56d467417e7a3d541a2de4603bfeaa36, type: 2}
-  _defaultHealth: 10
+  _defaultHealth: 1
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls:

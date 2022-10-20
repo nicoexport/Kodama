@@ -195,6 +195,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1227691553656901608, guid: 36e547b4a09fe724ea2b615a36c64045, type: 3}
+      propertyPath: _resettableRuntimeSet
+      value: 
+      objectReference: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
     - target: {fileID: 6121057403864693160, guid: 36e547b4a09fe724ea2b615a36c64045, type: 3}
       propertyPath: m_Name
       value: P_UI_Game_UI
@@ -342,7 +346,8 @@ PrefabInstance:
       propertyPath: _resettableRuntimeSet
       value: 
       objectReference: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4870655467824861202, guid: 1729ae6027b364a4b973cf1c3fbac45d, type: 3}
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 1729ae6027b364a4b973cf1c3fbac45d, type: 3}
 --- !u!1001 &753642369
@@ -28160,6 +28165,26 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: ada36c1a4d91cd54ab0500bbceaadcd1, type: 3}
+--- !u!1 &1645933062 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5069061285492610186, guid: ada36c1a4d91cd54ab0500bbceaadcd1, type: 3}
+  m_PrefabInstance: {fileID: 1642155457}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1645933064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645933062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81aa9376fd23324438ef77eefbe1c8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
+  _playerPrefab: {fileID: 5291515768158270416, guid: 0d56037141600ba448d3eb98bd5d8e52, type: 3}
+  _cinemachineRuntimeSet: {fileID: 11400000, guid: 6d2041fbf0ceda240b3430c5307c2aad, type: 2}
 --- !u!1 &1662379143
 GameObject:
   m_ObjectHideFlags: 0

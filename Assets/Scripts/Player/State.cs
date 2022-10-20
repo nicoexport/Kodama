@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace Player
 {
-    public abstract class State
+    public abstract class State 
     {
         public Character character;
         public StateMachine stateMachine;

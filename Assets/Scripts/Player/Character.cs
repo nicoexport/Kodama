@@ -10,7 +10,7 @@ using Utility;
 
 namespace Player
 {
-    [RequireComponent(typeof(PlayerLifeCycleHandler))]
+    [RequireComponent(typeof(PlayerHealth))]
     public class Character : MonoBehaviour
     {
         public event Action<State> onStateChanged;
@@ -52,12 +52,12 @@ namespace Player
 
         [HideInInspector] public bool wasGrounded;
         private CharacterAnimationController cAnimController;
-        public DyingState dying;
-        public FallingState falling;
-        public JumpingState jumping;
         private float jumpInputTimer;
 
 
+        public DyingState dying;
+        public FallingState falling;
+        public JumpingState jumping;
         private StateMachine movementSm;
         public RunningState running;
         public SpawningState spawning;
@@ -69,13 +69,13 @@ namespace Player
 
         [field: SerializeField] public CharacterMovementValues MovementValues { get; private set; }
 
-        public PlayerLifeCycleHandler LifeCycleHandler { get; private set; }
+        public PlayerHealth Health { get; private set; }
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             cAnimController = GetComponent<CharacterAnimationController>();
-            LifeCycleHandler = GetComponent<PlayerLifeCycleHandler>();
+            Health = GetComponent<PlayerHealth>();
             InputManager.playerInputActions.Player.Jump.started += StartJumpInputTimer;
             AddCharacterToRuntimeSet();
             InitializeStates();
@@ -102,14 +102,12 @@ namespace Player
         private void OnEnable()
         {
             AddCharacterToRuntimeSet();
-            LevelManager.OnLevelComplete += ChangeToWinningState;
         }
 
         private void OnDisable()
         {
-            //movementSm.CurrentState.Exit();
+            movementSm.CurrentState.Exit();
             characterRuntimeSet.RemoveFromList(this);
-            LevelManager.OnLevelComplete -= ChangeToWinningState;
         }
 
         // visualizing the groundCheckRadius
@@ -214,6 +212,8 @@ namespace Player
 
         public void SetWasGroundedTrue()
         {
+            if(!gameObject.activeInHierarchy)
+                return;
             wasGrounded = true;
             StartCoroutine(
                 Utilities.ActionAfterDelayEnumerator(MovementValues.hangTime, () => { wasGrounded = false; }));
@@ -223,8 +223,6 @@ namespace Player
         {
             if (characterRuntimeSet.IsEmpty())
                 characterRuntimeSet.AddToList(this);
-            else
-                Debug.Log("Player already exists");
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Level.Logic
       {
          if (!other.CompareTag("Player"))
             return;
-         if (!other.TryGetComponent(out PlayerLifeCycleHandler lifeCycleHandler)) return;
+         if (!other.TryGetComponent(out PlayerHealth lifeCycleHandler)) return;
          lifeCycleHandler.Die();
       }
 
