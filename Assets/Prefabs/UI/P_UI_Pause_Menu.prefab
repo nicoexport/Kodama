@@ -739,6 +739,7 @@ MonoBehaviour:
   primaryButton: {fileID: 6712541552493720944}
   _returnToWorldEvent: {fileID: 11400000, guid: bf1e1e317389c394bb61aa6490d0e52d, type: 2}
   _returnToMainMenuEvent: {fileID: 11400000, guid: 3be5cdf36fdcfd74cb537953cabedf07, type: 2}
+  _onLevelStartChannel: {fileID: 11400000, guid: aaffc6dc5aecba44c939e67236681a68, type: 2}
 --- !u!1 &6712541552402711539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,6 +1208,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0

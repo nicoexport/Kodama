@@ -12,9 +12,10 @@ namespace UI
     {
         [SerializeField] private Canvas canvas;
         [SerializeField] private Button primaryButton;
+        [Header("Channels")]
         [SerializeField] private VoidEventChannelSO _returnToWorldEvent;
         [SerializeField] private VoidEventChannelSO _returnToMainMenuEvent;
-
+        [SerializeField] private VoidEventChannelSO _onLevelStartChannel;
 
         private bool paused;
 
@@ -26,13 +27,13 @@ namespace UI
 
         private void OnEnable()
         {
-            LevelManager.OnLevelStart += RegisterInputActions;
+            _onLevelStartChannel.OnEventRaised += RegisterInputActions;
         }
 
         private void OnDisable()
         {
             UnRegisterInputActions();
-            LevelManager.OnLevelStart -= RegisterInputActions;
+            _onLevelStartChannel.OnEventRaised -= RegisterInputActions;
         }
 
         public void PauseGame()

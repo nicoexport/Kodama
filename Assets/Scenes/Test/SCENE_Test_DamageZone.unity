@@ -338,6 +338,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Level_Context
       objectReference: {fileID: 0}
+    - target: {fileID: 4160299568624261352, guid: 1729ae6027b364a4b973cf1c3fbac45d, type: 3}
+      propertyPath: _onLevelTimerFinished
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d4ee5b05be663d4d89be649d817f415, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 1729ae6027b364a4b973cf1c3fbac45d, type: 3}

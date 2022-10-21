@@ -14,12 +14,12 @@ namespace Architecture
     [RequireComponent(typeof(LevelTimer))]
     public class LevelManager : Singleton<LevelManager>
     {
-        public static event Action OnLevelStart;
-
         [SerializeField] private SessionData _sessionData;
         [SerializeField] private ResettableRuntimeSet _resettableRuntimeSet;
         [SerializeField] private float _levelResetDelay = 1f;
-        [Header("Channels")]
+
+        [Header("Channels")] 
+        [SerializeField] private VoidEventChannelSO _onLevelStartChannel;
         [SerializeField] private VoidEventChannelSO _onPlayerDeathChannel;
         [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
         
@@ -54,7 +54,7 @@ namespace Architecture
             {
                 resettable.OnLevelReset();
             }
-            OnLevelStart?.Invoke();
+            _onLevelStartChannel.RaiseEvent();
         }
 
         private void RestartLevel()
@@ -87,7 +87,6 @@ namespace Architecture
             }
         }
 
-        
         public void FinishAndReturnToWorldSelect()
         {
             InputManager.playerInputActions.Disable();

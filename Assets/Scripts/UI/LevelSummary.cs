@@ -28,13 +28,14 @@ namespace UI
 
         [Header("Channels")] 
         [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
+        [SerializeField] private FloatBoolEventChannelSO _onLevelTimerFinishedChannel;
 
         private bool _canReturn;
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            LevelTimer.OnTimerFinished += DisplayLevelFinishedTimer;
+            _onLevelTimerFinishedChannel.OnEventRaised += DisplayLevelFinishedTimer;
             _onLevelCompleteChannel.OnEventRaised += EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started += ReturnToWordSelect;
@@ -43,7 +44,7 @@ namespace UI
         protected override void OnDisable()
         {
             base.OnEnable();
-            LevelTimer.OnTimerFinished -= DisplayLevelFinishedTimer;
+            _onLevelTimerFinishedChannel.OnEventRaised -= DisplayLevelFinishedTimer;
             _onLevelCompleteChannel.OnEventRaised -= EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWordSelect;
@@ -81,10 +82,6 @@ namespace UI
 
         private void DisplayLevelFinishedTimer(float timer, bool newRecord)
         {
-            Debug.Log(timer);
-            // Set Level Summary Timer Text
-            // Reveal Level Timer Text (for now just enable the object)
-
             StartCoroutine(Utilities.ActionAfterDelayEnumerator(timerRevealDelay, () =>
             {
                 levelFinishedTimerUI.SetActive(true);

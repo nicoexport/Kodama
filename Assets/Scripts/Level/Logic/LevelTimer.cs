@@ -9,9 +9,10 @@ namespace Level.Logic
 {
     public class LevelTimer : Timer
     {
-        public static event Action<float, bool> OnTimerFinished;
-
+        [Header("Channels")]
         [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
+        [SerializeField] private FloatBoolEventChannelSO _onLevelTimerFinished;
+        
         public override void FixedUpdate()
         {
             if (!count) return;
@@ -43,7 +44,11 @@ namespace Level.Logic
             {
                newRecord = LevelManager.Instance.CurrentLevelData.UpdateRecordTime(timer);
             }
-            OnTimerFinished?.Invoke(timer, newRecord);
+            else
+            {
+                newRecord = true;
+            }
+            _onLevelTimerFinished.RaiseEvent(timer, newRecord);
         }
 
         private void RestartTimer()
