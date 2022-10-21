@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de004d4225679a44ab9331a329bf0faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _resettableRuntimeSet: {fileID: 0}
   summaryButtons: {fileID: 303268406929472532}
   levelFinishedTimerUI: {fileID: 3361698106795317267}
   timerRevealDelay: 1
@@ -155,6 +156,7 @@ MonoBehaviour:
   _recordText: {fileID: 3596268789919072233}
   _recordScale: 1.2
   _recordWaveLength: 0.6
+  _onLevelCompleteChannel: {fileID: 11400000, guid: 76d2a728a49c4e54ba8f1110bbfc826f, type: 2}
 --- !u!1 &3361698106795317267
 GameObject:
   m_ObjectHideFlags: 0
