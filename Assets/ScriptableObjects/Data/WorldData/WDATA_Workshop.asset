@@ -15,4 +15,5 @@ MonoBehaviour:
   WorldName: Workshop
   LevelDatas:
   - {fileID: 11400000, guid: 43be47d63a267194594ff202441e732e, type: 2}
+  - {fileID: 11400000, guid: 98b433954494a2244af955f8278a81ea, type: 2}
   WorldStyleSo: {fileID: 11400000, guid: ca651e1f8f0035948a02d8ef0ad9602b, type: 2}

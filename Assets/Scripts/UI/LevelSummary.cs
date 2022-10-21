@@ -12,7 +12,7 @@ using Utility;
 
 namespace UI
 {
-    public class LevelSummary : Resettable
+    public class LevelSummary : MonoBehaviour
     {
         [SerializeField] private GameObject summaryButtons;
         [SerializeField] private GameObject levelFinishedTimerUI;
@@ -32,32 +32,27 @@ namespace UI
 
         private bool _canReturn;
 
-        protected override void OnEnable()
+        protected void OnEnable()
         {
-            base.OnEnable();
             _onLevelTimerFinishedChannel.OnEventRaised += DisplayLevelFinishedTimer;
             _onLevelCompleteChannel.OnEventRaised += EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started += ReturnToWordSelect;
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnEnable();
-            _onLevelTimerFinishedChannel.OnEventRaised -= DisplayLevelFinishedTimer;
-            _onLevelCompleteChannel.OnEventRaised -= EnableSummary;
-            InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
-            InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWordSelect;
-        }
-
-        public override void OnLevelReset()
-        {
             _canReturn = false;
             summaryButtons.SetActive(false);
             _timerText.gameObject.SetActive(false);
             _recordText.gameObject.SetActive(false);
             levelFinishedTimerUI.SetActive(false);
         }
+
+        protected void OnDisable()
+        {
+            _onLevelTimerFinishedChannel.OnEventRaised -= DisplayLevelFinishedTimer;
+            _onLevelCompleteChannel.OnEventRaised -= EnableSummary;
+            InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
+            InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWordSelect;
+        }
+        
 
         private void EnableSummary(LevelData levelData)
         {

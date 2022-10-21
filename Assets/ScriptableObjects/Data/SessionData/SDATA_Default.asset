@@ -12,9 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0ff243ee8c90e46b64676f2a71d68c, type: 3}
   m_Name: SDATA_Default
   m_EditorClassIdentifier: 
+  Version: 0.1
+  MainMenuScenePath: Assets/Scenes/SCENE_Main_Menu.unity
+  LevelSelectScenePath: Assets/Scenes/SCENE_Level_Select.unity
   WorldDatas:
-  - {fileID: 11400000, guid: 2ceb26d6ecaf5864ba23beb7ecc1d6d8, type: 2}
-  - {fileID: 11400000, guid: 3acfe35ee7dd2ca459706e815ce224ad, type: 2}
-  WorldsScenePath: Assets/Scenes/WorldScene.unity
-  CurrentWorld: {fileID: 11400000, guid: 3acfe35ee7dd2ca459706e815ce224ad, type: 2}
-  CurrentLevel: {fileID: 11400000, guid: 4681e57e0dad1b347a7fb83af464980a, type: 2}
+  - WorldName: Workshop
+    Visited: 0
+    Completed: 0
+    Style: {fileID: 11400000, guid: ca651e1f8f0035948a02d8ef0ad9602b, type: 2}
+    LevelDatas:
+    - Visited: 1
+      Completed: 1
+      RecordTime: 2.2199986
+    - Visited: 1
+      Completed: 1
+      RecordTime: 2.1599987
+  CurrentWorld:
+    WorldName: Workshop
+    Visited: 0
+    Completed: 0
+    Style: {fileID: 11400000, guid: ca651e1f8f0035948a02d8ef0ad9602b, type: 2}
+    LevelDatas:
+    - Visited: 1
+      Completed: 1
+      RecordTime: 2.2199986
+    - Visited: 1
+      Completed: 1
+      RecordTime: 2.1599987
+  CurrentLevel:
+    Visited: 1
+    Completed: 1
+    RecordTime: 2.1599987
+  FreshSave: 0

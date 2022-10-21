@@ -22,6 +22,7 @@ namespace Architecture
         [SerializeField] private VoidEventChannelSO _onLevelStartChannel;
         [SerializeField] private VoidEventChannelSO _onPlayerDeathChannel;
         [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
+        [SerializeField] private LevelDataEventChannelSO _onNextLevelRequestChannel;
         
         public LevelData CurrentLevelData { get; private set; }
         private LevelFlowHandler levelFlowHandler;

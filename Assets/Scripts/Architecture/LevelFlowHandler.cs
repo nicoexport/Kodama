@@ -8,6 +8,7 @@ namespace Architecture
     public class LevelFlowHandler : MonoBehaviour
     {
         [SerializeField] private SessionData _sessionData;
+        
         [Header("Channels")]
         [SerializeField] private LoadLevelEventChannelSO _loadLevelEventChannel;
         [SerializeField] private VoidEventChannelSO _returnToWorldScreenEvent;
@@ -36,7 +37,7 @@ namespace Architecture
             for (var i = 0; i < _sessionData.WorldDatas.Count; i++)
                 // Iterate over the worlds levels 
             for (var j = 0; j < _sessionData.WorldDatas[i].LevelDatas.Count; j++)
-                if (_sessionData.WorldDatas[i].LevelDatas[j].LevelName == levelData.LevelName)
+                if (_sessionData.WorldDatas[i].LevelDatas[j].ScenePath == levelData.ScenePath)
                 {
                     // if its not the last level of a world just load the next level of the world.
                     if (j < _sessionData.WorldDatas[i].LevelDatas.Count - 1)
@@ -95,6 +96,7 @@ namespace Architecture
 
         private void LoadMainMenu()
         {
+            Debug.Log("Load Main Menu");
             GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);
         }
 
