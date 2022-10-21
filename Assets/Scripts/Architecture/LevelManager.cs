@@ -23,6 +23,7 @@ namespace Architecture
         [SerializeField] private VoidEventChannelSO _onPlayerDeathChannel;
         [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
         [SerializeField] private LevelDataEventChannelSO _onNextLevelRequestChannel;
+        [SerializeField] private TransitionEventChannelSO _transitionChannel;
         
         public LevelData CurrentLevelData { get; private set; }
         private LevelFlowHandler levelFlowHandler;
@@ -61,7 +62,12 @@ namespace Architecture
         private void RestartLevel()
         {
             InputManager.DisableInput();
-            StartCoroutine(Utilities.ActionAfterDelayEnumerator(_levelResetDelay, StartLevel));
+            _transitionChannel.RaiseEvent(TransitionType.FadeOut, _levelResetDelay);
+            StartCoroutine(Utilities.ActionAfterDelayEnumerator(_levelResetDelay, ()=>
+            {
+                StartLevel();
+                _transitionChannel.RaiseEvent(TransitionType.FadeIn, _levelResetDelay / 2f);
+            }));
         }
         
         

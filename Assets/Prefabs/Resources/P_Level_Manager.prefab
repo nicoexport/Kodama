@@ -54,6 +54,8 @@ MonoBehaviour:
   _onLevelStartChannel: {fileID: 11400000, guid: aaffc6dc5aecba44c939e67236681a68, type: 2}
   _onPlayerDeathChannel: {fileID: 11400000, guid: a6b6b32045b929348a692a025d6e6c39, type: 2}
   _onLevelCompleteChannel: {fileID: 11400000, guid: 76d2a728a49c4e54ba8f1110bbfc826f, type: 2}
+  _onNextLevelRequestChannel: {fileID: 11400000, guid: 76d2a728a49c4e54ba8f1110bbfc826f, type: 2}
+  _transitionChannel: {fileID: 11400000, guid: 7d5652993ae64aa42af87c48ed7db75e, type: 2}
 --- !u!114 &1980565582993771711
 MonoBehaviour:
   m_ObjectHideFlags: 0
