@@ -50,6 +50,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 4160299568545667728}
     m_Modifications:
     - target: {fileID: 7014410135455515716, guid: 7c9fb6e190f4f424384bd90849e10029, type: 3}
@@ -100,7 +101,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7014410135455515719, guid: 7c9fb6e190f4f424384bd90849e10029, type: 3}
+      propertyPath: _levelResetDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1980565582993771711, guid: 7c9fb6e190f4f424384bd90849e10029, type: 3}
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c9fb6e190f4f424384bd90849e10029, type: 3}
 --- !u!4 &4160299568624261353 stripped
 Transform:

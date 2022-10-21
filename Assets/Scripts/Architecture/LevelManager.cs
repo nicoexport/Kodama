@@ -3,6 +3,7 @@ using Data;
 using GameManagement;
 using Level.Logic;
 using Scriptable;
+using Scriptable.Channels;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utility;
@@ -14,15 +15,15 @@ namespace Architecture
     public class LevelManager : Singleton<LevelManager>
     {
         public static event Action OnLevelStart;
-        public static event Action<LevelData> OnLevelComplete;
-        
 
         [SerializeField] private SessionData _sessionData;
         [SerializeField] private ResettableRuntimeSet _resettableRuntimeSet;
         [SerializeField] private float _levelResetDelay = 1f;
-        [SerializeField] private VoidEventChannelSO _onPlayerDeathEventChannel;
+        [Header("Channels")]
+        [SerializeField] private VoidEventChannelSO _onPlayerDeathChannel;
+        [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
         
-        public LevelData ActiveLevelData { get; private set; }
+        public LevelData CurrentLevelData { get; private set; }
         private LevelFlowHandler levelFlowHandler;
 
         protected override void Awake()
@@ -39,17 +40,16 @@ namespace Architecture
 
         protected void OnEnable()
         {
-            _onPlayerDeathEventChannel.OnEventRaised += RestartLevel;
+            _onPlayerDeathChannel.OnEventRaised += RestartLevel;
         }
 
         protected void OnDisable()
         {
-            _onPlayerDeathEventChannel.OnEventRaised -= RestartLevel;
+            _onPlayerDeathChannel.OnEventRaised -= RestartLevel;
         }
 
         private void StartLevel()
         {
-            InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
             foreach (var resettable in _resettableRuntimeSet.GetItemList())
             {
                 resettable.OnLevelReset();
@@ -57,21 +57,21 @@ namespace Architecture
             OnLevelStart?.Invoke();
         }
 
-        // ReSharper disable Unity.PerformanceAnalysis
-        public void RestartLevel()
+        private void RestartLevel()
         {
             InputManager.DisableInput();
             StartCoroutine(Utilities.ActionAfterDelayEnumerator(_levelResetDelay, StartLevel));
         }
-
+        
+        
         public void CompleteLevel()
         { 
             InputManager.DisableInput();
             if (CheckLevelData())
             {
-                ActiveLevelData.Completed = true;
+                CurrentLevelData.Completed = true;
             }
-            OnLevelComplete?.Invoke(ActiveLevelData);
+            _onLevelCompleteChannel.RaiseEvent(CurrentLevelData);
         }
 
         public void LoadNextLevel()
@@ -79,7 +79,7 @@ namespace Architecture
             InputManager.playerInputActions.Disable();
             if (CheckLevelData())
             {
-                levelFlowHandler.NextLevelRequest(ActiveLevelData);
+                levelFlowHandler.NextLevelRequest(CurrentLevelData);
             }
             else
             {
@@ -87,12 +87,13 @@ namespace Architecture
             }
         }
 
-        public void FinishAndReturnToWorldMode()
+        
+        public void FinishAndReturnToWorldSelect()
         {
             InputManager.playerInputActions.Disable();
             if (CheckLevelData())
             {
-                levelFlowHandler.FinishLevelAndExit(ActiveLevelData);
+                levelFlowHandler.FinishLevelAndExit(CurrentLevelData);
             }
             else
             {
@@ -102,20 +103,19 @@ namespace Architecture
 
         private void SetActiveLevelData() 
         {
-            ActiveLevelData = GetLevelData();
-            if (ActiveLevelData != null)
+            CurrentLevelData = GetCurrentLevelData();
+            if (CurrentLevelData != null)
             {
-                ActiveLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
-                _sessionData.CurrentLevel = ActiveLevelData;
+                CurrentLevelData.Visited = true; // TO DO: set somewhere after a possible cutscene
+                _sessionData.CurrentLevel = CurrentLevelData;
                 _sessionData.CurrentWorld =
-                    Utilities.GameSessionGetWorldDataFromLevelData(ActiveLevelData, _sessionData);
+                    Utilities.GameSessionGetWorldDataFromLevelData(CurrentLevelData, _sessionData);
             }
         }
 
-        private LevelData GetLevelData()
+        private LevelData GetCurrentLevelData()
         {
             var activeScenePath = SceneManager.GetActiveScene().path;
-
             foreach (var worldData in _sessionData.WorldDatas)
             foreach (var levelData in worldData.LevelDatas)
                 if (levelData.ScenePath == activeScenePath)
@@ -126,7 +126,7 @@ namespace Architecture
 
         public bool CheckLevelData()
         {
-            if (ActiveLevelData != null) return true;
+            if (CurrentLevelData != null) return true;
             Debug.LogWarningFormat("LEVEL EXIT: {0} NOT PART OF THE GAME DATA", SceneManager.GetActiveScene().path);
             return false;
         }

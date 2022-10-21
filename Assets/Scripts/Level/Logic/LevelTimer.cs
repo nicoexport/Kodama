@@ -1,6 +1,7 @@
 using System;
 using Architecture;
 using Data;
+using Scriptable.Channels;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,6 +10,8 @@ namespace Level.Logic
     public class LevelTimer : Timer
     {
         public static event Action<float, bool> OnTimerFinished;
+
+        [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
         public override void FixedUpdate()
         {
             if (!count) return;
@@ -19,14 +22,14 @@ namespace Level.Logic
         protected override void OnEnable()
         {
             base.OnEnable();
-            LevelManager.OnLevelComplete += FinishTimer;
+            _onLevelCompleteChannel.OnEventRaised += FinishTimer;
             // PlayerManager.OnPlayerDied += StopTimer;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            LevelManager.OnLevelComplete -= FinishTimer;
+            _onLevelCompleteChannel.OnEventRaised -= FinishTimer;
             // PlayerManager.OnPlayerDied -= StopTimer;
         }
 
@@ -38,7 +41,7 @@ namespace Level.Logic
             bool newRecord = false;
             if (LevelManager.Instance.CheckLevelData())
             {
-               newRecord = LevelManager.Instance.ActiveLevelData.UpdateRecordTime(timer);
+               newRecord = LevelManager.Instance.CurrentLevelData.UpdateRecordTime(timer);
             }
             OnTimerFinished?.Invoke(timer, newRecord);
         }

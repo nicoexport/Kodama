@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Scriptable
+namespace Scriptable.Channels
 {
-    [CreateAssetMenu(menuName = "Events/Void Event Channel")]
+    [CreateAssetMenu(menuName = "Channels/Void Event")]
     public class VoidEventChannelSO : ScriptableObject
     {
         public event Action OnEventRaised;

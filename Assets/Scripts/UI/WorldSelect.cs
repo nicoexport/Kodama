@@ -2,6 +2,7 @@ using System.Collections;
 using Architecture;
 using Data;
 using Scriptable;
+using Scriptable.Channels;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;

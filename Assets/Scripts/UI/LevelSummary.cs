@@ -3,6 +3,7 @@ using Architecture;
 using Audio;
 using Data;
 using Level.Logic;
+using Scriptable.Channels;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -25,13 +26,16 @@ namespace UI
 
         [Range(0.1f, 2f)] [SerializeField] private float _recordWaveLength;
 
+        [Header("Channels")] 
+        [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
+
         private bool _canReturn;
 
         protected override void OnEnable()
         {
             base.OnEnable();
             LevelTimer.OnTimerFinished += DisplayLevelFinishedTimer;
-            LevelManager.OnLevelComplete += EnableSummary;
+            _onLevelCompleteChannel.OnEventRaised += EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started += ReturnToWordSelect;
         }
@@ -40,7 +44,7 @@ namespace UI
         {
             base.OnEnable();
             LevelTimer.OnTimerFinished -= DisplayLevelFinishedTimer;
-            LevelManager.OnLevelComplete -= EnableSummary;
+            _onLevelCompleteChannel.OnEventRaised -= EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWordSelect;
         }
@@ -110,7 +114,7 @@ namespace UI
         {
             if (!_canReturn)
                 return;
-            LevelManager.Instance.FinishAndReturnToWorldMode();
+            LevelManager.Instance.FinishAndReturnToWorldSelect();
         }
     }
 }

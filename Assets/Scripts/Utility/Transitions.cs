@@ -1,5 +1,6 @@
 using System.Collections;
 using Scriptable;
+using Scriptable.Channels;
 using UnityEngine;
 using UnityEngine.UI;
 

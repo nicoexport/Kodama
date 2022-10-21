@@ -1,6 +1,7 @@
 using Architecture;
 using Audio;
 using Scriptable;
+using Scriptable.Channels;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -10,11 +11,8 @@ namespace UI
     public class PauseMenu : MonoBehaviour
     {
         [SerializeField] private Canvas canvas;
-
         [SerializeField] private Button primaryButton;
-
         [SerializeField] private VoidEventChannelSO _returnToWorldEvent;
-
         [SerializeField] private VoidEventChannelSO _returnToMainMenuEvent;
 
 

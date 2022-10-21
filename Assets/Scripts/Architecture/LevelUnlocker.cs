@@ -1,5 +1,6 @@
 using Data;
 using Scriptable;
+using Scriptable.Channels;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,17 +8,18 @@ namespace Architecture
 {
     public class LevelUnlocker : MonoBehaviour
     {
-        [FormerlySerializedAs("_gameSession")] [SerializeField]
-        private SessionData _session;
+        [SerializeField] private SessionData _session;
+        [Header("Channels")] 
+        [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel; 
 
         private void OnEnable()
         {
-            LevelManager.OnLevelComplete += HandleUnlocks;
+           _onLevelCompleteChannel.OnEventRaised += HandleUnlocks;
         }
 
         private void OnDisable()
         {
-            LevelManager.OnLevelComplete -= HandleUnlocks;
+            _onLevelCompleteChannel.OnEventRaised -= HandleUnlocks;
         }
 
         private void HandleUnlocks(LevelData obj)

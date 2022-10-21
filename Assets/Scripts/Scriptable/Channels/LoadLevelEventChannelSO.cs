@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scriptable
+namespace Scriptable.Channels
 {
     /// <summary>
     ///     This class is used for scene loading events.

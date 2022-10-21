@@ -3,6 +3,7 @@ using Data;
 using GameManagement;
 using Level.Logic;
 using Player;
+using Scriptable.Channels;
 using UnityEngine;
 
 namespace UI
@@ -10,23 +11,23 @@ namespace UI
     public class GameUI : MonoBehaviour
     {
         [SerializeField] private CharacterRuntimeSet characterRuntimeSet;
-
         [SerializeField] private GameObject keyIcon;
-
         [SerializeField] private GameObject keyIconBackground;
-
         [SerializeField] private GameObject levelTimerUI;
+
+        [Header("Channels")] 
+        [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
 
         private void OnEnable()
         {
-            LevelManager.OnLevelComplete += DisableGameUI;
+            _onLevelCompleteChannel.OnEventRaised += DisableGameUI;
             HellCollider.OnTriggerEntered += FadeOut;
         }
 
 
         private void OnDisable()
         {
-            LevelManager.OnLevelComplete -= DisableGameUI;
+            _onLevelCompleteChannel.OnEventRaised -= DisableGameUI;
             HellCollider.OnTriggerEntered -= FadeOut;
         }
 

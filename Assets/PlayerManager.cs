@@ -3,14 +3,16 @@ using Cinemachine;
 using Data;
 using GameManagement;
 using Player;
-using Scriptable;
+using Scriptable.Channels;
 using UnityEngine;
-
+ 
 public class PlayerManager : Resettable
 {
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private GameObjectRuntimeSet _cinemachineRuntimeSet;
-    [SerializeField] private VoidEventChannelSO _onPlayerDeathEventChannel;
+    [Header("Channels")]
+    [SerializeField] private VoidEventChannelSO _onPlayerDeathChannel;
+    [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
     
     private GameObject _currentPlayer;
     private PlayerHealth _health;
@@ -20,15 +22,15 @@ public class PlayerManager : Resettable
     protected override void OnEnable()
     {
         base.OnEnable();
-        LevelManager.OnLevelComplete += HandleLevelComplete;
-        _onPlayerDeathEventChannel.OnEventRaised += HandlePlayerDeath;
+        _onLevelCompleteChannel.OnEventRaised += HandleLevelComplete;
+        _onPlayerDeathChannel.OnEventRaised += HandlePlayerDeath;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        LevelManager.OnLevelComplete -= HandleLevelComplete;
-        _onPlayerDeathEventChannel.OnEventRaised -= HandlePlayerDeath;
+        _onLevelCompleteChannel.OnEventRaised -= HandleLevelComplete;
+        _onPlayerDeathChannel.OnEventRaised -= HandlePlayerDeath;
     }
 
     public override void OnLevelReset()

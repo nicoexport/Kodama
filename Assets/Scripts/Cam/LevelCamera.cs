@@ -1,5 +1,6 @@
 using Architecture;
 using Data;
+using Scriptable.Channels;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,15 +13,17 @@ namespace Cam
 
         [SerializeField] private float _zoomSpeed = 0.2f;
         [SerializeField] private LeanTweenType _tweenType = LeanTweenType.notUsed;
+        [Header("Channels")] 
+        [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
 
         protected void OnEnable()
         {
-            LevelManager.OnLevelComplete += TweenZoom;
+            _onLevelCompleteChannel.OnEventRaised += TweenZoom;
         }
 
         protected void OnDisable()
         {
-            LevelManager.OnLevelComplete -= TweenZoom;
+            _onLevelCompleteChannel.OnEventRaised -= TweenZoom;
         }
 
         private void TweenZoom(LevelData levelData)

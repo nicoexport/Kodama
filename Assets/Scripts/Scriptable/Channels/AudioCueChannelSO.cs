@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-namespace Scriptable
+namespace Scriptable.Channels
 {
     [CreateAssetMenu(fileName = "new AudioCueChannel", menuName = "Channels/AudioCueChannel", order = 0)]
-    public class AudioCueChannelSo : ScriptableObject
+    public class AudioCueChannelSO : ScriptableObject
     {
         public event Action<AudioCueRequestData> OnAudioCueRequested;
 

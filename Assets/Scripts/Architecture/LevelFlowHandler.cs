@@ -1,5 +1,6 @@
 using Data;
 using Scriptable;
+using Scriptable.Channels;
 using UnityEngine;
 
 namespace Architecture
@@ -7,11 +8,9 @@ namespace Architecture
     public class LevelFlowHandler : MonoBehaviour
     {
         [SerializeField] private SessionData _sessionData;
-
+        [Header("Channels")]
         [SerializeField] private LoadLevelEventChannelSO _loadLevelEventChannel;
-
         [SerializeField] private VoidEventChannelSO _returnToWorldScreenEvent;
-
         [SerializeField] private VoidEventChannelSO _returnToMainMenuEvent;
 
 

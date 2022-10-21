@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5087074462691435179}
   - component: {fileID: 5087074462691435178}
   - component: {fileID: 5221088875533306454}
+  - component: {fileID: 9203692899971590419}
   m_Layer: 0
   m_Name: P_Level_Spawn
   m_TagString: Untagged
@@ -66,7 +67,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9ee428bcf55fb894395a5fe23675ce33, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,3 +99,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9203692899971590419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5087074462691435180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81aa9376fd23324438ef77eefbe1c8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
+  _playerPrefab: {fileID: 5291515768158270416, guid: 0d56037141600ba448d3eb98bd5d8e52, type: 3}
+  _cinemachineRuntimeSet: {fileID: 11400000, guid: 6d2041fbf0ceda240b3430c5307c2aad, type: 2}
+  _onPlayerDeathChannel: {fileID: 11400000, guid: a6b6b32045b929348a692a025d6e6c39, type: 2}
+  _onLevelCompleteChannel: {fileID: 11400000, guid: 76d2a728a49c4e54ba8f1110bbfc826f, type: 2}

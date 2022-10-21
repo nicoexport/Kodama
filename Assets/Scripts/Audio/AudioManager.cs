@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Pooling;
 using Scriptable;
+using Scriptable.Channels;
 using UnityEngine;
 using Utility;
 
@@ -9,8 +10,8 @@ namespace Audio
 {
     public class AudioManager : Singleton<AudioManager>
     {
-        [SerializeField] private AudioCueChannelSo _sfxChannel;
-        [SerializeField] private AudioCueChannelSo _musicChannel;
+        [SerializeField] private AudioCueChannelSO _sfxChannel;
+        [SerializeField] private AudioCueChannelSO _musicChannel;
         [SerializeField] private GameObject _soundEmitterPrefab;
         [SerializeField] private float _musicFadeDuration = 1f;
         private SoundEmitter _currentMusicTrack;

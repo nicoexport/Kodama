@@ -1,5 +1,6 @@
 using System;
 using Scriptable;
+using Scriptable.Channels;
 using UnityEngine;
 
 namespace Audio
@@ -10,7 +11,7 @@ namespace Audio
         [SerializeField] private bool _playOnStart;
         [SerializeField] private AudioCueSo _audioCue;
         [SerializeField] private AudioConfigSo _audioConfig;
-        [SerializeField] private AudioCueChannelSo _audioCueChannel;
+        [SerializeField] private AudioCueChannelSO _audioCueChannel;
 
         public AudioCueSo Cue
         {

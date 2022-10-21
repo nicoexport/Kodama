@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Scriptable
+namespace Scriptable.Channels
 {
     [CreateAssetMenu(menuName = "Events/Transition Event Channel")]
     public class TransitionEventChannelSO : ScriptableObject

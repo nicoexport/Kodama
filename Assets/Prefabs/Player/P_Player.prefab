@@ -19563,7 +19563,7 @@ MonoBehaviour:
   ceilingCheck: {fileID: 5291515769295254171}
   ceilingCheck1: {fileID: 5291515768323021124}
   rb: {fileID: 5291515768158270423}
-  debugStates: 1
+  debugStates: 0
   logVelocity: 0
   facingRight: 1
   wasGrounded: 0
