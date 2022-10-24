@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Test/SCENE_Basic_Level.unity
     guid: ca885880880e3584a8abc1f873d47480
   - enabled: 1
-    path: Assets/Scenes/Test/SCENE_Test_DamageZone_0.unity
+    path: Assets/Scenes/Test/SCENE_Test_Turrets.unity
     guid: 4fe6cad4c72f8cf48a220912a79e0c8b
   - enabled: 1
     path: Assets/Scenes/Test/SCENE_Test_DamageZone_1.unity
