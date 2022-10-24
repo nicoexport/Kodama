@@ -34,6 +34,13 @@ namespace GameManagement
         {
             return _items;
         }
+        
+        public bool TryGetFirst(out T item)
+        {
+            item = GetItemAtIndex(0);
+            return item != null;
+        }
+        
 
         public bool IsEmpty()
         {
