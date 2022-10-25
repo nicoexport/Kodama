@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Data;
 using GameManagement;
 using Level.Logic;
@@ -52,10 +53,13 @@ namespace Architecture
 
         private void StartLevel()
         {
-            foreach (var resettable in _resettableRuntimeSet.GetItemList())
+            List<Resettable> list = _resettableRuntimeSet.GetItemList();
+            for (var index = list.Count - 1; index >= 0; index--)
             {
+                Resettable resettable = list[index];
                 resettable.OnLevelReset();
             }
+
             _onLevelStartChannel.RaiseEvent();
         }
 

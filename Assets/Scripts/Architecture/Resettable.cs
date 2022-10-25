@@ -16,7 +16,7 @@ namespace Architecture
         {
             _resettableRuntimeSet.RemoveFromList(this);
         }
-
+        
         public abstract void OnLevelReset();
     }
 }
