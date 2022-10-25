@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2795777454726917745}
   - component: {fileID: 2787274564758033387}
-  - component: {fileID: 6501151271019694097}
-  - component: {fileID: 4422248696957635753}
-  - component: {fileID: -5995833005267438050}
-  - component: {fileID: 7629341449764874318}
+  - component: {fileID: 204092618797707268}
+  - component: {fileID: 8479463100459100331}
+  - component: {fileID: -771370032915729858}
+  - component: {fileID: 248235743984049057}
   m_Layer: 0
-  m_Name: P_Projectile
+  m_Name: P_Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -57663878, guid: 9343f1273bc308141ab3b50e09b2b0a4, type: 3}
+  m_Sprite: {fileID: -555691039, guid: 9343f1273bc308141ab3b50e09b2b0a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6501151271019694097
+--- !u!114 &204092618797707268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,13 +97,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 996447754815156497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c06d59dbe254a379fd6451697157757, type: 3}
+  m_Script: {fileID: 11500000, guid: f5f5c33efe164052882ee65cfa1807f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
   _speed: 1
-  _lifeTimeInSeconds: 4
---- !u!114 &4422248696957635753
+  _lifeTimeInSeconds: 5
+--- !u!114 &8479463100459100331
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   damageForce: {x: 0, y: 0}
---- !u!61 &-5995833005267438050
+--- !u!61 &-771370032915729858
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,9 +141,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.38221622, y: 0.6313639}
+  m_Size: {x: 0.36783895, y: 0.62434584}
   m_EdgeRadius: 0
---- !u!50 &7629341449764874318
+--- !u!50 &248235743984049057
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

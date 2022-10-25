@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Architecture;
 using UnityEngine;
@@ -6,9 +7,9 @@ namespace Level.Objects
 {
    public class Projectile : Resettable
    {
-      [SerializeField] private float _speed;
+      [SerializeField] protected float _speed;
       [SerializeField] private float _lifeTimeInSeconds;
-      private Transform _target;
+      protected Transform _target;
 
       private void Awake()
       {
@@ -20,7 +21,7 @@ namespace Level.Objects
          ChaseTarget();
       }
 
-      private void ChaseTarget()
+      protected virtual void ChaseTarget()
       {
          if (_target == null) return;
          transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed / 10f);
@@ -29,6 +30,11 @@ namespace Level.Objects
       private IEnumerator DestroyAfterSeconds_Co()
       {
          yield return new WaitForSeconds(_lifeTimeInSeconds);
+         Destroy(gameObject);
+      }
+
+      private void OnTriggerEnter2D(Collider2D col)
+      {
          Destroy(gameObject);
       }
 
