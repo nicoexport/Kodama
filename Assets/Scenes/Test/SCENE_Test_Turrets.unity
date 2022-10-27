@@ -28066,8 +28066,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1238817761, guid: 9343f1273bc308141ab3b50e09b2b0a4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -1825612732, guid: 9343f1273bc308141ab3b50e09b2b0a4, type: 3}
+  m_Color: {r: 0.7735849, g: 0.24448201, b: 0.24448201, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -28090,11 +28090,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
-  _projectilePrefab: {fileID: 996447754815156497, guid: 491ee04e916e59d4b99b9f139e460e62, type: 3}
+  _projectilePrefab: {fileID: 996447754815156497, guid: b4836ba0cb669cc4894bc965372abdec, type: 3}
   _playerRuntimeSet: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
-  _range: 6
+  _range: 19.84
   _cooldownInSeconds: 4
   _heatupInSeconds: 1
+  _needsLineOfSight: 1
+  _whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 128
   OnStartHeatUp:
     m_PersistentCalls:
       m_Calls:
@@ -28103,7 +28107,7 @@ MonoBehaviour:
         m_MethodName: set_sprite
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 507665406, guid: 9343f1273bc308141ab3b50e09b2b0a4, type: 3}
+          m_ObjectArgument: {fileID: 1904133838, guid: 9343f1273bc308141ab3b50e09b2b0a4, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -28118,7 +28122,22 @@ MonoBehaviour:
         m_MethodName: set_sprite
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: -1238817761, guid: 9343f1273bc308141ab3b50e09b2b0a4, type: 3}
+          m_ObjectArgument: {fileID: 370430352, guid: 9343f1273bc308141ab3b50e09b2b0a4, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnCooldown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1916944270}
+        m_TargetAssemblyTypeName: UnityEngine.SpriteRenderer, UnityEngine
+        m_MethodName: set_sprite
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: -1825612732, guid: 9343f1273bc308141ab3b50e09b2b0a4, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -28133,7 +28152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1916944269}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.47, y: -1.54, z: -0.6553335}
+  m_LocalPosition: {x: 29.51, y: -1.54, z: -0.6553335}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
