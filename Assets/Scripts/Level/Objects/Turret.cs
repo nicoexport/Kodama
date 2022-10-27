@@ -14,7 +14,8 @@ namespace Level.Objects
         [SerializeField] private CharacterRuntimeSet _playerRuntimeSet;
         [SerializeField] private float _range;
         [SerializeField] private float _cooldownInSeconds;
-        [SerializeField ]private float _heatupInSeconds;
+        [SerializeField] private float _heatupInSeconds;
+        [SerializeField] private bool _needsLineOfSight;
         
         private Character _player;
         private Coroutine _shootCoroutine;
@@ -52,7 +53,7 @@ namespace Level.Objects
         {
             var projectileObj = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
             if (!projectileObj.TryGetComponent(out Projectile projectile)) return;
-            projectile.Initialize(_player.transform);
+            if(_player)projectile.Initialize(_player.transform);
             OnShoot.Invoke();
         }
         

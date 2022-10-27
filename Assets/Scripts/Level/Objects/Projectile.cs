@@ -2,21 +2,27 @@ using System;
 using System.Collections;
 using Architecture;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Level.Objects
 {
+   [RequireComponent(typeof(Rigidbody2D))]
    public class Projectile : Resettable
    {
       [SerializeField] protected float _speed;
       [SerializeField] private float _lifeTimeInSeconds;
       protected Transform _target;
+      protected Rigidbody2D rb;
+
+      public UnityEvent OnCollision;
 
       private void Awake()
       {
          StartCoroutine(DestroyAfterSeconds_Co());
+         rb = GetComponent<Rigidbody2D>();
       }
-      
-      private void FixedUpdate()
+
+      protected virtual void FixedUpdate()
       {
          ChaseTarget();
       }
@@ -36,9 +42,10 @@ namespace Level.Objects
       private void OnTriggerEnter2D(Collider2D col)
       {
          Destroy(gameObject);
+         OnCollision?.Invoke();
       }
 
-      public void Initialize(Transform target)
+      virtual public void Initialize(Transform target)
       {
          _target = target;
       }
