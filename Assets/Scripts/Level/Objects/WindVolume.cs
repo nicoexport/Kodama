@@ -7,7 +7,8 @@ namespace Level.Objects
    {
       [SerializeField] private Transform _directionTransform;
       [SerializeField] private float _strength = 20f; 
-      private Vector3 _direction => (_directionTransform.position - transform.position).normalized;
+      private Vector3 _direction => ((_directionTransform.position - _directionTransform.right) 
+                                    - (_directionTransform.position + _directionTransform.right)).normalized;
 
       private void OnTriggerStay2D(Collider2D other)
       {
@@ -16,13 +17,17 @@ namespace Level.Objects
             rb.AddForce(_direction * _strength, ForceMode2D.Force);
          }
       }
-
+      
       private void OnDrawGizmos()
       {
-         Gizmos.color = Color.green;
          var directionPosition = _directionTransform.position;
-         Gizmos.DrawLine(transform.position, directionPosition);
-         Gizmos.DrawWireSphere(directionPosition, 0.3f);
+         var right = _directionTransform.right;
+         var pos1 = directionPosition + right;
+         var pos2 = directionPosition - right;
+         
+         Gizmos.color = Color.magenta;
+         Gizmos.DrawLine(pos1, pos2);
+         Gizmos.DrawWireSphere(pos2, 0.3f);
       }
    }
 }
