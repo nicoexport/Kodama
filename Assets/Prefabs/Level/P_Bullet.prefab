@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -5995833005267438050}
   - component: {fileID: 7629341449764874318}
   - component: {fileID: 5982676739053158439}
+  - component: {fileID: -4051405549561919260}
   m_Layer: 0
   m_Name: P_Bullet
   m_TagString: Untagged
@@ -164,6 +165,22 @@ MonoBehaviour:
   _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
   _speed: 20
   _lifeTimeInSeconds: 3
+  _collisionIgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 4
   OnCollision:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-4051405549561919260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996447754815156497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1db6c2304684405a58974084d5a0113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cooldown: 0.2

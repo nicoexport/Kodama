@@ -9,8 +9,16 @@ namespace Level.Objects
          
       }
       
-      public override void Initialize(Transform target)
+      public override void Initialize(Transform target, float lifeTimeInSeconds)
       {
+         base.Initialize(target, lifeTimeInSeconds);
+         var dir = (target.position - transform.position).normalized;
+         rb.AddForce(dir * _speed, ForceMode2D.Impulse);
+      }
+
+      public override void Initialize(Transform target, float lifeTimeInSeconds, float speed)
+      {
+         base.Initialize(target, lifeTimeInSeconds, speed);
          var dir = (target.position - transform.position).normalized;
          rb.AddForce(dir * _speed, ForceMode2D.Impulse);
       }

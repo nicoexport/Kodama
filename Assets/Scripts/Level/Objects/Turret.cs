@@ -9,13 +9,15 @@ namespace Level.Objects
 {
     public class Turret : Resettable
     {
-        [SerializeField] private GameObject _projectilePrefab;
         [SerializeField] private CharacterRuntimeSet _playerRuntimeSet;
+        [SerializeField] private GameObject _projectilePrefab;
+        [SerializeField] private float _projectileLifetimeInSeconds;
+        [SerializeField] private float _projectileSpeed;
         [SerializeField] private float _range;
         [SerializeField] private float _cooldownInSeconds;
         [SerializeField] private float _heatupInSeconds;
         [SerializeField] private bool _needsLineOfSight;
-        [SerializeField] private LayerMask _whatIsPlayer;
+        [SerializeField] private LayerMask _whatToIgnore;
         
         private Character _player;
         private Coroutine _shootCoroutine;
@@ -63,9 +65,8 @@ namespace Level.Objects
         {
             if (!_needsLineOfSight) return true;
             var position = transform.position;
-            var dir = -(position - _player.transform.position);
-            var res = Physics2D.Raycast(position, dir, _range);
-            Debug.Log(res.collider.CompareTag("Player"));
+            var dir = - (position - _player.transform.position);
+            var res = Physics2D.Raycast(position, dir, _range, ~_whatToIgnore);
             return (res.collider.CompareTag("Player"));
         }
         
@@ -73,7 +74,7 @@ namespace Level.Objects
         {
             var projectileObj = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
             if (!projectileObj.TryGetComponent(out Projectile projectile)) return;
-            if(_player)projectile.Initialize(_player.transform);
+            if(_player)projectile.Initialize(_player.transform, _projectileLifetimeInSeconds, _projectileSpeed);
             OnShoot.Invoke();
         }
         

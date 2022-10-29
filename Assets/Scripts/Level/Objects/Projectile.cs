@@ -10,15 +10,14 @@ namespace Level.Objects
    public class Projectile : Resettable
    {
       [SerializeField] protected float _speed;
-      [SerializeField] private float _lifeTimeInSeconds;
+      [SerializeField] private LayerMask _collisionIgnoreLayers;
       protected Transform _target;
       protected Rigidbody2D rb;
-
+      
       public UnityEvent OnCollision;
 
       private void Awake()
       {
-         StartCoroutine(DestroyAfterSeconds_Co());
          rb = GetComponent<Rigidbody2D>();
       }
 
@@ -33,27 +32,34 @@ namespace Level.Objects
          transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed / 10f);
       }
 
-      private IEnumerator DestroyAfterSeconds_Co()
+      private IEnumerator DestroyAfterSeconds_Co(float lifeTimeInSeconds)
       {
-         yield return new WaitForSeconds(_lifeTimeInSeconds);
+         yield return new WaitForSeconds(lifeTimeInSeconds);
          Destroy(gameObject);
       }
 
       private void OnTriggerEnter2D(Collider2D col)
       {
+         if (_collisionIgnoreLayers == (_collisionIgnoreLayers | 1 << col.gameObject.layer))
+         {
+            Debug.Log(col.gameObject.layer);
+            return;
+         }
          Destroy(gameObject);
          OnCollision?.Invoke();
       }
 
-      virtual public void Initialize(Transform target)
+      public virtual void Initialize(Transform target, float lifeTimeInSeconds)
       {
          _target = target;
+         StartCoroutine(DestroyAfterSeconds_Co(lifeTimeInSeconds));
       }
       
-      public void Initialize(Transform target, float speed)
+      public virtual void Initialize(Transform target, float lifeTimeInSeconds, float speed)
       {
          _target = target;
          _speed = speed;
+         StartCoroutine(DestroyAfterSeconds_Co(lifeTimeInSeconds));
       }
 
       public override void OnLevelReset()
