@@ -2,7 +2,6 @@ using System;
 using Architecture;
 using Audio;
 using Data;
-using Level.Logic;
 using Scriptable.Channels;
 using TMPro;
 using UnityEngine;
@@ -12,8 +11,7 @@ using Utility;
 
 namespace UI
 {
-    public class LevelSummary : MonoBehaviour
-    {
+    public class LevelSummary : Resettable {
         [SerializeField] private GameObject summaryButtons;
         [SerializeField] private GameObject levelFinishedTimerUI;
         [SerializeField] private float timerRevealDelay = 1f;
@@ -34,6 +32,7 @@ namespace UI
 
         protected void OnEnable()
         {
+            base.OnEnable();
             _onLevelTimerFinishedChannel.OnEventRaised += DisplayLevelFinishedTimer;
             _onLevelCompleteChannel.OnEventRaised += EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started += LoadNextLevel;
@@ -47,12 +46,22 @@ namespace UI
 
         protected void OnDisable()
         {
+            base.OnDisable();
             _onLevelTimerFinishedChannel.OnEventRaised -= DisplayLevelFinishedTimer;
             _onLevelCompleteChannel.OnEventRaised -= EnableSummary;
             InputManager.playerInputActions.LevelSummary.Continue.started -= LoadNextLevel;
             InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWordSelect;
         }
-        
+
+        public override void OnLevelReset()
+        {
+            _canReturn = false;
+            summaryButtons.SetActive(false);
+            _timerText.gameObject.SetActive(false);
+            _recordText.gameObject.SetActive(false);
+            levelFinishedTimerUI.SetActive(false);
+        }
+
 
         private void EnableSummary(LevelData levelData)
         {
