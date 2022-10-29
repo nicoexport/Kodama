@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 289783669254655661, guid: 36e547b4a09fe724ea2b615a36c64045, type: 3}
+      propertyPath: _resettableRuntimeSet
+      value: 
+      objectReference: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
     - target: {fileID: 785141294512904644, guid: 36e547b4a09fe724ea2b615a36c64045, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class GameUI : MonoBehaviour
+    public class GameUI : Resettable
     {
         [SerializeField] private CharacterRuntimeSet characterRuntimeSet;
         [SerializeField] private GameObject keyIcon;
@@ -18,41 +18,36 @@ namespace UI
         [Header("Channels")] 
         [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             _onLevelCompleteChannel.OnEventRaised += DisableGameUI;
             HellCollider.OnTriggerEntered += FadeOut;
         }
 
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             _onLevelCompleteChannel.OnEventRaised -= DisableGameUI;
             HellCollider.OnTriggerEntered -= FadeOut;
         }
 
-        public void SetKeyIcon()
+        public override void OnLevelReset()
         {
-            var inv = characterRuntimeSet.GetItemAtIndex(0).GetComponent<CharacterInventory>();
-            if (inv == null) return;
-            if (inv.GetKeys() > 0) keyIcon.SetActive(true);
-            else keyIcon.SetActive(false);
+            EnableGameUI();
         }
 
         [ContextMenu("DisableGameUI")]
         private void DisableGameUI(LevelData levelData)
         {
-            keyIconBackground.SetActive(false);
-            keyIcon.SetActive(false);
             levelTimerUI.SetActive(false);
         }
 
         [ContextMenu("EnableGameUI")]
         private void EnableGameUI()
         {
-            keyIconBackground.SetActive(true);
             levelTimerUI.SetActive(true);
-            SetKeyIcon();
         }
 
         private void FadeOut(float f)
