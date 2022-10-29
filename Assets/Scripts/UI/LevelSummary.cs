@@ -30,7 +30,7 @@ namespace UI
 
         private bool _canReturn;
 
-        protected void OnEnable()
+        protected override void OnEnable()
         {
             base.OnEnable();
             _onLevelTimerFinishedChannel.OnEventRaised += DisplayLevelFinishedTimer;
@@ -44,7 +44,7 @@ namespace UI
             levelFinishedTimerUI.SetActive(false);
         }
 
-        protected void OnDisable()
+        protected override void OnDisable()
         {
             base.OnDisable();
             _onLevelTimerFinishedChannel.OnEventRaised -= DisplayLevelFinishedTimer;
