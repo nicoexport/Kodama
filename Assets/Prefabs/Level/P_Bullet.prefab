@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -57663878, guid: 9343f1273bc308141ab3b50e09b2b0a4, type: 3}
+  m_Sprite: {fileID: -1954626997, guid: 9343f1273bc308141ab3b50e09b2b0a4, type: 3}
   m_Color: {r: 0.76470596, g: 0.2392157, b: 0.2392157, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -164,3 +164,6 @@ MonoBehaviour:
   _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
   _speed: 20
   _lifeTimeInSeconds: 3
+  OnCollision:
+    m_PersistentCalls:
+      m_Calls: []

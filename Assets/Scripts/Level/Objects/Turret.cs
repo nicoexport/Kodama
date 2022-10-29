@@ -20,7 +20,8 @@ namespace Level.Objects
         private Character _player;
         private Coroutine _shootCoroutine;
         private bool _canShoot => (_player || _playerRuntimeSet.TryGetFirst(out _player))
-                                  && Vector2.Distance(transform.position, _player.transform.position) <= _range;
+                                  && Vector2.Distance(transform.position, _player.transform.position) <= _range
+                                  && HasLineOfSight();
 
         public UnityEvent OnStartHeatUp;
         public UnityEvent OnShoot;
@@ -38,12 +39,9 @@ namespace Level.Objects
             while (true)
             {
                 yield return new WaitUntil(()=> _canShoot);
-                if (HasLineOfSight())
-                {
-                    Heatup();
-                    yield return new WaitForSeconds(_heatupInSeconds);
-                }
-                if (HasLineOfSight())
+                Heatup();
+                yield return new WaitForSeconds(_heatupInSeconds);
+                if (_canShoot)
                 {
                     Shoot();
                     yield return new WaitForSeconds(_cooldownInSeconds);
