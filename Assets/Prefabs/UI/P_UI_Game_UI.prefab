@@ -32,7 +32,7 @@ Transform:
   - {fileID: 6121057404035394130}
   - {fileID: 1508860070287125136}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &708720718555027490
 PrefabInstance:
@@ -182,6 +182,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5635416212214770522, guid: 75d15683b95cfaa4683eb8950dbac536, type: 3}
+      propertyPath: _resettableRuntimeSet
+      value: 
+      objectReference: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
     - target: {fileID: 8584030211181971273, guid: 75d15683b95cfaa4683eb8950dbac536, type: 3}
       propertyPath: m_Name
       value: P_HUD_Level
