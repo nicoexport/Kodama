@@ -547,9 +547,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 079252186731bf74fb019016356961e7, type: 3}
---- !u!66 &851327712 stripped
-CompositeCollider2D:
-  m_CorrespondingSourceObject: {fileID: 5578335809303340114, guid: 079252186731bf74fb019016356961e7, type: 3}
+--- !u!61 &984121510 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 4249664949877045773, guid: 079252186731bf74fb019016356961e7, type: 3}
   m_PrefabInstance: {fileID: 753642369}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1103090466
@@ -1205,7 +1205,7 @@ PrefabInstance:
     - target: {fileID: 1923460311, guid: f0bee3f910771944d9608f19f2bceaf0, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
-      objectReference: {fileID: 851327712}
+      objectReference: {fileID: 984121510}
     - target: {fileID: 544820478708125637, guid: f0bee3f910771944d9608f19f2bceaf0, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -27876,6 +27876,14 @@ PrefabInstance:
     - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_BackGroundColor.r
       value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0.003215434
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 0.99206185
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726031, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_RootOrder

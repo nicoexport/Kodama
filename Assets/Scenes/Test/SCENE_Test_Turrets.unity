@@ -175,6 +175,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3818251927083816081, guid: 52e42ab9860372449bbcfef7f235c6d0, type: 3}
+      propertyPath: _projectileSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3818251927083816081, guid: 52e42ab9860372449bbcfef7f235c6d0, type: 3}
+      propertyPath: _needsLineOfSight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3818251927083816081, guid: 52e42ab9860372449bbcfef7f235c6d0, type: 3}
+      propertyPath: _projectileLifetimeInSeconds
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3818251927083816083, guid: 52e42ab9860372449bbcfef7f235c6d0, type: 3}
       propertyPath: m_Name
       value: P_Turret
@@ -254,10 +266,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1227691553656901608, guid: 36e547b4a09fe724ea2b615a36c64045, type: 3}
-      propertyPath: _resettableRuntimeSet
-      value: 
-      objectReference: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
     - target: {fileID: 6121057403864693160, guid: 36e547b4a09fe724ea2b615a36c64045, type: 3}
       propertyPath: m_Name
       value: P_UI_Game_UI
@@ -1202,6 +1210,10 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 851327712}
+    - target: {fileID: 544820478708125636, guid: f0bee3f910771944d9608f19f2bceaf0, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.7777778
+      objectReference: {fileID: 0}
     - target: {fileID: 544820478708125637, guid: f0bee3f910771944d9608f19f2bceaf0, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -27872,6 +27884,14 @@ PrefabInstance:
     - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_BackGroundColor.r
       value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0.003215434
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 0.99206185
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726031, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_RootOrder

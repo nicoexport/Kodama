@@ -967,6 +967,10 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 851327712}
+    - target: {fileID: 544820478708125636, guid: f0bee3f910771944d9608f19f2bceaf0, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.7777778
+      objectReference: {fileID: 0}
     - target: {fileID: 544820478708125637, guid: f0bee3f910771944d9608f19f2bceaf0, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -13437,6 +13441,14 @@ PrefabInstance:
     - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_BackGroundColor.r
       value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0.003215434
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 0.99206185
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726031, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_RootOrder
