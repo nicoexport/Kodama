@@ -1,4 +1,3 @@
-using System;
 using Cinemachine;
 using GameManagement;
 using Player;
@@ -10,7 +9,7 @@ namespace Level.Logic
    {
       [SerializeField] private GameObjectRuntimeSet _cinemachineRuntimeSet;
       [SerializeField] private CharacterRuntimeSet _playerRuntimeSet;
-      private Collider2D _playerCollider;
+      private Transform _playerTransform;
       private Collider2D _collider;
       private Rigidbody2D _rb;
 
@@ -28,7 +27,7 @@ namespace Level.Logic
 
       private void Update()
       {
-        if (_playerCollider == null) 
+        if (_playerTransform == null) 
            GetPlayerCollider();
         else
            CheckBounds();
@@ -37,19 +36,19 @@ namespace Level.Logic
       private void GetPlayerCollider()
       {
          if (_playerRuntimeSet.TryGetFirst(out Character player))
-            player.gameObject.TryGetComponent(out _playerCollider);
-         
+            _playerTransform = player.transform;
+
       }
 
       private void CheckBounds()
       {
-         if(!_rb.OverlapPoint(_playerCollider.transform.position))
-            Test();
+         if(!_rb.OverlapPoint(_playerTransform.position))
+            KillPlayer();
       }
 
-      private void Test()
+      private void KillPlayer()
       {
-         if (_playerCollider.TryGetComponent(out PlayerHealth health))
+         if (_playerTransform.TryGetComponent(out PlayerHealth health))
          {
             health.Die();
          }
