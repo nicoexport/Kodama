@@ -2,11 +2,9 @@ using System;
 using Scriptable;
 using UnityEngine;
 
-namespace Data
-{
+namespace Data {
     [Serializable]
-    public class LevelData
-    {
+    public class LevelData {
         public bool Visited;
         public bool Completed;
         public float RecordTime = Mathf.Infinity;
@@ -16,8 +14,7 @@ namespace Data
         private Sprite LevelImage;
 
 
-        public LevelData(LevelDataSO levelDataSO)
-        {
+        public LevelData(LevelDataSO levelDataSO) {
             ScenePath = levelDataSO.ScenePath;
             LevelName = levelDataSO.LevelName;
             LevelImage = levelDataSO.LevelImage;
@@ -26,9 +23,11 @@ namespace Data
 
         public bool Unlocked { get; set; } = false;
 
-        public bool UpdateRecordTime(float time)
-        {
-            if (!(time < RecordTime)) return false;
+        public bool UpdateRecordTime(float time) {
+            if (!(time < RecordTime)) {
+                return false;
+            }
+
             RecordTime = time;
             return true;
         }

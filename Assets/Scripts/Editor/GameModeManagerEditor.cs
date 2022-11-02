@@ -1,13 +1,10 @@
 using Architecture;
 using UnityEditor;
 
-namespace Editor
-{
+namespace Editor {
     [CustomEditor(typeof(GameModeManager))]
-    public class GameModeManagerEditor : UnityEditor.Editor
-    {
-        public override void OnInspectorGUI()
-        {
+    public class GameModeManagerEditor : UnityEditor.Editor {
+        public override void OnInspectorGUI() {
             base.OnInspectorGUI();
 
             var manager = target as GameModeManager;
@@ -25,9 +22,8 @@ namespace Editor
                 EditorGUILayout.ObjectField("Worlds Screen Scene", oldWorldsScreenScene, typeof(SceneAsset), false) as
                     SceneAsset;
 
-            if (EditorGUI.EndChangeCheck())
-            {
-                var newPath = AssetDatabase.GetAssetPath(newMainMenuScene);
+            if (EditorGUI.EndChangeCheck()) {
+                string newPath = AssetDatabase.GetAssetPath(newMainMenuScene);
 
                 var scenePathProperty = serializedObject.FindProperty("MainMenuScenePath");
                 scenePathProperty.stringValue = newPath;

@@ -1,9 +1,7 @@
 using System.Collections;
 
-namespace Architecture
-{
-    public interface IGameMode
-    {
+namespace Architecture {
+    public interface IGameMode {
         GameModeState _state { get; }
         string _activeScene { get; }
         IEnumerator OnStart();
@@ -11,8 +9,7 @@ namespace Architecture
         void OnEditorStart();
     }
 
-    public enum GameModeState
-    {
+    public enum GameModeState {
         Starting,
         Started,
         Ending,

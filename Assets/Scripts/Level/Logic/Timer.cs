@@ -1,37 +1,26 @@
 using Architecture;
 using UnityEngine;
 
-namespace Level.Logic
-{
-    public abstract class Timer : Resettable
-    {
+namespace Level.Logic {
+    public abstract class Timer : Resettable {
         protected bool count;
         protected float timer;
 
-        public virtual void FixedUpdate()
-        {
-            if (count) CountUpTimer();
+        public virtual void FixedUpdate() {
+            if (count) {
+                CountUpTimer();
+            }
         }
 
-        public virtual void StartTimer()
-        {
-            count = true;
-        }
+        public virtual void StartTimer() => count = true;
 
-        public virtual void PauseTimer()
-        {
-            count = false;
-        }
+        public virtual void PauseTimer() => count = false;
 
-        public virtual void StopTimer()
-        {
+        public virtual void StopTimer() {
             timer = 0.0f;
             count = false;
         }
 
-        public virtual void CountUpTimer()
-        {
-            timer += Time.deltaTime;
-        }
+        public virtual void CountUpTimer() => timer += Time.deltaTime;
     }
 }

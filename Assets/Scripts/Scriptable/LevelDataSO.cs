@@ -1,11 +1,9 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Scriptable
-{
+namespace Scriptable {
     [CreateAssetMenu(menuName = "Game Data/Level Data")]
-    public class LevelDataSO : ScriptableObject
-    {
+    public class LevelDataSO : ScriptableObject {
         [FormerlySerializedAs("_scenePath")] public string ScenePath;
 
         public string LevelName;
@@ -16,10 +14,10 @@ namespace Scriptable
 
         public float RecordTime = Mathf.Infinity;
 
-        public void UpdateRecordTime(float time)
-        {
-            if (time < RecordTime)
+        public void UpdateRecordTime(float time) {
+            if (time < RecordTime) {
                 RecordTime = time;
+            }
         }
     }
 }

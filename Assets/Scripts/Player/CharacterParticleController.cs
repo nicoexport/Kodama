@@ -1,9 +1,7 @@
 using UnityEngine;
 
-namespace Player
-{
-    public class CharacterParticleController : MonoBehaviour
-    {
+namespace Player {
+    public class CharacterParticleController : MonoBehaviour {
         [SerializeField] private ParticleSystem _walkingDust;
         [SerializeField] private ParticleSystem _wallDust;
         [SerializeField] private ParticleSystem _landDust;
@@ -11,27 +9,16 @@ namespace Player
 
         private CharacterAnimationController _animController;
 
-        private void Awake()
-        {
-            _animController = GetComponent<CharacterAnimationController>();
-        }
+        private void Awake() => _animController = GetComponent<CharacterAnimationController>();
 
-        private void OnEnable()
-        {
-            _animController.OnAnimationStateChange += HandleAnimationStateChange;
-        }
+        private void OnEnable() => _animController.OnAnimationStateChange += HandleAnimationStateChange;
 
-        private void OnDisable()
-        {
-            _animController.OnAnimationStateChange -= HandleAnimationStateChange;
-        }
+        private void OnDisable() => _animController.OnAnimationStateChange -= HandleAnimationStateChange;
 
-        private void HandleAnimationStateChange(string currentAnimState, string newAnimState, float speed)
-        {
+        private void HandleAnimationStateChange(string currentAnimState, string newAnimState, float speed) {
             _leafGlimmer.Stop();
 
-            switch (currentAnimState)
-            {
+            switch (currentAnimState) {
                 case CharacterAnimationController.idle:
                     break;
 
@@ -65,15 +52,14 @@ namespace Player
                     break;
             }
 
-            switch (newAnimState)
-            {
+            switch (newAnimState) {
                 case CharacterAnimationController.landing:
                     _landDust.Stop();
                     _landDust.Play();
                     break;
                 case CharacterAnimationController.idle:
-                    if (currentAnimState is CharacterAnimationController.falling or CharacterAnimationController.fallingTransition)
-                    {
+                    if (currentAnimState is CharacterAnimationController.falling
+                        or CharacterAnimationController.fallingTransition) {
                         _landDust.Stop();
                         _landDust.Play();
                     }

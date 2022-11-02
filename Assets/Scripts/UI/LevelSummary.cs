@@ -9,8 +9,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using Utility;
 
-namespace UI
-{
+namespace UI {
     public class LevelSummary : Resettable {
         [SerializeField] private GameObject summaryButtons;
         [SerializeField] private GameObject levelFinishedTimerUI;
@@ -24,14 +23,13 @@ namespace UI
 
         [Range(0.1f, 2f)] [SerializeField] private float _recordWaveLength;
 
-        [Header("Channels")] 
-        [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
+        [Header("Channels")] [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
+
         [SerializeField] private FloatBoolEventChannelSO _onLevelTimerFinishedChannel;
 
         private bool _canReturn;
 
-        protected override void OnEnable()
-        {
+        protected override void OnEnable() {
             base.OnEnable();
             _onLevelTimerFinishedChannel.OnEventRaised += DisplayLevelFinishedTimer;
             _onLevelCompleteChannel.OnEventRaised += EnableSummary;
@@ -44,8 +42,7 @@ namespace UI
             levelFinishedTimerUI.SetActive(false);
         }
 
-        protected override void OnDisable()
-        {
+        protected override void OnDisable() {
             base.OnDisable();
             _onLevelTimerFinishedChannel.OnEventRaised -= DisplayLevelFinishedTimer;
             _onLevelCompleteChannel.OnEventRaised -= EnableSummary;
@@ -53,8 +50,7 @@ namespace UI
             InputManager.playerInputActions.LevelSummary.Return.started -= ReturnToWordSelect;
         }
 
-        public override void OnLevelReset()
-        {
+        public override void OnLevelReset() {
             _canReturn = false;
             summaryButtons.SetActive(false);
             _timerText.gameObject.SetActive(false);
@@ -63,58 +59,56 @@ namespace UI
         }
 
 
-        private void EnableSummary(LevelData levelData)
-        {
+        private void EnableSummary(LevelData levelData) {
             AudioManager.Instance.StopMusic();
             InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSummary);
 
-            StartCoroutine(Utilities.ActionAfterDelayEnumerator(2f, () =>
-            {
+            StartCoroutine(Utilities.ActionAfterDelayEnumerator(2f, () => {
                 _canReturn = true;
                 ToggleButtons(InputManager.playerInputActions.LevelSummary);
             }));
         }
 
-        private void ToggleButtons(InputActionMap actionMap)
-        {
+        private void ToggleButtons(InputActionMap actionMap) {
             InputActionMap summaryActionMap = InputManager.playerInputActions.LevelSummary;
-            if (actionMap == summaryActionMap)
+            if (actionMap == summaryActionMap) {
                 summaryButtons.SetActive(true);
-            else
+            } else {
                 summaryButtons.SetActive(false);
+            }
         }
 
-        private void DisplayLevelFinishedTimer(float timer, bool newRecord)
-        {
-            StartCoroutine(Utilities.ActionAfterDelayEnumerator(timerRevealDelay, () =>
-            {
+        private void DisplayLevelFinishedTimer(float timer, bool newRecord) =>
+            StartCoroutine(Utilities.ActionAfterDelayEnumerator(timerRevealDelay, () => {
                 levelFinishedTimerUI.SetActive(true);
                 _timerText.gameObject.SetActive(true);
                 var span = TimeSpan.FromSeconds(timer);
                 _timerText.text = span.ToString("mm") + " : " + span.ToString("ss") + " : " + span.ToString("ff");
-                if (newRecord) StartCoroutine(Utilities.ActionAfterDelayEnumerator(0.5f, DisplayRecordsText));
+                if (newRecord) {
+                    StartCoroutine(Utilities.ActionAfterDelayEnumerator(0.5f, DisplayRecordsText));
+                }
             }));
-        }
 
-        private void DisplayRecordsText()
-        {
+        private void DisplayRecordsText() {
             _recordText.gameObject.SetActive(true);
             var rectTransform = _recordText.GetComponent<RectTransform>();
             LeanTween.scale(rectTransform, rectTransform.localScale * _recordScale, _recordWaveLength)
                 .setLoopPingPong();
         }
 
-        private void LoadNextLevel(InputAction.CallbackContext obj)
-        {
-            if (!_canReturn)
+        private void LoadNextLevel(InputAction.CallbackContext obj) {
+            if (!_canReturn) {
                 return;
+            }
+
             LevelManager.Instance.LoadNextLevel();
         }
 
-        private void ReturnToWordSelect(InputAction.CallbackContext obj)
-        {
-            if (!_canReturn)
+        private void ReturnToWordSelect(InputAction.CallbackContext obj) {
+            if (!_canReturn) {
                 return;
+            }
+
             LevelManager.Instance.FinishAndReturnToWorldSelect();
         }
     }

@@ -4,17 +4,14 @@ using UnityEngine.Assertions;
 using UnityEngine.Pool;
 using Object = UnityEngine.Object;
 
-namespace Pooling
-{
-    public class GameObjectPool : IDisposable
-    {
+namespace Pooling {
+    public class GameObjectPool : IDisposable {
         private readonly Transform _parent;
         private readonly IObjectPool<GameObject> _pool;
         private readonly GameObject _prefab;
         public readonly int capacity;
 
-        public GameObjectPool(Transform parent, GameObject prefab, int capacity)
-        {
+        public GameObjectPool(Transform parent, GameObject prefab, int capacity) {
             Assert.IsTrue(parent);
             _prefab = prefab;
             _parent = parent;
@@ -29,8 +26,7 @@ namespace Pooling
             );
         }
 
-        public GameObjectPool(Transform parent, int capacity)
-        {
+        public GameObjectPool(Transform parent, int capacity) {
             Assert.IsTrue(parent);
             _parent = parent;
             this.capacity = capacity;
@@ -44,51 +40,31 @@ namespace Pooling
             );
         }
 
-        public void Dispose()
-        {
-            _pool.Clear();
-        }
+        public void Dispose() => _pool.Clear();
 
         public event Action<GameObject> onInstantiate;
 
-        private void DestroyInstance(GameObject obj)
-        {
-            Object.Destroy(obj);
-        }
+        private void DestroyInstance(GameObject obj) => Object.Destroy(obj);
 
-        private void DisableInstance(GameObject obj)
-        {
-            obj.SetActive(false);
-        }
+        private void DisableInstance(GameObject obj) => obj.SetActive(false);
 
-        private void EnableInstance(GameObject obj)
-        {
-            obj.SetActive(true);
-        }
+        private void EnableInstance(GameObject obj) => obj.SetActive(true);
 
-        private GameObject InstantiateInstance()
-        {
+        private GameObject InstantiateInstance() {
             var obj = Object.Instantiate(_prefab, _parent);
             onInstantiate?.Invoke(obj);
             return obj;
         }
 
-        private GameObject CreateInstance()
-        {
+        private GameObject CreateInstance() {
             var obj = new GameObject();
             obj.transform.parent = _parent;
             onInstantiate?.Invoke(obj);
             return obj;
         }
 
-        public GameObject Request()
-        {
-            return _pool.Get();
-        }
+        public GameObject Request() => _pool.Get();
 
-        public void Return(GameObject obj)
-        {
-            _pool.Release(obj);
-        }
+        public void Return(GameObject obj) => _pool.Release(obj);
     }
 }

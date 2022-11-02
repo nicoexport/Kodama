@@ -1,7 +1,5 @@
-namespace Architecture
-{
-    public interface IContextManager
-    {
+namespace Architecture {
+    public interface IContextManager {
         void OnGameModeStarted();
     }
 }

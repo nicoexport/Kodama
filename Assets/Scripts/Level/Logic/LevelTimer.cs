@@ -4,30 +4,28 @@ using Data;
 using Scriptable.Channels;
 using UnityEngine;
 
-namespace Level.Logic
-{
-    public class LevelTimer : Timer
-    {
-        [Header("Channels")]
-        [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
+namespace Level.Logic {
+    public class LevelTimer : Timer {
+        [Header("Channels")] [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
+
         [SerializeField] private FloatBoolEventChannelSO _onLevelTimerFinished;
-        
-        public override void FixedUpdate()
-        {
-            if (!count) return;
+
+        public override void FixedUpdate() {
+            if (!count) {
+                return;
+            }
+
             CountUpTimer();
             OnTimerChanged?.Invoke(timer);
         }
 
-        protected override void OnEnable()
-        {
+        protected override void OnEnable() {
             base.OnEnable();
             _onLevelCompleteChannel.OnEventRaised += FinishTimer;
             // PlayerManager.OnPlayerDied += StopTimer;
         }
 
-        protected override void OnDisable()
-        {
+        protected override void OnDisable() {
             base.OnDisable();
             _onLevelCompleteChannel.OnEventRaised -= FinishTimer;
             // PlayerManager.OnPlayerDied -= StopTimer;
@@ -35,30 +33,23 @@ namespace Level.Logic
 
         public static event Action<float> OnTimerChanged;
 
-        private void FinishTimer(LevelData levelData)
-        {
+        private void FinishTimer(LevelData levelData) {
             PauseTimer();
             bool newRecord = false;
-            if (LevelManager.Instance.CheckLevelData())
-            {
-               newRecord = LevelManager.Instance.CurrentLevelData.UpdateRecordTime(timer);
-            }
-            else
-            {
+            if (LevelManager.Instance.CheckLevelData()) {
+                newRecord = LevelManager.Instance.CurrentLevelData.UpdateRecordTime(timer);
+            } else {
                 newRecord = true;
             }
+
             _onLevelTimerFinished.RaiseEvent(timer, newRecord);
         }
 
-        private void RestartTimer()
-        {
+        private void RestartTimer() {
             StopTimer();
             StartTimer();
         }
-        
-        public override void OnLevelReset()
-        {
-            RestartTimer();
-        }
+
+        public override void OnLevelReset() => RestartTimer();
     }
 }

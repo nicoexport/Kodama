@@ -1,10 +1,8 @@
 using Architecture;
 using UnityEngine;
 
-namespace GameManagement
-{
+namespace GameManagement {
     [CreateAssetMenu(menuName = "RuntimeSets/Resettable")]
-    public class ResettableRuntimeSet : RuntimeSet<Resettable>
-    {
+    public class ResettableRuntimeSet : RuntimeSet<Resettable> {
     }
 }

@@ -1,19 +1,11 @@
 using UnityEngine;
 
-namespace GameManagement
-{
-    public class AddTransformToRuntimeSet : MonoBehaviour
-    {
+namespace GameManagement {
+    public class AddTransformToRuntimeSet : MonoBehaviour {
         [SerializeField] private TransformRuntimeSet transformRuntimeSet;
 
-        private void OnEnable()
-        {
-            transformRuntimeSet.AddToList(transform);
-        }
+        private void OnEnable() => transformRuntimeSet.AddToList(transform);
 
-        private void OnDisable()
-        {
-            transformRuntimeSet.RemoveFromList(transform);
-        }
+        private void OnDisable() => transformRuntimeSet.RemoveFromList(transform);
     }
 }

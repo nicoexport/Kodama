@@ -2,10 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-namespace Player
-{
-    public class CharacterVisualEffectController : MonoBehaviour
-    {
+namespace Player {
+    public class CharacterVisualEffectController : MonoBehaviour {
         [SerializeField] private VisualEffect _walkingDust;
         [SerializeField] private VisualEffect _wallDust;
 
@@ -13,27 +11,18 @@ namespace Player
 
         private CharacterAnimationController _animController;
 
-        private void Awake()
-        {
-            _animController = GetComponent<CharacterAnimationController>();
-        }
+        private void Awake() => _animController = GetComponent<CharacterAnimationController>();
 
-        private void OnEnable()
-        {
-            _animController.OnAnimationStateChange += HandleAnimationStateChange;
-        }
+        private void OnEnable() => _animController.OnAnimationStateChange += HandleAnimationStateChange;
 
-        private void OnDisable()
-        {
-            _animController.OnAnimationStateChange -= HandleAnimationStateChange;
-        }
+        private void OnDisable() => _animController.OnAnimationStateChange -= HandleAnimationStateChange;
 
-        private void HandleAnimationStateChange(string currentAnimState, string newAnimState, float speed)
-        {
-            foreach (var effect in _allEffects) effect.Stop();
+        private void HandleAnimationStateChange(string currentAnimState, string newAnimState, float speed) {
+            foreach (var effect in _allEffects) {
+                effect.Stop();
+            }
 
-            switch (newAnimState)
-            {
+            switch (newAnimState) {
                 case CharacterAnimationController.idle:
                     break;
 

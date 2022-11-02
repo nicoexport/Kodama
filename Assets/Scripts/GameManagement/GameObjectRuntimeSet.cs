@@ -1,9 +1,7 @@
 using UnityEngine;
 
-namespace GameManagement
-{
+namespace GameManagement {
     [CreateAssetMenu(menuName = "RuntimeSets/GameObject")]
-    public class GameObjectRuntimeSet : RuntimeSet<GameObject>
-    {
+    public class GameObjectRuntimeSet : RuntimeSet<GameObject> {
     }
 }

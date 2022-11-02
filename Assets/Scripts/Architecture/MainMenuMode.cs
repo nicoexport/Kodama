@@ -2,23 +2,20 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Architecture
-{
-    public class MainMenuMode : IGameMode
-    {
+namespace Architecture {
+    public class MainMenuMode : IGameMode {
         private readonly string _scenePath;
 
-        public MainMenuMode(string scenePath)
-        {
-            _scenePath = scenePath;
-        }
+        public MainMenuMode(string scenePath) => _scenePath = scenePath;
 
         public GameModeState _state { get; private set; } = GameModeState.Ended;
         public string _activeScene { get; private set; }
 
-        public IEnumerator OnStart()
-        {
-            if (_state != GameModeState.Ended) yield break;
+        public IEnumerator OnStart() {
+            if (_state != GameModeState.Ended) {
+                yield break;
+            }
+
             _state = GameModeState.Starting;
 
             _activeScene = _scenePath;
@@ -30,16 +27,14 @@ namespace Architecture
             _state = GameModeState.Started;
         }
 
-        public IEnumerator OnEnd()
-        {
+        public IEnumerator OnEnd() {
             _state = GameModeState.Ending;
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
             Debug.Log("MAIN MENU MODE ENDED");
             _state = GameModeState.Ended;
         }
 
-        public void OnEditorStart()
-        {
+        public void OnEditorStart() {
             _activeScene = SceneManager.GetActiveScene().path;
             _state = GameModeState.Started;
         }

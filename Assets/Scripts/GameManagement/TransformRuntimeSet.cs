@@ -1,9 +1,7 @@
 using UnityEngine;
 
-namespace GameManagement
-{
+namespace GameManagement {
     [CreateAssetMenu(menuName = "RuntimeSets/TransformRuntimeSet")]
-    public class TransformRuntimeSet : RuntimeSet<Transform>
-    {
+    public class TransformRuntimeSet : RuntimeSet<Transform> {
     }
 }

@@ -3,31 +3,21 @@ using Level.Logic;
 using TMPro;
 using UnityEngine;
 
-namespace UI
-{
-    public class UILevelTimer : MonoBehaviour
-    {
+namespace UI {
+    public class UILevelTimer : MonoBehaviour {
         private TextMeshProUGUI textMeshPro;
 
-        private void Start()
-        {
+        private void Start() {
             textMeshPro = GetComponentInChildren<TextMeshProUGUI>();
             var span = TimeSpan.FromSeconds(0f);
             textMeshPro.text = span.ToString("mm") + " : " + span.ToString("ss") + " : " + span.ToString("ff");
         }
 
-        private void OnEnable()
-        {
-            LevelTimer.OnTimerChanged += UpdateTimer;
-        }
+        private void OnEnable() => LevelTimer.OnTimerChanged += UpdateTimer;
 
-        private void OnDisable()
-        {
-            LevelTimer.OnTimerChanged -= UpdateTimer;
-        }
+        private void OnDisable() => LevelTimer.OnTimerChanged -= UpdateTimer;
 
-        private void UpdateTimer(float timer)
-        {
+        private void UpdateTimer(float timer) {
             // textMeshPro.text = TimeSpan.FromSeconds(timer).ToString("mm\\:ss\\:ff");
 
             var span = TimeSpan.FromSeconds(timer);

@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using Scriptable;
 
-namespace Data
-{
+namespace Data {
     [Serializable]
-    public class WorldData
-    {
+    public class WorldData {
         public string WorldName;
         public bool Visited;
         public bool Completed;
@@ -15,20 +13,18 @@ namespace Data
         public List<LevelData> LevelDatas = new();
         private bool _unlocked;
 
-        public WorldData(WorldDataSO worldDataSo)
-        {
+        public WorldData(WorldDataSO worldDataSo) {
             WorldName = worldDataSo.WorldName;
             Style = worldDataSo.WorldStyleSo;
         }
 
-        public bool Unlocked
-        {
+        public bool Unlocked {
             get => _unlocked;
-            set
-            {
+            set {
                 _unlocked = value;
-                if (value)
+                if (value) {
                     LevelDatas[0].Unlocked = true;
+                }
             }
         }
     }

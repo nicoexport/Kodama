@@ -1,8 +1,6 @@
 using UnityEngine;
 
-namespace Audio
-{
-    public class LevelMusic : MonoBehaviour
-    {
+namespace Audio {
+    public class LevelMusic : MonoBehaviour {
     }
 }

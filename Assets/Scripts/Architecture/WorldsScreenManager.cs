@@ -5,10 +5,8 @@ using TMPro;
 using UnityEngine;
 using Utility;
 
-namespace Architecture
-{
-    public class WorldsScreenManager : Singleton<WorldsScreenManager>
-    {
+namespace Architecture {
+    public class WorldsScreenManager : Singleton<WorldsScreenManager> {
         [SerializeField] private SessionData _sessionData;
 
         [SerializeField] private LoadLevelEventChannelSO _loadLevelEventChannel;
@@ -21,30 +19,26 @@ namespace Architecture
 
         private WorldData _currentWorld;
 
-        protected override void Awake()
-        {
+        protected override void Awake() {
             base.Awake();
             _currentWorld = _sessionData.CurrentWorld;
             _currentLevel = _sessionData.CurrentLevel;
             UpdateWorldDisplay();
         }
 
-        private void Start()
-        {
+        private void Start() {
             // StartTestLevel();
         }
 
 
         [ContextMenu("StartLevel")]
-        public void StartLevel()
-        {
+        public void StartLevel() {
             var level = _currentLevel;
             _loadLevelEventChannel.RaiseEventWithScenePath(level.ScenePath, true, true);
         }
 
 
-        private void UpdateWorldDisplay()
-        {
+        private void UpdateWorldDisplay() {
             worldDisplay.text = _currentWorld.WorldName + ": " + _currentLevel.LevelName;
             recordDisplay.text = _currentLevel.RecordTime == Mathf.Infinity
                 ? "NO RECORD"
@@ -52,9 +46,7 @@ namespace Architecture
         }
 
         [ContextMenu("ReturnToMainMenu")]
-        private void ReturnToMainMenu()
-        {
+        private void ReturnToMainMenu() =>
             GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.mainMenuMode);
-        }
     }
 }

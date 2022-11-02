@@ -1,11 +1,9 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace Scriptable
-{
+namespace Scriptable {
     [CreateAssetMenu(fileName = "new Audio Config", menuName = "Audio/AudioConfig", order = 0)]
-    public class AudioConfigSo : ScriptableObject
-    {
+    public class AudioConfigSo : ScriptableObject {
         public AudioMixerGroup OutputAudioMixerGroup;
         [SerializeField] private PriorityLevel _priorityLevel = PriorityLevel.Standard;
 
@@ -34,14 +32,12 @@ namespace Scriptable
         public bool IgnoreListenerPause;
 
         [HideInInspector]
-        public int Priority
-        {
-            get => (int) _priorityLevel;
-            set => _priorityLevel = (PriorityLevel) value;
+        public int Priority {
+            get => (int)_priorityLevel;
+            set => _priorityLevel = (PriorityLevel)value;
         }
 
-        public void ApplyConfigToAudioSource(AudioSource audioSource)
-        {
+        public void ApplyConfigToAudioSource(AudioSource audioSource) {
             audioSource.outputAudioMixerGroup = OutputAudioMixerGroup;
             audioSource.mute = Mute;
             audioSource.bypassEffects = BypassEffects;
@@ -49,7 +45,7 @@ namespace Scriptable
             audioSource.bypassReverbZones = BypassReverbZones;
             audioSource.priority = Priority;
             audioSource.volume = Volume;
-            var pitch = Random.Range(PitchMin, PitchMax);
+            float pitch = Random.Range(PitchMin, PitchMax);
             audioSource.pitch = pitch;
             audioSource.panStereo = PanStereo;
             audioSource.spatialBlend = SpatialBlend;
@@ -63,8 +59,7 @@ namespace Scriptable
             audioSource.ignoreListenerPause = IgnoreListenerPause;
         }
 
-        private enum PriorityLevel
-        {
+        private enum PriorityLevel {
             Highest = 0,
             High = 64,
             Standard = 128,

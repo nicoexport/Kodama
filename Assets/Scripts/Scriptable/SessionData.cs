@@ -4,12 +4,10 @@ using Data;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Scriptable
-{
+namespace Scriptable {
     [Serializable]
     [CreateAssetMenu(menuName = "Game Data/Game Session Data")]
-    public class SessionData : ScriptableObject
-    {
+    public class SessionData : ScriptableObject {
         public string Version;
         public string MainMenuScenePath;
 

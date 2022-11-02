@@ -1,11 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Scriptable
-{
+namespace Scriptable {
     [CreateAssetMenu(fileName = "new Input Button Stylesheet", menuName = "Style/InputButtonStyle", order = 0)]
-    public class InputButtonStyleSheet : ScriptableObject
-    {
+    public class InputButtonStyleSheet : ScriptableObject {
         public InputButtonStyle Keyboard;
         public InputButtonStyle Playstation;
         public InputButtonStyle Xbox;
@@ -13,8 +11,7 @@ namespace Scriptable
     }
 
     [Serializable]
-    public class InputButtonStyle
-    {
+    public class InputButtonStyle {
         public Sprite Up;
         public Sprite Right;
         public Sprite Left;

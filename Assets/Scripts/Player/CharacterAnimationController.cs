@@ -1,11 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Player
-{
+namespace Player {
     [RequireComponent(typeof(Animator))]
-    public class CharacterAnimationController : MonoBehaviour
-    {
+    public class CharacterAnimationController : MonoBehaviour {
         public const string idle = "IDLE";
         public const string running = "RUNNING";
         public const string falling = "FALLING";
@@ -19,47 +17,41 @@ namespace Player
         public const string winning = "WINNING";
         public const string dying = "DYING";
         public const string landing = "LANDING";
-        private string _currentAnimState;
         private static readonly int RunSpeed = Animator.StringToHash("runSpeed");
+        private string _currentAnimState;
         public float Speed { get; private set; }
         public Animator animator { get; private set; }
 
-        private void Awake()
-        {
-            animator = GetComponent<Animator>();
-        }
+        private void Awake() => animator = GetComponent<Animator>();
 
         public event Action<string, string, float> OnAnimationStateChange;
 
         public void SetAnimationState(State state, float horizontalInput, float xVelocity, float maxVelocityX,
-            bool touchingWall)
-        {
+            bool touchingWall) {
             //print("Trying to set animation state");
-            var newAnimState = idle;
+            string newAnimState = idle;
             var currentAnimatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
             Speed = Mathf.Abs(xVelocity / maxVelocityX);
-            switch (state.ToString())
-            {
+            switch (state.ToString()) {
                 case "Player.MovementStates.StandingState":
-                   
-                    if (currentAnimatorStateInfo.IsName(falling) || currentAnimatorStateInfo.IsName(landing))
+
+                    if (currentAnimatorStateInfo.IsName(falling) || currentAnimatorStateInfo.IsName(landing)) {
                         newAnimState = landing;
-                    else
+                    } else {
                         newAnimState = idle;
+                    }
+
                     break;
 
                 case "Player.MovementStates.RunningState":
-                    if (currentAnimatorStateInfo.IsName(falling) || currentAnimatorStateInfo.IsName(landing))
-                    {
+                    if (currentAnimatorStateInfo.IsName(falling) || currentAnimatorStateInfo.IsName(landing)) {
                         newAnimState = landing;
                         break;
                     }
-                    if (touchingWall)
-                    {
+
+                    if (touchingWall) {
                         newAnimState = walkingAgainstWall;
-                    }
-                    else
-                    {
+                    } else {
                         newAnimState = running;
                         animator.SetFloat(RunSpeed, Speed);
                     }
@@ -100,7 +92,10 @@ namespace Player
                     break;
             }
 
-            if (newAnimState == _currentAnimState) return;
+            if (newAnimState == _currentAnimState) {
+                return;
+            }
+
             animator.Play(newAnimState, 0);
             OnAnimationStateChange?.Invoke(_currentAnimState, newAnimState, Speed);
             _currentAnimState = newAnimState;

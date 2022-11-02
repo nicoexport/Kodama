@@ -5,12 +5,9 @@ using Scriptable;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
-{
-    public class MainMenu : MonoBehaviour
-    {
-        public enum MenuState
-        {
+namespace UI {
+    public class MainMenu : MonoBehaviour {
+        public enum MenuState {
             main,
             settings,
             deleteFile
@@ -34,36 +31,21 @@ namespace UI
 
         [SerializeField] private Button _primaryButtonDeleteSave;
 
-        private void Awake()
-        {
-            InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSelectUI);
-        }
+        private void Awake() => InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSelectUI);
 
-        private void Start()
-        {
-            SwitchMenu("main");
-        }
+        private void Start() => SwitchMenu("main");
 
-        public void StartGame()
-        {
+        public void StartGame() {
             GameModeManager.Instance.HandleModeStartRequested(GameModeManager.Instance.playMode);
             AudioManager.Instance.StopMusic();
         }
 
-        public void ResumeGame()
-        {
-            StartGame();
-        }
+        public void ResumeGame() => StartGame();
 
-        public void QuitGame()
-        {
-            Application.Quit();
-        }
+        public void QuitGame() => Application.Quit();
 
-        public void SwitchMenu(string menuName)
-        {
-            switch (menuName)
-            {
+        public void SwitchMenu(string menuName) {
+            switch (menuName) {
                 case "main":
                     settingsCanvas.SetActive(false);
                     mainCanvas.SetActive(true);
@@ -92,8 +74,7 @@ namespace UI
             }
         }
 
-        public void RequestResetSessionData()
-        {
+        public void RequestResetSessionData() {
             print("TO DO: CLEARING SAVE DATA");
             SaveManager.Instance.OnDelete();
         }

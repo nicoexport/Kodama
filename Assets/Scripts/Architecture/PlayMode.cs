@@ -3,23 +3,20 @@ using SaveLoad;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Architecture
-{
-    public class PlayMode : IGameMode
-    {
+namespace Architecture {
+    public class PlayMode : IGameMode {
         private readonly string _scenePath;
 
-        public PlayMode(string scenePath)
-        {
-            _scenePath = scenePath;
-        }
+        public PlayMode(string scenePath) => _scenePath = scenePath;
 
         public GameModeState _state { get; private set; } = GameModeState.Ended;
         public string _activeScene { get; private set; }
 
-        public IEnumerator OnStart()
-        {
-            if (_state != GameModeState.Ended) yield break;
+        public IEnumerator OnStart() {
+            if (_state != GameModeState.Ended) {
+                yield break;
+            }
+
             _state = GameModeState.Starting;
 
             SaveManager.Instance.OnLoad();
@@ -32,8 +29,7 @@ namespace Architecture
             _state = GameModeState.Started;
         }
 
-        public IEnumerator OnEnd()
-        {
+        public IEnumerator OnEnd() {
             _state = GameModeState.Ending;
             SaveManager.Instance.OnSave();
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
@@ -41,8 +37,7 @@ namespace Architecture
             _state = GameModeState.Ended;
         }
 
-        public void OnEditorStart()
-        {
+        public void OnEditorStart() {
 #if UNITY_EDITOR
             SaveManager.Instance.OnLoad();
             _activeScene = SceneManager.GetActiveScene().path;

@@ -2,12 +2,10 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Scriptable
-{
+namespace Scriptable {
     [Serializable]
     [CreateAssetMenu(menuName = "Style/Worldstyle")]
-    public class WorldStyleSo : ScriptableObject
-    {
+    public class WorldStyleSo : ScriptableObject {
         [FormerlySerializedAs("MenuButtonIcon")]
         public Sprite MenuButtonIconSprite;
 

@@ -1,10 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Level.Objects
-{
-    public class ObjectSpawner : MonoBehaviour
-    {
+namespace Level.Objects {
+    public class ObjectSpawner : MonoBehaviour {
         [SerializeField] private GameObject objectPrefab;
 
         [SerializeField] private Transform spawnPos;
@@ -21,45 +19,41 @@ namespace Level.Objects
         private bool oneTimeTriggered;
         private bool spawning;
 
-        private void Start()
-        {
+        private void Start() {
             canSpawn = true;
-            if (!usesTrigger) spawning = true;
+            if (!usesTrigger) {
+                spawning = true;
+            }
         }
 
-        private void Update()
-        {
-            if (spawning) SpawnObject();
+        private void Update() {
+            if (spawning) {
+                SpawnObject();
+            }
         }
 
-        public void SpawnObject()
-        {
-            if (!canSpawn || (oneTime && oneTimeTriggered)) return;
+        public void SpawnObject() {
+            if (!canSpawn || (oneTime && oneTimeTriggered)) {
+                return;
+            }
+
             canSpawn = false;
             StartCoroutine(EnableSpawn(spawnInterval));
             Instantiate(objectPrefab, spawnPos.position, Quaternion.identity);
-            if (oneTime && !oneTimeTriggered) oneTimeTriggered = true;
+            if (oneTime && !oneTimeTriggered) {
+                oneTimeTriggered = true;
+            }
         }
 
-        public IEnumerator EnableSpawn(float delay)
-        {
+        public IEnumerator EnableSpawn(float delay) {
             yield return new WaitForSeconds(delay);
             canSpawn = true;
         }
 
-        public void SetSpawningTrue()
-        {
-            spawning = true;
-        }
+        public void SetSpawningTrue() => spawning = true;
 
-        public void SetSpawningFalse()
-        {
-            spawning = false;
-        }
+        public void SetSpawningFalse() => spawning = false;
 
-        public bool GetSpawning()
-        {
-            return spawning;
-        }
+        public bool GetSpawning() => spawning;
     }
 }

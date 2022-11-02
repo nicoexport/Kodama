@@ -2,43 +2,32 @@ using Architecture;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player.MovementStates
-{
-    public class WalljumpingState : AirborneState
-    {
+namespace Player.MovementStates {
+    public class WalljumpingState : AirborneState {
         private float horizontalForce;
         private bool keepJumping;
         private float keepJumpingTimer;
         private float verticalForce;
 
-        public WalljumpingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
-        {
+        public WalljumpingState(StateMachine stateMachine, Character character) : base(stateMachine, character) {
         }
 
-        private void WallJump(float horizontalForce, float verticalForce)
-        {
+        private void WallJump(float horizontalForce, float verticalForce) {
             character.transform.Translate(Vector2.left * (character.frontCheckRadius + 0.1f));
-            if (character.facingRight)
-            {
+            if (character.facingRight) {
                 // character.rb.velocity = new Vector2(-horizontalForce, verticalForce);
                 var force = new Vector2(-horizontalForce, verticalForce);
                 character.rb.AddForce(force, ForceMode2D.Impulse);
-            }
-            else
-            {
+            } else {
                 // character.rb.velocity = new Vector2(horizontalForce, verticalForce);
                 var force = new Vector2(horizontalForce, verticalForce);
                 character.rb.AddForce(force, ForceMode2D.Impulse);
             }
         }
 
-        private void StopJumping(InputAction.CallbackContext context)
-        {
-            keepJumping = false;
-        }
+        private void StopJumping(InputAction.CallbackContext context) => keepJumping = false;
 
-        public override void Enter()
-        {
+        public override void Enter() {
             base.Enter();
             InputManager.playerInputActions.Player.Jump.canceled += StopJumping;
             character.wantjump = false;
@@ -46,33 +35,31 @@ namespace Player.MovementStates
             horizontalForce = character.MovementValues.horizontalWallJumpForce;
             verticalForce = character.MovementValues.verticalWallJumpForce;
             keepJumpingTimer = character.MovementValues.wallJumpTimer;
-            if (InputManager.playerInputActions.Player.Jump.ReadValue<float>() > 0f) keepJumping = true;
+            if (InputManager.playerInputActions.Player.Jump.ReadValue<float>() > 0f) {
+                keepJumping = true;
+            }
+
             WallJump(horizontalForce, verticalForce);
         }
 
-        public override void Exit()
-        {
+        public override void Exit() {
             base.Exit();
             InputManager.playerInputActions.Player.Jump.canceled -= StopJumping;
         }
 
-        public override void HandleInput()
-        {
-            base.HandleInput();
-        }
+        public override void HandleInput() => base.HandleInput();
 
-        public override void LogicUpdate()
-        {
+        public override void LogicUpdate() {
             base.LogicUpdate();
-            if (character.rb.velocity.y < -0.1f) stateMachine.ChangeState(character.falling);
+            if (character.rb.velocity.y < -0.1f) {
+                stateMachine.ChangeState(character.falling);
+            }
         }
 
-        public override void PhysicsUpdate()
-        {
+        public override void PhysicsUpdate() {
             base.PhysicsUpdate();
 
-            if (keepJumping && keepJumpingTimer > 0f)
-            {
+            if (keepJumping && keepJumpingTimer > 0f) {
                 var force = new Vector2(0f, verticalForce * character.MovementValues.wallLongJumpMultiplier);
                 character.rb.AddForce(force, ForceMode2D.Force);
                 keepJumpingTimer -= Time.deltaTime;

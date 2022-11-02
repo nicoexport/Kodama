@@ -2,65 +2,58 @@ using Architecture;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player.MovementStates
-{
-    public class JumpingState : AirborneState
-    {
+namespace Player.MovementStates {
+    public class JumpingState : AirborneState {
         private bool keepJumping;
         private float keepJumpingTimer;
 
-        public JumpingState(StateMachine stateMachine, Character character) : base(stateMachine, character)
-        {
+        public JumpingState(StateMachine stateMachine, Character character) : base(stateMachine, character) {
         }
 
 
-        private void Jump(float jumpForce)
-        {
-            if (character == null) return;
+        private void Jump(float jumpForce) {
+            if (character == null) {
+                return;
+            }
+
             character.transform.Translate(Vector2.up * (character.groundCheckRadius + 0.1f));
             var force = new Vector2(0f, jumpForce);
             character.rb.AddForce(force, ForceMode2D.Impulse);
         }
 
-        private void StopJumping(InputAction.CallbackContext context)
-        {
-            keepJumping = false;
-        }
+        private void StopJumping(InputAction.CallbackContext context) => keepJumping = false;
 
 
-        public override void Enter()
-        {
+        public override void Enter() {
             base.Enter();
             character.wantjump = false;
             InputManager.playerInputActions.Player.Jump.canceled += StopJumping;
             keepJumpingTimer = character.MovementValues.longJumpTimer;
-            if (InputManager.playerInputActions.Player.Jump.ReadValue<float>() > 0f) keepJumping = true;
+            if (InputManager.playerInputActions.Player.Jump.ReadValue<float>() > 0f) {
+                keepJumping = true;
+            }
+
             Jump(character.MovementValues.jumpForce);
         }
 
-        public override void Exit()
-        {
+        public override void Exit() {
             base.Exit();
             InputManager.playerInputActions.Player.Jump.canceled -= StopJumping;
         }
 
-        public override void HandleInput()
-        {
-            base.HandleInput();
-        }
+        public override void HandleInput() => base.HandleInput();
 
-        public override void LogicUpdate()
-        {
+        public override void LogicUpdate() {
             base.LogicUpdate();
-            if (character.rb.velocity.y < -0.1f) stateMachine.ChangeState(character.falling);
+            if (character.rb.velocity.y < -0.1f) {
+                stateMachine.ChangeState(character.falling);
+            }
         }
 
-        public override void PhysicsUpdate()
-        {
+        public override void PhysicsUpdate() {
             base.PhysicsUpdate();
             // makes the character keep jumping if the jump button is held
-            if (keepJumping && keepJumpingTimer > 0f)
-            {
+            if (keepJumping && keepJumpingTimer > 0f) {
                 var force = new Vector2(0f,
                     character.MovementValues.jumpForce * character.MovementValues.longJumpMultiplier);
                 character.rb.AddForce(force, ForceMode2D.Force);

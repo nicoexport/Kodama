@@ -2,13 +2,10 @@ using UnityEditor;
 using UnityEngine;
 using World_Level;
 
-namespace Editor
-{
+namespace Editor {
     [CustomEditor(typeof(LevelObject), true)]
-    public class LevelObjectEditor : UnityEditor.Editor
-    {
-        public override void OnInspectorGUI()
-        {
+    public class LevelObjectEditor : UnityEditor.Editor {
+        public override void OnInspectorGUI() {
             var level = target as LevelObject;
             var oldScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(level.ScenePath);
 
@@ -19,14 +16,13 @@ namespace Editor
             level.worldIndex = EditorGUILayout.IntField("World Index", level.worldIndex);
             level.RecordTime = EditorGUILayout.FloatField("Record Time", level.RecordTime);
             level.levelImage =
-                (Sprite) EditorGUILayout.ObjectField("levelImage", level.levelImage, typeof(Sprite), false);
+                (Sprite)EditorGUILayout.ObjectField("levelImage", level.levelImage, typeof(Sprite), false);
 
             EditorGUI.BeginChangeCheck();
             var newScene = EditorGUILayout.ObjectField("scene", oldScene, typeof(SceneAsset), false) as SceneAsset;
 
-            if (EditorGUI.EndChangeCheck())
-            {
-                var newPath = AssetDatabase.GetAssetPath(newScene);
+            if (EditorGUI.EndChangeCheck()) {
+                string newPath = AssetDatabase.GetAssetPath(newScene);
                 var scenePathProperty = serializedObject.FindProperty("ScenePath");
                 scenePathProperty.stringValue = newPath;
             }

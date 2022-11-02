@@ -1,44 +1,39 @@
 using Architecture;
 using Audio;
-using Scriptable;
 using Scriptable.Channels;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace UI
-{
-    public class PauseMenu : MonoBehaviour
-    {
+namespace UI {
+    public class PauseMenu : MonoBehaviour {
         [SerializeField] private Canvas canvas;
         [SerializeField] private Button primaryButton;
-        [Header("Channels")]
-        [SerializeField] private VoidEventChannelSO _returnToWorldEvent;
+
+        [Header("Channels")] [SerializeField] private VoidEventChannelSO _returnToWorldEvent;
+
         [SerializeField] private VoidEventChannelSO _returnToMainMenuEvent;
         [SerializeField] private VoidEventChannelSO _onLevelStartChannel;
 
         private bool paused;
 
-        private void Start()
-        {
+        private void Start() {
             canvas.gameObject.SetActive(false);
             paused = false;
         }
 
-        private void OnEnable()
-        {
-            _onLevelStartChannel.OnEventRaised += RegisterInputActions;
-        }
+        private void OnEnable() => _onLevelStartChannel.OnEventRaised += RegisterInputActions;
 
-        private void OnDisable()
-        {
+        private void OnDisable() {
             UnRegisterInputActions();
             _onLevelStartChannel.OnEventRaised -= RegisterInputActions;
         }
 
-        public void PauseGame()
-        {
-            if (paused) return;
+        public void PauseGame() {
+            if (paused) {
+                return;
+            }
+
             Time.timeScale = 0f;
             InputManager.ToggleActionMap(InputManager.playerInputActions.PauseMenu);
             AudioManager.Instance.PauseMusic();
@@ -47,15 +42,19 @@ namespace UI
             paused = true;
         }
 
-        private void InputActionPauseGame(InputAction.CallbackContext context)
-        {
-            if (canvas == null) return;
+        private void InputActionPauseGame(InputAction.CallbackContext context) {
+            if (canvas == null) {
+                return;
+            }
+
             PauseGame();
         }
 
-        public void ResumeGame()
-        {
-            if (!paused) return;
+        public void ResumeGame() {
+            if (!paused) {
+                return;
+            }
+
             Time.timeScale = 1f;
             InputManager.ToggleActionMap(InputManager.playerInputActions.Player);
             AudioManager.Instance.ResumeMusic();
@@ -64,14 +63,15 @@ namespace UI
         }
 
 
-        private void InputActionResumeGame(InputAction.CallbackContext context)
-        {
-            if (canvas == null) return;
+        private void InputActionResumeGame(InputAction.CallbackContext context) {
+            if (canvas == null) {
+                return;
+            }
+
             ResumeGame();
         }
 
-        public void QuitGame()
-        {
+        public void QuitGame() {
 #if UNITY_EDITOR
             ResumeGame();
 #else
@@ -81,35 +81,28 @@ namespace UI
 #endif
         }
 
-        public void ReturnToMainMenu()
-        {
+        public void ReturnToMainMenu() {
             ResumeGame();
             DisableInput();
             _returnToMainMenuEvent.RaiseEvent();
         }
 
-        public void ReturnToWorldsScreen()
-        {
+        public void ReturnToWorldsScreen() {
             ResumeGame();
             DisableInput();
             _returnToWorldEvent.RaiseEvent();
         }
 
-        private void RegisterInputActions()
-        {
+        private void RegisterInputActions() {
             InputManager.playerInputActions.Player.Pause.started += InputActionPauseGame;
             InputManager.playerInputActions.PauseMenu.Unpause.started += InputActionResumeGame;
         }
 
-        private void UnRegisterInputActions()
-        {
+        private void UnRegisterInputActions() {
             InputManager.playerInputActions.Player.Pause.started -= InputActionPauseGame;
             InputManager.playerInputActions.PauseMenu.Unpause.started -= InputActionResumeGame;
         }
 
-        private void DisableInput()
-        {
-            InputManager.playerInputActions.Disable();
-        }
+        private void DisableInput() => InputManager.playerInputActions.Disable();
     }
 }

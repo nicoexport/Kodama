@@ -1,20 +1,19 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Pickups
-{
-    public class PickupObject : MonoBehaviour
-    {
+namespace Pickups {
+    public class PickupObject : MonoBehaviour {
         public UnityEvent pickupEvent;
 
-        public virtual void OnTriggerEnter2D(Collider2D col)
-        {
-            if (col.tag != "Player") return;
+        public virtual void OnTriggerEnter2D(Collider2D col) {
+            if (col.tag != "Player") {
+                return;
+            }
+
             PickUp(col);
         }
 
-        public virtual void PickUp(Collider2D col)
-        {
+        public virtual void PickUp(Collider2D col) {
             pickupEvent.Invoke();
             gameObject.SetActive(false);
         }

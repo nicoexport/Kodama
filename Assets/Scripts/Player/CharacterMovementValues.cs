@@ -1,11 +1,9 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Player
-{
+namespace Player {
     [CreateAssetMenu(menuName = "Character/CharacterMovementValues")]
-    public class CharacterMovementValues : ScriptableObject
-    {
+    public class CharacterMovementValues : ScriptableObject {
         [Header("Moving")] public float moveSpeed = 250f;
 
         public float sprintSpeed = 300f;

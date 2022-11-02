@@ -2,10 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Level.Objects
-{
-    public class ObjectVanisher : MonoBehaviour
-    {
+namespace Level.Objects {
+    public class ObjectVanisher : MonoBehaviour {
         [SerializeField] private GameObject obj;
 
         [SerializeField] private bool playOnAwake;
@@ -24,32 +22,35 @@ namespace Level.Objects
 
         [SerializeField] private UnityEvent reappearEvent;
 
-        protected virtual void Awake()
-        {
-            if (playOnAwake) VanishObject();
-            if (cycle) reappear = true;
+        protected virtual void Awake() {
+            if (playOnAwake) {
+                VanishObject();
+            }
+
+            if (cycle) {
+                reappear = true;
+            }
         }
 
-        public void VanishObject()
-        {
-            StartCoroutine(VanishAndRespawnObject());
-        }
+        public void VanishObject() => StartCoroutine(VanishAndRespawnObject());
 
-        protected virtual IEnumerator VanishAndRespawnObject()
-        {
+        protected virtual IEnumerator VanishAndRespawnObject() {
             vanishEvent.Invoke();
             yield return new WaitForSeconds(disappearDelay);
             obj.SetActive(false);
             vanishedEvent.Invoke();
-            if (reappear) yield return ReappearEnumerator();
+            if (reappear) {
+                yield return ReappearEnumerator();
+            }
         }
 
-        protected virtual IEnumerator ReappearEnumerator()
-        {
+        protected virtual IEnumerator ReappearEnumerator() {
             yield return new WaitForSeconds(reappearDelay);
             obj.SetActive(true);
             reappearEvent.Invoke();
-            if (cycle) VanishObject();
+            if (cycle) {
+                VanishObject();
+            }
         }
     }
 }

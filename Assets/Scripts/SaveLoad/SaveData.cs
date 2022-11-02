@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace SaveLoad
-{
+namespace SaveLoad {
     [Serializable]
-    public class SaveData
-    {
+    public class SaveData {
         public string Version;
         public LevelSaveData CurrentLevel;
         public WorldSaveData CurrentWorld;
@@ -13,8 +11,7 @@ namespace SaveLoad
     }
 
     [Serializable]
-    public class WorldSaveData
-    {
+    public class WorldSaveData {
         public string WorldName;
         public bool Unlocked;
         public bool Visited;
@@ -23,8 +20,7 @@ namespace SaveLoad
     }
 
     [Serializable]
-    public class LevelSaveData
-    {
+    public class LevelSaveData {
         public string LevelName;
         public bool Unlocked;
         public bool Visited;

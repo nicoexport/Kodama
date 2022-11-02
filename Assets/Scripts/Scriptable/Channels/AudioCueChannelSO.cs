@@ -1,23 +1,17 @@
 using System;
 using UnityEngine;
 
-namespace Scriptable.Channels
-{
+namespace Scriptable.Channels {
     [CreateAssetMenu(fileName = "new AudioCueChannel", menuName = "Channels/AudioCueChannel", order = 0)]
-    public class AudioCueChannelSO : ScriptableObject
-    {
+    public class AudioCueChannelSO : ScriptableObject {
         public event Action<AudioCueRequestData> OnAudioCueRequested;
 
-        public void RequestAudio(AudioCueRequestData audioCueRequestData)
-        {
+        public void RequestAudio(AudioCueRequestData audioCueRequestData) =>
             OnAudioCueRequested?.Invoke(audioCueRequestData);
-        }
     }
 
-    public readonly struct AudioCueRequestData
-    {
-        public AudioCueRequestData(AudioCueSo audioCue, AudioConfigSo audioConfig, Vector3 position = default)
-        {
+    public readonly struct AudioCueRequestData {
+        public AudioCueRequestData(AudioCueSo audioCue, AudioConfigSo audioConfig, Vector3 position = default) {
             AudioCue = audioCue;
             AudioConfig = audioConfig;
             Position = position;
