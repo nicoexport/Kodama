@@ -12,10 +12,12 @@ namespace Level.Logic
       [SerializeField] private CharacterRuntimeSet _playerRuntimeSet;
       private Collider2D _playerCollider;
       private Collider2D _collider;
+      private Rigidbody2D _rb;
 
       private void Awake()
       {
-         _collider = GetComponent<BoxCollider2D>();
+         TryGetComponent(out _collider);
+         TryGetComponent(out _rb);
          var position = transform.position;
       }
 
@@ -26,23 +28,23 @@ namespace Level.Logic
 
       private void Update()
       {
-        if (_playerCollider == null) GetPlayerCollider();
+        if (_playerCollider == null) 
+           GetPlayerCollider();
         else
-        {
-            CheckBounds();
-        }
-
+           CheckBounds();
       }
 
       private void GetPlayerCollider()
       {
          if (_playerRuntimeSet.TryGetFirst(out Character player))
-            player.TryGetComponent(out _collider);
+            player.gameObject.TryGetComponent(out _playerCollider);
+         
       }
 
       private void CheckBounds()
       {
-         Debug.Log(Physics2D.Distance(_collider, _playerCollider ));
+         if(!_rb.OverlapPoint(_playerCollider.transform.position))
+            Test();
       }
 
       private void Test()
@@ -52,8 +54,7 @@ namespace Level.Logic
             health.Die();
          }
       }
-
-
+      
       private void SetCamCollider()
       {
          var cmCam = _cinemachineRuntimeSet.GetItemAtIndex(0);

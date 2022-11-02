@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4249664949877045773}
   - component: {fileID: 30119343094227733}
   - component: {fileID: 8529384100982720814}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_Level_Confiner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &5578335809303340114
 CompositeCollider2D:
@@ -49,7 +49,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
