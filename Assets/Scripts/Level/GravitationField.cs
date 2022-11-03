@@ -14,7 +14,6 @@ namespace Kodama.Level {
         protected void FixedUpdate() {
             var hits = Physics2D.CircleCastAll(_transform.position, _range, Vector2.one, 0f, _whatToAttract);
             foreach (var hit in hits) {
-                Debug.Log(hit.transform.name);
                 var hitPosition = hit.transform.position;
                 var position = _transform.position;
                 float distance = Vector2.Distance(hitPosition, position);
@@ -41,7 +40,7 @@ namespace Kodama.Level {
                         break;
                     default:
                         force = (position - hitPosition).normalized / distance * _intensity;
-                        throw new ArgumentOutOfRangeException();
+                        break;
                 }
 
                 if (_inverse) {
