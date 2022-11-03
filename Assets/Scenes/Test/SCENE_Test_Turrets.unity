@@ -175,18 +175,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3818251927083816081, guid: 52e42ab9860372449bbcfef7f235c6d0, type: 3}
-      propertyPath: _projectileSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818251927083816081, guid: 52e42ab9860372449bbcfef7f235c6d0, type: 3}
-      propertyPath: _needsLineOfSight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818251927083816081, guid: 52e42ab9860372449bbcfef7f235c6d0, type: 3}
-      propertyPath: _projectileLifetimeInSeconds
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 3818251927083816083, guid: 52e42ab9860372449bbcfef7f235c6d0, type: 3}
       propertyPath: m_Name
       value: P_Turret
@@ -27887,11 +27875,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0.003215434
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 0.99206185
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726031, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_RootOrder

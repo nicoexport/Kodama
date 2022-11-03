@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3818251927083816081
 MonoBehaviour:
@@ -46,15 +46,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
-  _projectilePrefab: {fileID: 996447754815156497, guid: b4836ba0cb669cc4894bc965372abdec, type: 3}
   _playerRuntimeSet: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
+  _projectilePrefab: {fileID: 996447754815156497, guid: b4836ba0cb669cc4894bc965372abdec, type: 3}
+  _projectileLifetimeInSeconds: 4
+  _projectileSpeed: 20
   _range: 10
   _cooldownInSeconds: 4
   _heatupInSeconds: 1
   _needsLineOfSight: 1
-  _whatIsPlayer:
+  _whatToIgnore:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 4
   OnStartHeatUp:
     m_PersistentCalls:
       m_Calls:
