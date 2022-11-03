@@ -7,20 +7,17 @@ namespace Kodama.Level.Logic {
     public class LevelConfiner : MonoBehaviour {
         [SerializeField] private GameObjectRuntimeSet _cinemachineRuntimeSet;
         [SerializeField] private CharacterRuntimeSet _playerRuntimeSet;
-        private Collider2D _collider;
         private Transform _playerTransform;
         private Rigidbody2D _rb;
 
         private void Awake() {
-            TryGetComponent(out _collider);
             TryGetComponent(out _rb);
-            var position = transform.position;
         }
 
         protected void Start() => SetCamCollider();
 
         private void Update() {
-            if (_playerTransform) {
+            if (_playerTransform == null) {
                 GetPlayerCollider();
             } else {
                 CheckBounds();
