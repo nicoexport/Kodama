@@ -13,13 +13,12 @@ namespace Kodama.Level.Objects {
         protected Transform _target;
         protected Rigidbody2D rb;
 
-        private void Awake() => rb = GetComponent<Rigidbody2D>();
+        private void Awake() => TryGetComponent(out rb);
 
         protected virtual void FixedUpdate() => ChaseTarget();
 
         private void OnTriggerEnter2D(Collider2D col) {
             if (_collisionIgnoreLayers == (_collisionIgnoreLayers | (1 << col.gameObject.layer))) {
-                Debug.Log(col.gameObject.layer);
                 return;
             }
 
