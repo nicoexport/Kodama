@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace World_Level {
+namespace Kodama.World_Level {
     [CreateAssetMenu(menuName = "SceneObjects/LevelObject")]
     public class LevelObject : ScriptableObject {
         public string levelName;

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class Portal : MonoBehaviour {
         [SerializeField] private Transform exit;
         public UnityEvent OnEnter;

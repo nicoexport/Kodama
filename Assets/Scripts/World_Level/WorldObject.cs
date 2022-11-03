@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace World_Level {
+namespace Kodama.World_Level {
     [CreateAssetMenu(menuName = "WorldObject")]
     public class WorldObject : ScriptableObject {
         public string worldName;

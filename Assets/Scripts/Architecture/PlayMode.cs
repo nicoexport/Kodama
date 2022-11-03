@@ -1,9 +1,9 @@
 using System.Collections;
-using SaveLoad;
+using Kodama.SaveLoad;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     public class PlayMode : IGameMode {
         private readonly string _scenePath;
 

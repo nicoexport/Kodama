@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player {
+namespace Kodama.Player {
     public abstract class State {
         public Character character;
         public StateMachine stateMachine;

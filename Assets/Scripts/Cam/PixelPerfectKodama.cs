@@ -1,6 +1,6 @@
 using UnityEngine.Experimental.Rendering.Universal;
 
-namespace Cam {
+namespace Kodama.Cam {
     public class PixelPerfectKodama : PixelPerfectCamera {
     }
 }

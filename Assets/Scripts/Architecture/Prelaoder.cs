@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     public class Prelaoder : MonoBehaviour {
         [SerializeField] private int mainMenuIndex = 1;
 

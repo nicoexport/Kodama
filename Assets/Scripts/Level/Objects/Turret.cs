@@ -1,11 +1,11 @@
 using System.Collections;
-using Architecture;
-using GameManagement;
-using Player;
+using Kodama.Architecture;
+using Kodama.GameManagement;
+using Kodama.Player;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class Turret : Resettable {
         [SerializeField] private CharacterRuntimeSet _playerRuntimeSet;
         [SerializeField] private GameObject _projectilePrefab;

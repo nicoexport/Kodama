@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
-using Scriptable;
+using Kodama.Scriptable;
 using UnityEngine;
 
-namespace Audio {
+namespace Kodama.Audio {
     [RequireComponent(typeof(AudioSource))]
     public class SoundEmitter : MonoBehaviour {
         private AudioSource _audioSource;

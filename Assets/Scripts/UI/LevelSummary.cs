@@ -1,15 +1,16 @@
 using System;
-using Architecture;
-using Audio;
-using Data;
-using Scriptable.Channels;
+using Kodama.Architecture;
+using Kodama.Audio;
+using Kodama.Data;
+using Kodama.Scriptable.Channels;
+using Kodama.Utility;
+using Plugins.LeanTween.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-using Utility;
 
-namespace UI {
+namespace Kodama.UI {
     public class LevelSummary : Resettable {
         [SerializeField] private GameObject summaryButtons;
         [SerializeField] private GameObject levelFinishedTimerUI;

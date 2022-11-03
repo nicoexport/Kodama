@@ -1,11 +1,11 @@
-using Data;
-using Scriptable;
-using Scriptable.Channels;
+using Kodama.Data;
+using Kodama.Scriptable;
+using Kodama.Scriptable.Channels;
+using Kodama.Utility;
 using TMPro;
 using UnityEngine;
-using Utility;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     public class WorldsScreenManager : Singleton<WorldsScreenManager> {
         [SerializeField] private SessionData _sessionData;
 

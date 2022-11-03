@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     public interface IGameMode {
         GameModeState _state { get; }
         string _activeScene { get; }

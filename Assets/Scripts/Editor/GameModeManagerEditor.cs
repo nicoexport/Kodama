@@ -1,4 +1,4 @@
-using Architecture;
+using Kodama.Architecture;
 using UnityEditor;
 
 namespace Editor {

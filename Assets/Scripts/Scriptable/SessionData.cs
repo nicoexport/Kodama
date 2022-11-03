@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Data;
+using Kodama.Data;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Scriptable {
+namespace Kodama.Scriptable {
     [Serializable]
     [CreateAssetMenu(menuName = "Game Data/Game Session Data")]
     public class SessionData : ScriptableObject {

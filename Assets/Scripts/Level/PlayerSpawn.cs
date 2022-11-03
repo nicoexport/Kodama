@@ -1,7 +1,7 @@
-using GameManagement;
+using Kodama.GameManagement;
 using UnityEngine;
 
-namespace Level {
+namespace Kodama.Level {
     public class PlayerSpawn : MonoBehaviour {
         [SerializeField] private TransformRuntimeSet playerSpawnRuntimeSet;
 

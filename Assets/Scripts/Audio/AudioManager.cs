@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
-using Pooling;
-using Scriptable.Channels;
+using Kodama.Pooling;
+using Kodama.Scriptable.Channels;
+using Kodama.Utility;
 using UnityEngine;
-using Utility;
 
-namespace Audio {
+namespace Kodama.Audio {
     public class AudioManager : Singleton<AudioManager> {
         [SerializeField] private AudioCueChannelSO _sfxChannel;
         [SerializeField] private AudioCueChannelSO _musicChannel;

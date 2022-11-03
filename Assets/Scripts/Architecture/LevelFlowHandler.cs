@@ -1,9 +1,9 @@
-using Data;
-using Scriptable;
-using Scriptable.Channels;
+using Kodama.Data;
+using Kodama.Scriptable;
+using Kodama.Scriptable.Channels;
 using UnityEngine;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     public class LevelFlowHandler : MonoBehaviour {
         [SerializeField] private SessionData _sessionData;
 

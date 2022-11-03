@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameManagement {
+namespace Kodama.GameManagement {
     public abstract class RuntimeSet<T> : ScriptableObject {
         private readonly List<T> _items = new();
 

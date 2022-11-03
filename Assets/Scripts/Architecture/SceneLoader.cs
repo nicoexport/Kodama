@@ -1,10 +1,10 @@
 using System.Collections;
-using Scriptable;
-using Scriptable.Channels;
+using Kodama.Scriptable;
+using Kodama.Scriptable.Channels;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     public class SceneLoader : MonoBehaviour {
         [SerializeField] private LoadLevelEventChannelSO _loadEventChannel;
 

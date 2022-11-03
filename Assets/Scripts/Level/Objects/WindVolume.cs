@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class WindVolume : MonoBehaviour {
         [SerializeField] private Transform _directionTransform;
         [SerializeField] private float _strength = 20f;

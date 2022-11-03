@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class ObjectMover : MonoBehaviour {
         [SerializeField] private Transform[] wayPoints;
 

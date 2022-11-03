@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 using UnityEngine.Pool;
 using Object = UnityEngine.Object;
 
-namespace Pooling {
+namespace Kodama.Pooling {
     public class GameObjectPool : IDisposable {
         private readonly Transform _parent;
         private readonly IObjectPool<GameObject> _pool;

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Player {
+namespace Kodama.Player {
     [CreateAssetMenu(menuName = "Character/CharacterMovementValues")]
     public class CharacterMovementValues : ScriptableObject {
         [Header("Moving")] public float moveSpeed = 250f;

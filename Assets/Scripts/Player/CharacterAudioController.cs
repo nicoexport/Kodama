@@ -1,8 +1,8 @@
-using Audio;
-using Scriptable.Channels;
+using Kodama.Audio;
+using Kodama.Scriptable.Channels;
 using UnityEngine;
 
-namespace Player {
+namespace Kodama.Player {
     public class CharacterAudioController : MonoBehaviour {
         [Header("Channels")] [SerializeField] private VoidEventChannelSO _onPlayerHurtChannel;
 

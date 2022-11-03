@@ -1,9 +1,10 @@
-using Data;
-using Scriptable.Channels;
+using Kodama.Data;
+using Kodama.Scriptable.Channels;
+using Plugins.LeanTween.Framework;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Cam {
+namespace Kodama.Cam {
     public class LevelCamera : MonoBehaviour {
         [FormerlySerializedAs("goalScale")] [SerializeField]
         private Vector3 _goalScale;

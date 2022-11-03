@@ -1,9 +1,9 @@
 using System.Collections;
-using Architecture;
+using Kodama.Architecture;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Projectile : Resettable {
         [SerializeField] protected float _speed;

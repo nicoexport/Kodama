@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Scriptable {
+namespace Kodama.Scriptable {
     [CreateAssetMenu(fileName = "new Input Button Stylesheet", menuName = "Style/InputButtonStyle", order = 0)]
     public class InputButtonStyleSheet : ScriptableObject {
         public InputButtonStyle Keyboard;

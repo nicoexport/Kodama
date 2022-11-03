@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Scriptable.Channels {
+namespace Kodama.Scriptable.Channels {
     public abstract class DuoEventChannelSO<T1, T2> : ScriptableObject {
         public Action<T1, T2> OnEventRaised;
 

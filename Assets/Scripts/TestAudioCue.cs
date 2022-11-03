@@ -1,7 +1,7 @@
-using Audio;
+using Kodama.Audio;
 using UnityEngine;
 
-namespace DefaultNamespace {
+namespace Kodama {
     public class TestAudioCue : MonoBehaviour {
         private AudioCue _audioCue;
 

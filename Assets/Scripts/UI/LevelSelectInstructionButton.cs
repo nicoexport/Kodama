@@ -1,9 +1,9 @@
-using Architecture;
-using Level_Selection;
+using Kodama.Architecture;
+using Kodama.Level_Selection;
 using TMPro;
 using UnityEngine;
 
-namespace UI {
+namespace Kodama.UI {
     public class LevelSelectInstructionButton : MonoBehaviour {
         [SerializeField] private string _worldSelectText;
         [SerializeField] private string _levelSelectText;

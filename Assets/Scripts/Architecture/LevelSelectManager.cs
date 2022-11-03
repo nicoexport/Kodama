@@ -1,17 +1,17 @@
 using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
-using Data;
-using Level_Selection;
-using Scriptable;
-using Scriptable.Channels;
-using UI;
+using Kodama.Data;
+using Kodama.Level_Selection;
+using Kodama.Scriptable;
+using Kodama.Scriptable.Channels;
+using Kodama.UI;
+using Kodama.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
-using Utility;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     [SuppressMessage("ReSharper", "CheckNamespace")]
     public class LevelSelectManager : MonoBehaviour {
         [FormerlySerializedAs("_saveData")] [SerializeField]

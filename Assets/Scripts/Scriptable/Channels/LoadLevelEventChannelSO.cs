@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scriptable.Channels {
+namespace Kodama.Scriptable.Channels {
     /// <summary>
     ///     This class is used for scene loading events.
     ///     Takes a array of the scenes we want to load, a bool to specifiy if we want to unlod the currently active scene and

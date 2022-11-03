@@ -1,8 +1,8 @@
-using Data;
+using Kodama.Data;
 using TMPro;
 using UnityEngine;
 
-namespace Level_Selection {
+namespace Kodama.Level_Selection {
     public class LevelSelectWorldPanelUI : MonoBehaviour {
         [SerializeField] private TextMeshProUGUI _worldName;
         [SerializeField] private TextMeshProUGUI _completionText;

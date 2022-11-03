@@ -1,13 +1,13 @@
-using Data;
-using GameManagement;
-using Level.Logic;
-using Scriptable;
-using Scriptable.Channels;
+using Kodama.Data;
+using Kodama.GameManagement;
+using Kodama.Level.Logic;
+using Kodama.Scriptable;
+using Kodama.Scriptable.Channels;
+using Kodama.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Utility;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     [RequireComponent(typeof(LevelFlowHandler))]
     [RequireComponent(typeof(LevelTimer))]
     public class LevelManager : Singleton<LevelManager> {

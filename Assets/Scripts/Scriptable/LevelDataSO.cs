@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Scriptable {
+namespace Kodama.Scriptable {
     [CreateAssetMenu(menuName = "Game Data/Level Data")]
     public class LevelDataSO : ScriptableObject {
         [FormerlySerializedAs("_scenePath")] public string ScenePath;

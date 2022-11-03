@@ -1,7 +1,7 @@
-using Scriptable.Channels;
+using Kodama.Scriptable.Channels;
 using UnityEngine;
 
-namespace Player {
+namespace Kodama.Player {
     public class PlayerHealth : MonoBehaviour {
         [SerializeField] private int _defaultHealth = 1;
         [SerializeField] private VoidEventChannelSO onPlayerHurtChannel;

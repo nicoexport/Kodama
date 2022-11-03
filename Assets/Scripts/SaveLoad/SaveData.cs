@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SaveLoad {
+namespace Kodama.SaveLoad {
     [Serializable]
     public class SaveData {
         public string Version;

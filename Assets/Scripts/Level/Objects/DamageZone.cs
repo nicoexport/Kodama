@@ -1,7 +1,7 @@
-using Player;
+using Kodama.Player;
 using UnityEngine;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class DamageZone : MonoBehaviour {
         [SerializeField] private int damage = 1;
         [SerializeField] private Vector2 damageForce;

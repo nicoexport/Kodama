@@ -1,17 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Architecture;
-using Data;
-using Scriptable;
-using UI;
+using Kodama.Architecture;
+using Kodama.Data;
+using Kodama.Scriptable;
+using Kodama.UI;
+using Plugins.LeanTween.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Level_Selection {
+namespace Kodama.Level_Selection {
     public class LevelSelect : MonoBehaviour, ISelectUI {
         [FormerlySerializedAs("sockets")] [SerializeField]
         private List<LevelSelectSocket> _sockets = new();

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scriptable {
+namespace Kodama.Scriptable {
     [CreateAssetMenu(fileName = "new Device Map", menuName = "DeviceMap")]
     public class DeviceMapSo : ScriptableObject {
         public List<string> DeviceNames;

@@ -1,11 +1,11 @@
-using Architecture;
-using Audio;
-using Scriptable.Channels;
+using Kodama.Architecture;
+using Kodama.Audio;
+using Kodama.Scriptable.Channels;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace UI {
+namespace Kodama.UI {
     public class PauseMenu : MonoBehaviour {
         [SerializeField] private Canvas canvas;
         [SerializeField] private Button primaryButton;

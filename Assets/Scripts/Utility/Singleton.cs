@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Utility {
+namespace Kodama.Utility {
     public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour {
         public static T Instance { get; private set; }
 

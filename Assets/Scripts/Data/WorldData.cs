@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Scriptable;
+using Kodama.Scriptable;
 
-namespace Data {
+namespace Kodama.Data {
     [Serializable]
     public class WorldData {
         public string WorldName;

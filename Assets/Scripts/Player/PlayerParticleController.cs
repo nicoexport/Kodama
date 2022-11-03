@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.VFX;
 
-namespace Player {
+namespace Kodama.Player {
     public class PlayerParticleController : MonoBehaviour {
         [SerializeField] private VisualEffect _walkingDust;
     }

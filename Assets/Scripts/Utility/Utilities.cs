@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
-using Data;
-using Scriptable;
+using Kodama.Data;
+using Kodama.Scriptable;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Utility {
+namespace Kodama.Utility {
     public static class Utilities {
         public static IEnumerator ActionAfterDelayEnumerator(float delay, Action callback) {
             yield return new WaitForSeconds(delay);

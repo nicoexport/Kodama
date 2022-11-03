@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-namespace Player {
+namespace Kodama.Player {
     public class CharacterVisualEffectController : MonoBehaviour {
         [SerializeField] private VisualEffect _walkingDust;
         [SerializeField] private VisualEffect _wallDust;

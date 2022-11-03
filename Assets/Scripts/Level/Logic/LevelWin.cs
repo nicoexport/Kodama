@@ -1,7 +1,7 @@
-using Architecture;
+using Kodama.Architecture;
 using UnityEngine;
 
-namespace Level.Logic {
+namespace Kodama.Level.Logic {
     public class LevelWin : MonoBehaviour {
         public void WinLevel() => LevelManager.Instance.CompleteLevel();
     }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GameManagement {
+namespace Kodama.GameManagement {
     [CreateAssetMenu(menuName = "SceneObjects/SceneObject")]
     public class SceneObject : ScriptableObject {
         public string SceneName;

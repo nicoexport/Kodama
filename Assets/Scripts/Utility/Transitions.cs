@@ -1,9 +1,9 @@
 using System.Collections;
-using Scriptable.Channels;
+using Kodama.Scriptable.Channels;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Utility {
+namespace Kodama.Utility {
     /// <summary>
     ///     This class gives functionality for screen transitions and should be used in the Initialize scene
     /// </summary>

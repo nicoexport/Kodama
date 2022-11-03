@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UI {
+namespace Kodama.UI {
     public class UIPlayer : MonoBehaviour, IUICharacter {
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
         private Animator _animator;

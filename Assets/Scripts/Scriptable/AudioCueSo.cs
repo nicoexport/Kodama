@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Scriptable {
+namespace Kodama.Scriptable {
     [CreateAssetMenu(fileName = "new AudioCue", menuName = "Audio/AudioCue", order = 0)]
     public class AudioCueSo : ScriptableObject {
         public bool Looping;

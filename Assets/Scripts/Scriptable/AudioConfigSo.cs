@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace Scriptable {
+namespace Kodama.Scriptable {
     [CreateAssetMenu(fileName = "new Audio Config", menuName = "Audio/AudioConfig", order = 0)]
     public class AudioConfigSo : ScriptableObject {
         public AudioMixerGroup OutputAudioMixerGroup;

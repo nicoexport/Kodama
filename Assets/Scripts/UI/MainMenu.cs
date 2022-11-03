@@ -1,11 +1,11 @@
-using Architecture;
-using Audio;
-using SaveLoad;
-using Scriptable;
+using Kodama.Architecture;
+using Kodama.Audio;
+using Kodama.SaveLoad;
+using Kodama.Scriptable;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI {
+namespace Kodama.UI {
     public class MainMenu : MonoBehaviour {
         public enum MenuState {
             main,

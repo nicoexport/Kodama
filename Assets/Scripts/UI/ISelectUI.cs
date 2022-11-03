@@ -1,7 +1,7 @@
 using System.Collections;
-using Scriptable;
+using Kodama.Scriptable;
 
-namespace UI {
+namespace Kodama.UI {
     public interface ISelectUI {
         SelectUIState _state { get; }
         IEnumerator OnStart(SessionData sessionData);

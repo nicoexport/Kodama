@@ -1,4 +1,4 @@
-namespace Player.MovementStates {
+namespace Kodama.Player.MovementStates {
     public class RunningState : GroundedState {
         public RunningState(StateMachine stateMachine, Character character) : base(stateMachine, character) {
         }

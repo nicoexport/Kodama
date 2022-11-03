@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     public class MainMenuMode : IGameMode {
         private readonly string _scenePath;
 

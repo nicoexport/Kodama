@@ -1,9 +1,9 @@
 using Cinemachine;
-using GameManagement;
-using Player;
+using Kodama.GameManagement;
+using Kodama.Player;
 using UnityEngine;
 
-namespace Level.Logic {
+namespace Kodama.Level.Logic {
     public class LevelConfiner : MonoBehaviour {
         [SerializeField] private GameObjectRuntimeSet _cinemachineRuntimeSet;
         [SerializeField] private CharacterRuntimeSet _playerRuntimeSet;

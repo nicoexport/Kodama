@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Scriptable {
+namespace Kodama.Scriptable {
     [Serializable]
     [CreateAssetMenu(menuName = "Style/Worldstyle")]
     public class WorldStyleSo : ScriptableObject {

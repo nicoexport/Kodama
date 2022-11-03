@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class Bullet : Projectile {
         protected override void FixedUpdate() {
         }

@@ -1,9 +1,9 @@
 using System;
-using Scriptable;
-using Scriptable.Channels;
+using Kodama.Scriptable;
+using Kodama.Scriptable.Channels;
 using UnityEngine;
 
-namespace Audio {
+namespace Kodama.Audio {
     [Serializable]
     public class AudioCue : MonoBehaviour {
         [SerializeField] private bool _playOnStart;

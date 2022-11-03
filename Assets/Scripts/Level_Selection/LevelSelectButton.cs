@@ -1,9 +1,9 @@
 using System;
-using Data;
+using Kodama.Data;
 using TMPro;
 using UnityEngine;
 
-namespace Level_Selection {
+namespace Kodama.Level_Selection {
     public class LevelSelectButton : MonoBehaviour {
         private TextMeshProUGUI _buttonText;
         private LevelData _levelData;

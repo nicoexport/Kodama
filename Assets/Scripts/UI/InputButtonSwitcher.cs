@@ -1,11 +1,11 @@
 using System;
-using Architecture;
-using Scriptable;
+using Kodama.Architecture;
+using Kodama.Scriptable;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace UI {
+namespace Kodama.UI {
     public class InputButtonSwitcher : MonoBehaviour {
         [SerializeField] private Image _targetImage;
         [SerializeField] private Sprite _keyboardSprite;

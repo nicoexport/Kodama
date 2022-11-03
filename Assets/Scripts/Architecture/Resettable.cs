@@ -1,7 +1,7 @@
-using GameManagement;
+using Kodama.GameManagement;
 using UnityEngine;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     public abstract class Resettable : MonoBehaviour {
         [SerializeField] private ResettableRuntimeSet _resettableRuntimeSet;
 

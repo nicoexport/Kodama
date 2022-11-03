@@ -1,4 +1,4 @@
-using Scriptable;
+using Kodama.Scriptable;
 using UnityEditor;
 using UnityEngine;
 

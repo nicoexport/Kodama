@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class TriggerEvent : MonoBehaviour {
         [Space(10)] [SerializeField] private bool playerOnly = true;
 

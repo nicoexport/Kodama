@@ -1,8 +1,8 @@
-using Data;
+using Kodama.Data;
 using TMPro;
 using UnityEngine;
 
-namespace UI {
+namespace Kodama.UI {
     public class WorldSelectWorldPanelUI : MonoBehaviour {
         [SerializeField] private TextMeshProUGUI _worldName;
         [SerializeField] private TextMeshProUGUI _completionText;

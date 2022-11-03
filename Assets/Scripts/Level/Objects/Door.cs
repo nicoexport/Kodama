@@ -1,8 +1,8 @@
-using Player;
+using Kodama.Player;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class Door : MonoBehaviour {
         [SerializeField] private GameObject door;
 

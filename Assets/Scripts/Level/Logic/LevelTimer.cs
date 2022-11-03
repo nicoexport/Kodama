@@ -1,10 +1,10 @@
 using System;
-using Architecture;
-using Data;
-using Scriptable.Channels;
+using Kodama.Architecture;
+using Kodama.Data;
+using Kodama.Scriptable.Channels;
 using UnityEngine;
 
-namespace Level.Logic {
+namespace Kodama.Level.Logic {
     public class LevelTimer : Timer {
         [Header("Channels")] [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
 

@@ -1,7 +1,7 @@
-using Data;
+using Kodama.Data;
 using UnityEngine;
 
-namespace Scriptable.Channels {
+namespace Kodama.Scriptable.Channels {
     [CreateAssetMenu(menuName = "Channels/LevelData Event", order = 0)]
     public class LevelDataEventChannelSO : BaseEventChannelSO<LevelData> {
     }

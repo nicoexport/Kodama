@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Player {
+namespace Kodama.Player {
     [RequireComponent(typeof(Animator))]
     public class CharacterAnimationController : MonoBehaviour {
         public const string idle = "IDLE";

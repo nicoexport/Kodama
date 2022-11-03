@@ -1,15 +1,16 @@
 using System.Collections;
-using Architecture;
-using Data;
-using Scriptable;
-using Scriptable.Channels;
+using Kodama.Architecture;
+using Kodama.Data;
+using Kodama.Scriptable;
+using Kodama.Scriptable.Channels;
+using Kodama.Utility;
+using Plugins.LeanTween.Framework;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using Utility;
 
-namespace UI {
+namespace Kodama.UI {
     public class WorldSelect : MonoBehaviour, ISelectUI {
         [SerializeField] private GameObject _ui;
         [SerializeField] private GameObject _socketsParent;

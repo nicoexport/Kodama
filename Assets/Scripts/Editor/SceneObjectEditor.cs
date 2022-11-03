@@ -1,4 +1,4 @@
-using GameManagement;
+using Kodama.GameManagement;
 using UnityEditor;
 
 namespace Editor {

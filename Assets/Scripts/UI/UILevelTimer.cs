@@ -1,9 +1,9 @@
 using System;
-using Level.Logic;
+using Kodama.Level.Logic;
 using TMPro;
 using UnityEngine;
 
-namespace UI {
+namespace Kodama.UI {
     public class UILevelTimer : MonoBehaviour {
         private TextMeshProUGUI textMeshPro;
 

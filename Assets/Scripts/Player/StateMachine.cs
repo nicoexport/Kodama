@@ -1,6 +1,6 @@
 using System;
 
-namespace Player {
+namespace Kodama.Player {
     public class StateMachine {
         public State CurrentState { get; private set; }
         public State PreviousState { get; private set; }

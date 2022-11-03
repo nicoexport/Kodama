@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Scriptable;
+using Kodama.Scriptable;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     public class InputManager : MonoBehaviour {
         private const float movementDeadZoneMin = 0.5f;
         private const float movementDeadZoneMax = 0.925f;

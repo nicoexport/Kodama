@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Level {
+namespace Kodama.Level {
     public class GravitationField : MonoBehaviour {
         [SerializeField] private float _intensity;
         [SerializeField] private float _range = 1f;

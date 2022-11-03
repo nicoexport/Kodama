@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player {
+namespace Kodama.Player {
     public class CharacterParticleController : MonoBehaviour {
         [SerializeField] private ParticleSystem _walkingDust;
         [SerializeField] private ParticleSystem _wallDust;

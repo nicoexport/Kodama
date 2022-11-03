@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class PortalUser : MonoBehaviour {
         [SerializeField] private float _cooldown = 0.2f;
         private bool _canUse = true;

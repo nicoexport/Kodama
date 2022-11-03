@@ -1,7 +1,7 @@
-using Player;
+using Kodama.Player;
 using UnityEngine;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class ConveyorBelt : MonoBehaviour {
         [SerializeField] private Transform point1;
 

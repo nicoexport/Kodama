@@ -1,7 +1,7 @@
-using Player;
+using Kodama.Player;
 using UnityEngine;
 
-namespace Pickups {
+namespace Kodama.Pickups {
     public class Key : PickupObject {
         [SerializeField] private int keyAmount = 1;
 

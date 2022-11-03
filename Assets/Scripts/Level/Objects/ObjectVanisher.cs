@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class ObjectVanisher : MonoBehaviour {
         [SerializeField] private GameObject obj;
 

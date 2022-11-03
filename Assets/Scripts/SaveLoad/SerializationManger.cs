@@ -2,7 +2,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-namespace SaveLoad {
+namespace Kodama.SaveLoad {
     public class SerializationManger {
         public static bool Save(string saveName, object saveData) {
             var formatter = GetBinaryFormatter();

@@ -1,7 +1,7 @@
-using Architecture;
+using Kodama.Architecture;
 using UnityEngine.InputSystem;
 
-namespace Player.MovementStates {
+namespace Kodama.Player.MovementStates {
     public class AirborneState : State {
         private float airStrafeSpeed;
         private bool grounded;

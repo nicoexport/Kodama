@@ -1,8 +1,8 @@
-using Architecture;
+using Kodama.Architecture;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player.MovementStates {
+namespace Kodama.Player.MovementStates {
     public class WallslidingState : State {
         private bool grounded;
         private float horizontalInput;

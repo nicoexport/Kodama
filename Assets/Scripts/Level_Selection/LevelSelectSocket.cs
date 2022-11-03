@@ -1,10 +1,10 @@
 using System;
-using Data;
+using Kodama.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Level_Selection {
+namespace Kodama.Level_Selection {
     public class LevelSelectSocket : MonoBehaviour {
         [SerializeField] private GameObject buttonObject;
         [SerializeField] private GameObject pathObject;

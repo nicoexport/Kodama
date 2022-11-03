@@ -1,8 +1,8 @@
 using System;
-using Scriptable;
+using Kodama.Scriptable;
 using UnityEngine;
 
-namespace Data {
+namespace Kodama.Data {
     [Serializable]
     public class LevelData {
         public bool Visited;

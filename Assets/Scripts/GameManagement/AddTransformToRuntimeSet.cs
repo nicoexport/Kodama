@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GameManagement {
+namespace Kodama.GameManagement {
     public class AddTransformToRuntimeSet : MonoBehaviour {
         [SerializeField] private TransformRuntimeSet transformRuntimeSet;
 

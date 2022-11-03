@@ -1,13 +1,13 @@
 using System;
-using Architecture;
-using Data;
-using GameManagement;
-using Player.MovementStates;
+using Kodama.Architecture;
+using Kodama.Data;
+using Kodama.GameManagement;
+using Kodama.Player.MovementStates;
+using Kodama.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Utility;
 
-namespace Player {
+namespace Kodama.Player {
     [RequireComponent(typeof(PlayerHealth))]
     public class Character : MonoBehaviour {
         [SerializeField] private CharacterRuntimeSet characterRuntimeSet;

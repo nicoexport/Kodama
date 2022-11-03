@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Level.Logic {
+namespace Kodama.Level.Logic {
     public class HellCollider : MonoBehaviour {
         [FormerlySerializedAs("_deathTimeInSeconds")] [SerializeField]
         private float _timeToKillInSeconds = 1.5f;

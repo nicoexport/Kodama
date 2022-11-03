@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player.MovementStates {
+namespace Kodama.Player.MovementStates {
     public class WinningState : State {
         private bool grounded;
 

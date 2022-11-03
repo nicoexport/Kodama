@@ -1,13 +1,13 @@
 using System.Collections;
-using Scriptable;
-using Scriptable.Channels;
+using Kodama.Scriptable;
+using Kodama.Scriptable.Channels;
+using Kodama.Utility;
+using Kodama.World_Level;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
-using Utility;
-using World_Level;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     public class GameModeManager : Singleton<GameModeManager> {
         [SerializeField] private TransitionEventChannelSO _transitionEventChannel;
 

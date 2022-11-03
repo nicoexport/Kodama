@@ -1,9 +1,10 @@
 using System;
-using Data;
+using Kodama.Data;
+using Plugins.LeanTween.Framework;
 using TMPro;
 using UnityEngine;
 
-namespace Level_Selection {
+namespace Kodama.Level_Selection {
     public class LevelPanelUI : MonoBehaviour {
         [SerializeField] private TextMeshProUGUI levelNameText;
         [SerializeField] private TextMeshProUGUI recordText;

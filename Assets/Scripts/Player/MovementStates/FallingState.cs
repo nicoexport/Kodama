@@ -1,4 +1,4 @@
-namespace Player.MovementStates {
+namespace Kodama.Player.MovementStates {
     public class FallingState : AirborneState {
         public FallingState(StateMachine stateMachine, Character character) : base(stateMachine, character) {
         }

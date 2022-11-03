@@ -1,12 +1,12 @@
 using System.IO;
-using Architecture;
-using Data;
-using Scriptable;
+using Kodama.Architecture;
+using Kodama.Data;
+using Kodama.Scriptable;
+using Kodama.Utility;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Utility;
 
-namespace SaveLoad {
+namespace Kodama.SaveLoad {
     public class SaveManager : Singleton<SaveManager> {
         [SerializeField] private GameDataSO _gameData;
 

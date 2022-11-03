@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Scriptable.Channels {
+namespace Kodama.Scriptable.Channels {
     [CreateAssetMenu(fileName = "new AudioCueChannel", menuName = "Channels/AudioCueChannel", order = 0)]
     public class AudioCueChannelSO : ScriptableObject {
         public event Action<AudioCueRequestData> OnAudioCueRequested;

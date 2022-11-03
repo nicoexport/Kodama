@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class ObjectSpawner : MonoBehaviour {
         [SerializeField] private GameObject objectPrefab;
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player {
+namespace Kodama.Player {
     public class CharacterInventory : MonoBehaviour {
         [SerializeField] private int keys;
 

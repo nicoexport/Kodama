@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Scriptable.Channels {
+namespace Kodama.Scriptable.Channels {
     [CreateAssetMenu(menuName = "Events/Transition Event Channel")]
     public class TransitionEventChannelSO : ScriptableObject {
         public event Action<TransitionType, float> OnTransitionRequested;

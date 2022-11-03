@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Utility;
-using World_Level;
+using Kodama.Utility;
+using Kodama.World_Level;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     public class Context : Singleton<Context> {
         private readonly List<IContextManager> contextManagers = new();
 

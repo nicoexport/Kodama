@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class Rocket : Projectile {
         protected override void ChaseTarget() {
             if (_target == null) {

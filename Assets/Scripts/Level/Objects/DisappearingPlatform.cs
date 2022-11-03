@@ -1,7 +1,8 @@
 using System.Collections;
+using Plugins.LeanTween.Framework;
 using UnityEngine;
 
-namespace Level.Objects {
+namespace Kodama.Level.Objects {
     public class DisappearingPlatform : ObjectVanisher {
         [SerializeField] private SpriteRenderer _renderer;
         [SerializeField] private Color _fadeColor;

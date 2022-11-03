@@ -1,7 +1,7 @@
-using Architecture;
+using Kodama.Architecture;
 using UnityEngine;
 
-namespace Level.Logic {
+namespace Kodama.Level.Logic {
     public abstract class Timer : Resettable {
         protected bool count;
         protected float timer;

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Scriptable;
+using Kodama.Scriptable;
 using UnityEngine;
 
-namespace Architecture {
+namespace Kodama.Architecture {
     [CreateAssetMenu(menuName = "Game Data/Game Data")]
     public class GameDataSO : ScriptableObject {
         [field: SerializeField] public string Version { get; private set; } = "0.0";

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Pickups {
+namespace Kodama.Pickups {
     public class PickupObject : MonoBehaviour {
         public UnityEvent pickupEvent;
 
