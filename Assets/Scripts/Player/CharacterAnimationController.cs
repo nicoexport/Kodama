@@ -28,12 +28,12 @@ namespace Kodama.Player {
 
         public void SetAnimationState(State state, float horizontalInput, float xVelocity, float maxVelocityX,
             bool touchingWall) {
-            //print("Trying to set animation state");
+            print("Trying to set animation state");
             string newAnimState = idle;
             var currentAnimatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
             Speed = Mathf.Abs(xVelocity / maxVelocityX);
             switch (state.ToString()) {
-                case "Player.MovementStates.StandingState":
+                case "Kodama.Player.MovementStates.StandingState":
 
                     if (currentAnimatorStateInfo.IsName(falling) || currentAnimatorStateInfo.IsName(landing)) {
                         newAnimState = landing;
@@ -43,7 +43,7 @@ namespace Kodama.Player {
 
                     break;
 
-                case "Player.MovementStates.RunningState":
+                case "Kodama.Player.MovementStates.RunningState":
                     if (currentAnimatorStateInfo.IsName(falling) || currentAnimatorStateInfo.IsName(landing)) {
                         newAnimState = landing;
                         break;
@@ -58,33 +58,33 @@ namespace Kodama.Player {
 
                     break;
 
-                case "Player.MovementStates.FallingState":
+                case "Kodama.Player.MovementStates.FallingState":
                     newAnimState = fallingTransition;
                     break;
 
-                case "Player.MovementStates.JumpingState":
+                case "Kodama.Player.MovementStates.JumpingState":
                     newAnimState = jumping;
                     break;
 
-                case "Player.MovementStates.DoubleJumpingState":
+                case "Kodama.Player.MovementStates.DoubleJumpingState":
                     newAnimState = doubleJumping;
                     break;
 
-                case "Player.MovementStates.WallslidingState":
+                case "Kodama.Player.MovementStates.WallslidingState":
                     newAnimState = wallSliding;
                     break;
 
-                case "Player.MovementStates.WalljumpingState":
+                case "Kodama.Player.MovementStates.WalljumpingState":
                     newAnimState = wallJumping;
                     break;
 
-                case "Player.MovementStates.SpawningState":
+                case "Kodama.Player.MovementStates.SpawningState":
                     newAnimState = spawning;
                     break;
-                case "Player.MovementStates.WinningState":
+                case "Kodama.Player.MovementStates.WinningState":
                     newAnimState = winning;
                     break;
-                case "Player.MovementStates.DyingState":
+                case "Kodama.Player.MovementStates.DyingState":
                     newAnimState = dying;
                     break;
                 default:
