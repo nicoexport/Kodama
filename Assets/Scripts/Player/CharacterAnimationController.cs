@@ -28,7 +28,6 @@ namespace Kodama.Player {
 
         public void SetAnimationState(State state, float horizontalInput, float xVelocity, float maxVelocityX,
             bool touchingWall) {
-            print("Trying to set animation state");
             string newAnimState = idle;
             var currentAnimatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
             Speed = Mathf.Abs(xVelocity / maxVelocityX);
