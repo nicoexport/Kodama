@@ -4,7 +4,8 @@
             "name": "package.openupm.com",
             "url": "https://package.openupm.com",
             "scopes": [
-                "com.domybest.mybox"
+                "com.domybest.mybox",
+				"net.slothsoft.unity-extensions"
             ]
         }
     ],
@@ -61,6 +62,7 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0",
-	"com.domybest.mybox": "1.7.0"
+	"com.domybest.mybox": "1.7.0",
+	"net.slothsoft.unity-extensions": "2.0.0"
   }
 }
