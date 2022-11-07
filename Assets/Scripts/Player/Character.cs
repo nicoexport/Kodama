@@ -8,25 +8,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Kodama.Player {
-    [RequireComponent(typeof(PlayerHealth))]
     public class Character : MonoBehaviour {
         [SerializeField] private CharacterRuntimeSet characterRuntimeSet;
-
         [HideInInspector] public float hasPressedRightTimer;
-
         [HideInInspector] public float hasPressedLeftTimer;
-
-
         public float spawnDelay = 1f;
-
         [HideInInspector] public bool wantjump;
-
         [HideInInspector] public bool hasPressedRight;
-
         [HideInInspector] public bool hasPressedLeft;
-
         [Header("Collision Checks")] public float groundCheckRadius;
-
         public float ceilingCheckRadius;
         public float frontCheckRadius = 0.23f;
 
@@ -45,9 +35,8 @@ namespace Kodama.Player {
 
 
         [HideInInspector] public bool facingRight = true;
-
         [HideInInspector] public bool wasGrounded;
-        private CharacterAnimationController cAnimController;
+        [SerializeField] private CharacterAnimationController cAnimController;
 
 
         public DyingState dying;
@@ -65,12 +54,9 @@ namespace Kodama.Player {
 
         [field: SerializeField] public CharacterMovementValues MovementValues { get; private set; }
 
-        public PlayerHealth Health { get; private set; }
+        [field: SerializeField] public PlayerHealth Health { get; private set; }
 
         private void Awake() {
-            rb = GetComponent<Rigidbody2D>();
-            cAnimController = GetComponent<CharacterAnimationController>();
-            Health = GetComponent<PlayerHealth>();
             InputManager.playerInputActions.Player.Jump.started += StartJumpInputTimer;
             AddCharacterToRuntimeSet();
             InitializeStates();
@@ -107,6 +93,20 @@ namespace Kodama.Player {
             Gizmos.color = Color.magenta;
             Gizmos.DrawWireSphere(ceilingCheck.position, ceilingCheckRadius);
             Gizmos.DrawWireSphere(ceilingCheck1.position, ceilingCheckRadius);
+        }
+
+        protected void OnValidate() {
+            if (Health == null) {
+                Health = GetComponentInChildren<PlayerHealth>();
+            }
+
+            if (cAnimController == null) {
+                cAnimController = GetComponentInChildren<CharacterAnimationController>();
+            }
+
+            if (rb == null) {
+                rb = GetComponentInChildren<Rigidbody2D>();
+            }
         }
 
         public event Action<State> onStateChanged;

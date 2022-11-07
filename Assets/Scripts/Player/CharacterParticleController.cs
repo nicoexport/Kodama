@@ -6,14 +6,17 @@ namespace Kodama.Player {
         [SerializeField] private ParticleSystem _wallDust;
         [SerializeField] private ParticleSystem _landDust;
         [SerializeField] private ParticleSystem _leafGlimmer;
-
-        private CharacterAnimationController _animController;
-
-        private void Awake() => _animController = GetComponent<CharacterAnimationController>();
+        [SerializeField] private CharacterAnimationController _animController;
 
         private void OnEnable() => _animController.onOnAnimationStateChange += HandleAnimationStateChange;
 
         private void OnDisable() => _animController.onOnAnimationStateChange -= HandleAnimationStateChange;
+
+        protected void OnValidate() {
+            if (_animController == null) {
+                TryGetComponent(out _animController);
+            }
+        }
 
         private void HandleAnimationStateChange(string currentAnimState, string newAnimState, float speed) {
             _leafGlimmer.Stop();

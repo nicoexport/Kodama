@@ -6,18 +6,17 @@ using Kodama.Player;
 using Kodama.Scriptable.Channels;
 using UnityEngine;
 
-namespace Kodama
-{
+namespace Kodama {
     public class PlayerManager : Resettable {
         [SerializeField] private GameObject _playerPrefab;
         [SerializeField] private GameObjectRuntimeSet _cineMachineRuntimeSet;
         [Header("Channels")] [SerializeField] private VoidEventChannelSO _onPlayerDeathChannel;
         [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
+        private RigidbodyConstraints2D _constraints;
 
         private GameObject _currentPlayer;
         private PlayerHealth _health;
         private Rigidbody2D _rb;
-        private RigidbodyConstraints2D _constraints;
 
         protected override void OnEnable() {
             base.OnEnable();
@@ -78,8 +77,8 @@ namespace Kodama
         }
 
         private void CacheComponents(GameObject player) {
-            _health = player.GetComponent<PlayerHealth>();
-            _rb = player.GetComponent<Rigidbody2D>();
+            _health = player.GetComponentInChildren<PlayerHealth>();
+            _rb = player.GetComponentInChildren<Rigidbody2D>();
             _constraints = _rb.constraints;
         }
     }

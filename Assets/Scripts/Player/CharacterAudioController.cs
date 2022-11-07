@@ -19,15 +19,13 @@ namespace Kodama.Player {
 
         [Range(0f, 1f)] [SerializeField] private float _stepTimer = 0.5f;
 
-        private CharacterAnimationController _animationController;
+        [SerializeField] private CharacterAnimationController _animationController;
         private AudioCue _audioCue;
         private bool _canStep = true;
         private Character _character;
         private bool _running;
         private float _speed = 1f;
         private float _stepTimerCurrent;
-
-        protected void Awake() => _animationController = GetComponent<CharacterAnimationController>();
 
         protected void Update() => _speed = _animationController.speed;
 
@@ -57,6 +55,12 @@ namespace Kodama.Player {
             _animationController.onOnAnimationStateChange -= HandleStateChange;
             _onPlayerDeathEventChannel.OnEventRaised -= PlayDeathAudio;
             _onPlayerHurtChannel.OnEventRaised -= PlayHurtAudio;
+        }
+
+        protected void OnValidate() {
+            if (_animationController == null) {
+                TryGetComponent(out _animationController);
+            }
         }
 
         private void HandleStateChange(string currentState, string newState, float speed) {
