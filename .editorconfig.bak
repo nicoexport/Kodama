@@ -40,7 +40,7 @@ dotnet_style_parentheses_in_other_operators = never_if_unnecessary:warning
 dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:warning
 
 # Einstellungen für Modifizierer
-dotnet_style_require_accessibility_modifiers = omit_if_default:always
+dotnet_style_require_accessibility_modifiers = omit_if_default: always
 
 # Einstellungen für Ausdrucksebene
 dotnet_style_coalesce_expression = true:warning

@@ -13,9 +13,9 @@ namespace Kodama.Player {
 
         private void Awake() => _animController = GetComponent<CharacterAnimationController>();
 
-        private void OnEnable() => _animController.OnAnimationStateChange += HandleAnimationStateChange;
+        private void OnEnable() => _animController.onOnAnimationStateChange += HandleAnimationStateChange;
 
-        private void OnDisable() => _animController.OnAnimationStateChange -= HandleAnimationStateChange;
+        private void OnDisable() => _animController.onOnAnimationStateChange -= HandleAnimationStateChange;
 
         private void HandleAnimationStateChange(string currentAnimState, string newAnimState, float speed) {
             foreach (var effect in _allEffects) {
@@ -23,33 +23,33 @@ namespace Kodama.Player {
             }
 
             switch (newAnimState) {
-                case CharacterAnimationController.idle:
+                case CharacterAnimationController.IDLE:
                     break;
 
-                case CharacterAnimationController.running:
+                case CharacterAnimationController.RUNNING:
                     _walkingDust.Reinit();
                     break;
 
-                case CharacterAnimationController.falling:
+                case CharacterAnimationController.FALLING:
                     break;
 
-                case CharacterAnimationController.jumping:
+                case CharacterAnimationController.JUMPING:
                     break;
 
-                case CharacterAnimationController.doubleJumping:
+                case CharacterAnimationController.DOUBLE_JUMPING:
                     break;
 
-                case CharacterAnimationController.wallSliding:
+                case CharacterAnimationController.WALL_SLIDING:
                     _wallDust.Reinit();
                     break;
 
-                case CharacterAnimationController.wallJumping:
+                case CharacterAnimationController.WALL_JUMPING:
                     break;
 
-                case CharacterAnimationController.walkingAgainstWall:
+                case CharacterAnimationController.WALKING_AGAINST_WALL:
                     break;
 
-                case CharacterAnimationController.spawning:
+                case CharacterAnimationController.SPAWNING:
                     break;
             }
         }

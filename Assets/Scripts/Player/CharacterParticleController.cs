@@ -11,89 +11,89 @@ namespace Kodama.Player {
 
         private void Awake() => _animController = GetComponent<CharacterAnimationController>();
 
-        private void OnEnable() => _animController.OnAnimationStateChange += HandleAnimationStateChange;
+        private void OnEnable() => _animController.onOnAnimationStateChange += HandleAnimationStateChange;
 
-        private void OnDisable() => _animController.OnAnimationStateChange -= HandleAnimationStateChange;
+        private void OnDisable() => _animController.onOnAnimationStateChange -= HandleAnimationStateChange;
 
         private void HandleAnimationStateChange(string currentAnimState, string newAnimState, float speed) {
             _leafGlimmer.Stop();
 
             switch (currentAnimState) {
-                case CharacterAnimationController.idle:
+                case CharacterAnimationController.IDLE:
                     break;
 
-                case CharacterAnimationController.running:
+                case CharacterAnimationController.RUNNING:
                     _walkingDust.Stop();
                     break;
 
-                case CharacterAnimationController.falling:
+                case CharacterAnimationController.FALLING:
                     break;
 
-                case CharacterAnimationController.jumping:
+                case CharacterAnimationController.JUMPING:
                     break;
 
-                case CharacterAnimationController.doubleJumping:
+                case CharacterAnimationController.DOUBLE_JUMPING:
                     break;
 
-                case CharacterAnimationController.wallSliding:
+                case CharacterAnimationController.WALL_SLIDING:
                     _wallDust.Stop();
                     break;
 
-                case CharacterAnimationController.wallJumping:
+                case CharacterAnimationController.WALL_JUMPING:
                     break;
 
-                case CharacterAnimationController.walkingAgainstWall:
+                case CharacterAnimationController.WALKING_AGAINST_WALL:
                     break;
 
-                case CharacterAnimationController.spawning:
+                case CharacterAnimationController.SPAWNING:
                     break;
 
-                case CharacterAnimationController.winning:
+                case CharacterAnimationController.WINNING:
                     break;
             }
 
             switch (newAnimState) {
-                case CharacterAnimationController.landing:
+                case CharacterAnimationController.LANDING:
                     _landDust.Stop();
                     _landDust.Play();
                     break;
-                case CharacterAnimationController.idle:
-                    if (currentAnimState is CharacterAnimationController.falling
-                        or CharacterAnimationController.fallingTransition) {
+                case CharacterAnimationController.IDLE:
+                    if (currentAnimState is CharacterAnimationController.FALLING
+                        or CharacterAnimationController.FALLING_TRANSITION) {
                         _landDust.Stop();
                         _landDust.Play();
                     }
 
                     break;
 
-                case CharacterAnimationController.running:
+                case CharacterAnimationController.RUNNING:
                     _walkingDust.Play();
                     _leafGlimmer.Play();
                     break;
 
-                case CharacterAnimationController.falling:
+                case CharacterAnimationController.FALLING:
                     _leafGlimmer.Play();
                     break;
 
-                case CharacterAnimationController.jumping:
+                case CharacterAnimationController.JUMPING:
                     _leafGlimmer.Play();
                     break;
 
-                case CharacterAnimationController.doubleJumping:
+                case CharacterAnimationController.DOUBLE_JUMPING:
                     break;
 
-                case CharacterAnimationController.wallSliding:
+                case CharacterAnimationController.WALL_SLIDING:
                     _wallDust.Play();
                     break;
 
-                case CharacterAnimationController.wallJumping:
+                case CharacterAnimationController.WALL_JUMPING:
                     _leafGlimmer.Play();
                     break;
 
-                case CharacterAnimationController.walkingAgainstWall:
+                case CharacterAnimationController.WALKING_AGAINST_WALL:
                     break;
 
-                case CharacterAnimationController.spawning:
+                case CharacterAnimationController.SPAWNING:
                     break;
             }
         }

@@ -29,7 +29,7 @@ namespace Kodama.Player {
 
         protected void Awake() => _animationController = GetComponent<CharacterAnimationController>();
 
-        protected void Update() => _speed = _animationController.Speed;
+        protected void Update() => _speed = _animationController.speed;
 
         protected void FixedUpdate() {
             if (_running && _canStep) {
@@ -48,13 +48,13 @@ namespace Kodama.Player {
         }
 
         protected void OnEnable() {
-            _animationController.OnAnimationStateChange += HandleStateChange;
+            _animationController.onOnAnimationStateChange += HandleStateChange;
             _onPlayerDeathEventChannel.OnEventRaised += PlayDeathAudio;
             _onPlayerHurtChannel.OnEventRaised += PlayHurtAudio;
         }
 
         protected void OnDisable() {
-            _animationController.OnAnimationStateChange -= HandleStateChange;
+            _animationController.onOnAnimationStateChange -= HandleStateChange;
             _onPlayerDeathEventChannel.OnEventRaised -= PlayDeathAudio;
             _onPlayerHurtChannel.OnEventRaised -= PlayHurtAudio;
         }
@@ -62,42 +62,42 @@ namespace Kodama.Player {
         private void HandleStateChange(string currentState, string newState, float speed) {
             _running = false;
             switch (newState) {
-                case CharacterAnimationController.idle:
-                    if (currentState is CharacterAnimationController.falling
-                        or CharacterAnimationController.fallingTransition) {
+                case CharacterAnimationController.IDLE:
+                    if (currentState is CharacterAnimationController.FALLING
+                        or CharacterAnimationController.FALLING_TRANSITION) {
                         _land.PlayAudioCue();
                     }
 
                     break;
-                case CharacterAnimationController.dying:
+                case CharacterAnimationController.DYING:
                     break;
-                case CharacterAnimationController.falling:
+                case CharacterAnimationController.FALLING:
                     break;
-                case CharacterAnimationController.jumping:
+                case CharacterAnimationController.JUMPING:
                     _jump.PlayAudioCue();
                     break;
-                case CharacterAnimationController.landing:
+                case CharacterAnimationController.LANDING:
                     _land.PlayAudioCue();
                     break;
-                case CharacterAnimationController.running:
+                case CharacterAnimationController.RUNNING:
                     _running = true;
                     _canStep = true;
                     break;
-                case CharacterAnimationController.spawning:
+                case CharacterAnimationController.SPAWNING:
                     break;
-                case CharacterAnimationController.winning:
+                case CharacterAnimationController.WINNING:
                     break;
-                case CharacterAnimationController.doubleJumping:
+                case CharacterAnimationController.DOUBLE_JUMPING:
                     break;
-                case CharacterAnimationController.fallingTransition:
+                case CharacterAnimationController.FALLING_TRANSITION:
                     break;
-                case CharacterAnimationController.wallJumping:
+                case CharacterAnimationController.WALL_JUMPING:
                     _jump.PlayAudioCue();
                     break;
-                case CharacterAnimationController.wallSliding:
+                case CharacterAnimationController.WALL_SLIDING:
                     _land.PlayAudioCue();
                     break;
-                case CharacterAnimationController.walkingAgainstWall:
+                case CharacterAnimationController.WALKING_AGAINST_WALL:
                     break;
             }
         }
