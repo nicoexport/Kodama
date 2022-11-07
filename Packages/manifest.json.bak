@@ -1,14 +1,4 @@
 {
-	"scopedRegistries": [
-        {
-            "name": "package.openupm.com",
-            "url": "https://package.openupm.com",
-            "scopes": [
-                "com.domybest.mybox"
-            ]
-        }
-    ],
-	
   "dependencies": {
     "com.unity.2d.animation": "8.0.2",
     "com.unity.2d.psdimporter": "7.0.1",
