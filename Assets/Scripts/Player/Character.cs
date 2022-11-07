@@ -4,40 +4,45 @@ using Kodama.Data;
 using Kodama.GameManagement;
 using Kodama.Player.MovementStates;
 using Kodama.Utility;
+using MyBox;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Kodama.Player {
     public class Character : MonoBehaviour {
-        [SerializeField] private CharacterRuntimeSet characterRuntimeSet;
+        public float spawnDelay = 1f;
+
         [HideInInspector] public float hasPressedRightTimer;
         [HideInInspector] public float hasPressedLeftTimer;
-        public float spawnDelay = 1f;
         [HideInInspector] public bool wantjump;
         [HideInInspector] public bool hasPressedRight;
         [HideInInspector] public bool hasPressedLeft;
-        [Header("Collision Checks")] public float groundCheckRadius;
+
+        [Header("Collision")] public float groundCheckRadius;
         public float ceilingCheckRadius;
         public float frontCheckRadius = 0.23f;
-
         [SerializeField] private LayerMask whatIsGround;
-
-        [Header("Refrences")] public Transform groundCheck;
-
+        public Transform groundCheck;
         public Transform frontCheck;
         public Transform ceilingCheck;
         public Transform ceilingCheck1;
         public Rigidbody2D rb;
 
-        [Header("Debugging")] [SerializeField] public bool debugStates;
+        [Separator]
+        [Header("References")]
+        [SerializeField] private CharacterRuntimeSet characterRuntimeSet;
+
+        [field: SerializeField] public CharacterMovementValues MovementValues { get; private set; }
+        [SerializeField] private CharacterAnimationController cAnimController;
+        [field: SerializeField] public PlayerHealth Health { get; private set; }
+
+        [Separator]
+        [Header("Debugging")]
+        [SerializeField] public bool debugStates;
 
         [SerializeField] private bool logVelocity;
-
-
         [HideInInspector] public bool facingRight = true;
         [HideInInspector] public bool wasGrounded;
-        [SerializeField] private CharacterAnimationController cAnimController;
-
 
         public DyingState dying;
         public FallingState falling;
@@ -52,9 +57,6 @@ namespace Kodama.Player {
         public WallslidingState wallsliding;
         public WinningState winning;
 
-        [field: SerializeField] public CharacterMovementValues MovementValues { get; private set; }
-
-        [field: SerializeField] public PlayerHealth Health { get; private set; }
 
         private void Awake() {
             InputManager.playerInputActions.Player.Jump.started += StartJumpInputTimer;

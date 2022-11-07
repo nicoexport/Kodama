@@ -19660,10 +19660,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0400123cc8081494c8145f6d87b8bd96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterRuntimeSet: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
+  spawnDelay: 0
   hasPressedRightTimer: 0
   hasPressedLeftTimer: 0
-  spawnDelay: 0
   wantjump: 0
   hasPressedRight: 0
   hasPressedLeft: 0
@@ -19678,13 +19677,14 @@ MonoBehaviour:
   ceilingCheck: {fileID: 5291515769295254171}
   ceilingCheck1: {fileID: 5291515768323021124}
   rb: {fileID: 8097890582044544952}
-  debugStates: 1
+  characterRuntimeSet: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
+  <MovementValues>k__BackingField: {fileID: 11400000, guid: 5cf93b16795dfb34e9a65d5d93862e93, type: 2}
+  cAnimController: {fileID: 4363619941734907078}
+  <Health>k__BackingField: {fileID: 836912260022360801}
+  debugStates: 0
   logVelocity: 0
   facingRight: 1
   wasGrounded: 0
-  cAnimController: {fileID: 4363619941734907078}
-  <MovementValues>k__BackingField: {fileID: 11400000, guid: 5cf93b16795dfb34e9a65d5d93862e93, type: 2}
-  <Health>k__BackingField: {fileID: 836912260022360801}
 --- !u!50 &8097890582044544952
 Rigidbody2D:
   serializedVersion: 4
