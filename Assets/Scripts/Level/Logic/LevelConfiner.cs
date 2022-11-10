@@ -37,8 +37,11 @@ namespace Kodama.Level.Logic {
         }
 
         private void KillPlayer() {
-            if (_playerTransform.TryGetComponent(out PlayerHealth health)) {
+            var health = _playerTransform.GetComponentInChildren<PlayerHealth>();
+            if (health) {
                 health.Die();
+            } else {
+                Debug.LogError("Could not find PlayerHealth component on: ", _playerTransform);
             }
         }
 
