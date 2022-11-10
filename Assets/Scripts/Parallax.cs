@@ -10,21 +10,20 @@ namespace Kodama
         protected Vector2 _startPosition;
         protected float _startZ;
         protected Transform _transform;
-        protected Transform CameraTransform;
+        protected Transform _cameraTransform;
 
 
         private void Awake() {
             _transform = transform;
             _camera = Camera.main;
-            print(_camera.name);
-            CameraTransform = _camera.transform;
+            _cameraTransform = _camera.transform;
             var position = transform.position;
             _startPosition = position;
             _startZ = position.z;
         }
 
         protected virtual void FixedUpdate() {
-            if (!CameraTransform) {
+            if (!_cameraTransform) {
                 return;
             }
 
@@ -36,7 +35,7 @@ namespace Kodama
             float clippingPlane = _camera.transform.position.z +
                                   (distanceFromSubject > 0 ? _camera.farClipPlane : _camera.nearClipPlane);
             float parallaxFactor = Mathf.Abs(distanceFromSubject / clippingPlane);
-            var travel = (Vector2)CameraTransform.position - _startPosition;
+            var travel = (Vector2)_cameraTransform.position - _startPosition;
             var newPos = _startPosition + (travel * parallaxFactor);
             _transform.position = new Vector3(newPos.x, newPos.y, _startZ);
         }
