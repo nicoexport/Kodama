@@ -5,6 +5,7 @@ namespace Kodama
 {
     public class LevelParallax : Parallax {
         [SerializeField] private CharacterRuntimeSet _characterRuntimeSet;
+        [SerializeField] private bool affectY; 
 
         protected override void FixedUpdate() {
             if (!_cameraTransform) {
@@ -26,6 +27,11 @@ namespace Kodama
             float parallaxFactor = Mathf.Abs(distanceFromSubject / clippingPlane);
             var travel = (Vector2)_cameraTransform.position - _startPosition;
             var newPos = _startPosition + (travel * parallaxFactor);
+
+            if (!affectY) {
+                newPos.y = 0f;
+            }
+
             _transform.position = new Vector3(newPos.x, newPos.y, _startZ);
         }
     }
