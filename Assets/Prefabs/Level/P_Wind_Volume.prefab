@@ -4859,7 +4859,7 @@ GameObject:
   - component: {fileID: 7513444978204720502}
   - component: {fileID: 7513444978204720501}
   m_Layer: 0
-  m_Name: P_WindVolume
+  m_Name: P_Wind_Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
