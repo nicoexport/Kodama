@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_Tilemap_Forrest_Midground_Interactable
+  m_Name: MAT_Tilemap_Details_Forrest_Green
   m_Shader: {fileID: -6465566751694194690, guid: 9152bd80d71afff4f9eedea2f3ca1d71, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -70,7 +70,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _PrimaryColor: {r: 1, g: 0.44973546, b: 0.50264573, a: 1}
+    - _PrimaryColor: {r: 0.5254902, g: 0.7490196, b: 0.56078434, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SecondaryColor: {r: 0.12941177, g: 0.12941177, b: 0.1254902, a: 1}
+    - _SecondaryColor: {r: 0.08, g: 0.08, b: 0.07757576, a: 1}
   m_BuildTextureStacks: []
