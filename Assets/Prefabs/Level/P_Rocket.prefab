@@ -105,6 +105,7 @@ MonoBehaviour:
   _collisionIgnoreLayers:
     serializedVersion: 2
     m_Bits: 4
+  explosionEffect: {fileID: 4062705222168600885, guid: 72d0246911706244b89a5347a5a2e00f, type: 3}
   OnCollision:
     m_PersistentCalls:
       m_Calls: []

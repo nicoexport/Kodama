@@ -1,5 +1,6 @@
 using System.Collections;
 using Kodama.Architecture;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,8 +9,9 @@ namespace Kodama.Level.Objects {
     public class Projectile : Resettable {
         [SerializeField] protected float _speed;
         [SerializeField] private LayerMask _collisionIgnoreLayers;
+        [SerializeField] protected GameObject explosionEffect;
 
-        public UnityEvent OnCollision;
+        public UnityEvent OnDestruct;
         protected Transform _target;
         protected Rigidbody2D rb;
 
@@ -21,9 +23,7 @@ namespace Kodama.Level.Objects {
             if (_collisionIgnoreLayers == (_collisionIgnoreLayers | (1 << col.gameObject.layer))) {
                 return;
             }
-
-            Destroy(gameObject);
-            OnCollision?.Invoke();
+            Destruct();
         }
 
         protected virtual void ChaseTarget() {
@@ -36,6 +36,15 @@ namespace Kodama.Level.Objects {
 
         private IEnumerator DestroyAfterSeconds_Co(float lifeTimeInSeconds) {
             yield return new WaitForSeconds(lifeTimeInSeconds);
+            Destruct();
+        }
+
+        private void Destruct() {
+            if (explosionEffect) {
+                Instantiate(explosionEffect, transform.position, quaternion.identity);
+            }
+
+            OnDestruct?.Invoke();
             Destroy(gameObject);
         }
 
