@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64bcd08b1288e745b9acadb999510ea, type: 3}
+  m_Name: WDATA_Showcase
+  m_EditorClassIdentifier: 
+  WorldName: Showcase
+  LevelDatas:
+  - {fileID: 11400000, guid: dd4f6a223fa1faf4b99460baf3896dea, type: 2}
+  - {fileID: 11400000, guid: faf6164c08066bb4a858d04905967f4d, type: 2}
+  - {fileID: 11400000, guid: ca946bc8f241eba4981000015da3dc9a, type: 2}
+  - {fileID: 11400000, guid: f8e1337127cb3954b9907c0c8da16bf1, type: 2}
+  - {fileID: 11400000, guid: 31aec4fe22eeb804d87d45e1924e9833, type: 2}
+  WorldStyleSo: {fileID: 11400000, guid: ca651e1f8f0035948a02d8ef0ad9602b, type: 2}

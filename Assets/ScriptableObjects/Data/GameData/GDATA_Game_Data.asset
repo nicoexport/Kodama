@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46aae3a70cf42bc4eb98fdf8cec51e12, type: 3}
   m_Name: GDATA_Game_Data
   m_EditorClassIdentifier: 
-  <Version>k__BackingField: 0.1
-  <WorldDatas>k__BackingField:
-  - {fileID: 11400000, guid: 2ceb26d6ecaf5864ba23beb7ecc1d6d8, type: 2}
+  <Version>k__BackingField: 0.2
+  WorldDatas:
+  - {fileID: 11400000, guid: f4c26d4c0ff0968469f46839c32a0b1a, type: 2}
   <WorldsScenePath>k__BackingField: Assets/Scenes/SCENE_Level_Select.unity
   <MainMenuScenePath>k__BackingField: Assets/Scenes/SCENE_Main_Menu.unity

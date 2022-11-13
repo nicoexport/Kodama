@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Kodama.Scriptable;
+using Slothsoft.UnityExtensions;
 
 namespace Kodama.Data {
     [Serializable]
@@ -9,7 +10,6 @@ namespace Kodama.Data {
         public bool Visited;
         public bool Completed;
         public WorldStyleSo Style;
-
         public List<LevelData> LevelDatas = new();
         private bool _unlocked;
 
