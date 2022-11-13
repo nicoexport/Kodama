@@ -27,6 +27,7 @@ namespace Kodama.UI {
         [Header("Channels")] [SerializeField] private LevelDataEventChannelSO _onLevelCompleteChannel;
 
         [SerializeField] private FloatBoolEventChannelSO _onLevelTimerFinishedChannel;
+        [SerializeField] private bool stopMusic;
 
         private bool _canReturn;
 
@@ -61,7 +62,9 @@ namespace Kodama.UI {
 
 
         private void EnableSummary(LevelData levelData) {
-            AudioManager.Instance.StopMusic();
+            if (stopMusic) {
+                AudioManager.Instance.StopMusic();
+            }
             InputManager.ToggleActionMap(InputManager.playerInputActions.LevelSummary);
 
             StartCoroutine(Utilities.ActionAfterDelayEnumerator(2f, () => {
