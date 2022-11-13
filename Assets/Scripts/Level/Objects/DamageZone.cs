@@ -10,8 +10,9 @@ namespace Kodama.Level.Objects {
 
         private void OnEnter(Collider2D col) {
             if (col.CompareTag("Player")) {
-                if (col.TryGetComponent(out PlayerHealth lifeHandler)) {
-                    lifeHandler.TakeDamage(damage);
+                var health = col.GetComponentInChildren<PlayerHealth>();
+                if (health) {
+                    health.TakeDamage(damage);
                 }
 
                 if (col.TryGetComponent(out Rigidbody2D rb)) {

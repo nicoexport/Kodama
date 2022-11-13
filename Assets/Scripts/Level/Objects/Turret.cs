@@ -66,7 +66,7 @@ namespace Kodama.Level.Objects {
             var position = transform.position;
             var dir = -(position - _player.transform.position);
             var res = Physics2D.Raycast(position, dir, _range, ~_whatToIgnore);
-            return res.collider.CompareTag("Player");
+            return res && res.collider.CompareTag("Player");
         }
 
         private void Shoot() {
