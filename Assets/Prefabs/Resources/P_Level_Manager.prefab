@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7014410135455515719
 MonoBehaviour:
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resettableRuntimeSet: {fileID: 0}
   _playerPrefab: {fileID: 5291515768158270416, guid: 0d56037141600ba448d3eb98bd5d8e52, type: 3}
-  _cinemachineRuntimeSet: {fileID: 11400000, guid: 6d2041fbf0ceda240b3430c5307c2aad, type: 2}
+  _cineMachineRuntimeSet: {fileID: 0}
   _onPlayerDeathChannel: {fileID: 11400000, guid: a6b6b32045b929348a692a025d6e6c39, type: 2}
   _onLevelCompleteChannel: {fileID: 11400000, guid: 76d2a728a49c4e54ba8f1110bbfc826f, type: 2}
 --- !u!114 &7160439882145635487
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
   _onLevelCompleteChannel: {fileID: 11400000, guid: 76d2a728a49c4e54ba8f1110bbfc826f, type: 2}
-  _onLevelTimerFinished: {fileID: 0}
+  _onLevelTimerFinished: {fileID: 11400000, guid: 2d4ee5b05be663d4d89be649d817f415, type: 2}
 --- !u!114 &8474205929830345615
 MonoBehaviour:
   m_ObjectHideFlags: 0
