@@ -40,12 +40,13 @@ namespace Kodama.Audio {
                     return;
                 }
 
-                soundEmitter.PlayAudioClip(clipsToPlay[i], audioCueRequestData.AudioConfig,
-                    audioCueRequestData.AudioCue.Looping, audioCueRequestData.Position);
-
                 if (!audioCueRequestData.AudioCue.Looping) {
                     soundEmitter.OnSoundFinishedPlaying += OnSoundEmitterFinishedPlaying;
                 }
+                
+                soundEmitter.PlayAudioClip(clipsToPlay[i], audioCueRequestData.AudioConfig,
+                    audioCueRequestData.AudioCue.Looping, audioCueRequestData.Position);
+
             }
         }
 
@@ -60,7 +61,7 @@ namespace Kodama.Audio {
                 }
 
                 if (_currentMusicTrack != null && _currentMusicTrack.IsPlaying()) {
-                    FadeOut(_currentMusicTrack, _musicFadeDuration, obj => { _soundEmitterPool.Return(obj); });
+                    FadeOut(_currentMusicTrack, _musicFadeDuration, (obj) => { _soundEmitterPool.Return(obj.gameObject); });
                 }
 
                 _currentMusicTrack = soundEmitter;

@@ -21,7 +21,7 @@ namespace Kodama.Pooling {
                 EnableInstance,
                 DisableInstance,
                 DestroyInstance,
-                false,
+                true,
                 capacity
             );
         }
@@ -35,7 +35,7 @@ namespace Kodama.Pooling {
                 EnableInstance,
                 DisableInstance,
                 DestroyInstance,
-                false,
+                true,
                 capacity
             );
         }
@@ -44,7 +44,11 @@ namespace Kodama.Pooling {
 
         public event Action<GameObject> onInstantiate;
 
-        private void DestroyInstance(GameObject obj) => Object.Destroy(obj);
+        private void DestroyInstance(GameObject obj) {
+            Debug.Log("Destroyed GameObject Instance in Pool");
+            Object.Destroy(obj);
+        }
+
 
         private void DisableInstance(GameObject obj) => obj.SetActive(false);
 
