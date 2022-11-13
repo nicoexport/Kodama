@@ -1,14 +1,15 @@
 using System;
 using Kodama.Scriptable;
 using Kodama.Scriptable.Channels;
+using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 namespace Kodama.Audio {
     [Serializable]
     public class AudioCue : MonoBehaviour {
         [SerializeField] private bool _playOnStart;
-        [SerializeField] private AudioCueSo _audioCue;
-        [SerializeField] private AudioConfigSo _audioConfig;
+        [SerializeField, Expandable] private AudioCueSo _audioCue;
+        [SerializeField, Expandable] private AudioConfigSo _audioConfig;
         [SerializeField] private AudioCueChannelSO _audioCueChannel;
 
         public AudioCueSo Cue {
