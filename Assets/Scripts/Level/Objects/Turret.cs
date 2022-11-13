@@ -7,16 +7,20 @@ using UnityEngine.Events;
 
 namespace Kodama.Level.Objects {
     public class Turret : Resettable {
+        [Header("Runtime Sets")]
         [SerializeField] private CharacterRuntimeSet _playerRuntimeSet;
+        [Header("Behaviour Params")]
         [SerializeField] private GameObject _projectilePrefab;
         [SerializeField] private float _projectileLifetimeInSeconds;
         [SerializeField] private float _projectileSpeed;
         [SerializeField] private float _range;
         [SerializeField] private float _cooldownInSeconds;
         [SerializeField] private float _heatupInSeconds;
+        [Header("LOS")]
         [SerializeField] private bool _needsLineOfSight;
         [SerializeField] private LayerMask _whatToIgnore;
-
+        
+        [Header("Events")]
         public UnityEvent OnStartHeatUp;
         public UnityEvent OnShoot;
         public UnityEvent OnCooldown;
