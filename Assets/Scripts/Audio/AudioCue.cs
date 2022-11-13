@@ -27,6 +27,7 @@ namespace Kodama.Audio {
             _audioCueChannel.RequestAudio(data);
         }
 
+        [ContextMenu("Play Audio Cue")]
         public void PlayAudioCue() => RequestAudio(transform.position);
 
         public void PlayAudioCue(Vector3 position) => RequestAudio(position);

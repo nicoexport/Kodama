@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf16a73bf8ee4957aaffe37b2308e2f0, type: 3}
-  m_Name: AUCFG_Music
+  m_Name: AUCFG_Music_test
   m_EditorClassIdentifier: 
   OutputAudioMixerGroup: {fileID: 0}
   _priorityLevel: 128
   Mute: 0
   Volume: 0.7
-  PitchMin: 1
-  PitchMax: 1
+  PitchMin: 1.5
+  PitchMax: 1.5
   PanStereo: 0
   ReverbZoneMix: 1
   SpatialBlend: 0

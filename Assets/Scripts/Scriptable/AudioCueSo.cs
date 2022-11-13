@@ -1,4 +1,5 @@
 using System;
+using Slothsoft.UnityExtensions;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,6 +18,11 @@ namespace Kodama.Scriptable {
             }
 
             return resultingClips;
+        }
+
+        public AudioClip GetRandomClip() {
+            var clips = GetClips();
+            return clips.RandomElement();
         }
     }
 
