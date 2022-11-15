@@ -3,20 +3,19 @@ using UnityEngine.Events;
 
 namespace Kodama.Level.Objects {
     public class PlayerCollisionEvent : MonoBehaviour {
-        [SerializeField] private UnityEvent collisionEnterEvent;
+        [SerializeField] protected UnityEvent collisionEnterEvent;
+        [SerializeField] protected UnityEvent collisionExitEvent;
 
-        [SerializeField] private UnityEvent collisionExitEvent;
-
-        private void OnCollisionEnter2D(Collision2D col) {
-            if (col.collider.tag != "Player") {
+        protected virtual void OnCollisionEnter2D(Collision2D col) {
+            if (!col.collider.CompareTag("Player")) {
                 return;
             }
 
             collisionEnterEvent.Invoke();
         }
 
-        private void OnCollisionExit2D(Collision2D col) {
-            if (col.collider.tag != "Player") {
+        protected void OnCollisionExit2D(Collision2D col) {
+            if (!col.collider.CompareTag("Player")) {
                 return;
             }
 

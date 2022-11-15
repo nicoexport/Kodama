@@ -19,10 +19,5 @@ namespace Kodama.Level.Objects {
             LeanTween.value(_renderer.gameObject, _fadeColor, _fadeColor2, disappearDelay);
             return base.VanishAndRespawnObject();
         }
-
-        protected override IEnumerator ReappearEnumerator() {
-            _renderer.color = _defaultColor;
-            return base.ReappearEnumerator();
-        }
     }
 }
