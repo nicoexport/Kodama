@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_Portal_ColorWave
+  m_Name: MAT_ColorWave_Rocket
   m_Shader: {fileID: -6465566751694194690, guid: 8ae09880a314e234ba1988d3c7108b6e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -54,12 +54,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _Wavelength: 0.3
+    - _Wavelength: 0.05
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _Primary_1: {r: 0.5529412, g: 0.45882356, b: 0.75294125, a: 1}
-    - _Primary_2: {r: 0.73437506, g: 0.609375, b: 1, a: 1}
+    - _Primary_1: {r: 0.9960785, g: 0.45098042, b: 0.5019608, a: 1}
+    - _Primary_2: {r: 0.65, g: 0.29313725, b: 0.32818624, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _Secondary_1: {r: 1, g: 1, b: 1, a: 0}
     - _Secondary_2: {r: 0, g: 0, b: 0, a: 0}
