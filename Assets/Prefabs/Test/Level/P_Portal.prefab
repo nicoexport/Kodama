@@ -54,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58b62457fadb13f42a2f77f58709681c, type: 2}
+  - {fileID: 2100000, guid: ce9c98732ca214548af26bcfee296624, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,7 +159,7 @@ Transform:
   - {fileID: 3682371989333852796}
   - {fileID: 3682371988112062674}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3682371989333852769
 GameObject:
@@ -215,7 +215,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58b62457fadb13f42a2f77f58709681c, type: 2}
+  - {fileID: 2100000, guid: ce9c98732ca214548af26bcfee296624, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
