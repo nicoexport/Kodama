@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3818251927083816078}
   - component: {fileID: 3818251927083816081}
   - component: {fileID: 3818251927083816080}
+  - component: {fileID: 2937313513538037709}
   m_Layer: 0
   m_Name: P_Turret
   m_TagString: Untagged
@@ -199,6 +200,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2937313513538037709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3818251927083816083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8c836678194f93bbb20d9e6aee5c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
 --- !u!1 &5830451471710470629
 GameObject:
   m_ObjectHideFlags: 0

@@ -58,8 +58,8 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _Primary_1: {r: 0.4316406, g: 0.65, b: 0.5484375, a: 1}
-    - _Primary_2: {r: 0.57500005, g: 0.85, b: 0.725, a: 1}
+    - _Primary_1: {r: 0.90196085, g: 0.8000001, b: 0.6313726, a: 1}
+    - _Primary_2: {r: 0.85098046, g: 0.62352943, b: 0.50980395, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _Secondary_1: {r: 1, g: 1, b: 1, a: 0}
     - _Secondary_2: {r: 0, g: 0, b: 0, a: 0}
