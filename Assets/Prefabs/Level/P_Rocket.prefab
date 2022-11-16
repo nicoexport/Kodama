@@ -50,11 +50,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resettableRuntimeSet: {fileID: 11400000, guid: 7469124753f1c5a4c9fd69c07396db46, type: 2}
-  _speed: 1
+  _speed: 40
+  _lifeTimeInSeconds: 2
+  explosionEffect: {fileID: 4062705222168600885, guid: 72d0246911706244b89a5347a5a2e00f, type: 3}
   _collisionIgnoreLayers:
     serializedVersion: 2
     m_Bits: 4
-  explosionEffect: {fileID: 4062705222168600885, guid: 72d0246911706244b89a5347a5a2e00f, type: 3}
   OnDestruct:
     m_PersistentCalls:
       m_Calls:
@@ -118,19 +119,19 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996447754815156497}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_LinearDrag: 6
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &4795725583739935864
 GameObject:
   m_ObjectHideFlags: 0

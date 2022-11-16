@@ -5,14 +5,8 @@ namespace Kodama.Level.Objects {
         protected override void FixedUpdate() {
         }
 
-        public override void Initialize(Transform target, float lifeTimeInSeconds) {
-            base.Initialize(target, lifeTimeInSeconds);
-            var dir = (target.position - transform.position).normalized;
-            rb.AddForce(dir * _speed, ForceMode2D.Impulse);
-        }
-
-        public override void Initialize(Transform target, float lifeTimeInSeconds, float speed) {
-            base.Initialize(target, lifeTimeInSeconds, speed);
+        public override void Initialize(Transform target) {
+            base.Initialize(target);
             var dir = (target.position - transform.position).normalized;
             rb.AddForce(dir * _speed, ForceMode2D.Impulse);
         }

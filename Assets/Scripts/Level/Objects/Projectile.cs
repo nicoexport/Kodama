@@ -8,8 +8,9 @@ namespace Kodama.Level.Objects {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Projectile : Resettable {
         [SerializeField] protected float _speed;
-        [SerializeField] private LayerMask _collisionIgnoreLayers;
+        [SerializeField] protected float _lifeTimeInSeconds;
         [SerializeField] protected GameObject explosionEffect;
+        [SerializeField] private LayerMask _collisionIgnoreLayers;
 
         public UnityEvent OnDestruct;
         protected Transform _target;
@@ -17,17 +18,21 @@ namespace Kodama.Level.Objects {
 
         private void Awake() => TryGetComponent(out rb);
 
+        protected void Start() => StartCoroutine(DestroyAfterSeconds_Co(_lifeTimeInSeconds));
+
         protected virtual void FixedUpdate() => ChaseTarget();
+
 
         private void OnTriggerEnter2D(Collider2D col) {
             if (_collisionIgnoreLayers == (_collisionIgnoreLayers | (1 << col.gameObject.layer))) {
                 return;
             }
+
             Destruct();
         }
 
         protected virtual void ChaseTarget() {
-            if (_target == null) {
+            if (!_target) {
                 return;
             }
 
@@ -48,17 +53,7 @@ namespace Kodama.Level.Objects {
             Destroy(gameObject);
         }
 
-        public virtual void Initialize(Transform target, float lifeTimeInSeconds) {
-            _target = target;
-            StartCoroutine(DestroyAfterSeconds_Co(lifeTimeInSeconds));
-        }
-
-        public virtual void Initialize(Transform target, float lifeTimeInSeconds, float speed) {
-            _target = target;
-            _speed = speed;
-            StartCoroutine(DestroyAfterSeconds_Co(lifeTimeInSeconds));
-        }
-
+        public virtual void Initialize(Transform target) => _target = target;
         public override void OnLevelReset() => Destroy(gameObject);
     }
 }

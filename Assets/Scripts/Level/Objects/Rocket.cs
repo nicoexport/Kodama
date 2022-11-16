@@ -1,13 +1,12 @@
-using UnityEngine;
-
 namespace Kodama.Level.Objects {
     public class Rocket : Projectile {
         protected override void ChaseTarget() {
-            if (_target == null) {
+            if (!_target) {
                 return;
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed / 10f);
+            var force = (_target.position - transform.position).normalized * _speed;
+            rb.AddForce(force);
             _speed += _speed / 100f;
         }
     }

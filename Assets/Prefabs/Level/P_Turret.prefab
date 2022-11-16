@@ -83,7 +83,7 @@ MonoBehaviour:
   _playerRuntimeSet: {fileID: 11400000, guid: e95a8561951573f40b40fd5eb19da920, type: 2}
   _projectilePrefab: {fileID: 996447754815156497, guid: 491ee04e916e59d4b99b9f139e460e62, type: 3}
   _projectileLifetimeInSeconds: 1.5
-  _projectileSpeed: 1.5
+  _projectileSpeed: 5
   _range: 10
   _cooldownInSeconds: 3
   _heatupInSeconds: 1
