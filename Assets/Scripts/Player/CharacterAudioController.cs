@@ -1,12 +1,15 @@
+using System;
 using Kodama.Audio;
 using Kodama.Scriptable.Channels;
 using UnityEngine;
 
 namespace Kodama.Player {
     public class CharacterAudioController : MonoBehaviour {
-        [Header("Channels")] [SerializeField] private VoidEventChannelSO _onPlayerHurtChannel;
-
+        [Header("Channels")] 
+        [SerializeField] private VoidEventChannelSO _onPlayerHurtChannel;
         [SerializeField] private VoidEventChannelSO _onPlayerDeathEventChannel;
+        [SerializeField] private VoidEventChannelSO _onPlayerLoseShield;
+        [SerializeField] private VoidEventChannelSO _onPlayerGainShield;
 
         [Header("Audio Cues")] [SerializeField]
         private AudioCue _jump;
@@ -15,6 +18,8 @@ namespace Kodama.Player {
         [SerializeField] private AudioCue _step;
         [SerializeField] private AudioCue _hurt;
         [SerializeField] private AudioCue _death;
+        [SerializeField] private AudioCue _loseShield;
+        [SerializeField] private AudioCue _gainShield;
         [SerializeField] private AnimationCurve _stepSpeedCurve;
 
         [Range(0f, 1f)] [SerializeField] private float _stepTimer = 0.5f;
@@ -49,12 +54,16 @@ namespace Kodama.Player {
             _animationController.onOnAnimationStateChange += HandleStateChange;
             _onPlayerDeathEventChannel.OnEventRaised += PlayDeathAudio;
             _onPlayerHurtChannel.OnEventRaised += PlayHurtAudio;
+            _onPlayerLoseShield.OnEventRaised += PlayShieldLoseAudio;
+            _onPlayerGainShield.OnEventRaised += PlayShieldGainAudio;
         }
 
         protected void OnDisable() {
             _animationController.onOnAnimationStateChange -= HandleStateChange;
             _onPlayerDeathEventChannel.OnEventRaised -= PlayDeathAudio;
             _onPlayerHurtChannel.OnEventRaised -= PlayHurtAudio;
+            _onPlayerLoseShield.OnEventRaised -= PlayShieldLoseAudio;
+            _onPlayerGainShield.OnEventRaised -= PlayShieldGainAudio;
         }
 
         protected void OnValidate() {
@@ -109,5 +118,7 @@ namespace Kodama.Player {
         private void PlayDeathAudio() => _death.PlayAudioCue();
 
         private void PlayHurtAudio() => _hurt.PlayAudioCue();
+        private void PlayShieldLoseAudio() => _loseShield.PlayAudioCue();
+        private void PlayShieldGainAudio() => _gainShield.PlayAudioCue();
     }
 }

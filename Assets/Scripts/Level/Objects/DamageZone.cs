@@ -6,7 +6,7 @@ namespace Kodama.Level.Objects {
         [SerializeField] private int damage = 1;
         [SerializeField] private Vector2 damageForce;
 
-        protected void OnTriggerEnter2D(Collider2D col) => OnEnter(col);
+        protected void OnTriggerStay2D(Collider2D col) => OnEnter(col);
 
         private void OnEnter(Collider2D col) {
             if (!col.CompareTag("Player")) {
@@ -24,7 +24,7 @@ namespace Kodama.Level.Objects {
 
             var force = (rb.transform.position - transform.position).normalized;
             force = new Vector2(force.x * damageForce.x, force.y * damageForce.y);
-            rb.velocity = Vector2.zero;
+            /*rb.velocity = Vector2.zero;*/
             rb.AddForce(force, ForceMode2D.Impulse);
         }
     }
