@@ -1737,6 +1737,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 762685004}
   m_CullTransparentMesh: 1
+--- !u!1001 &783803339
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 9009609802874128672, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
+      propertyPath: m_Name
+      value: P_PostProcessing_Global
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009609802874128702, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009609802874128702, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.7699076
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009609802874128702, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.0100355
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009609802874128702, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.21340291
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009609802874128702, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009609802874128702, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009609802874128702, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009609802874128702, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009609802874128702, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009609802874128702, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009609802874128702, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7807fcecc0099b94c8b3fb6445b81acb, type: 3}
 --- !u!1 &808996907
 GameObject:
   m_ObjectHideFlags: 0
@@ -3953,6 +4012,34 @@ PrefabInstance:
     - target: {fileID: 6926420452335726019, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_Name
       value: Camera (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.12156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.08627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.101960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 0.99961907
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926420452335726028, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 0.99999994
       objectReference: {fileID: 0}
     - target: {fileID: 6926420452335726031, guid: a450d676469cbbf49abc4d5bb4a7130c, type: 3}
       propertyPath: m_RootOrder
