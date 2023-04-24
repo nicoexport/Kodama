@@ -20204,6 +20204,7 @@ MonoBehaviour:
   invuDuration: 1.5
   onPlayerHurtChannel: {fileID: 11400000, guid: 79713eff44d32be4889ae721837de03c, type: 2}
   onPlayerDeathEventChannel: {fileID: 11400000, guid: a6b6b32045b929348a692a025d6e6c39, type: 2}
+  onLevelCompleteChannel: {fileID: 11400000, guid: 76d2a728a49c4e54ba8f1110bbfc826f, type: 2}
   onLoseShield: {fileID: 11400000, guid: b297a00e380287e47831f3980ce76c51, type: 2}
   onGainShield: {fileID: 11400000, guid: e39725b3b5baccb4db1ec2ee531470aa, type: 2}
   shieldVisuals: {fileID: 1597065198916068810}

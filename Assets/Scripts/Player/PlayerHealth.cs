@@ -1,3 +1,5 @@
+using System;
+using Kodama.Data;
 using Kodama.Scriptable.Channels;
 using Kodama.Utility;
 using UnityEngine;
@@ -10,6 +12,7 @@ namespace Kodama.Player {
         [SerializeField] private float invuDuration = 1.5f;
         [SerializeField] private VoidEventChannelSO onPlayerHurtChannel;
         [SerializeField] private VoidEventChannelSO onPlayerDeathEventChannel;
+        [SerializeField] private LevelDataEventChannelSO onLevelCompleteChannel;
         [SerializeField] private VoidEventChannelSO onLoseShield;
         [SerializeField] private VoidEventChannelSO onGainShield;
         [SerializeField] private ShieldVisuals shieldVisuals;
@@ -18,7 +21,16 @@ namespace Kodama.Player {
         private int _health;
         private bool hasShield;
         private float invuTimer;
-        
+        private bool levelComplete;
+
+        private void OnEnable() {
+            onLevelCompleteChannel.OnEventRaised += LevelComplete;
+        }
+
+
+        private void OnDisable() {
+            onLevelCompleteChannel.OnEventRaised -= LevelComplete;
+        }
 
         private void Awake() => Reset();
 
@@ -29,7 +41,7 @@ namespace Kodama.Player {
 
             if (invuTimer > 0f && !hasShield) {
                 invuTimer -= Time.deltaTime;
-            } else if(!Damageable && !hasShield) {
+            } else if(!Damageable && !hasShield && !levelComplete) {
                 Damageable = true;
                 Debug.Log("Damageable");
             }
@@ -39,6 +51,11 @@ namespace Kodama.Player {
             Damageable = true;
             _health = _defaultHealth;
             shieldVisuals.Disable();
+        }
+        private void LevelComplete(LevelData obj) {
+            levelComplete = true;
+            Damageable = false;
+            Debug.Log(this.name + "LevelComplete");
         }
 
         public void TakeDamage(int amount) {
