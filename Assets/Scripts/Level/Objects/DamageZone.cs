@@ -9,6 +9,7 @@ namespace Kodama.Level.Objects {
         protected void OnTriggerStay2D(Collider2D col) => OnEnter(col);
 
         protected void OnTriggerEnter2D(Collider2D col) => OnEnter(col);
+        protected void OnCollisionEnter2D(Collision2D other) => OnEnter(other.collider);
         private void OnEnter(Collider2D col) {
             if (!col.CompareTag("Player")) {
                 return;
