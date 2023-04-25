@@ -3,7 +3,7 @@ readme
 trying out pull request
 
 Game Music:
-SOurce: https://freesound.org/people/BloodPixelHero/sounds/546755/
+Source: https://freesound.org/people/BloodPixelHero/sounds/546755/
 License: https://creativecommons.org/licenses/by/4.0/
 
 Environment Assets:
